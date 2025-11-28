@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Tailscale の導入 – Kosugi Labo</title>
+<title>文章の読み書き – Kosugi Labo</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,62 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-a25750924116104412f7a457768fb952.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-a25750924116104412f7a457768fb952.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -105,7 +70,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
-<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="styles.css">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -115,7 +80,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Kosugi Labo</span>
     </a>
   </div>
@@ -126,7 +91,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html"> 
+    <a class="nav-link" href="./index.html"> 
 <span class="menu-text">ホーム</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -135,19 +100,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-">    
         <li>
-    <a class="dropdown-item" href="../zemi-policy.html">
+    <a class="dropdown-item" href="./zemi-policy.html">
  <span class="dropdown-text">ゼミの運営方針</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../research-guide.html">
+    <a class="dropdown-item" href="./research-guide.html">
  <span class="dropdown-text">研究の進め方</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../writing-guide.html">
+    <a class="dropdown-item" href="./writing-guide.html">
  <span class="dropdown-text">文章の読み書き</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../anti-harassment.html">
+    <a class="dropdown-item" href="./anti-harassment.html">
  <span class="dropdown-text">アンチハラスメントポリシー</span></a>
   </li>  
     </ul>
@@ -158,23 +123,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu--1">    
         <li>
-    <a class="dropdown-item" href="../tech-guide/github-setup.html">
+    <a class="dropdown-item" href="./tech-guide/github-setup.html">
  <span class="dropdown-text">GitHub</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../tech-guide/vscode-setup.html">
+    <a class="dropdown-item" href="./tech-guide/vscode-setup.html">
  <span class="dropdown-text">VSCode</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../tech-guide/latex-setup.html">
+    <a class="dropdown-item" href="./tech-guide/latex-setup.html">
  <span class="dropdown-text">LaTeX</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../tech-guide/ssh-remote.html">
+    <a class="dropdown-item" href="./tech-guide/ssh-remote.html">
  <span class="dropdown-text">SSH接続</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../tech-guide/tailscale.html">
+    <a class="dropdown-item" href="./tech-guide/tailscale.html">
  <span class="dropdown-text">Tailscale</span></a>
   </li>  
     </ul>
@@ -185,33 +150,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-rチュートリアル">    
         <li>
-    <a class="dropdown-item" href="../r-tutorial/index.html">
+    <a class="dropdown-item" href="./r-tutorial/index.html">
  <span class="dropdown-text">はじめに</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../r-tutorial/r-basics.html">
+    <a class="dropdown-item" href="./r-tutorial/r-basics.html">
  <span class="dropdown-text">Rの基礎</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../r-tutorial/data-handling.html">
+    <a class="dropdown-item" href="./r-tutorial/data-handling.html">
  <span class="dropdown-text">データの読み込み</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../r-tutorial/tidyverse.html">
+    <a class="dropdown-item" href="./r-tutorial/tidyverse.html">
  <span class="dropdown-text">tidyverse入門</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../r-tutorial/visualization.html">
+    <a class="dropdown-item" href="./r-tutorial/visualization.html">
  <span class="dropdown-text">可視化ギャラリー</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="../members.html"> 
+    <a class="nav-link" href="./members.html"> 
 <span class="menu-text">メンバー</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../feedback.html"> 
+    <a class="nav-link" href="./feedback.html"> 
 <span class="menu-text">フィードバック</span></a>
   </li>  
 </ul>
@@ -230,31 +195,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">目次</h2>
    
   <ul>
-  <li><a href="#tailscale-とは" id="toc-tailscale-とは" class="nav-link active" data-scroll-target="#tailscale-とは">Tailscale とは</a></li>
-  <li><a href="#仕組み" id="toc-仕組み" class="nav-link" data-scroll-target="#仕組み">仕組み</a></li>
-  <li><a href="#インストール" id="toc-インストール" class="nav-link" data-scroll-target="#インストール">インストール</a>
+  <li><a href="#文献の種類" id="toc-文献の種類" class="nav-link active" data-scroll-target="#文献の種類">文献の種類</a>
   <ul class="collapse">
-  <li><a href="#windows-macos" id="toc-windows-macos" class="nav-link" data-scroll-target="#windows-macos">Windows / macOS</a></li>
-  <li><a href="#ios-android" id="toc-ios-android" class="nav-link" data-scroll-target="#ios-android">iOS / Android</a></li>
-  <li><a href="#linuxサーバ側" id="toc-linuxサーバ側" class="nav-link" data-scroll-target="#linuxサーバ側">Linux（サーバ側）</a></li>
+  <li><a href="#文献検索" id="toc-文献検索" class="nav-link" data-scroll-target="#文献検索">文献検索</a></li>
+  <li><a href="#本の索引を見る" id="toc-本の索引を見る" class="nav-link" data-scroll-target="#本の索引を見る">本の索引を見る</a></li>
+  <li><a href="#論文の種別" id="toc-論文の種別" class="nav-link" data-scroll-target="#論文の種別">論文の種別</a></li>
   </ul></li>
-  <li><a href="#初期設定" id="toc-初期設定" class="nav-link" data-scroll-target="#初期設定">初期設定</a>
+  <li><a href="#パラグラフライティング" id="toc-パラグラフライティング" class="nav-link" data-scroll-target="#パラグラフライティング">パラグラフライティング</a>
   <ul class="collapse">
-  <li><a href="#アカウント作成" id="toc-アカウント作成" class="nav-link" data-scroll-target="#アカウント作成">1. アカウント作成</a></li>
-  <li><a href="#デバイスの確認" id="toc-デバイスの確認" class="nav-link" data-scroll-target="#デバイスの確認">2. デバイスの確認</a></li>
+  <li><a href="#センテンスについて" id="toc-センテンスについて" class="nav-link" data-scroll-target="#センテンスについて">センテンスについて</a></li>
+  <li><a href="#段落構造について" id="toc-段落構造について" class="nav-link" data-scroll-target="#段落構造について">段落構造について</a></li>
   </ul></li>
-  <li><a href="#使い方" id="toc-使い方" class="nav-link" data-scroll-target="#使い方">使い方</a>
+  <li><a href="#構造化された文書を書く書式とツール" id="toc-構造化された文書を書く書式とツール" class="nav-link" data-scroll-target="#構造化された文書を書く書式とツール">構造化された文書を書く書式とツール</a>
   <ul class="collapse">
-  <li><a href="#サーバへの接続" id="toc-サーバへの接続" class="nav-link" data-scroll-target="#サーバへの接続">サーバへの接続</a></li>
-  <li><a href="#rstudio-server-への接続" id="toc-rstudio-server-への接続" class="nav-link" data-scroll-target="#rstudio-server-への接続">RStudio Server への接続</a></li>
+  <li><a href="#なぜwordを使わないのか" id="toc-なぜwordを使わないのか" class="nav-link" data-scroll-target="#なぜwordを使わないのか">なぜWordを使わないのか</a></li>
+  <li><a href="#コンテンツとデザインの分離" id="toc-コンテンツとデザインの分離" class="nav-link" data-scroll-target="#コンテンツとデザインの分離">コンテンツとデザインの分離</a></li>
+  <li><a href="#推奨ツール" id="toc-推奨ツール" class="nav-link" data-scroll-target="#推奨ツール">推奨ツール</a></li>
   </ul></li>
-  <li><a href="#セキュリティ" id="toc-セキュリティ" class="nav-link" data-scroll-target="#セキュリティ">セキュリティ</a></li>
-  <li><a href="#トラブルシューティング" id="toc-トラブルシューティング" class="nav-link" data-scroll-target="#トラブルシューティング">トラブルシューティング</a>
-  <ul class="collapse">
-  <li><a href="#接続できない" id="toc-接続できない" class="nav-link" data-scroll-target="#接続できない">接続できない</a></li>
-  <li><a href="#接続が遅い" id="toc-接続が遅い" class="nav-link" data-scroll-target="#接続が遅い">接続が遅い</a></li>
-  </ul></li>
-  <li><a href="#参考リンク" id="toc-参考リンク" class="nav-link" data-scroll-target="#参考リンク">参考リンク</a></li>
   </ul>
 </nav>
     </div>
@@ -263,7 +220,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Tailscale の導入</h1>
+<h1 class="title">文章の読み書き</h1>
 </div>
 
 
@@ -280,118 +237,159 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="tailscale-とは" class="level2">
-<h2 class="anchored" data-anchor-id="tailscale-とは">Tailscale とは</h2>
-<p>Tailscale は、簡単に使える VPN サービスです。インストールするだけで、異なるネットワークにあるデバイス同士を安全に接続できます。</p>
-<p>学外から研究室のサーバに接続したい場合に便利です。</p>
+<p>研究活動をインプットとアウトプットに分けて考えてみましょう。論文を読んだりデータを集めたりする部分はインプット、データを分析したり文章を書いたりする部分はアウトプットです。</p>
+<section id="文献の種類" class="level2">
+<h2 class="anchored" data-anchor-id="文献の種類">文献の種類</h2>
+<section id="文献検索" class="level3">
+<h3 class="anchored" data-anchor-id="文献検索">文献検索</h3>
+<p>「先行研究を探したけど見つかりませんでした」ということはあり得ません。皆さんが考えつくようなことは、ほぼ間違いなく、すでに先人が研究しています。見つからない場合は、探し方に問題があります。</p>
+<p>文献検索には以下のツールを使います：</p>
+<ul>
+<li><strong>CiNii</strong>：国立情報学研究所が運営する日本語の論文・文献のWebサイト</li>
+<li><strong>J-Stage</strong>：科学技術振興機構が運営する電子ジャーナル公開システム。PDFで原文が読めるものが多い</li>
+<li><strong>Google Scholar</strong>：Googleの文献検索特化システム。国内外の文献を広く網羅し、引用書式もコピペできる</li>
+<li><strong>PubMed</strong>：医療系・生物学系の論文データベース</li>
+<li><strong>EBSCO host</strong>：海外論文の検索システム</li>
+<li><strong>Science Direct</strong>：Elsevier社の検索システム</li>
+</ul>
+<p>適切なキーワードを選ぶことが重要です。自分の探したいものの専門用語、類義語、英語表現などを多角的に調べましょう。</p>
 </section>
-<section id="仕組み" class="level2">
-<h2 class="anchored" data-anchor-id="仕組み">仕組み</h2>
-<p>Tailscale は WireGuard という VPN 技術をベースにしています。 各デバイスに Tailscale をインストールすると、それらが同じ仮想ネットワーク（Tailnet）に参加し、直接通信できるようになります。</p>
-<pre><code>自宅PC ─────┐
-            │
-スマホ ─────┼──── Tailnet ──── 研究室サーバ
-            │
-大学PC ─────┘</code></pre>
+<section id="本の索引を見る" class="level3">
+<h3 class="anchored" data-anchor-id="本の索引を見る">本の索引を見る</h3>
+<p>キーワードがわからない場合は、専門書を読みましょう。専門書の索引を見ると、関係するキーワードをたくさん集めることができます。</p>
+<p><strong>専門書と一般書の見分け方：</strong> - 専門書：横書き、引用文献リストあり - 一般書：縦書き、引用文献なし</p>
 </section>
-<section id="インストール" class="level2">
-<h2 class="anchored" data-anchor-id="インストール">インストール</h2>
-<section id="windows-macos" class="level3">
-<h3 class="anchored" data-anchor-id="windows-macos">Windows / macOS</h3>
-<ol type="1">
-<li><a href="https://tailscale.com/download">Tailscale</a> にアクセス</li>
-<li>自分の OS 用のインストーラをダウンロード</li>
-<li>インストール後、ログイン（Google / Microsoft / GitHub アカウントが使えます）</li>
-</ol>
-</section>
-<section id="ios-android" class="level3">
-<h3 class="anchored" data-anchor-id="ios-android">iOS / Android</h3>
-<p>App Store または Google Play から「Tailscale」をインストール。</p>
-</section>
-<section id="linuxサーバ側" class="level3">
-<h3 class="anchored" data-anchor-id="linuxサーバ側">Linux（サーバ側）</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-fsSL</span> https://tailscale.com/install.sh <span class="kw">|</span> <span class="fu">sh</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> tailscale up</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
-<p>表示される URL にアクセスして認証します。</p>
-</section>
-</section>
-<section id="初期設定" class="level2">
-<h2 class="anchored" data-anchor-id="初期設定">初期設定</h2>
-<section id="アカウント作成" class="level3">
-<h3 class="anchored" data-anchor-id="アカウント作成">1. アカウント作成</h3>
-<p>Tailscale を初めて起動すると、ログイン画面が表示されます。 Google、Microsoft、GitHub などのアカウントでログインできます。</p>
-<div class="callout callout-style-default callout-note callout-titled">
+<section id="論文の種別" class="level3">
+<h3 class="anchored" data-anchor-id="論文の種別">論文の種別</h3>
+<p><strong>雑誌の違い（査読あり・なし）：</strong></p>
+<ul>
+<li><strong>査読あり</strong>：専門家集団（平均3名ほど）が審査。数ヶ月から数年かけて洗練された論文が掲載される</li>
+<li><strong>査読なし</strong>：大学紀要など。著者の主張がダイレクトだが、十分にチェックされていない可能性がある</li>
+</ul>
+<p><strong>掲載枠組みの違い：</strong></p>
+<ul>
+<li><strong>原著</strong>：オリジナルな発見がある論文</li>
+<li><strong>資料</strong>：既成の成果に対する補足やまとめ（心理尺度の作成など）</li>
+<li><strong>展望</strong>：最近の動向をまとめて今後の方向性を論ずるもの</li>
+<li><strong>ショートノート</strong>：短報。急ぎの情報を出すときの枠組み</li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">ノート</span>ゼミでの利用
+<span class="screen-reader-only">重要</span>ゼミで議論する資料は<strong>査読ありの原著論文</strong>に限ります
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>ゼミで Tailscale を利用する場合は、小杉から招待を送ります。 招待メールのリンクからチームに参加してください。</p>
+<p>質の悪い論文や短報のように十分な情報が含まれていないものをベースに議論することは、真偽判断の価値観を学習中の初学者にとっては良いことではないからです。</p>
 </div>
 </div>
-</section>
-<section id="デバイスの確認" class="level3">
-<h3 class="anchored" data-anchor-id="デバイスの確認">2. デバイスの確認</h3>
-<p>ログイン後、<a href="https://login.tailscale.com/admin/machines">Tailscale Admin Console</a> で接続中のデバイスを確認できます。</p>
-<p>各デバイスには <code>100.x.x.x</code> 形式の IP アドレスが割り当てられます。</p>
+<hr>
 </section>
 </section>
-<section id="使い方" class="level2">
-<h2 class="anchored" data-anchor-id="使い方">使い方</h2>
-<section id="サーバへの接続" class="level3">
-<h3 class="anchored" data-anchor-id="サーバへの接続">サーバへの接続</h3>
-<p>Tailscale が起動している状態で、サーバの Tailscale IP アドレスを使って SSH 接続します。</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> ユーザー名@100.x.x.x</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
-<p>または、VSCode の Remote-SSH で接続：</p>
-<p><code>~/.ssh/config</code> に追加：</p>
-<pre><code>Host server-tailscale
-    HostName 100.x.x.x
-    User ユーザー名</code></pre>
-</section>
-<section id="rstudio-server-への接続" class="level3">
-<h3 class="anchored" data-anchor-id="rstudio-server-への接続">RStudio Server への接続</h3>
-<p>ブラウザで <code>http://100.x.x.x:8787</code> にアクセスすると、RStudio Server のログイン画面が表示されます。</p>
-</section>
-</section>
-<section id="セキュリティ" class="level2">
-<h2 class="anchored" data-anchor-id="セキュリティ">セキュリティ</h2>
+<section id="パラグラフライティング" class="level2">
+<h2 class="anchored" data-anchor-id="パラグラフライティング">パラグラフライティング</h2>
+<section id="センテンスについて" class="level3">
+<h3 class="anchored" data-anchor-id="センテンスについて">センテンスについて</h3>
+<p>文章は書き出しから句点までの一文で、センテンスを書くルールは <strong>One sentence, One meaning</strong>（1つの文章で1つの意味）です。</p>
+<p><strong>避けるべき表現：0ビット話法</strong></p>
+<blockquote class="blockquote">
+<p>どちらかに向かって進んでいけば，どこかに辿り着くのではないか。</p>
+</blockquote>
+<p>言葉にはなっているが、具体的な意味を持たない文は避けましょう。</p>
+<p><strong>避けるべき表現：婉曲表現</strong></p>
+<blockquote class="blockquote">
+<p>独立変数が従属変数に何らかの影響などをある程度与えた可能性が示唆される。</p>
+</blockquote>
+<p>「何らかの」「など」「ある程度」「可能性が」「示唆される」は全て表現を和らげるためのもので、科学論文には不適切です。</p>
+<p><strong>改善のヒント：</strong></p>
 <ul>
-<li>通信は WireGuard で暗号化されています</li>
-<li>Tailscale にログインしたデバイスのみが Tailnet 内のデバイスにアクセスできます</li>
-<li>不要になったデバイスは Admin Console から削除できます</li>
+<li>文章を英訳してみる（主語と述語の対応が明確になる）</li>
+<li>一文は短ければ短いほど良い</li>
+<li>2つの文章を曖昧な接続詞でつなげない</li>
 </ul>
+<p><strong>読まないと書けない</strong>：インプットの量を増やしましょう。</p>
 </section>
-<section id="トラブルシューティング" class="level2">
-<h2 class="anchored" data-anchor-id="トラブルシューティング">トラブルシューティング</h2>
-<section id="接続できない" class="level3">
-<h3 class="anchored" data-anchor-id="接続できない">接続できない</h3>
+<section id="段落構造について" class="level3">
+<h3 class="anchored" data-anchor-id="段落構造について">段落構造について</h3>
+<p>文章のつながりに構造を持たせる書き方が<strong>パラグラフライティング</strong>です。</p>
+<p>心理学論文の構造：</p>
+<pre><code>セクション（問題・方法・結果・考察）
+  └─ サブセクション
+       └─ サブサブセクション
+            └─ パラグラフ
+                 └─ センテンス</code></pre>
+<p>理想的には、各レベルで<strong>起承転結</strong>の構造を持ちます。</p>
+<p><strong>構造化された文章の書き方：</strong></p>
 <ol type="1">
-<li>Tailscale が起動しているか確認（メニューバー/タスクバーのアイコン）</li>
-<li>相手のデバイスも Tailscale が起動しているか確認</li>
-<li>Admin Console で両方のデバイスが「Connected」になっているか確認</li>
+<li>文章を書く前に目次（構造）を先に作る</li>
+<li>各パラグラフで書くことを箇条書きにする</li>
+<li>そこまでイメージできれば、あとは言葉遣いに気をつけて書き下すだけ</li>
+</ol>
+<p><strong>書けないときは：</strong></p>
+<ul>
+<li>書くべきことの構造を考えていないから</li>
+<li>インプット（文献を読むこと）が不足しているから</li>
+<li>方法・結果から手をつける（問題セクションは最も書きにくい）</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">ヒント</span>執筆の心得
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>「始めてしまえば終わるだけ」</li>
+<li>「やる気はスイッチではなく水車であり、駆動している力の慣性で生じるもの」</li>
+<li>「完璧を目指す前にまず終わらせろ」</li>
+</ul>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="構造化された文書を書く書式とツール" class="level2">
+<h2 class="anchored" data-anchor-id="構造化された文書を書く書式とツール">構造化された文書を書く書式とツール</h2>
+<section id="なぜwordを使わないのか" class="level3">
+<h3 class="anchored" data-anchor-id="なぜwordを使わないのか">なぜWordを使わないのか</h3>
+<p>商用ソフトウェアで論文を書くことはお勧めしません：</p>
+<ol type="1">
+<li>会社が倒産してアプリ開発が止まると論文が読めなくなる</li>
+<li>Wordのアウトライン機能を十分使いこなせている人は少ない</li>
 </ol>
 </section>
-<section id="接続が遅い" class="level3">
-<h3 class="anchored" data-anchor-id="接続が遅い">接続が遅い</h3>
+<section id="コンテンツとデザインの分離" class="level3">
+<h3 class="anchored" data-anchor-id="コンテンツとデザインの分離">コンテンツとデザインの分離</h3>
 <ul>
-<li>Tailscale は可能な場合、デバイス間で直接通信（Direct）します</li>
-<li>直接通信できない場合、リレーサーバ経由（Relayed）になり、速度が低下することがあります</li>
-<li>Admin Console でルート状況を確認できます</li>
+<li>文章そのものはプレーンな書き方</li>
+<li>デザインは別途設定ファイルで指定</li>
+<li>出力時にコンパイラや表示装置がレイアウトを整える</li>
 </ul>
 </section>
-</section>
-<section id="参考リンク" class="level2">
-<h2 class="anchored" data-anchor-id="参考リンク">参考リンク</h2>
+<section id="推奨ツール" class="level3">
+<h3 class="anchored" data-anchor-id="推奨ツール">推奨ツール</h3>
+<p><strong>Rmarkdown / Quarto</strong></p>
 <ul>
-<li><a href="https://tailscale.com/kb/">Tailscale 公式ドキュメント</a></li>
-<li><a href="https://login.tailscale.com/admin/machines">Tailscale Admin Console</a></li>
+<li>プレーンテキスト形式</li>
+<li>構造を<code>#</code>の数で表現（<code>#</code>セクション、<code>##</code>サブセクション…）</li>
+<li>Word、HTML、ePub、PDFなど様々な形式に変換可能</li>
 </ul>
+<p><strong>LaTeX</strong></p>
+<ul>
+<li>非常に美しい構成の文書を作成できる</li>
+<li>数式や参考文献の管理に優れている</li>
+<li>学術論文の執筆には欠かせない</li>
+</ul>
+<p>本ゼミでは<strong>LaTeX</strong>を使った論文執筆を推奨します。環境構築の方法は<a href="./tech-guide/latex-setup.html">LaTeX環境構築</a>を参照してください。</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

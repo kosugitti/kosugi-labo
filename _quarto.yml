@@ -8,6 +8,16 @@ website:
     left:
       - href: index.qmd
         text: ホーム
+      - text: ゼミガイド
+        menu:
+          - href: zemi-policy.qmd
+            text: ゼミの運営方針
+          - href: research-guide.qmd
+            text: 研究の進め方
+          - href: writing-guide.qmd
+            text: 文章の読み書き
+          - href: anti-harassment.qmd
+            text: アンチハラスメントポリシー
       - text: 技術ガイド
         menu:
           - href: tech-guide/github-setup.qmd
