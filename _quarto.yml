@@ -3,21 +3,39 @@ project:
   output-dir: docs
 
 website:
-  title: "小杉ラボ 技術ガイド"
+  title: "Kosugi Labo"
   navbar:
     left:
       - href: index.qmd
         text: ホーム
-      - href: github-setup.qmd
-        text: GitHub
-      - href: vscode-setup.qmd
-        text: VSCode
-      - href: latex-setup.qmd
-        text: LaTeX
-      - href: ssh-remote.qmd
-        text: SSH接続
-      - href: tailscale.qmd
-        text: Tailscale
+      - text: 技術ガイド
+        menu:
+          - href: tech-guide/github-setup.qmd
+            text: GitHub
+          - href: tech-guide/vscode-setup.qmd
+            text: VSCode
+          - href: tech-guide/latex-setup.qmd
+            text: LaTeX
+          - href: tech-guide/ssh-remote.qmd
+            text: SSH接続
+          - href: tech-guide/tailscale.qmd
+            text: Tailscale
+      - text: Rチュートリアル
+        menu:
+          - href: r-tutorial/index.qmd
+            text: はじめに
+          - href: r-tutorial/r-basics.qmd
+            text: Rの基礎
+          - href: r-tutorial/data-handling.qmd
+            text: データの読み込み
+          - href: r-tutorial/tidyverse.qmd
+            text: tidyverse入門
+          - href: r-tutorial/visualization.qmd
+            text: 可視化ギャラリー
+      - href: members.qmd
+        text: メンバー
+      - href: feedback.qmd
+        text: フィードバック
 
 format:
   html:

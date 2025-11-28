@@ -1,282 +1,611 @@
 [
   {
-    "objectID": "tailscale.html",
-    "href": "tailscale.html",
+    "objectID": "feedback.html",
+    "href": "feedback.html",
+    "title": "研究フィードバック",
+    "section": "",
+    "text": "ゼミでの研究発表に対するフィードバックを記録・共有するページです。"
+  },
+  {
+    "objectID": "feedback.html#このページについて",
+    "href": "feedback.html#このページについて",
+    "title": "研究フィードバック",
+    "section": "",
+    "text": "ゼミでの研究発表に対するフィードバックを記録・共有するページです。"
+  },
+  {
+    "objectID": "feedback.html#フィードバックの目的",
+    "href": "feedback.html#フィードバックの目的",
+    "title": "研究フィードバック",
+    "section": "フィードバックの目的",
+    "text": "フィードバックの目的\n\n発表内容の改善点を明確にする\n研究の進捗を可視化する\n良かった点を共有し、他のメンバーの参考にする"
+  },
+  {
+    "objectID": "feedback.html#フィードバックの観点",
+    "href": "feedback.html#フィードバックの観点",
+    "title": "研究フィードバック",
+    "section": "フィードバックの観点",
+    "text": "フィードバックの観点\n\n研究内容について\n\n問い（リサーチクエスチョン）：明確か、答えられる形になっているか\n先行研究：適切にレビューされているか、位置づけは明確か\n方法：問いに答えるために適切か、再現可能か\n結果：正しく分析されているか、解釈は妥当か\n考察：結果から言えることと言えないことが区別されているか\n\n\n\n発表について\n\n構成：論理的な流れになっているか\nスライド：見やすいか、情報量は適切か\n説明：聞き手に伝わる話し方か"
+  },
+  {
+    "objectID": "feedback.html#フィードバック記録",
+    "href": "feedback.html#フィードバック記録",
+    "title": "研究フィードバック",
+    "section": "フィードバック記録",
+    "text": "フィードバック記録\n\n\n\n\n\n\nノート記録の追加方法\n\n\n\n各回のフィードバックは、日付ごとにセクションを追加して記録します。\n\n\n\n\n2025年度\n\n第1回（日付未定）\n準備中"
+  },
+  {
+    "objectID": "feedback.html#過去のフィードバック",
+    "href": "feedback.html#過去のフィードバック",
+    "title": "研究フィードバック",
+    "section": "過去のフィードバック",
+    "text": "過去のフィードバック\n過去年度のフィードバック記録は、アーカイブとして保存されています。"
+  },
+  {
+    "objectID": "tech-guide/tailscale.html",
+    "href": "tech-guide/tailscale.html",
     "title": "Tailscale の導入",
     "section": "",
     "text": "Tailscale は、簡単に使える VPN サービスです。インストールするだけで、異なるネットワークにあるデバイス同士を安全に接続できます。\n学外から研究室のサーバに接続したい場合に便利です。"
   },
   {
-    "objectID": "tailscale.html#tailscale-とは",
-    "href": "tailscale.html#tailscale-とは",
+    "objectID": "tech-guide/tailscale.html#tailscale-とは",
+    "href": "tech-guide/tailscale.html#tailscale-とは",
     "title": "Tailscale の導入",
     "section": "",
     "text": "Tailscale は、簡単に使える VPN サービスです。インストールするだけで、異なるネットワークにあるデバイス同士を安全に接続できます。\n学外から研究室のサーバに接続したい場合に便利です。"
   },
   {
-    "objectID": "tailscale.html#仕組み",
-    "href": "tailscale.html#仕組み",
+    "objectID": "tech-guide/tailscale.html#仕組み",
+    "href": "tech-guide/tailscale.html#仕組み",
     "title": "Tailscale の導入",
     "section": "仕組み",
     "text": "仕組み\nTailscale は WireGuard という VPN 技術をベースにしています。 各デバイスに Tailscale をインストールすると、それらが同じ仮想ネットワーク（Tailnet）に参加し、直接通信できるようになります。\n自宅PC ─────┐\n            │\nスマホ ─────┼──── Tailnet ──── 研究室サーバ\n            │\n大学PC ─────┘"
   },
   {
-    "objectID": "tailscale.html#インストール",
-    "href": "tailscale.html#インストール",
+    "objectID": "tech-guide/tailscale.html#インストール",
+    "href": "tech-guide/tailscale.html#インストール",
     "title": "Tailscale の導入",
     "section": "インストール",
     "text": "インストール\n\nWindows / macOS\n\nTailscale にアクセス\n自分の OS 用のインストーラをダウンロード\nインストール後、ログイン（Google / Microsoft / GitHub アカウントが使えます）\n\n\n\niOS / Android\nApp Store または Google Play から「Tailscale」をインストール。\n\n\nLinux（サーバ側）\ncurl -fsSL https://tailscale.com/install.sh | sh\nsudo tailscale up\n表示される URL にアクセスして認証します。"
   },
   {
-    "objectID": "tailscale.html#初期設定",
-    "href": "tailscale.html#初期設定",
+    "objectID": "tech-guide/tailscale.html#初期設定",
+    "href": "tech-guide/tailscale.html#初期設定",
     "title": "Tailscale の導入",
     "section": "初期設定",
     "text": "初期設定\n\n1. アカウント作成\nTailscale を初めて起動すると、ログイン画面が表示されます。 Google、Microsoft、GitHub などのアカウントでログインできます。\n\n\n\n\n\n\nノートゼミでの利用\n\n\n\nゼミで Tailscale を利用する場合は、小杉から招待を送ります。 招待メールのリンクからチームに参加してください。\n\n\n\n\n2. デバイスの確認\nログイン後、Tailscale Admin Console で接続中のデバイスを確認できます。\n各デバイスには 100.x.x.x 形式の IP アドレスが割り当てられます。"
   },
   {
-    "objectID": "tailscale.html#使い方",
-    "href": "tailscale.html#使い方",
+    "objectID": "tech-guide/tailscale.html#使い方",
+    "href": "tech-guide/tailscale.html#使い方",
     "title": "Tailscale の導入",
     "section": "使い方",
     "text": "使い方\n\nサーバへの接続\nTailscale が起動している状態で、サーバの Tailscale IP アドレスを使って SSH 接続します。\nssh ユーザー名@100.x.x.x\nまたは、VSCode の Remote-SSH で接続：\n~/.ssh/config に追加：\nHost server-tailscale\n    HostName 100.x.x.x\n    User ユーザー名\n\n\nRStudio Server への接続\nブラウザで http://100.x.x.x:8787 にアクセスすると、RStudio Server のログイン画面が表示されます。"
   },
   {
-    "objectID": "tailscale.html#セキュリティ",
-    "href": "tailscale.html#セキュリティ",
+    "objectID": "tech-guide/tailscale.html#セキュリティ",
+    "href": "tech-guide/tailscale.html#セキュリティ",
     "title": "Tailscale の導入",
     "section": "セキュリティ",
     "text": "セキュリティ\n\n通信は WireGuard で暗号化されています\nTailscale にログインしたデバイスのみが Tailnet 内のデバイスにアクセスできます\n不要になったデバイスは Admin Console から削除できます"
   },
   {
-    "objectID": "tailscale.html#トラブルシューティング",
-    "href": "tailscale.html#トラブルシューティング",
+    "objectID": "tech-guide/tailscale.html#トラブルシューティング",
+    "href": "tech-guide/tailscale.html#トラブルシューティング",
     "title": "Tailscale の導入",
     "section": "トラブルシューティング",
     "text": "トラブルシューティング\n\n接続できない\n\nTailscale が起動しているか確認（メニューバー/タスクバーのアイコン）\n相手のデバイスも Tailscale が起動しているか確認\nAdmin Console で両方のデバイスが「Connected」になっているか確認\n\n\n\n接続が遅い\n\nTailscale は可能な場合、デバイス間で直接通信（Direct）します\n直接通信できない場合、リレーサーバ経由（Relayed）になり、速度が低下することがあります\nAdmin Console でルート状況を確認できます"
   },
   {
-    "objectID": "tailscale.html#参考リンク",
-    "href": "tailscale.html#参考リンク",
+    "objectID": "tech-guide/tailscale.html#参考リンク",
+    "href": "tech-guide/tailscale.html#参考リンク",
     "title": "Tailscale の導入",
     "section": "参考リンク",
     "text": "参考リンク\n\nTailscale 公式ドキュメント\nTailscale Admin Console"
   },
   {
-    "objectID": "ssh-remote.html",
-    "href": "ssh-remote.html",
+    "objectID": "tech-guide/ssh-remote.html",
+    "href": "tech-guide/ssh-remote.html",
     "title": "SSH でリモート接続",
     "section": "",
     "text": "VSCode の Remote-SSH 拡張機能を使うと、リモートサーバに SSH 接続し、まるでローカルで作業しているかのようにファイル編集やターミナル操作ができます。"
   },
   {
-    "objectID": "ssh-remote.html#vscode-remote-ssh-とは",
-    "href": "ssh-remote.html#vscode-remote-ssh-とは",
+    "objectID": "tech-guide/ssh-remote.html#vscode-remote-ssh-とは",
+    "href": "tech-guide/ssh-remote.html#vscode-remote-ssh-とは",
     "title": "SSH でリモート接続",
     "section": "",
     "text": "VSCode の Remote-SSH 拡張機能を使うと、リモートサーバに SSH 接続し、まるでローカルで作業しているかのようにファイル編集やターミナル操作ができます。"
   },
   {
-    "objectID": "ssh-remote.html#前提条件",
-    "href": "ssh-remote.html#前提条件",
+    "objectID": "tech-guide/ssh-remote.html#前提条件",
+    "href": "tech-guide/ssh-remote.html#前提条件",
     "title": "SSH でリモート接続",
     "section": "前提条件",
     "text": "前提条件\n\nVSCode がインストールされていること\nRemote-SSH 拡張機能がインストールされていること\n接続先サーバのアカウントがあること\nサーバに SSH 接続できるネットワーク環境であること"
   },
   {
-    "objectID": "ssh-remote.html#ssh-キーの準備",
-    "href": "ssh-remote.html#ssh-キーの準備",
+    "objectID": "tech-guide/ssh-remote.html#ssh-キーの準備",
+    "href": "tech-guide/ssh-remote.html#ssh-キーの準備",
     "title": "SSH でリモート接続",
     "section": "SSH キーの準備",
     "text": "SSH キーの準備\nパスワード認証でも接続できますが、SSH キーを使うと毎回パスワードを入力する必要がなくなります。\n\nキーの生成（まだ持っていない場合）\nターミナルで以下を実行：\nssh-keygen -t ed25519\n\n保存場所はデフォルト（~/.ssh/id_ed25519）で OK\nパスフレーズは空欄でも OK（セキュリティを高めたい場合は設定）\n\n\n\n公開鍵をサーバに登録\nssh-copy-id ユーザー名@サーバのIPアドレス\nまたは、手動で ~/.ssh/id_ed25519.pub の内容をサーバの ~/.ssh/authorized_keys に追加します。"
   },
   {
-    "objectID": "ssh-remote.html#vscode-での接続",
-    "href": "ssh-remote.html#vscode-での接続",
+    "objectID": "tech-guide/ssh-remote.html#vscode-での接続",
+    "href": "tech-guide/ssh-remote.html#vscode-での接続",
     "title": "SSH でリモート接続",
     "section": "VSCode での接続",
     "text": "VSCode での接続\n\n1. SSH 設定ファイルの作成\n~/.ssh/config ファイルに接続先の情報を記述します：\nHost myserver\n    HostName サーバのIPアドレス\n    User ユーザー名\n    IdentityFile ~/.ssh/id_ed25519\n\n\n2. 接続\n\nVSCode でコマンドパレット（Cmd + Shift + P）を開く\n「Remote-SSH: Connect to Host…」を選択\n設定したホスト名（例：myserver）を選択\n新しいウィンドウが開き、サーバに接続\n\n\n\n3. フォルダを開く\n接続後、File &gt; Open Folder でサーバ上のフォルダを開けます。"
   },
   {
-    "objectID": "ssh-remote.html#便利な機能",
-    "href": "ssh-remote.html#便利な機能",
+    "objectID": "tech-guide/ssh-remote.html#便利な機能",
+    "href": "tech-guide/ssh-remote.html#便利な機能",
     "title": "SSH でリモート接続",
     "section": "便利な機能",
     "text": "便利な機能\n\nターミナル\nView &gt; Terminal でサーバ上のターミナルが使えます。 R や Python をサーバで実行できます。\n\n\nポートフォワーディング\nサーバで起動した Web アプリ（Shiny、Jupyter など）をローカルのブラウザで確認できます。\n\nサーバでアプリを起動（例：ポート 8888）\nVSCode の「PORTS」パネルで「Forward a Port」\nポート番号（8888）を入力\nローカルのブラウザで localhost:8888 にアクセス\n\n\n\n拡張機能\nリモート接続中に拡張機能をインストールすると、サーバ側にインストールされます。 R 拡張機能をインストールすれば、サーバの R 環境を使って作業できます。"
   },
   {
-    "objectID": "ssh-remote.html#トラブルシューティング",
-    "href": "ssh-remote.html#トラブルシューティング",
+    "objectID": "tech-guide/ssh-remote.html#トラブルシューティング",
+    "href": "tech-guide/ssh-remote.html#トラブルシューティング",
     "title": "SSH でリモート接続",
     "section": "トラブルシューティング",
     "text": "トラブルシューティング\n\n接続できない\n\nサーバが起動しているか確認\nネットワーク接続を確認（VPN が必要な場合も）\nファイアウォールの設定を確認\nSSH の設定（ユーザー名、IP アドレス）を確認\n\n\n\n接続が切れる\n~/.ssh/config に以下を追加：\nHost *\n    ServerAliveInterval 60\n    ServerAliveCountMax 3"
   },
   {
-    "objectID": "github-setup.html",
-    "href": "github-setup.html",
-    "title": "GitHub のセットアップ",
-    "section": "",
-    "text": "GitHub はバージョン管理システム Git をインターネット上で利用できるようにしたサービスです。卒論に関するデータ、プログラム、日々の議事録や論文そのものなど、加筆修正するファイルをこのシステム上で管理すると、喪失することがなくなるので便利です。"
-  },
-  {
-    "objectID": "github-setup.html#github-とは",
-    "href": "github-setup.html#github-とは",
-    "title": "GitHub のセットアップ",
-    "section": "",
-    "text": "GitHub はバージョン管理システム Git をインターネット上で利用できるようにしたサービスです。卒論に関するデータ、プログラム、日々の議事録や論文そのものなど、加筆修正するファイルをこのシステム上で管理すると、喪失することがなくなるので便利です。"
-  },
-  {
-    "objectID": "github-setup.html#アカウントの作成",
-    "href": "github-setup.html#アカウントの作成",
-    "title": "GitHub のセットアップ",
-    "section": "アカウントの作成",
-    "text": "アカウントの作成\n\nGitHub にアクセス\n「Sign up」をクリック\nメールアドレス、パスワード、ユーザー名を設定\n\nメールアドレスは @psy.senshu-u.ac.jp を推奨\n\nアカウント作成後、メールで届く確認リンクをクリック"
-  },
-  {
-    "objectID": "github-setup.html#github-desktop-のインストール",
-    "href": "github-setup.html#github-desktop-のインストール",
-    "title": "GitHub のセットアップ",
-    "section": "GitHub Desktop のインストール",
-    "text": "GitHub Desktop のインストール\nGitHub Desktop は GitHub を GUI で操作できるアプリケーションです。\n\nGitHub Desktop にアクセス\n自分の OS に合ったバージョンをダウンロード\nインストール後、GitHub アカウントでログイン"
-  },
-  {
-    "objectID": "github-setup.html#ssh-キーの設定rstudio-との連携",
-    "href": "github-setup.html#ssh-キーの設定rstudio-との連携",
-    "title": "GitHub のセットアップ",
-    "section": "SSH キーの設定（RStudio との連携）",
-    "text": "SSH キーの設定（RStudio との連携）\nRStudio から GitHub にアクセスするために SSH キーを設定します。\n\n1. SSH キーの生成\nRStudio で Tools &gt; Global Options &gt; Git/SVN を開き、「Create SSH Key…」をクリックします。\n\nKey type: ED25519（デフォルト）\nPassphrase: 空欄でも OK\n\n「Create」をクリックすると、SSH キーが生成されます。\n\n\n2. 公開鍵のコピー\n同じ画面で「View public key」をクリックし、表示された文字列をすべてコピーします。\n\n\n3. GitHub に登録\n\nGitHub にログイン\n右上のアイコン → Settings → SSH and GPG keys\n「New SSH key」をクリック\nTitle に任意の名前（例：MacBook Pro）\nKey に先ほどコピーした公開鍵を貼り付け\n「Add SSH key」をクリック\n\n\n\n4. Git の初期設定\nRStudio のコンソールで以下を実行します（自分の情報に置き換えてください）：\n# usethis パッケージのインストール（初回のみ）\ninstall.packages(\"usethis\")\n\n# ユーザー名とメールアドレスの設定\nusethis::use_git_config(\n  user.name = \"あなたの名前\",\n  user.email = \"あなたのメールアドレス\"\n)"
-  },
-  {
-    "objectID": "github-setup.html#リポジトリのクローン",
-    "href": "github-setup.html#リポジトリのクローン",
-    "title": "GitHub のセットアップ",
-    "section": "リポジトリのクローン",
-    "text": "リポジトリのクローン\n\nRStudio から\n\nFile &gt; New Project &gt; Version Control &gt; Git\nRepository URL に SSH アドレス（git@github.com:...）を入力\nプロジェクトを保存する場所を指定\n「Create Project」をクリック\n\n\n\nGitHub Desktop から\n\nFile &gt; Clone repository\nURL タブでリポジトリの URL を入力\nLocal path でクローン先を指定\n「Clone」をクリック"
-  },
-  {
-    "objectID": "github-setup.html#基本的なワークフロー",
-    "href": "github-setup.html#基本的なワークフロー",
-    "title": "GitHub のセットアップ",
-    "section": "基本的なワークフロー",
-    "text": "基本的なワークフロー\n\nPull：GitHub 上の最新の変更を取得\n作業：ファイルの編集・作成\nCommit：変更をローカルに記録\nPush：変更を GitHub に送信\n\nこの順序を守ることで、チームでの共同作業もスムーズに行えます。"
-  },
-  {
-    "objectID": "vscode-setup.html",
-    "href": "vscode-setup.html",
+    "objectID": "tech-guide/vscode-setup.html",
+    "href": "tech-guide/vscode-setup.html",
     "title": "VSCode のセットアップ",
     "section": "",
     "text": "Visual Studio Code（VSCode）は Microsoft が開発した無料のコードエディタです。拡張機能が豊富で、R、Python、LaTeX など様々な言語に対応しています。"
   },
   {
-    "objectID": "vscode-setup.html#visual-studio-code-とは",
-    "href": "vscode-setup.html#visual-studio-code-とは",
+    "objectID": "tech-guide/vscode-setup.html#visual-studio-code-とは",
+    "href": "tech-guide/vscode-setup.html#visual-studio-code-とは",
     "title": "VSCode のセットアップ",
     "section": "",
     "text": "Visual Studio Code（VSCode）は Microsoft が開発した無料のコードエディタです。拡張機能が豊富で、R、Python、LaTeX など様々な言語に対応しています。"
   },
   {
-    "objectID": "vscode-setup.html#インストール",
-    "href": "vscode-setup.html#インストール",
+    "objectID": "tech-guide/vscode-setup.html#インストール",
+    "href": "tech-guide/vscode-setup.html#インストール",
     "title": "VSCode のセットアップ",
     "section": "インストール",
     "text": "インストール\n\nVisual Studio Code にアクセス\n自分の OS に合ったバージョンをダウンロード\nインストーラを実行"
   },
   {
-    "objectID": "vscode-setup.html#推奨拡張機能",
-    "href": "vscode-setup.html#推奨拡張機能",
+    "objectID": "tech-guide/vscode-setup.html#推奨拡張機能",
+    "href": "tech-guide/vscode-setup.html#推奨拡張機能",
     "title": "VSCode のセットアップ",
     "section": "推奨拡張機能",
     "text": "推奨拡張機能\nVSCode を起動したら、左側の拡張機能アイコン（四角が4つ）をクリックして、以下の拡張機能をインストールしてください。\n\n基本\n\nJapanese Language Pack for Visual Studio Code：日本語化\nGit Graph：Git の履歴を視覚的に確認\n\n\n\nR 関連\n\nR：R 言語のサポート\nR Debugger：R のデバッグ機能\n\n\n\nLaTeX 関連\n\nLaTeX Workshop：LaTeX の編集・コンパイル・プレビュー\n\n\n\nAI コーディング支援\n\nGitHub Copilot：AI によるコード補完\nGitHub Copilot Chat：AI とのチャット機能\n\n\n\n\n\n\n\nヒントGitHub Copilot は学生無料\n\n\n\nGitHub Education に登録すると、GitHub Copilot を無料で利用できます。 GitHub Education から申請してください。\n\n\n\n\nリモート開発\n\nRemote - SSH：SSH 経由でリモートサーバに接続\nRemote - Tunnels：トンネル経由で接続"
   },
   {
-    "objectID": "vscode-setup.html#基本的な使い方",
-    "href": "vscode-setup.html#基本的な使い方",
+    "objectID": "tech-guide/vscode-setup.html#基本的な使い方",
+    "href": "tech-guide/vscode-setup.html#基本的な使い方",
     "title": "VSCode のセットアップ",
     "section": "基本的な使い方",
     "text": "基本的な使い方\n\nフォルダを開く\nFile &gt; Open Folder でプロジェクトフォルダを開きます。 VSCode ではフォルダ単位で作業するのが基本です。\n\n\nターミナル\nView &gt; Terminal でエディタ内にターミナルを表示できます。 Git コマンドやシェルコマンドを直接実行できます。\n\n\nコマンドパレット\nCmd + Shift + P（Mac）または Ctrl + Shift + P（Windows）でコマンドパレットを開けます。 VSCode のほとんどの機能はここから呼び出せます。"
   },
   {
-    "objectID": "vscode-setup.html#設定の同期",
-    "href": "vscode-setup.html#設定の同期",
+    "objectID": "tech-guide/vscode-setup.html#設定の同期",
+    "href": "tech-guide/vscode-setup.html#設定の同期",
     "title": "VSCode のセットアップ",
     "section": "設定の同期",
     "text": "設定の同期\nGitHub アカウントでサインインすると、設定や拡張機能を複数のデバイス間で同期できます。\n\n左下の歯車アイコン → Turn on Settings Sync\nGitHub アカウントでサインイン\n同期する項目を選択"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "小杉ラボ 技術ガイド",
+    "objectID": "r-tutorial/tidyverse.html",
+    "href": "r-tutorial/tidyverse.html",
+    "title": "tidyverse入門",
     "section": "",
-    "text": "小杉ゼミで使用するツールのセットアップ方法や技術的なチュートリアルをまとめたサイトです。"
+    "text": "tidyverseは、データサイエンスのためのRパッケージ集です。一貫した文法でデータ操作ができます。\nlibrary(tidyverse)"
   },
   {
-    "objectID": "index.html#このサイトについて",
-    "href": "index.html#このサイトについて",
-    "title": "小杉ラボ 技術ガイド",
+    "objectID": "r-tutorial/tidyverse.html#tidyverseとは",
+    "href": "r-tutorial/tidyverse.html#tidyverseとは",
+    "title": "tidyverse入門",
     "section": "",
-    "text": "小杉ゼミで使用するツールのセットアップ方法や技術的なチュートリアルをまとめたサイトです。"
+    "text": "tidyverseは、データサイエンスのためのRパッケージ集です。一貫した文法でデータ操作ができます。\nlibrary(tidyverse)"
   },
   {
-    "objectID": "index.html#コンテンツ",
-    "href": "index.html#コンテンツ",
-    "title": "小杉ラボ 技術ガイド",
-    "section": "コンテンツ",
-    "text": "コンテンツ\n\nGitHub のセットアップ：アカウント作成からSSH接続まで\nVSCode のセットアップ：インストールと拡張機能の導入\nLaTeX 環境構築：TeX LiveとVSCodeでの執筆環境\nSSH でリモート接続：VSCodeからサーバに接続して作業する方法\nTailscale の導入：学外からサーバに接続する方法"
+    "objectID": "r-tutorial/tidyverse.html#パイプ演算子",
+    "href": "r-tutorial/tidyverse.html#パイプ演算子",
+    "title": "tidyverse入門",
+    "section": "パイプ演算子 |>",
+    "text": "パイプ演算子 |&gt;\nパイプ演算子 |&gt; は、左側の結果を右側の関数の第1引数に渡します。\n\n# これは\nmean(students$score)\n\n[1] 80.3\n\n# これと同じ\nstudents$score |&gt; mean()\n\n[1] 80.3\n\n\n複数の操作を連続して行うとき、パイプを使うと読みやすくなります。\n\n# パイプなし（読みにくい）\nround(mean(students$score), 1)\n\n[1] 80.3\n\n# パイプあり（読みやすい）\nstudents$score |&gt; mean() |&gt; round(1)\n\n[1] 80.3"
   },
   {
-    "objectID": "index.html#対象者",
-    "href": "index.html#対象者",
-    "title": "小杉ラボ 技術ガイド",
-    "section": "対象者",
-    "text": "対象者\n\n小杉ゼミのゼミ生\n統計解析・論文執筆の環境を整えたい方"
+    "objectID": "r-tutorial/tidyverse.html#dplyrの主要な関数",
+    "href": "r-tutorial/tidyverse.html#dplyrの主要な関数",
+    "title": "tidyverse入門",
+    "section": "dplyrの主要な関数",
+    "text": "dplyrの主要な関数\n\nfilter()：行の絞り込み\n条件に合う行だけを取り出します。\n\n# スコアが80以上\nstudents |&gt; filter(score &gt;= 80)\n\n# A tibble: 5 × 5\n     id name  grade score group\n  &lt;int&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;\n1     2 鈴木      2    82 B    \n2     3 佐藤      4    91 A    \n3     6 渡辺      4    88 B    \n4     8 小林      2    95 B    \n5     9 加藤      4    83 A    \n\n\n\n# グループAかつ3年生\nstudents |&gt; filter(group == \"A\", grade == 3)\n\n# A tibble: 2 × 5\n     id name  grade score group\n  &lt;int&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;\n1     1 田中      3    78 A    \n2     7 中村      3    70 A    \n\n\n\n\nselect()：列の選択\n必要な列だけを取り出します。\n\n# name と score だけ\nstudents |&gt; select(name, score)\n\n# A tibble: 10 × 2\n   name  score\n   &lt;chr&gt; &lt;dbl&gt;\n 1 田中     78\n 2 鈴木     82\n 3 佐藤     91\n 4 山田     65\n 5 伊藤     74\n 6 渡辺     88\n 7 中村     70\n 8 小林     95\n 9 加藤     83\n10 吉田     77\n\n\n\n# id 以外\nstudents |&gt; select(-id)\n\n# A tibble: 10 × 4\n   name  grade score group\n   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;\n 1 田中      3    78 A    \n 2 鈴木      2    82 B    \n 3 佐藤      4    91 A    \n 4 山田      3    65 B    \n 5 伊藤      2    74 A    \n 6 渡辺      4    88 B    \n 7 中村      3    70 A    \n 8 小林      2    95 B    \n 9 加藤      4    83 A    \n10 吉田      3    77 B    \n\n\n\n\nmutate()：新しい列を作る\n計算結果から新しい列を追加します。\n\nstudents |&gt; mutate(\n  score_centered = score - mean(score),\n  passed = score &gt;= 70\n)\n\n# A tibble: 10 × 7\n      id name  grade score group score_centered passed\n   &lt;int&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;          &lt;dbl&gt; &lt;lgl&gt; \n 1     1 田中      3    78 A              -2.30 TRUE  \n 2     2 鈴木      2    82 B               1.70 TRUE  \n 3     3 佐藤      4    91 A              10.7  TRUE  \n 4     4 山田      3    65 B             -15.3  FALSE \n 5     5 伊藤      2    74 A              -6.3  TRUE  \n 6     6 渡辺      4    88 B               7.7  TRUE  \n 7     7 中村      3    70 A             -10.3  TRUE  \n 8     8 小林      2    95 B              14.7  TRUE  \n 9     9 加藤      4    83 A               2.70 TRUE  \n10    10 吉田      3    77 B              -3.30 TRUE  \n\n\n\n\narrange()：並べ替え\n指定した列で並べ替えます。\n\n# スコア昇順\nstudents |&gt; arrange(score)\n\n# A tibble: 10 × 5\n      id name  grade score group\n   &lt;int&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;\n 1     4 山田      3    65 B    \n 2     7 中村      3    70 A    \n 3     5 伊藤      2    74 A    \n 4    10 吉田      3    77 B    \n 5     1 田中      3    78 A    \n 6     2 鈴木      2    82 B    \n 7     9 加藤      4    83 A    \n 8     6 渡辺      4    88 B    \n 9     3 佐藤      4    91 A    \n10     8 小林      2    95 B    \n\n\n\n# スコア降順\nstudents |&gt; arrange(desc(score))\n\n# A tibble: 10 × 5\n      id name  grade score group\n   &lt;int&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;\n 1     8 小林      2    95 B    \n 2     3 佐藤      4    91 A    \n 3     6 渡辺      4    88 B    \n 4     9 加藤      4    83 A    \n 5     2 鈴木      2    82 B    \n 6     1 田中      3    78 A    \n 7    10 吉田      3    77 B    \n 8     5 伊藤      2    74 A    \n 9     7 中村      3    70 A    \n10     4 山田      3    65 B    \n\n\n\n\nsummarize()：集計\nデータを集計します。\n\nstudents |&gt; summarize(\n  mean_score = mean(score),\n  sd_score = sd(score),\n  n = n()\n)\n\n# A tibble: 1 × 3\n  mean_score sd_score     n\n       &lt;dbl&gt;    &lt;dbl&gt; &lt;int&gt;\n1       80.3     9.41    10\n\n\n\n\ngroup_by()：グループ化\nグループごとに集計できます。\n\nstudents |&gt;\n  group_by(group) |&gt;\n  summarize(\n    mean_score = mean(score),\n    n = n()\n  )\n\n# A tibble: 2 × 3\n  group mean_score     n\n  &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;\n1 A           79.2     5\n2 B           81.4     5\n\n\n\nstudents |&gt;\n  group_by(grade) |&gt;\n  summarize(\n    mean_score = mean(score),\n    n = n()\n  )\n\n# A tibble: 3 × 3\n  grade mean_score     n\n  &lt;dbl&gt;      &lt;dbl&gt; &lt;int&gt;\n1     2       83.7     3\n2     3       72.5     4\n3     4       87.3     3"
   },
   {
-    "objectID": "index.html#更新履歴",
-    "href": "index.html#更新履歴",
-    "title": "小杉ラボ 技術ガイド",
-    "section": "更新履歴",
-    "text": "更新履歴\n\n2025-11-28：サイト公開"
+    "objectID": "r-tutorial/tidyverse.html#組み合わせて使う",
+    "href": "r-tutorial/tidyverse.html#組み合わせて使う",
+    "title": "tidyverse入門",
+    "section": "組み合わせて使う",
+    "text": "組み合わせて使う\nパイプで複数の操作をつなげます。\n\n# 3年生以上で、グループ別の平均スコアを計算し、降順に並べる\nstudents |&gt;\n  filter(grade &gt;= 3) |&gt;\n  group_by(group) |&gt;\n  summarize(mean_score = mean(score)) |&gt;\n  arrange(desc(mean_score))\n\n# A tibble: 2 × 2\n  group mean_score\n  &lt;chr&gt;      &lt;dbl&gt;\n1 A           80.5\n2 B           76.7"
   },
   {
-    "objectID": "latex-setup.html",
-    "href": "latex-setup.html",
+    "objectID": "r-tutorial/tidyverse.html#tidyrの主要な関数",
+    "href": "r-tutorial/tidyverse.html#tidyrの主要な関数",
+    "title": "tidyverse入門",
+    "section": "tidyrの主要な関数",
+    "text": "tidyrの主要な関数\n\npivot_longer()：縦長に変換\n複数の列を1つの列にまとめます（ワイド形式 → ロング形式）。\n\n# 例：テストの点数データ\nexam_wide &lt;- tibble(\n  name = c(\"田中\", \"鈴木\"),\n  math = c(80, 75),\n  english = c(70, 85),\n  science = c(90, 80)\n)\nexam_wide\n\n# A tibble: 2 × 4\n  name   math english science\n  &lt;chr&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;\n1 田中     80      70      90\n2 鈴木     75      85      80\n\n# 縦長に変換\nexam_wide |&gt;\n  pivot_longer(\n    cols = c(math, english, science),\n    names_to = \"subject\",\n    values_to = \"score\"\n  )\n\n# A tibble: 6 × 3\n  name  subject score\n  &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt;\n1 田中  math       80\n2 田中  english    70\n3 田中  science    90\n4 鈴木  math       75\n5 鈴木  english    85\n6 鈴木  science    80\n\n\n\n\npivot_wider()：横長に変換\n1つの列を複数の列に展開します（ロング形式 → ワイド形式）。\n\n# 例：縦長データ\nexam_long &lt;- tibble(\n  name = rep(c(\"田中\", \"鈴木\"), each = 3),\n  subject = rep(c(\"math\", \"english\", \"science\"), 2),\n  score = c(80, 70, 90, 75, 85, 80)\n)\nexam_long\n\n# A tibble: 6 × 3\n  name  subject score\n  &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt;\n1 田中  math       80\n2 田中  english    70\n3 田中  science    90\n4 鈴木  math       75\n5 鈴木  english    85\n6 鈴木  science    80\n\n# 横長に変換\nexam_long |&gt;\n  pivot_wider(\n    names_from = subject,\n    values_from = score\n  )\n\n# A tibble: 2 × 4\n  name   math english science\n  &lt;chr&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;\n1 田中     80      70      90\n2 鈴木     75      85      80"
+  },
+  {
+    "objectID": "r-tutorial/tidyverse.html#練習問題",
+    "href": "r-tutorial/tidyverse.html#練習問題",
+    "title": "tidyverse入門",
+    "section": "練習問題",
+    "text": "練習問題\nstudents データを使って以下を行ってください：\n\nスコアが75以上の学生だけを抽出し、スコアの降順で並べる\n各学年（grade）の平均スコアを計算する\nスコアの偏差値（平均50、標準偏差10に変換した値）を新しい列として追加する\n\n\n\n\n\n\n\nヒント解答例\n\n\n\n\n\n\n# 1\nstudents |&gt;\n  filter(score &gt;= 75) |&gt;\n  arrange(desc(score))\n\n# A tibble: 7 × 5\n     id name  grade score group\n  &lt;int&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;\n1     8 小林      2    95 B    \n2     3 佐藤      4    91 A    \n3     6 渡辺      4    88 B    \n4     9 加藤      4    83 A    \n5     2 鈴木      2    82 B    \n6     1 田中      3    78 A    \n7    10 吉田      3    77 B    \n\n# 2\nstudents |&gt;\n  group_by(grade) |&gt;\n  summarize(mean_score = mean(score))\n\n# A tibble: 3 × 2\n  grade mean_score\n  &lt;dbl&gt;      &lt;dbl&gt;\n1     2       83.7\n2     3       72.5\n3     4       87.3\n\n# 3\nstudents |&gt;\n  mutate(\n    deviation = (score - mean(score)) / sd(score) * 10 + 50\n  )\n\n# A tibble: 10 × 6\n      id name  grade score group deviation\n   &lt;int&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;\n 1     1 田中      3    78 A          47.6\n 2     2 鈴木      2    82 B          51.8\n 3     3 佐藤      4    91 A          61.4\n 4     4 山田      3    65 B          33.7\n 5     5 伊藤      2    74 A          43.3\n 6     6 渡辺      4    88 B          58.2\n 7     7 中村      3    70 A          39.0\n 8     8 小林      2    95 B          65.6\n 9     9 加藤      4    83 A          52.9\n10    10 吉田      3    77 B          46.5"
+  },
+  {
+    "objectID": "r-tutorial/index.html",
+    "href": "r-tutorial/index.html",
+    "title": "Rチュートリアル",
+    "section": "",
+    "text": "この教材は、Rを使ったデータ分析・可視化の基礎を学ぶためのものです。"
+  },
+  {
+    "objectID": "r-tutorial/index.html#この教材について",
+    "href": "r-tutorial/index.html#この教材について",
+    "title": "Rチュートリアル",
+    "section": "",
+    "text": "この教材は、Rを使ったデータ分析・可視化の基礎を学ぶためのものです。"
+  },
+  {
+    "objectID": "r-tutorial/index.html#目標スキル",
+    "href": "r-tutorial/index.html#目標スキル",
+    "title": "Rチュートリアル",
+    "section": "目標スキル",
+    "text": "目標スキル\nこの教材を終えると、以下のことができるようになります：\n\nデータ整形技術：自分が欲しい形にデータを整えることができる\ntidyverseマスター：tidyverseを使った効率的なデータハンドリング\nデータ可視化技術：研究に必要な図表を自在に作成できる\n生成AI活用力：俯瞰的ビジョンのもとで生成AIに適切な指示が出せる"
+  },
+  {
+    "objectID": "r-tutorial/index.html#学習の進め方",
+    "href": "r-tutorial/index.html#学習の進め方",
+    "title": "Rチュートリアル",
+    "section": "学習の進め方",
+    "text": "学習の進め方\n\nゴールベース・ビジョン主導型\nこの教材では、「こういう図を描きたい」「こういうデータにしたい」というゴールから逆算して学んでいきます。\n\n可視化ギャラリーを見る → 「こんな図が描けるんだ」という目標を知る\n必要なデータ形式を理解する → その図を描くにはどんなデータが必要か\nデータを整形する → 手元のデータを必要な形に変える\n実際に描いてみる → 試行錯誤しながら完成させる\n\n\n\n生成AIとの協働\nわからないことは積極的に生成AI（ChatGPT、Claude等）に相談してください。\n良い質問の例：\n\n「年齢別の平均スコアを棒グラフで描きたいのですが、どうすればいいですか？」\n「このエラーメッセージの意味を教えてください：〇〇」\n「group_by() と summarize() の違いを教えてください」\n\n避けたほうがよい質問：\n\n「Rがわかりません」（具体性がない）\n「全部やってください」（学習にならない）"
+  },
+  {
+    "objectID": "r-tutorial/index.html#教材の構成",
+    "href": "r-tutorial/index.html#教材の構成",
+    "title": "Rチュートリアル",
+    "section": "教材の構成",
+    "text": "教材の構成\n\n\n\nページ\n内容\n\n\n\n\nRの基礎\n計算、オブジェクト、関数の基本\n\n\nデータの読み込み\nCSVファイルを読み込んで中身を確認\n\n\ntidyverse入門\ndplyr, tidyrを使ったデータ整形\n\n\n可視化ギャラリー\nggplot2で描ける様々な図の例"
+  },
+  {
+    "objectID": "r-tutorial/index.html#必要な環境",
+    "href": "r-tutorial/index.html#必要な環境",
+    "title": "Rチュートリアル",
+    "section": "必要な環境",
+    "text": "必要な環境\n\nR（最新版推奨）\nRStudio または RStudio Server\ntidyverse パッケージ\n\n# tidyverseのインストール（初回のみ）\ninstall.packages(\"tidyverse\")"
+  },
+  {
+    "objectID": "members.html",
+    "href": "members.html",
+    "title": "メンバー紹介",
+    "section": "",
+    "text": "2008/H20年卒　秋好さつき(1)・山本三紀子(2)\n2009/H21年卒　小川菜々(3)・高本佳枝(4)・谷昭子(5)\n2010/H22年卒\n2011/H23年卒　栗原慧(6)\n2012/H24年卒　川谷義隆(7)・日高美咲(8)\n2013/H25年卒　林由紀(9)・前表理美(10)\n2014/H26年卒　上田晋平(11)・坪井雄馬(12)\n2015/H27年卒　中田達也(13)\n2016/H28年卒　石丸さやか(14)\n2017/H29年卒　小田美優(15)・本田志保(16)\n2018/H30年卒　小林仁美(17)\n補欠　大江慶寛(18)\n\n\n\n\n\n2010/H22年修了　若藤夏子(-1)\n2011/H23年修了　川本静香(-2)\n2012/H24年修了\n2013/H25年修了　池田正博(-3)・松沼風子(-4)\n2014/H26年修了　日高美咲(-5)・井土優(-6)\n2015/H27年修了\n2016/H28年修了\n2017/H29年修了　片桐咲恵(-7)\n\n\n\n\n\n\n\n\n2019/H31年卒　市原拓海(19)\n2020/R2年卒　安藤正和(20)・川村莉奈(21)\n2021/R3年卒　梶原睦美(22)・真島宏明(23)・寺田慎之介(24)\n2022/R4年卒　山崎明輝(25)・粕谷麻子(26)\n2023/R5年卒　今井怜(27)・竹本周平(29)・芦口竜斗(30)・寺内悠祐(31)\n2024/R6年卒　小林美月(32)・谷口龍治郎(33)・上村大地(35)・寒河江皓(36)・清水龍人(37)\n2025/R7年卒　細谷柊真(38)\n\n\n\n\n\n2020/R02年修了　池田孝恒(-8)\n2022/R04年修了　安藤正和(-9)\n2022/R04年単位取得退学　越智宏明(-10)"
+  },
+  {
+    "objectID": "members.html#研究室メンバー",
+    "href": "members.html#研究室メンバー",
+    "title": "メンバー紹介",
+    "section": "",
+    "text": "2008/H20年卒　秋好さつき(1)・山本三紀子(2)\n2009/H21年卒　小川菜々(3)・高本佳枝(4)・谷昭子(5)\n2010/H22年卒\n2011/H23年卒　栗原慧(6)\n2012/H24年卒　川谷義隆(7)・日高美咲(8)\n2013/H25年卒　林由紀(9)・前表理美(10)\n2014/H26年卒　上田晋平(11)・坪井雄馬(12)\n2015/H27年卒　中田達也(13)\n2016/H28年卒　石丸さやか(14)\n2017/H29年卒　小田美優(15)・本田志保(16)\n2018/H30年卒　小林仁美(17)\n補欠　大江慶寛(18)\n\n\n\n\n\n2010/H22年修了　若藤夏子(-1)\n2011/H23年修了　川本静香(-2)\n2012/H24年修了\n2013/H25年修了　池田正博(-3)・松沼風子(-4)\n2014/H26年修了　日高美咲(-5)・井土優(-6)\n2015/H27年修了\n2016/H28年修了\n2017/H29年修了　片桐咲恵(-7)\n\n\n\n\n\n\n\n\n2019/H31年卒　市原拓海(19)\n2020/R2年卒　安藤正和(20)・川村莉奈(21)\n2021/R3年卒　梶原睦美(22)・真島宏明(23)・寺田慎之介(24)\n2022/R4年卒　山崎明輝(25)・粕谷麻子(26)\n2023/R5年卒　今井怜(27)・竹本周平(29)・芦口竜斗(30)・寺内悠祐(31)\n2024/R6年卒　小林美月(32)・谷口龍治郎(33)・上村大地(35)・寒河江皓(36)・清水龍人(37)\n2025/R7年卒　細谷柊真(38)\n\n\n\n\n\n2020/R02年修了　池田孝恒(-8)\n2022/R04年修了　安藤正和(-9)\n2022/R04年単位取得退学　越智宏明(-10)"
+  },
+  {
+    "objectID": "r-tutorial/data-handling.html",
+    "href": "r-tutorial/data-handling.html",
+    "title": "データの読み込み",
+    "section": "",
+    "text": "研究で使うデータは、多くの場合CSVファイル（カンマ区切りテキスト）で提供されます。\n\n\ntidyverseに含まれるreadrパッケージのread_csv()関数を使います。\nlibrary(tidyverse)\n\n# CSVファイルを読み込む\ndata &lt;- read_csv(\"data.csv\")\n\n\n\n日本語を含むファイルで文字化けする場合は、エンコーディングを指定します。\ndata &lt;- read_csv(\"data.csv\", locale = locale(encoding = \"CP932\"))"
+  },
+  {
+    "objectID": "r-tutorial/data-handling.html#csvファイルの読み込み",
+    "href": "r-tutorial/data-handling.html#csvファイルの読み込み",
+    "title": "データの読み込み",
+    "section": "",
+    "text": "研究で使うデータは、多くの場合CSVファイル（カンマ区切りテキスト）で提供されます。\n\n\ntidyverseに含まれるreadrパッケージのread_csv()関数を使います。\nlibrary(tidyverse)\n\n# CSVファイルを読み込む\ndata &lt;- read_csv(\"data.csv\")\n\n\n\n日本語を含むファイルで文字化けする場合は、エンコーディングを指定します。\ndata &lt;- read_csv(\"data.csv\", locale = locale(encoding = \"CP932\"))"
+  },
+  {
+    "objectID": "r-tutorial/data-handling.html#データの確認",
+    "href": "r-tutorial/data-handling.html#データの確認",
+    "title": "データの読み込み",
+    "section": "データの確認",
+    "text": "データの確認\n読み込んだデータを確認する方法はいくつかあります。\n\nhead() と tail()\n最初の数行、最後の数行を表示します。\nhead(data)       # 最初の6行\nhead(data, 10)   # 最初の10行\ntail(data)       # 最後の6行\n\n\nglimpse()\nデータの構造をコンパクトに表示します。\nglimpse(data)\n\n\nsummary()\n各変数の要約統計量を表示します。\nsummary(data)\n\n\nView()\nRStudioでスプレッドシート形式で表示します。\nView(data)"
+  },
+  {
+    "objectID": "r-tutorial/data-handling.html#練習用データ",
+    "href": "r-tutorial/data-handling.html#練習用データ",
+    "title": "データの読み込み",
+    "section": "練習用データ",
+    "text": "練習用データ\nこの教材では、以下のようなデータを使って練習します。\n\nサンプルデータの作成\n\nlibrary(tidyverse)\n\n# サンプルデータを作成\nstudents &lt;- tibble(\n  id = 1:10,\n  name = c(\"田中\", \"鈴木\", \"佐藤\", \"山田\", \"伊藤\",\n           \"渡辺\", \"中村\", \"小林\", \"加藤\", \"吉田\"),\n  grade = c(3, 2, 4, 3, 2, 4, 3, 2, 4, 3),\n  score = c(78, 82, 91, 65, 74, 88, 70, 95, 83, 77),\n  group = c(\"A\", \"B\", \"A\", \"B\", \"A\", \"B\", \"A\", \"B\", \"A\", \"B\")\n)\n\nstudents\n\n# A tibble: 10 × 5\n      id name  grade score group\n   &lt;int&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;\n 1     1 田中      3    78 A    \n 2     2 鈴木      2    82 B    \n 3     3 佐藤      4    91 A    \n 4     4 山田      3    65 B    \n 5     5 伊藤      2    74 A    \n 6     6 渡辺      4    88 B    \n 7     7 中村      3    70 A    \n 8     8 小林      2    95 B    \n 9     9 加藤      4    83 A    \n10    10 吉田      3    77 B    \n\n\n\n\nデータの確認\n\n# 構造を確認\nglimpse(students)\n\nRows: 10\nColumns: 5\n$ id    &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10\n$ name  &lt;chr&gt; \"田中\", \"鈴木\", \"佐藤\", \"山田\", \"伊藤\", \"渡辺\", \"中村\", \"小林\", \"加藤\", \"吉田\"…\n$ grade &lt;dbl&gt; 3, 2, 4, 3, 2, 4, 3, 2, 4, 3\n$ score &lt;dbl&gt; 78, 82, 91, 65, 74, 88, 70, 95, 83, 77\n$ group &lt;chr&gt; \"A\", \"B\", \"A\", \"B\", \"A\", \"B\", \"A\", \"B\", \"A\", \"B\"\n\n\n\n# 要約統計量\nsummary(students)\n\n       id            name               grade          score      \n Min.   : 1.00   Length:10          Min.   :2.00   Min.   :65.00  \n 1st Qu.: 3.25   Class :character   1st Qu.:2.25   1st Qu.:74.75  \n Median : 5.50   Mode  :character   Median :3.00   Median :80.00  \n Mean   : 5.50                      Mean   :3.00   Mean   :80.30  \n 3rd Qu.: 7.75                      3rd Qu.:3.75   3rd Qu.:86.75  \n Max.   :10.00                      Max.   :4.00   Max.   :95.00  \n    group          \n Length:10         \n Class :character  \n Mode  :character"
+  },
+  {
+    "objectID": "r-tutorial/data-handling.html#データ型",
+    "href": "r-tutorial/data-handling.html#データ型",
+    "title": "データの読み込み",
+    "section": "データ型",
+    "text": "データ型\nRには主に以下のデータ型があります：\n\n\n\n型\n説明\n例\n\n\n\n\nnumeric\n数値\n1.5, 100\n\n\ncharacter\n文字列\n\"hello\", \"田中\"\n\n\nlogical\n論理値\nTRUE, FALSE\n\n\nfactor\nカテゴリ\n順序のあるカテゴリ\n\n\n\n\n# 型の確認\nclass(students$score)  # 数値\n\n[1] \"numeric\"\n\nclass(students$name)   # 文字列\n\n[1] \"character\"\n\nclass(students$grade)  # 数値\n\n[1] \"numeric\""
+  },
+  {
+    "objectID": "r-tutorial/data-handling.html#特定の列行を取り出す",
+    "href": "r-tutorial/data-handling.html#特定の列行を取り出す",
+    "title": "データの読み込み",
+    "section": "特定の列・行を取り出す",
+    "text": "特定の列・行を取り出す\n\n列の取り出し\n\n# $ を使う\nstudents$score\n\n [1] 78 82 91 65 74 88 70 95 83 77\n\n# [[]] を使う\nstudents[[\"score\"]]\n\n [1] 78 82 91 65 74 88 70 95 83 77\n\n\n\n\n行の取り出し\n\n# 1行目\nstudents[1, ]\n\n# A tibble: 1 × 5\n     id name  grade score group\n  &lt;int&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;\n1     1 田中      3    78 A    \n\n# 1〜3行目\nstudents[1:3, ]\n\n# A tibble: 3 × 5\n     id name  grade score group\n  &lt;int&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;\n1     1 田中      3    78 A    \n2     2 鈴木      2    82 B    \n3     3 佐藤      4    91 A    \n\n\n\n\n条件で絞り込む\n\n# スコアが80以上の行\nstudents[students$score &gt;= 80, ]\n\n# A tibble: 5 × 5\n     id name  grade score group\n  &lt;int&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;\n1     2 鈴木      2    82 B    \n2     3 佐藤      4    91 A    \n3     6 渡辺      4    88 B    \n4     8 小林      2    95 B    \n5     9 加藤      4    83 A    \n\n\n\n\n\n\n\n\nノート\n\n\n\n次の「tidyverse入門」では、より直感的な方法でデータを操作する方法を学びます。"
+  },
+  {
+    "objectID": "r-tutorial/visualization.html",
+    "href": "r-tutorial/visualization.html",
+    "title": "可視化ギャラリー",
+    "section": "",
+    "text": "この章では、ggplot2で描ける様々な図を紹介します。「こんな図を描きたい！」と思ったら、対応するコードを参考にしてください。"
+  },
+  {
+    "objectID": "r-tutorial/visualization.html#ggplot2の基本構造",
+    "href": "r-tutorial/visualization.html#ggplot2の基本構造",
+    "title": "可視化ギャラリー",
+    "section": "ggplot2の基本構造",
+    "text": "ggplot2の基本構造\nggplot(data, aes(x = 変数1, y = 変数2)) +\n  geom_xxx()  # 図の種類\n\ndata：使用するデータフレーム\naes()：軸や色などの「見た目」と変数の対応\ngeom_xxx()：図の種類（点、線、棒など）"
+  },
+  {
+    "objectID": "r-tutorial/visualization.html#散布図",
+    "href": "r-tutorial/visualization.html#散布図",
+    "title": "可視化ギャラリー",
+    "section": "散布図",
+    "text": "散布図\n2つの連続変数の関係を見る。\n\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point() +\n  labs(x = \"排気量\", y = \"燃費（高速）\", title = \"散布図の例\")\n\n\n\n\n\n\n\n\n\nグループで色分け\n\nggplot(mpg, aes(x = displ, y = hwy, color = class)) +\n  geom_point() +\n  labs(x = \"排気量\", y = \"燃費（高速）\", color = \"車種\")\n\n\n\n\n\n\n\n\n\n\n回帰直線を追加\n\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point() +\n  geom_smooth(method = \"lm\") +\n  labs(x = \"排気量\", y = \"燃費（高速）\")"
+  },
+  {
+    "objectID": "r-tutorial/visualization.html#ヒストグラム",
+    "href": "r-tutorial/visualization.html#ヒストグラム",
+    "title": "可視化ギャラリー",
+    "section": "ヒストグラム",
+    "text": "ヒストグラム\n連続変数の分布を見る。\n\nggplot(mpg, aes(x = hwy)) +\n  geom_histogram() +\n  labs(x = \"燃費（高速）\", y = \"度数\", title = \"ヒストグラムの例\")\n\n\n\n\n\n\n\n\n\nビン幅を指定\n\nggplot(mpg, aes(x = hwy)) +\n  geom_histogram(binwidth = 2, fill = \"steelblue\", color = \"white\") +\n  labs(x = \"燃費（高速）\", y = \"度数\")"
+  },
+  {
+    "objectID": "r-tutorial/visualization.html#密度プロット",
+    "href": "r-tutorial/visualization.html#密度プロット",
+    "title": "可視化ギャラリー",
+    "section": "密度プロット",
+    "text": "密度プロット\n分布を滑らかな曲線で表す。\n\nggplot(mpg, aes(x = hwy)) +\n  geom_density(fill = \"steelblue\", alpha = 0.5) +\n  labs(x = \"燃費（高速）\", y = \"密度\")\n\n\n\n\n\n\n\n\n\nグループで比較\n\nggplot(mpg, aes(x = hwy, fill = drv)) +\n  geom_density(alpha = 0.5) +\n  labs(x = \"燃費（高速）\", y = \"密度\", fill = \"駆動方式\")"
+  },
+  {
+    "objectID": "r-tutorial/visualization.html#棒グラフ",
+    "href": "r-tutorial/visualization.html#棒グラフ",
+    "title": "可視化ギャラリー",
+    "section": "棒グラフ",
+    "text": "棒グラフ\nカテゴリごとの度数や集計値を表す。\n\n度数\n\nggplot(mpg, aes(x = class)) +\n  geom_bar() +\n  labs(x = \"車種\", y = \"台数\")\n\n\n\n\n\n\n\n\n\n\n集計値\n\nmpg |&gt;\n  group_by(class) |&gt;\n  summarize(mean_hwy = mean(hwy)) |&gt;\n  ggplot(aes(x = reorder(class, mean_hwy), y = mean_hwy)) +\n  geom_col(fill = \"steelblue\") +\n  labs(x = \"車種\", y = \"平均燃費（高速）\") +\n  coord_flip()"
+  },
+  {
+    "objectID": "r-tutorial/visualization.html#箱ひげ図",
+    "href": "r-tutorial/visualization.html#箱ひげ図",
+    "title": "可視化ギャラリー",
+    "section": "箱ひげ図",
+    "text": "箱ひげ図\nグループ間の分布を比較。\n\nggplot(mpg, aes(x = class, y = hwy)) +\n  geom_boxplot() +\n  labs(x = \"車種\", y = \"燃費（高速）\")"
+  },
+  {
+    "objectID": "r-tutorial/visualization.html#バイオリンプロット",
+    "href": "r-tutorial/visualization.html#バイオリンプロット",
+    "title": "可視化ギャラリー",
+    "section": "バイオリンプロット",
+    "text": "バイオリンプロット\n箱ひげ図＋分布の形状。\n\nggplot(mpg, aes(x = class, y = hwy)) +\n  geom_violin(fill = \"steelblue\", alpha = 0.5) +\n  geom_boxplot(width = 0.1) +\n  labs(x = \"車種\", y = \"燃費（高速）\")"
+  },
+  {
+    "objectID": "r-tutorial/visualization.html#折れ線グラフ",
+    "href": "r-tutorial/visualization.html#折れ線グラフ",
+    "title": "可視化ギャラリー",
+    "section": "折れ線グラフ",
+    "text": "折れ線グラフ\n時系列や順序のあるデータ。\n\neconomics |&gt;\n  ggplot(aes(x = date, y = unemploy)) +\n  geom_line() +\n  labs(x = \"年\", y = \"失業者数（千人）\", title = \"アメリカの失業者数推移\")"
+  },
+  {
+    "objectID": "r-tutorial/visualization.html#ファセット小さな複数グラフ",
+    "href": "r-tutorial/visualization.html#ファセット小さな複数グラフ",
+    "title": "可視化ギャラリー",
+    "section": "ファセット（小さな複数グラフ）",
+    "text": "ファセット（小さな複数グラフ）\nグループごとに別々のパネルで表示。\n\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point() +\n  facet_wrap(~ class) +\n  labs(x = \"排気量\", y = \"燃費（高速）\")"
+  },
+  {
+    "objectID": "r-tutorial/visualization.html#ヒートマップ",
+    "href": "r-tutorial/visualization.html#ヒートマップ",
+    "title": "可視化ギャラリー",
+    "section": "ヒートマップ",
+    "text": "ヒートマップ\n2つのカテゴリ変数のクロス集計。\n\nmpg |&gt;\n  count(class, drv) |&gt;\n  ggplot(aes(x = drv, y = class, fill = n)) +\n  geom_tile() +\n  geom_text(aes(label = n), color = \"white\") +\n  scale_fill_viridis_c() +\n  labs(x = \"駆動方式\", y = \"車種\", fill = \"台数\")"
+  },
+  {
+    "objectID": "r-tutorial/visualization.html#相関行列",
+    "href": "r-tutorial/visualization.html#相関行列",
+    "title": "可視化ギャラリー",
+    "section": "相関行列",
+    "text": "相関行列\n\nmtcars |&gt;\n  select(mpg, cyl, disp, hp, wt) |&gt;\n  cor() |&gt;\n  as.data.frame() |&gt;\n  rownames_to_column(\"var1\") |&gt;\n  pivot_longer(-var1, names_to = \"var2\", values_to = \"cor\") |&gt;\n  ggplot(aes(x = var1, y = var2, fill = cor)) +\n  geom_tile() +\n  geom_text(aes(label = round(cor, 2))) +\n  scale_fill_gradient2(low = \"blue\", mid = \"white\", high = \"red\", midpoint = 0) +\n  labs(x = \"\", y = \"\", fill = \"相関係数\") +\n  theme(axis.text.x = element_text(angle = 45, hjust = 1))"
+  },
+  {
+    "objectID": "r-tutorial/visualization.html#図の保存",
+    "href": "r-tutorial/visualization.html#図の保存",
+    "title": "可視化ギャラリー",
+    "section": "図の保存",
+    "text": "図の保存\n# 最後に描いた図を保存\nggsave(\"figure.png\", width = 6, height = 4, dpi = 300)\n\n# 特定の図を保存\np &lt;- ggplot(mpg, aes(x = displ, y = hwy)) + geom_point()\nggsave(\"scatter.pdf\", plot = p, width = 6, height = 4)"
+  },
+  {
+    "objectID": "r-tutorial/visualization.html#次のステップ",
+    "href": "r-tutorial/visualization.html#次のステップ",
+    "title": "可視化ギャラリー",
+    "section": "次のステップ",
+    "text": "次のステップ\n\nR Graph Gallery：様々な図のコード例\nggplot2公式リファレンス\nData to Viz：データの種類から適切な図を選ぶ"
+  },
+  {
+    "objectID": "r-tutorial/r-basics.html",
+    "href": "r-tutorial/r-basics.html",
+    "title": "Rの基礎",
+    "section": "",
+    "text": "Rは高機能な電卓として使えます。コンソールに計算式を入力してEnterを押すと、結果が表示されます。\n\n# 四則演算\n1 + 2\n\n[1] 3\n\n10 - 3\n\n[1] 7\n\n4 * 5\n\n[1] 20\n\n20 / 4\n\n[1] 5\n\n\n\n# べき乗\n2^3\n\n[1] 8\n\n2^10\n\n[1] 1024\n\n\n\n# 余りと商\n17 %% 5   # 余り\n\n[1] 2\n\n17 %/% 5  # 商\n\n[1] 3"
+  },
+  {
+    "objectID": "r-tutorial/r-basics.html#rを電卓として使う",
+    "href": "r-tutorial/r-basics.html#rを電卓として使う",
+    "title": "Rの基礎",
+    "section": "",
+    "text": "Rは高機能な電卓として使えます。コンソールに計算式を入力してEnterを押すと、結果が表示されます。\n\n# 四則演算\n1 + 2\n\n[1] 3\n\n10 - 3\n\n[1] 7\n\n4 * 5\n\n[1] 20\n\n20 / 4\n\n[1] 5\n\n\n\n# べき乗\n2^3\n\n[1] 8\n\n2^10\n\n[1] 1024\n\n\n\n# 余りと商\n17 %% 5   # 余り\n\n[1] 2\n\n17 %/% 5  # 商\n\n[1] 3"
+  },
+  {
+    "objectID": "r-tutorial/r-basics.html#オブジェクト変数",
+    "href": "r-tutorial/r-basics.html#オブジェクト変数",
+    "title": "Rの基礎",
+    "section": "オブジェクト（変数）",
+    "text": "オブジェクト（変数）\n計算結果を保存しておくには、オブジェクト（変数）を使います。&lt;- で値を代入します。\n\nx &lt;- 10\ny &lt;- 3\nx + y\n\n[1] 13\n\nx * y\n\n[1] 30\n\n\nオブジェクト名は自由につけられますが、以下のルールがあります：\n\n英数字とアンダースコア（_）、ピリオド（.）が使える\n数字で始めてはいけない\n大文字と小文字は区別される（X と x は別物）\n\n\nmy_score &lt;- 85\naverage_score &lt;- 72.5\nmy_score - average_score\n\n[1] 12.5"
+  },
+  {
+    "objectID": "r-tutorial/r-basics.html#ベクトル",
+    "href": "r-tutorial/r-basics.html#ベクトル",
+    "title": "Rの基礎",
+    "section": "ベクトル",
+    "text": "ベクトル\n複数の値をまとめて扱うには、ベクトルを使います。c() 関数で作成します。\n\nscores &lt;- c(80, 75, 90, 85, 70)\nscores\n\n[1] 80 75 90 85 70\n\n\n\n# ベクトルの演算\nscores + 10       # 全要素に10を足す\n\n[1]  90  85 100  95  80\n\nscores * 2        # 全要素を2倍\n\n[1] 160 150 180 170 140\n\nmean(scores)      # 平均\n\n[1] 80\n\nsum(scores)       # 合計\n\n[1] 400\n\nlength(scores)    # 要素数\n\n[1] 5"
+  },
+  {
+    "objectID": "r-tutorial/r-basics.html#関数",
+    "href": "r-tutorial/r-basics.html#関数",
+    "title": "Rの基礎",
+    "section": "関数",
+    "text": "関数\n関数は「入力を受け取って、何かの処理をして、結果を返す」ものです。\n\n# よく使う関数\nsqrt(16)          # 平方根\n\n[1] 4\n\nabs(-5)           # 絶対値\n\n[1] 5\n\nround(3.14159, 2) # 四捨五入（小数点以下2桁）\n\n[1] 3.14\n\n\n\n# 統計関連の関数\nx &lt;- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)\nmean(x)    # 平均\n\n[1] 5.5\n\nmedian(x)  # 中央値\n\n[1] 5.5\n\nsd(x)      # 標準偏差\n\n[1] 3.02765\n\nvar(x)     # 分散\n\n[1] 9.166667\n\nmin(x)     # 最小値\n\n[1] 1\n\nmax(x)     # 最大値\n\n[1] 10\n\nrange(x)   # 範囲（最小値と最大値）\n\n[1]  1 10"
+  },
+  {
+    "objectID": "r-tutorial/r-basics.html#ヘルプの見方",
+    "href": "r-tutorial/r-basics.html#ヘルプの見方",
+    "title": "Rの基礎",
+    "section": "ヘルプの見方",
+    "text": "ヘルプの見方\n関数の使い方がわからないときは、? をつけてヘルプを表示できます。\n?mean\n?round"
+  },
+  {
+    "objectID": "r-tutorial/r-basics.html#練習問題",
+    "href": "r-tutorial/r-basics.html#練習問題",
+    "title": "Rの基礎",
+    "section": "練習問題",
+    "text": "練習問題\n\n次の計算をRで行ってください\n\n\\(3 + 5 \\times 2\\)\n\\(\\sqrt{144}\\)\n\\(2^{8}\\)\n\n以下の5人のテスト得点について、平均と標準偏差を求めてください\n\n78, 82, 91, 65, 74\n\n1から100までの整数の合計を求めてください（ヒント：1:100 で連番を作れます）\n\n\n\n\n\n\n\nヒント解答例\n\n\n\n\n\n\n# 1\n3 + 5 * 2\n\n[1] 13\n\nsqrt(144)\n\n[1] 12\n\n2^8\n\n[1] 256\n\n# 2\nscores &lt;- c(78, 82, 91, 65, 74)\nmean(scores)\n\n[1] 78\n\nsd(scores)\n\n[1] 9.617692\n\n# 3\nsum(1:100)\n\n[1] 5050"
+  },
+  {
+    "objectID": "tech-guide/github-setup.html",
+    "href": "tech-guide/github-setup.html",
+    "title": "GitHub のセットアップ",
+    "section": "",
+    "text": "GitHub はバージョン管理システム Git をインターネット上で利用できるようにしたサービスです。卒論に関するデータ、プログラム、日々の議事録や論文そのものなど、加筆修正するファイルをこのシステム上で管理すると、喪失することがなくなるので便利です。"
+  },
+  {
+    "objectID": "tech-guide/github-setup.html#github-とは",
+    "href": "tech-guide/github-setup.html#github-とは",
+    "title": "GitHub のセットアップ",
+    "section": "",
+    "text": "GitHub はバージョン管理システム Git をインターネット上で利用できるようにしたサービスです。卒論に関するデータ、プログラム、日々の議事録や論文そのものなど、加筆修正するファイルをこのシステム上で管理すると、喪失することがなくなるので便利です。"
+  },
+  {
+    "objectID": "tech-guide/github-setup.html#アカウントの作成",
+    "href": "tech-guide/github-setup.html#アカウントの作成",
+    "title": "GitHub のセットアップ",
+    "section": "アカウントの作成",
+    "text": "アカウントの作成\n\nGitHub にアクセス\n「Sign up」をクリック\nメールアドレス、パスワード、ユーザー名を設定\n\nメールアドレスは @psy.senshu-u.ac.jp を推奨\n\nアカウント作成後、メールで届く確認リンクをクリック"
+  },
+  {
+    "objectID": "tech-guide/github-setup.html#github-desktop-のインストール",
+    "href": "tech-guide/github-setup.html#github-desktop-のインストール",
+    "title": "GitHub のセットアップ",
+    "section": "GitHub Desktop のインストール",
+    "text": "GitHub Desktop のインストール\nGitHub Desktop は GitHub を GUI で操作できるアプリケーションです。\n\nGitHub Desktop にアクセス\n自分の OS に合ったバージョンをダウンロード\nインストール後、GitHub アカウントでログイン"
+  },
+  {
+    "objectID": "tech-guide/github-setup.html#ssh-キーの設定rstudio-との連携",
+    "href": "tech-guide/github-setup.html#ssh-キーの設定rstudio-との連携",
+    "title": "GitHub のセットアップ",
+    "section": "SSH キーの設定（RStudio との連携）",
+    "text": "SSH キーの設定（RStudio との連携）\nRStudio から GitHub にアクセスするために SSH キーを設定します。\n\n1. SSH キーの生成\nRStudio で Tools &gt; Global Options &gt; Git/SVN を開き、「Create SSH Key…」をクリックします。\n\nKey type: ED25519（デフォルト）\nPassphrase: 空欄でも OK\n\n「Create」をクリックすると、SSH キーが生成されます。\n\n\n2. 公開鍵のコピー\n同じ画面で「View public key」をクリックし、表示された文字列をすべてコピーします。\n\n\n3. GitHub に登録\n\nGitHub にログイン\n右上のアイコン → Settings → SSH and GPG keys\n「New SSH key」をクリック\nTitle に任意の名前（例：MacBook Pro）\nKey に先ほどコピーした公開鍵を貼り付け\n「Add SSH key」をクリック\n\n\n\n4. Git の初期設定\nRStudio のコンソールで以下を実行します（自分の情報に置き換えてください）：\n# usethis パッケージのインストール（初回のみ）\ninstall.packages(\"usethis\")\n\n# ユーザー名とメールアドレスの設定\nusethis::use_git_config(\n  user.name = \"あなたの名前\",\n  user.email = \"あなたのメールアドレス\"\n)"
+  },
+  {
+    "objectID": "tech-guide/github-setup.html#リポジトリのクローン",
+    "href": "tech-guide/github-setup.html#リポジトリのクローン",
+    "title": "GitHub のセットアップ",
+    "section": "リポジトリのクローン",
+    "text": "リポジトリのクローン\n\nRStudio から\n\nFile &gt; New Project &gt; Version Control &gt; Git\nRepository URL に SSH アドレス（git@github.com:...）を入力\nプロジェクトを保存する場所を指定\n「Create Project」をクリック\n\n\n\nGitHub Desktop から\n\nFile &gt; Clone repository\nURL タブでリポジトリの URL を入力\nLocal path でクローン先を指定\n「Clone」をクリック"
+  },
+  {
+    "objectID": "tech-guide/github-setup.html#基本的なワークフロー",
+    "href": "tech-guide/github-setup.html#基本的なワークフロー",
+    "title": "GitHub のセットアップ",
+    "section": "基本的なワークフロー",
+    "text": "基本的なワークフロー\n\nPull：GitHub 上の最新の変更を取得\n作業：ファイルの編集・作成\nCommit：変更をローカルに記録\nPush：変更を GitHub に送信\n\nこの順序を守ることで、チームでの共同作業もスムーズに行えます。"
+  },
+  {
+    "objectID": "tech-guide/latex-setup.html",
+    "href": "tech-guide/latex-setup.html",
     "title": "LaTeX 環境構築",
     "section": "",
     "text": "LaTeX は論文執筆のための組版システムです。数式の美しい表現、参考文献の自動管理、構造化された文書作成が可能で、学術論文の執筆には欠かせません。"
   },
   {
-    "objectID": "latex-setup.html#latex-とは",
-    "href": "latex-setup.html#latex-とは",
+    "objectID": "tech-guide/latex-setup.html#latex-とは",
+    "href": "tech-guide/latex-setup.html#latex-とは",
     "title": "LaTeX 環境構築",
     "section": "",
     "text": "LaTeX は論文執筆のための組版システムです。数式の美しい表現、参考文献の自動管理、構造化された文書作成が可能で、学術論文の執筆には欠かせません。"
   },
   {
-    "objectID": "latex-setup.html#tex-live-のインストール",
-    "href": "latex-setup.html#tex-live-のインストール",
+    "objectID": "tech-guide/latex-setup.html#tex-live-のインストール",
+    "href": "tech-guide/latex-setup.html#tex-live-のインストール",
     "title": "LaTeX 環境構築",
     "section": "TeX Live のインストール",
     "text": "TeX Live のインストール\nLaTeX を使うには、まず TeX Live というディストリビューションをインストールします。\n\nWindows\n\nTeX Live にアクセス\n「install-tl-windows.exe」をダウンロード\nインストーラを実行\n「フルインストール」を選択（推奨）\n\n\n\n\n\n\n\n警告時間がかかります\n\n\n\nフルインストールには数時間かかることがあります。時間に余裕のあるときに行ってください。\n\n\n\n\nmacOS\n\nHomebrew を使う場合（推奨）\nターミナルで以下を実行：\nbrew install --cask mactex\n\n\n手動インストール\n\nMacTeX にアクセス\n「MacTeX.pkg」をダウンロード\nインストーラを実行"
   },
   {
-    "objectID": "latex-setup.html#vscode-での-latex-執筆",
-    "href": "latex-setup.html#vscode-での-latex-執筆",
+    "objectID": "tech-guide/latex-setup.html#vscode-での-latex-執筆",
+    "href": "tech-guide/latex-setup.html#vscode-での-latex-執筆",
     "title": "LaTeX 環境構築",
     "section": "VSCode での LaTeX 執筆",
     "text": "VSCode での LaTeX 執筆\n\nLaTeX Workshop のインストール\n\nVSCode の拡張機能から「LaTeX Workshop」を検索\nインストール\n\n\n\nLuaLaTeX の設定\n日本語を含む文書をコンパイルするには、LuaLaTeX を使用します。\nVSCode の設定（settings.json）に以下を追加：\n{\n  \"latex-workshop.latex.tools\": [\n    {\n      \"name\": \"lualatex\",\n      \"command\": \"lualatex\",\n      \"args\": [\n        \"-synctex=1\",\n        \"-interaction=nonstopmode\",\n        \"-file-line-error\",\n        \"%DOC%\"\n      ]\n    },\n    {\n      \"name\": \"biber\",\n      \"command\": \"biber\",\n      \"args\": [\n        \"%DOCFILE%\"\n      ]\n    }\n  ],\n  \"latex-workshop.latex.recipes\": [\n    {\n      \"name\": \"lualatex\",\n      \"tools\": [\"lualatex\"]\n    },\n    {\n      \"name\": \"lualatex -&gt; biber -&gt; lualatex*2\",\n      \"tools\": [\"lualatex\", \"biber\", \"lualatex\", \"lualatex\"]\n    }\n  ],\n  \"latex-workshop.latex.recipe.default\": \"lualatex\"\n}\n\n\n基本的な使い方\n\n.tex ファイルを開く\n保存すると自動的にコンパイルされる（または Cmd + Alt + B）\nCmd + Alt + V で PDF プレビューを表示\nPDF 上でクリックすると、対応するソースコードにジャンプ（SyncTeX）"
   },
   {
-    "objectID": "latex-setup.html#簡単な-latex-文書",
-    "href": "latex-setup.html#簡単な-latex-文書",
+    "objectID": "tech-guide/latex-setup.html#簡単な-latex-文書",
+    "href": "tech-guide/latex-setup.html#簡単な-latex-文書",
     "title": "LaTeX 環境構築",
     "section": "簡単な LaTeX 文書",
     "text": "簡単な LaTeX 文書\n\\documentclass{ltjsarticle}\n\\usepackage{luatexja}\n\n\\title{タイトル}\n\\author{著者名}\n\\date{\\today}\n\n\\begin{document}\n\\maketitle\n\n\\section{はじめに}\nここに本文を書きます。\n\n数式も書けます：\n\\begin{equation}\n  E = mc^2\n\\end{equation}\n\n\\end{document}"
   },
   {
-    "objectID": "latex-setup.html#参考リンク",
-    "href": "latex-setup.html#参考リンク",
+    "objectID": "tech-guide/latex-setup.html#参考リンク",
+    "href": "tech-guide/latex-setup.html#参考リンク",
     "title": "LaTeX 環境構築",
     "section": "参考リンク",
     "text": "参考リンク\n\nLaTeX入門\nOverleaf（オンラインLaTeXエディタ）"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Kosugi Labo",
+    "section": "",
+    "text": "小杉ゼミで使用するツールのセットアップ方法や、R/統計分析のチュートリアルをまとめたサイトです。"
+  },
+  {
+    "objectID": "index.html#このサイトについて",
+    "href": "index.html#このサイトについて",
+    "title": "Kosugi Labo",
+    "section": "",
+    "text": "小杉ゼミで使用するツールのセットアップ方法や、R/統計分析のチュートリアルをまとめたサイトです。"
+  },
+  {
+    "objectID": "index.html#コンテンツ",
+    "href": "index.html#コンテンツ",
+    "title": "Kosugi Labo",
+    "section": "コンテンツ",
+    "text": "コンテンツ\n\n技術ガイド\n研究に必要な環境構築の手順書です。\n\nGitHub のセットアップ：アカウント作成からSSH接続まで\nVSCode のセットアップ：インストールと拡張機能の導入\nLaTeX 環境構築：TeX LiveとVSCodeでの執筆環境\nSSH でリモート接続：VSCodeからサーバに接続して作業する方法\nTailscale の導入：学外からサーバに接続する方法\n\n\n\nRチュートリアル\nデータ分析・可視化の技術を学ぶ教材です。\n\nはじめに：この教材の使い方\nRの基礎：計算、オブジェクト、関数\nデータの読み込み：CSVファイルの読み込みとデータ確認\ntidyverse入門：効率的なデータ整形\n可視化ギャラリー：ggplot2で描ける様々な図"
+  },
+  {
+    "objectID": "index.html#対象者",
+    "href": "index.html#対象者",
+    "title": "Kosugi Labo",
+    "section": "対象者",
+    "text": "対象者\n\n小杉ゼミのゼミ生\n統計解析・論文執筆の環境を整えたい方\nRでのデータ分析を学びたい方"
   }
 ]

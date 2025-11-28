@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>LaTeX 環境構築 – 小杉ラボ 技術ガイド</title>
+<title>Tailscale の導入 – Kosugi Labo</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -58,24 +58,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-a25750924116104412f7a457768fb952.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-a25750924116104412f7a457768fb952.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -105,7 +105,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -115,8 +115,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">小杉ラボ 技術ガイド</span>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Kosugi Labo</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="サーチ"></div>
@@ -126,28 +126,70 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">ホーム</span></a>
   </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">技術ガイド</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-">    
+        <li>
+    <a class="dropdown-item" href="../tech-guide/github-setup.html">
+ <span class="dropdown-text">GitHub</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tech-guide/vscode-setup.html">
+ <span class="dropdown-text">VSCode</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tech-guide/latex-setup.html">
+ <span class="dropdown-text">LaTeX</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tech-guide/ssh-remote.html">
+ <span class="dropdown-text">SSH接続</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tech-guide/tailscale.html">
+ <span class="dropdown-text">Tailscale</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-rチュートリアル" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Rチュートリアル</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-rチュートリアル">    
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/index.html">
+ <span class="dropdown-text">はじめに</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/r-basics.html">
+ <span class="dropdown-text">Rの基礎</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/data-handling.html">
+ <span class="dropdown-text">データの読み込み</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/tidyverse.html">
+ <span class="dropdown-text">tidyverse入門</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/visualization.html">
+ <span class="dropdown-text">可視化ギャラリー</span></a>
+  </li>  
+    </ul>
+  </li>
   <li class="nav-item">
-    <a class="nav-link" href="./github-setup.html"> 
-<span class="menu-text">GitHub</span></a>
+    <a class="nav-link" href="../members.html"> 
+<span class="menu-text">メンバー</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./vscode-setup.html"> 
-<span class="menu-text">VSCode</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link active" href="./latex-setup.html" aria-current="page"> 
-<span class="menu-text">LaTeX</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./ssh-remote.html"> 
-<span class="menu-text">SSH接続</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./tailscale.html"> 
-<span class="menu-text">Tailscale</span></a>
+    <a class="nav-link" href="../feedback.html"> 
+<span class="menu-text">フィードバック</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -165,19 +207,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">目次</h2>
    
   <ul>
-  <li><a href="#latex-とは" id="toc-latex-とは" class="nav-link active" data-scroll-target="#latex-とは">LaTeX とは</a></li>
-  <li><a href="#tex-live-のインストール" id="toc-tex-live-のインストール" class="nav-link" data-scroll-target="#tex-live-のインストール">TeX Live のインストール</a>
+  <li><a href="#tailscale-とは" id="toc-tailscale-とは" class="nav-link active" data-scroll-target="#tailscale-とは">Tailscale とは</a></li>
+  <li><a href="#仕組み" id="toc-仕組み" class="nav-link" data-scroll-target="#仕組み">仕組み</a></li>
+  <li><a href="#インストール" id="toc-インストール" class="nav-link" data-scroll-target="#インストール">インストール</a>
   <ul class="collapse">
-  <li><a href="#windows" id="toc-windows" class="nav-link" data-scroll-target="#windows">Windows</a></li>
-  <li><a href="#macos" id="toc-macos" class="nav-link" data-scroll-target="#macos">macOS</a></li>
+  <li><a href="#windows-macos" id="toc-windows-macos" class="nav-link" data-scroll-target="#windows-macos">Windows / macOS</a></li>
+  <li><a href="#ios-android" id="toc-ios-android" class="nav-link" data-scroll-target="#ios-android">iOS / Android</a></li>
+  <li><a href="#linuxサーバ側" id="toc-linuxサーバ側" class="nav-link" data-scroll-target="#linuxサーバ側">Linux（サーバ側）</a></li>
   </ul></li>
-  <li><a href="#vscode-での-latex-執筆" id="toc-vscode-での-latex-執筆" class="nav-link" data-scroll-target="#vscode-での-latex-執筆">VSCode での LaTeX 執筆</a>
+  <li><a href="#初期設定" id="toc-初期設定" class="nav-link" data-scroll-target="#初期設定">初期設定</a>
   <ul class="collapse">
-  <li><a href="#latex-workshop-のインストール" id="toc-latex-workshop-のインストール" class="nav-link" data-scroll-target="#latex-workshop-のインストール">LaTeX Workshop のインストール</a></li>
-  <li><a href="#lualatex-の設定" id="toc-lualatex-の設定" class="nav-link" data-scroll-target="#lualatex-の設定">LuaLaTeX の設定</a></li>
-  <li><a href="#基本的な使い方" id="toc-基本的な使い方" class="nav-link" data-scroll-target="#基本的な使い方">基本的な使い方</a></li>
+  <li><a href="#アカウント作成" id="toc-アカウント作成" class="nav-link" data-scroll-target="#アカウント作成">1. アカウント作成</a></li>
+  <li><a href="#デバイスの確認" id="toc-デバイスの確認" class="nav-link" data-scroll-target="#デバイスの確認">2. デバイスの確認</a></li>
   </ul></li>
-  <li><a href="#簡単な-latex-文書" id="toc-簡単な-latex-文書" class="nav-link" data-scroll-target="#簡単な-latex-文書">簡単な LaTeX 文書</a></li>
+  <li><a href="#使い方" id="toc-使い方" class="nav-link" data-scroll-target="#使い方">使い方</a>
+  <ul class="collapse">
+  <li><a href="#サーバへの接続" id="toc-サーバへの接続" class="nav-link" data-scroll-target="#サーバへの接続">サーバへの接続</a></li>
+  <li><a href="#rstudio-server-への接続" id="toc-rstudio-server-への接続" class="nav-link" data-scroll-target="#rstudio-server-への接続">RStudio Server への接続</a></li>
+  </ul></li>
+  <li><a href="#セキュリティ" id="toc-セキュリティ" class="nav-link" data-scroll-target="#セキュリティ">セキュリティ</a></li>
+  <li><a href="#トラブルシューティング" id="toc-トラブルシューティング" class="nav-link" data-scroll-target="#トラブルシューティング">トラブルシューティング</a>
+  <ul class="collapse">
+  <li><a href="#接続できない" id="toc-接続できない" class="nav-link" data-scroll-target="#接続できない">接続できない</a></li>
+  <li><a href="#接続が遅い" id="toc-接続が遅い" class="nav-link" data-scroll-target="#接続が遅い">接続が遅い</a></li>
+  </ul></li>
   <li><a href="#参考リンク" id="toc-参考リンク" class="nav-link" data-scroll-target="#参考リンク">参考リンク</a></li>
   </ul>
 </nav>
@@ -187,7 +240,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">LaTeX 環境構築</h1>
+<h1 class="title">Tailscale の導入</h1>
 </div>
 
 
@@ -204,135 +257,115 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="latex-とは" class="level2">
-<h2 class="anchored" data-anchor-id="latex-とは">LaTeX とは</h2>
-<p>LaTeX は論文執筆のための組版システムです。数式の美しい表現、参考文献の自動管理、構造化された文書作成が可能で、学術論文の執筆には欠かせません。</p>
+<section id="tailscale-とは" class="level2">
+<h2 class="anchored" data-anchor-id="tailscale-とは">Tailscale とは</h2>
+<p>Tailscale は、簡単に使える VPN サービスです。インストールするだけで、異なるネットワークにあるデバイス同士を安全に接続できます。</p>
+<p>学外から研究室のサーバに接続したい場合に便利です。</p>
 </section>
-<section id="tex-live-のインストール" class="level2">
-<h2 class="anchored" data-anchor-id="tex-live-のインストール">TeX Live のインストール</h2>
-<p>LaTeX を使うには、まず TeX Live というディストリビューションをインストールします。</p>
-<section id="windows" class="level3">
-<h3 class="anchored" data-anchor-id="windows">Windows</h3>
+<section id="仕組み" class="level2">
+<h2 class="anchored" data-anchor-id="仕組み">仕組み</h2>
+<p>Tailscale は WireGuard という VPN 技術をベースにしています。 各デバイスに Tailscale をインストールすると、それらが同じ仮想ネットワーク（Tailnet）に参加し、直接通信できるようになります。</p>
+<pre><code>自宅PC ─────┐
+            │
+スマホ ─────┼──── Tailnet ──── 研究室サーバ
+            │
+大学PC ─────┘</code></pre>
+</section>
+<section id="インストール" class="level2">
+<h2 class="anchored" data-anchor-id="インストール">インストール</h2>
+<section id="windows-macos" class="level3">
+<h3 class="anchored" data-anchor-id="windows-macos">Windows / macOS</h3>
 <ol type="1">
-<li><a href="https://www.tug.org/texlive/">TeX Live</a> にアクセス</li>
-<li>「install-tl-windows.exe」をダウンロード</li>
-<li>インストーラを実行</li>
-<li>「フルインストール」を選択（推奨）</li>
+<li><a href="https://tailscale.com/download">Tailscale</a> にアクセス</li>
+<li>自分の OS 用のインストーラをダウンロード</li>
+<li>インストール後、ログイン（Google / Microsoft / GitHub アカウントが使えます）</li>
 </ol>
-<div class="callout callout-style-default callout-warning callout-titled">
+</section>
+<section id="ios-android" class="level3">
+<h3 class="anchored" data-anchor-id="ios-android">iOS / Android</h3>
+<p>App Store または Google Play から「Tailscale」をインストール。</p>
+</section>
+<section id="linuxサーバ側" class="level3">
+<h3 class="anchored" data-anchor-id="linuxサーバ側">Linux（サーバ側）</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-fsSL</span> https://tailscale.com/install.sh <span class="kw">|</span> <span class="fu">sh</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> tailscale up</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<p>表示される URL にアクセスして認証します。</p>
+</section>
+</section>
+<section id="初期設定" class="level2">
+<h2 class="anchored" data-anchor-id="初期設定">初期設定</h2>
+<section id="アカウント作成" class="level3">
+<h3 class="anchored" data-anchor-id="アカウント作成">1. アカウント作成</h3>
+<p>Tailscale を初めて起動すると、ログイン画面が表示されます。 Google、Microsoft、GitHub などのアカウントでログインできます。</p>
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">警告</span>時間がかかります
+<span class="screen-reader-only">ノート</span>ゼミでの利用
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>フルインストールには数時間かかることがあります。時間に余裕のあるときに行ってください。</p>
+<p>ゼミで Tailscale を利用する場合は、小杉から招待を送ります。 招待メールのリンクからチームに参加してください。</p>
 </div>
 </div>
 </section>
-<section id="macos" class="level3">
-<h3 class="anchored" data-anchor-id="macos">macOS</h3>
-<section id="homebrew-を使う場合推奨" class="level4">
-<h4 class="anchored" data-anchor-id="homebrew-を使う場合推奨">Homebrew を使う場合（推奨）</h4>
-<p>ターミナルで以下を実行：</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install <span class="at">--cask</span> mactex</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="デバイスの確認" class="level3">
+<h3 class="anchored" data-anchor-id="デバイスの確認">2. デバイスの確認</h3>
+<p>ログイン後、<a href="https://login.tailscale.com/admin/machines">Tailscale Admin Console</a> で接続中のデバイスを確認できます。</p>
+<p>各デバイスには <code>100.x.x.x</code> 形式の IP アドレスが割り当てられます。</p>
 </section>
-<section id="手動インストール" class="level4">
-<h4 class="anchored" data-anchor-id="手動インストール">手動インストール</h4>
+</section>
+<section id="使い方" class="level2">
+<h2 class="anchored" data-anchor-id="使い方">使い方</h2>
+<section id="サーバへの接続" class="level3">
+<h3 class="anchored" data-anchor-id="サーバへの接続">サーバへの接続</h3>
+<p>Tailscale が起動している状態で、サーバの Tailscale IP アドレスを使って SSH 接続します。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> ユーザー名@100.x.x.x</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<p>または、VSCode の Remote-SSH で接続：</p>
+<p><code>~/.ssh/config</code> に追加：</p>
+<pre><code>Host server-tailscale
+    HostName 100.x.x.x
+    User ユーザー名</code></pre>
+</section>
+<section id="rstudio-server-への接続" class="level3">
+<h3 class="anchored" data-anchor-id="rstudio-server-への接続">RStudio Server への接続</h3>
+<p>ブラウザで <code>http://100.x.x.x:8787</code> にアクセスすると、RStudio Server のログイン画面が表示されます。</p>
+</section>
+</section>
+<section id="セキュリティ" class="level2">
+<h2 class="anchored" data-anchor-id="セキュリティ">セキュリティ</h2>
+<ul>
+<li>通信は WireGuard で暗号化されています</li>
+<li>Tailscale にログインしたデバイスのみが Tailnet 内のデバイスにアクセスできます</li>
+<li>不要になったデバイスは Admin Console から削除できます</li>
+</ul>
+</section>
+<section id="トラブルシューティング" class="level2">
+<h2 class="anchored" data-anchor-id="トラブルシューティング">トラブルシューティング</h2>
+<section id="接続できない" class="level3">
+<h3 class="anchored" data-anchor-id="接続できない">接続できない</h3>
 <ol type="1">
-<li><a href="https://www.tug.org/mactex/">MacTeX</a> にアクセス</li>
-<li>「MacTeX.pkg」をダウンロード</li>
-<li>インストーラを実行</li>
+<li>Tailscale が起動しているか確認（メニューバー/タスクバーのアイコン）</li>
+<li>相手のデバイスも Tailscale が起動しているか確認</li>
+<li>Admin Console で両方のデバイスが「Connected」になっているか確認</li>
 </ol>
 </section>
+<section id="接続が遅い" class="level3">
+<h3 class="anchored" data-anchor-id="接続が遅い">接続が遅い</h3>
+<ul>
+<li>Tailscale は可能な場合、デバイス間で直接通信（Direct）します</li>
+<li>直接通信できない場合、リレーサーバ経由（Relayed）になり、速度が低下することがあります</li>
+<li>Admin Console でルート状況を確認できます</li>
+</ul>
 </section>
-</section>
-<section id="vscode-での-latex-執筆" class="level2">
-<h2 class="anchored" data-anchor-id="vscode-での-latex-執筆">VSCode での LaTeX 執筆</h2>
-<section id="latex-workshop-のインストール" class="level3">
-<h3 class="anchored" data-anchor-id="latex-workshop-のインストール">LaTeX Workshop のインストール</h3>
-<ol type="1">
-<li>VSCode の拡張機能から「LaTeX Workshop」を検索</li>
-<li>インストール</li>
-</ol>
-</section>
-<section id="lualatex-の設定" class="level3">
-<h3 class="anchored" data-anchor-id="lualatex-の設定">LuaLaTeX の設定</h3>
-<p>日本語を含む文書をコンパイルするには、LuaLaTeX を使用します。</p>
-<p>VSCode の設定（<code>settings.json</code>）に以下を追加：</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"latex-workshop.latex.tools"</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"name"</span><span class="fu">:</span> <span class="st">"lualatex"</span><span class="fu">,</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"command"</span><span class="fu">:</span> <span class="st">"lualatex"</span><span class="fu">,</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"args"</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">"-synctex=1"</span><span class="ot">,</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">"-interaction=nonstopmode"</span><span class="ot">,</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">"-file-line-error"</span><span class="ot">,</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">"%DOC%"</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"name"</span><span class="fu">:</span> <span class="st">"biber"</span><span class="fu">,</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"command"</span><span class="fu">:</span> <span class="st">"biber"</span><span class="fu">,</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"args"</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        <span class="st">"%DOCFILE%"</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"latex-workshop.latex.recipes"</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"name"</span><span class="fu">:</span> <span class="st">"lualatex"</span><span class="fu">,</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"tools"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"lualatex"</span><span class="ot">]</span></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"name"</span><span class="fu">:</span> <span class="st">"lualatex -&gt; biber -&gt; lualatex*2"</span><span class="fu">,</span></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"tools"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"lualatex"</span><span class="ot">,</span> <span class="st">"biber"</span><span class="ot">,</span> <span class="st">"lualatex"</span><span class="ot">,</span> <span class="st">"lualatex"</span><span class="ot">]</span></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"latex-workshop.latex.recipe.default"</span><span class="fu">:</span> <span class="st">"lualatex"</span></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="基本的な使い方" class="level3">
-<h3 class="anchored" data-anchor-id="基本的な使い方">基本的な使い方</h3>
-<ol type="1">
-<li><code>.tex</code> ファイルを開く</li>
-<li>保存すると自動的にコンパイルされる（または <code>Cmd + Alt + B</code>）</li>
-<li><code>Cmd + Alt + V</code> で PDF プレビューを表示</li>
-<li>PDF 上でクリックすると、対応するソースコードにジャンプ（SyncTeX）</li>
-</ol>
-</section>
-</section>
-<section id="簡単な-latex-文書" class="level2">
-<h2 class="anchored" data-anchor-id="簡単な-latex-文書">簡単な LaTeX 文書</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode latex code-with-copy"><code class="sourceCode latex"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">\documentclass</span>{<span class="ex">ltjsarticle</span>}</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">\usepackage</span>{<span class="ex">luatexja</span>}</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">\title</span>{タイトル}</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">\author</span>{著者名}</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">\date</span>{<span class="fu">\today</span>}</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="kw">\begin</span>{<span class="ex">document</span>}</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">\maketitle</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="kw">\section</span>{はじめに}</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>ここに本文を書きます。</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>数式も書けます：</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="kw">\begin</span>{<span class="ex">equation</span>}</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="ss">  E = mc^2</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">equation</span>}</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">document</span>}</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="参考リンク" class="level2">
 <h2 class="anchored" data-anchor-id="参考リンク">参考リンク</h2>
 <ul>
-<li><a href="https://texwiki.texjp.org/?LaTeX%E5%85%A5%E9%96%80">LaTeX入門</a></li>
-<li><a href="https://www.overleaf.com/">Overleaf（オンラインLaTeXエディタ）</a></li>
+<li><a href="https://tailscale.com/kb/">Tailscale 公式ドキュメント</a></li>
+<li><a href="https://login.tailscale.com/admin/machines">Tailscale Admin Console</a></li>
 </ul>
 
 

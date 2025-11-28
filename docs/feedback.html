@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Tailscale の導入 – 小杉ラボ 技術ガイド</title>
+<title>研究フィードバック – Kosugi Labo</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,41 +19,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -116,7 +81,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">小杉ラボ 技術ガイド</span>
+    <span class="navbar-title">Kosugi Labo</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="サーチ"></div>
@@ -129,25 +94,67 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link" href="./index.html"> 
 <span class="menu-text">ホーム</span></a>
   </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">技術ガイド</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-">    
+        <li>
+    <a class="dropdown-item" href="./tech-guide/github-setup.html">
+ <span class="dropdown-text">GitHub</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tech-guide/vscode-setup.html">
+ <span class="dropdown-text">VSCode</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tech-guide/latex-setup.html">
+ <span class="dropdown-text">LaTeX</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tech-guide/ssh-remote.html">
+ <span class="dropdown-text">SSH接続</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tech-guide/tailscale.html">
+ <span class="dropdown-text">Tailscale</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-rチュートリアル" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Rチュートリアル</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-rチュートリアル">    
+        <li>
+    <a class="dropdown-item" href="./r-tutorial/index.html">
+ <span class="dropdown-text">はじめに</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./r-tutorial/r-basics.html">
+ <span class="dropdown-text">Rの基礎</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./r-tutorial/data-handling.html">
+ <span class="dropdown-text">データの読み込み</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./r-tutorial/tidyverse.html">
+ <span class="dropdown-text">tidyverse入門</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./r-tutorial/visualization.html">
+ <span class="dropdown-text">可視化ギャラリー</span></a>
+  </li>  
+    </ul>
+  </li>
   <li class="nav-item">
-    <a class="nav-link" href="./github-setup.html"> 
-<span class="menu-text">GitHub</span></a>
+    <a class="nav-link" href="./members.html"> 
+<span class="menu-text">メンバー</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./vscode-setup.html"> 
-<span class="menu-text">VSCode</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./latex-setup.html"> 
-<span class="menu-text">LaTeX</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./ssh-remote.html"> 
-<span class="menu-text">SSH接続</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link active" href="./tailscale.html" aria-current="page"> 
-<span class="menu-text">Tailscale</span></a>
+    <a class="nav-link active" href="./feedback.html" aria-current="page"> 
+<span class="menu-text">フィードバック</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -165,31 +172,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">目次</h2>
    
   <ul>
-  <li><a href="#tailscale-とは" id="toc-tailscale-とは" class="nav-link active" data-scroll-target="#tailscale-とは">Tailscale とは</a></li>
-  <li><a href="#仕組み" id="toc-仕組み" class="nav-link" data-scroll-target="#仕組み">仕組み</a></li>
-  <li><a href="#インストール" id="toc-インストール" class="nav-link" data-scroll-target="#インストール">インストール</a>
+  <li><a href="#このページについて" id="toc-このページについて" class="nav-link active" data-scroll-target="#このページについて">このページについて</a></li>
+  <li><a href="#フィードバックの目的" id="toc-フィードバックの目的" class="nav-link" data-scroll-target="#フィードバックの目的">フィードバックの目的</a></li>
+  <li><a href="#フィードバックの観点" id="toc-フィードバックの観点" class="nav-link" data-scroll-target="#フィードバックの観点">フィードバックの観点</a>
   <ul class="collapse">
-  <li><a href="#windows-macos" id="toc-windows-macos" class="nav-link" data-scroll-target="#windows-macos">Windows / macOS</a></li>
-  <li><a href="#ios-android" id="toc-ios-android" class="nav-link" data-scroll-target="#ios-android">iOS / Android</a></li>
-  <li><a href="#linuxサーバ側" id="toc-linuxサーバ側" class="nav-link" data-scroll-target="#linuxサーバ側">Linux（サーバ側）</a></li>
+  <li><a href="#研究内容について" id="toc-研究内容について" class="nav-link" data-scroll-target="#研究内容について">研究内容について</a></li>
+  <li><a href="#発表について" id="toc-発表について" class="nav-link" data-scroll-target="#発表について">発表について</a></li>
   </ul></li>
-  <li><a href="#初期設定" id="toc-初期設定" class="nav-link" data-scroll-target="#初期設定">初期設定</a>
+  <li><a href="#フィードバック記録" id="toc-フィードバック記録" class="nav-link" data-scroll-target="#フィードバック記録">フィードバック記録</a>
   <ul class="collapse">
-  <li><a href="#アカウント作成" id="toc-アカウント作成" class="nav-link" data-scroll-target="#アカウント作成">1. アカウント作成</a></li>
-  <li><a href="#デバイスの確認" id="toc-デバイスの確認" class="nav-link" data-scroll-target="#デバイスの確認">2. デバイスの確認</a></li>
+  <li><a href="#年度" id="toc-年度" class="nav-link" data-scroll-target="#年度">2025年度</a></li>
   </ul></li>
-  <li><a href="#使い方" id="toc-使い方" class="nav-link" data-scroll-target="#使い方">使い方</a>
-  <ul class="collapse">
-  <li><a href="#サーバへの接続" id="toc-サーバへの接続" class="nav-link" data-scroll-target="#サーバへの接続">サーバへの接続</a></li>
-  <li><a href="#rstudio-server-への接続" id="toc-rstudio-server-への接続" class="nav-link" data-scroll-target="#rstudio-server-への接続">RStudio Server への接続</a></li>
-  </ul></li>
-  <li><a href="#セキュリティ" id="toc-セキュリティ" class="nav-link" data-scroll-target="#セキュリティ">セキュリティ</a></li>
-  <li><a href="#トラブルシューティング" id="toc-トラブルシューティング" class="nav-link" data-scroll-target="#トラブルシューティング">トラブルシューティング</a>
-  <ul class="collapse">
-  <li><a href="#接続できない" id="toc-接続できない" class="nav-link" data-scroll-target="#接続できない">接続できない</a></li>
-  <li><a href="#接続が遅い" id="toc-接続が遅い" class="nav-link" data-scroll-target="#接続が遅い">接続が遅い</a></li>
-  </ul></li>
-  <li><a href="#参考リンク" id="toc-参考リンク" class="nav-link" data-scroll-target="#参考リンク">参考リンク</a></li>
+  <li><a href="#過去のフィードバック" id="toc-過去のフィードバック" class="nav-link" data-scroll-target="#過去のフィードバック">過去のフィードバック</a></li>
   </ul>
 </nav>
     </div>
@@ -198,7 +192,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Tailscale の導入</h1>
+<h1 class="title">研究フィードバック</h1>
 </div>
 
 
@@ -215,116 +209,67 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="tailscale-とは" class="level2">
-<h2 class="anchored" data-anchor-id="tailscale-とは">Tailscale とは</h2>
-<p>Tailscale は、簡単に使える VPN サービスです。インストールするだけで、異なるネットワークにあるデバイス同士を安全に接続できます。</p>
-<p>学外から研究室のサーバに接続したい場合に便利です。</p>
+<section id="このページについて" class="level2">
+<h2 class="anchored" data-anchor-id="このページについて">このページについて</h2>
+<p>ゼミでの研究発表に対するフィードバックを記録・共有するページです。</p>
 </section>
-<section id="仕組み" class="level2">
-<h2 class="anchored" data-anchor-id="仕組み">仕組み</h2>
-<p>Tailscale は WireGuard という VPN 技術をベースにしています。 各デバイスに Tailscale をインストールすると、それらが同じ仮想ネットワーク（Tailnet）に参加し、直接通信できるようになります。</p>
-<pre><code>自宅PC ─────┐
-            │
-スマホ ─────┼──── Tailnet ──── 研究室サーバ
-            │
-大学PC ─────┘</code></pre>
+<section id="フィードバックの目的" class="level2">
+<h2 class="anchored" data-anchor-id="フィードバックの目的">フィードバックの目的</h2>
+<ul>
+<li>発表内容の改善点を明確にする</li>
+<li>研究の進捗を可視化する</li>
+<li>良かった点を共有し、他のメンバーの参考にする</li>
+</ul>
 </section>
-<section id="インストール" class="level2">
-<h2 class="anchored" data-anchor-id="インストール">インストール</h2>
-<section id="windows-macos" class="level3">
-<h3 class="anchored" data-anchor-id="windows-macos">Windows / macOS</h3>
-<ol type="1">
-<li><a href="https://tailscale.com/download">Tailscale</a> にアクセス</li>
-<li>自分の OS 用のインストーラをダウンロード</li>
-<li>インストール後、ログイン（Google / Microsoft / GitHub アカウントが使えます）</li>
-</ol>
+<section id="フィードバックの観点" class="level2">
+<h2 class="anchored" data-anchor-id="フィードバックの観点">フィードバックの観点</h2>
+<section id="研究内容について" class="level3">
+<h3 class="anchored" data-anchor-id="研究内容について">研究内容について</h3>
+<ul>
+<li><strong>問い（リサーチクエスチョン）</strong>：明確か、答えられる形になっているか</li>
+<li><strong>先行研究</strong>：適切にレビューされているか、位置づけは明確か</li>
+<li><strong>方法</strong>：問いに答えるために適切か、再現可能か</li>
+<li><strong>結果</strong>：正しく分析されているか、解釈は妥当か</li>
+<li><strong>考察</strong>：結果から言えることと言えないことが区別されているか</li>
+</ul>
 </section>
-<section id="ios-android" class="level3">
-<h3 class="anchored" data-anchor-id="ios-android">iOS / Android</h3>
-<p>App Store または Google Play から「Tailscale」をインストール。</p>
-</section>
-<section id="linuxサーバ側" class="level3">
-<h3 class="anchored" data-anchor-id="linuxサーバ側">Linux（サーバ側）</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-fsSL</span> https://tailscale.com/install.sh <span class="kw">|</span> <span class="fu">sh</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> tailscale up</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
-<p>表示される URL にアクセスして認証します。</p>
+<section id="発表について" class="level3">
+<h3 class="anchored" data-anchor-id="発表について">発表について</h3>
+<ul>
+<li><strong>構成</strong>：論理的な流れになっているか</li>
+<li><strong>スライド</strong>：見やすいか、情報量は適切か</li>
+<li><strong>説明</strong>：聞き手に伝わる話し方か</li>
+</ul>
 </section>
 </section>
-<section id="初期設定" class="level2">
-<h2 class="anchored" data-anchor-id="初期設定">初期設定</h2>
-<section id="アカウント作成" class="level3">
-<h3 class="anchored" data-anchor-id="アカウント作成">1. アカウント作成</h3>
-<p>Tailscale を初めて起動すると、ログイン画面が表示されます。 Google、Microsoft、GitHub などのアカウントでログインできます。</p>
+<section id="フィードバック記録" class="level2">
+<h2 class="anchored" data-anchor-id="フィードバック記録">フィードバック記録</h2>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">ノート</span>ゼミでの利用
+<span class="screen-reader-only">ノート</span>記録の追加方法
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>ゼミで Tailscale を利用する場合は、小杉から招待を送ります。 招待メールのリンクからチームに参加してください。</p>
+<p>各回のフィードバックは、日付ごとにセクションを追加して記録します。</p>
 </div>
 </div>
-</section>
-<section id="デバイスの確認" class="level3">
-<h3 class="anchored" data-anchor-id="デバイスの確認">2. デバイスの確認</h3>
-<p>ログイン後、<a href="https://login.tailscale.com/admin/machines">Tailscale Admin Console</a> で接続中のデバイスを確認できます。</p>
-<p>各デバイスには <code>100.x.x.x</code> 形式の IP アドレスが割り当てられます。</p>
-</section>
-</section>
-<section id="使い方" class="level2">
-<h2 class="anchored" data-anchor-id="使い方">使い方</h2>
-<section id="サーバへの接続" class="level3">
-<h3 class="anchored" data-anchor-id="サーバへの接続">サーバへの接続</h3>
-<p>Tailscale が起動している状態で、サーバの Tailscale IP アドレスを使って SSH 接続します。</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> ユーザー名@100.x.x.x</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
-<p>または、VSCode の Remote-SSH で接続：</p>
-<p><code>~/.ssh/config</code> に追加：</p>
-<pre><code>Host server-tailscale
-    HostName 100.x.x.x
-    User ユーザー名</code></pre>
-</section>
-<section id="rstudio-server-への接続" class="level3">
-<h3 class="anchored" data-anchor-id="rstudio-server-への接続">RStudio Server への接続</h3>
-<p>ブラウザで <code>http://100.x.x.x:8787</code> にアクセスすると、RStudio Server のログイン画面が表示されます。</p>
+<hr>
+<section id="年度" class="level3">
+<h3 class="anchored" data-anchor-id="年度">2025年度</h3>
+<section id="第1回日付未定" class="level4">
+<h4 class="anchored" data-anchor-id="第1回日付未定">第1回（日付未定）</h4>
+<p>準備中</p>
+<hr>
 </section>
 </section>
-<section id="セキュリティ" class="level2">
-<h2 class="anchored" data-anchor-id="セキュリティ">セキュリティ</h2>
-<ul>
-<li>通信は WireGuard で暗号化されています</li>
-<li>Tailscale にログインしたデバイスのみが Tailnet 内のデバイスにアクセスできます</li>
-<li>不要になったデバイスは Admin Console から削除できます</li>
-</ul>
 </section>
-<section id="トラブルシューティング" class="level2">
-<h2 class="anchored" data-anchor-id="トラブルシューティング">トラブルシューティング</h2>
-<section id="接続できない" class="level3">
-<h3 class="anchored" data-anchor-id="接続できない">接続できない</h3>
-<ol type="1">
-<li>Tailscale が起動しているか確認（メニューバー/タスクバーのアイコン）</li>
-<li>相手のデバイスも Tailscale が起動しているか確認</li>
-<li>Admin Console で両方のデバイスが「Connected」になっているか確認</li>
-</ol>
-</section>
-<section id="接続が遅い" class="level3">
-<h3 class="anchored" data-anchor-id="接続が遅い">接続が遅い</h3>
-<ul>
-<li>Tailscale は可能な場合、デバイス間で直接通信（Direct）します</li>
-<li>直接通信できない場合、リレーサーバ経由（Relayed）になり、速度が低下することがあります</li>
-<li>Admin Console でルート状況を確認できます</li>
-</ul>
-</section>
-</section>
-<section id="参考リンク" class="level2">
-<h2 class="anchored" data-anchor-id="参考リンク">参考リンク</h2>
-<ul>
-<li><a href="https://tailscale.com/kb/">Tailscale 公式ドキュメント</a></li>
-<li><a href="https://login.tailscale.com/admin/machines">Tailscale Admin Console</a></li>
-</ul>
+<section id="過去のフィードバック" class="level2">
+<h2 class="anchored" data-anchor-id="過去のフィードバック">過去のフィードバック</h2>
+<p>過去年度のフィードバック記録は、アーカイブとして保存されています。</p>
 
 
 </section>

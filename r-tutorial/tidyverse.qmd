@@ -1,0 +1,225 @@
+---
+title: "tidyverse入門"
+---
+
+```{r}
+#| include: false
+library(tidyverse)
+
+students <- tibble(
+  id = 1:10,
+  name = c("田中", "鈴木", "佐藤", "山田", "伊藤",
+           "渡辺", "中村", "小林", "加藤", "吉田"),
+  grade = c(3, 2, 4, 3, 2, 4, 3, 2, 4, 3),
+  score = c(78, 82, 91, 65, 74, 88, 70, 95, 83, 77),
+  group = c("A", "B", "A", "B", "A", "B", "A", "B", "A", "B")
+)
+```
+
+## tidyverseとは
+
+tidyverseは、データサイエンスのためのRパッケージ集です。一貫した文法でデータ操作ができます。
+
+```r
+library(tidyverse)
+```
+
+## パイプ演算子 |>
+
+パイプ演算子 `|>` は、左側の結果を右側の関数の第1引数に渡します。
+
+```{r}
+# これは
+mean(students$score)
+
+# これと同じ
+students$score |> mean()
+```
+
+複数の操作を連続して行うとき、パイプを使うと読みやすくなります。
+
+```{r}
+# パイプなし（読みにくい）
+round(mean(students$score), 1)
+
+# パイプあり（読みやすい）
+students$score |> mean() |> round(1)
+```
+
+## dplyrの主要な関数
+
+### filter()：行の絞り込み
+
+条件に合う行だけを取り出します。
+
+```{r}
+# スコアが80以上
+students |> filter(score >= 80)
+```
+
+```{r}
+# グループAかつ3年生
+students |> filter(group == "A", grade == 3)
+```
+
+### select()：列の選択
+
+必要な列だけを取り出します。
+
+```{r}
+# name と score だけ
+students |> select(name, score)
+```
+
+```{r}
+# id 以外
+students |> select(-id)
+```
+
+### mutate()：新しい列を作る
+
+計算結果から新しい列を追加します。
+
+```{r}
+students |> mutate(
+  score_centered = score - mean(score),
+  passed = score >= 70
+)
+```
+
+### arrange()：並べ替え
+
+指定した列で並べ替えます。
+
+```{r}
+# スコア昇順
+students |> arrange(score)
+```
+
+```{r}
+# スコア降順
+students |> arrange(desc(score))
+```
+
+### summarize()：集計
+
+データを集計します。
+
+```{r}
+students |> summarize(
+  mean_score = mean(score),
+  sd_score = sd(score),
+  n = n()
+)
+```
+
+### group_by()：グループ化
+
+グループごとに集計できます。
+
+```{r}
+students |>
+  group_by(group) |>
+  summarize(
+    mean_score = mean(score),
+    n = n()
+  )
+```
+
+```{r}
+students |>
+  group_by(grade) |>
+  summarize(
+    mean_score = mean(score),
+    n = n()
+  )
+```
+
+## 組み合わせて使う
+
+パイプで複数の操作をつなげます。
+
+```{r}
+# 3年生以上で、グループ別の平均スコアを計算し、降順に並べる
+students |>
+  filter(grade >= 3) |>
+  group_by(group) |>
+  summarize(mean_score = mean(score)) |>
+  arrange(desc(mean_score))
+```
+
+## tidyrの主要な関数
+
+### pivot_longer()：縦長に変換
+
+複数の列を1つの列にまとめます（ワイド形式 → ロング形式）。
+
+```{r}
+# 例：テストの点数データ
+exam_wide <- tibble(
+  name = c("田中", "鈴木"),
+  math = c(80, 75),
+  english = c(70, 85),
+  science = c(90, 80)
+)
+exam_wide
+
+# 縦長に変換
+exam_wide |>
+  pivot_longer(
+    cols = c(math, english, science),
+    names_to = "subject",
+    values_to = "score"
+  )
+```
+
+### pivot_wider()：横長に変換
+
+1つの列を複数の列に展開します（ロング形式 → ワイド形式）。
+
+```{r}
+# 例：縦長データ
+exam_long <- tibble(
+  name = rep(c("田中", "鈴木"), each = 3),
+  subject = rep(c("math", "english", "science"), 2),
+  score = c(80, 70, 90, 75, 85, 80)
+)
+exam_long
+
+# 横長に変換
+exam_long |>
+  pivot_wider(
+    names_from = subject,
+    values_from = score
+  )
+```
+
+## 練習問題
+
+`students` データを使って以下を行ってください：
+
+1. スコアが75以上の学生だけを抽出し、スコアの降順で並べる
+2. 各学年（grade）の平均スコアを計算する
+3. スコアの偏差値（平均50、標準偏差10に変換した値）を新しい列として追加する
+
+::: {.callout-tip collapse="true"}
+## 解答例
+
+```{r}
+# 1
+students |>
+  filter(score >= 75) |>
+  arrange(desc(score))
+
+# 2
+students |>
+  group_by(grade) |>
+  summarize(mean_score = mean(score))
+
+# 3
+students |>
+  mutate(
+    deviation = (score - mean(score)) / sd(score) * 10 + 50
+  )
+```
+:::

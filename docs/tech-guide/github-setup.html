@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Kosugi Labo</title>
+<title>GitHub のセットアップ – Kosugi Labo</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,27 +20,62 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-a25750924116104412f7a457768fb952.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-a25750924116104412f7a457768fb952.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -70,7 +105,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -80,7 +115,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Kosugi Labo</span>
     </a>
   </div>
@@ -91,7 +126,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">ホーム</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -100,23 +135,23 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-">    
         <li>
-    <a class="dropdown-item" href="./tech-guide/github-setup.html">
+    <a class="dropdown-item" href="../tech-guide/github-setup.html">
  <span class="dropdown-text">GitHub</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./tech-guide/vscode-setup.html">
+    <a class="dropdown-item" href="../tech-guide/vscode-setup.html">
  <span class="dropdown-text">VSCode</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./tech-guide/latex-setup.html">
+    <a class="dropdown-item" href="../tech-guide/latex-setup.html">
  <span class="dropdown-text">LaTeX</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./tech-guide/ssh-remote.html">
+    <a class="dropdown-item" href="../tech-guide/ssh-remote.html">
  <span class="dropdown-text">SSH接続</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./tech-guide/tailscale.html">
+    <a class="dropdown-item" href="../tech-guide/tailscale.html">
  <span class="dropdown-text">Tailscale</span></a>
   </li>  
     </ul>
@@ -127,33 +162,33 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-rチュートリアル">    
         <li>
-    <a class="dropdown-item" href="./r-tutorial/index.html">
+    <a class="dropdown-item" href="../r-tutorial/index.html">
  <span class="dropdown-text">はじめに</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./r-tutorial/r-basics.html">
+    <a class="dropdown-item" href="../r-tutorial/r-basics.html">
  <span class="dropdown-text">Rの基礎</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./r-tutorial/data-handling.html">
+    <a class="dropdown-item" href="../r-tutorial/data-handling.html">
  <span class="dropdown-text">データの読み込み</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./r-tutorial/tidyverse.html">
+    <a class="dropdown-item" href="../r-tutorial/tidyverse.html">
  <span class="dropdown-text">tidyverse入門</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./r-tutorial/visualization.html">
+    <a class="dropdown-item" href="../r-tutorial/visualization.html">
  <span class="dropdown-text">可視化ギャラリー</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="./members.html"> 
+    <a class="nav-link" href="../members.html"> 
 <span class="menu-text">メンバー</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./feedback.html"> 
+    <a class="nav-link" href="../feedback.html"> 
 <span class="menu-text">フィードバック</span></a>
   </li>  
 </ul>
@@ -172,13 +207,22 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">目次</h2>
    
   <ul>
-  <li><a href="#このサイトについて" id="toc-このサイトについて" class="nav-link active" data-scroll-target="#このサイトについて">このサイトについて</a></li>
-  <li><a href="#コンテンツ" id="toc-コンテンツ" class="nav-link" data-scroll-target="#コンテンツ">コンテンツ</a>
+  <li><a href="#github-とは" id="toc-github-とは" class="nav-link active" data-scroll-target="#github-とは">GitHub とは</a></li>
+  <li><a href="#アカウントの作成" id="toc-アカウントの作成" class="nav-link" data-scroll-target="#アカウントの作成">アカウントの作成</a></li>
+  <li><a href="#github-desktop-のインストール" id="toc-github-desktop-のインストール" class="nav-link" data-scroll-target="#github-desktop-のインストール">GitHub Desktop のインストール</a></li>
+  <li><a href="#ssh-キーの設定rstudio-との連携" id="toc-ssh-キーの設定rstudio-との連携" class="nav-link" data-scroll-target="#ssh-キーの設定rstudio-との連携">SSH キーの設定（RStudio との連携）</a>
   <ul class="collapse">
-  <li><a href="#技術ガイド" id="toc-技術ガイド" class="nav-link" data-scroll-target="#技術ガイド">技術ガイド</a></li>
-  <li><a href="#rチュートリアル" id="toc-rチュートリアル" class="nav-link" data-scroll-target="#rチュートリアル">Rチュートリアル</a></li>
+  <li><a href="#ssh-キーの生成" id="toc-ssh-キーの生成" class="nav-link" data-scroll-target="#ssh-キーの生成">1. SSH キーの生成</a></li>
+  <li><a href="#公開鍵のコピー" id="toc-公開鍵のコピー" class="nav-link" data-scroll-target="#公開鍵のコピー">2. 公開鍵のコピー</a></li>
+  <li><a href="#github-に登録" id="toc-github-に登録" class="nav-link" data-scroll-target="#github-に登録">3. GitHub に登録</a></li>
+  <li><a href="#git-の初期設定" id="toc-git-の初期設定" class="nav-link" data-scroll-target="#git-の初期設定">4. Git の初期設定</a></li>
   </ul></li>
-  <li><a href="#対象者" id="toc-対象者" class="nav-link" data-scroll-target="#対象者">対象者</a></li>
+  <li><a href="#リポジトリのクローン" id="toc-リポジトリのクローン" class="nav-link" data-scroll-target="#リポジトリのクローン">リポジトリのクローン</a>
+  <ul class="collapse">
+  <li><a href="#rstudio-から" id="toc-rstudio-から" class="nav-link" data-scroll-target="#rstudio-から">RStudio から</a></li>
+  <li><a href="#github-desktop-から" id="toc-github-desktop-から" class="nav-link" data-scroll-target="#github-desktop-から">GitHub Desktop から</a></li>
+  </ul></li>
+  <li><a href="#基本的なワークフロー" id="toc-基本的なワークフロー" class="nav-link" data-scroll-target="#基本的なワークフロー">基本的なワークフロー</a></li>
   </ul>
 </nav>
     </div>
@@ -187,7 +231,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Kosugi Labo</h1>
+<h1 class="title">GitHub のセットアップ</h1>
 </div>
 
 
@@ -204,42 +248,101 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="このサイトについて" class="level2">
-<h2 class="anchored" data-anchor-id="このサイトについて">このサイトについて</h2>
-<p>小杉ゼミで使用するツールのセットアップ方法や、R/統計分析のチュートリアルをまとめたサイトです。</p>
+<section id="github-とは" class="level2">
+<h2 class="anchored" data-anchor-id="github-とは">GitHub とは</h2>
+<p>GitHub はバージョン管理システム Git をインターネット上で利用できるようにしたサービスです。卒論に関するデータ、プログラム、日々の議事録や論文そのものなど、加筆修正するファイルをこのシステム上で管理すると、喪失することがなくなるので便利です。</p>
 </section>
-<section id="コンテンツ" class="level2">
-<h2 class="anchored" data-anchor-id="コンテンツ">コンテンツ</h2>
-<section id="技術ガイド" class="level3">
-<h3 class="anchored" data-anchor-id="技術ガイド">技術ガイド</h3>
-<p>研究に必要な環境構築の手順書です。</p>
+<section id="アカウントの作成" class="level2">
+<h2 class="anchored" data-anchor-id="アカウントの作成">アカウントの作成</h2>
+<ol type="1">
+<li><a href="https://github.com/">GitHub</a> にアクセス</li>
+<li>「Sign up」をクリック</li>
+<li>メールアドレス、パスワード、ユーザー名を設定
 <ul>
-<li><a href="./tech-guide/github-setup.html">GitHub のセットアップ</a>：アカウント作成からSSH接続まで</li>
-<li><a href="./tech-guide/vscode-setup.html">VSCode のセットアップ</a>：インストールと拡張機能の導入</li>
-<li><a href="./tech-guide/latex-setup.html">LaTeX 環境構築</a>：TeX LiveとVSCodeでの執筆環境</li>
-<li><a href="./tech-guide/ssh-remote.html">SSH でリモート接続</a>：VSCodeからサーバに接続して作業する方法</li>
-<li><a href="./tech-guide/tailscale.html">Tailscale の導入</a>：学外からサーバに接続する方法</li>
-</ul>
+<li>メールアドレスは <code>@psy.senshu-u.ac.jp</code> を推奨</li>
+</ul></li>
+<li>アカウント作成後、メールで届く確認リンクをクリック</li>
+</ol>
 </section>
-<section id="rチュートリアル" class="level3">
-<h3 class="anchored" data-anchor-id="rチュートリアル">Rチュートリアル</h3>
-<p>データ分析・可視化の技術を学ぶ教材です。</p>
+<section id="github-desktop-のインストール" class="level2">
+<h2 class="anchored" data-anchor-id="github-desktop-のインストール">GitHub Desktop のインストール</h2>
+<p>GitHub Desktop は GitHub を GUI で操作できるアプリケーションです。</p>
+<ol type="1">
+<li><a href="https://desktop.github.com/">GitHub Desktop</a> にアクセス</li>
+<li>自分の OS に合ったバージョンをダウンロード</li>
+<li>インストール後、GitHub アカウントでログイン</li>
+</ol>
+</section>
+<section id="ssh-キーの設定rstudio-との連携" class="level2">
+<h2 class="anchored" data-anchor-id="ssh-キーの設定rstudio-との連携">SSH キーの設定（RStudio との連携）</h2>
+<p>RStudio から GitHub にアクセスするために SSH キーを設定します。</p>
+<section id="ssh-キーの生成" class="level3">
+<h3 class="anchored" data-anchor-id="ssh-キーの生成">1. SSH キーの生成</h3>
+<p>RStudio で Tools &gt; Global Options &gt; Git/SVN を開き、「Create SSH Key…」をクリックします。</p>
 <ul>
-<li><a href="./r-tutorial/index.html">はじめに</a>：この教材の使い方</li>
-<li><a href="./r-tutorial/r-basics.html">Rの基礎</a>：計算、オブジェクト、関数</li>
-<li><a href="./r-tutorial/data-handling.html">データの読み込み</a>：CSVファイルの読み込みとデータ確認</li>
-<li><a href="./r-tutorial/tidyverse.html">tidyverse入門</a>：効率的なデータ整形</li>
-<li><a href="./r-tutorial/visualization.html">可視化ギャラリー</a>：ggplot2で描ける様々な図</li>
+<li>Key type: ED25519（デフォルト）</li>
+<li>Passphrase: 空欄でも OK</li>
 </ul>
+<p>「Create」をクリックすると、SSH キーが生成されます。</p>
+</section>
+<section id="公開鍵のコピー" class="level3">
+<h3 class="anchored" data-anchor-id="公開鍵のコピー">2. 公開鍵のコピー</h3>
+<p>同じ画面で「View public key」をクリックし、表示された文字列をすべてコピーします。</p>
+</section>
+<section id="github-に登録" class="level3">
+<h3 class="anchored" data-anchor-id="github-に登録">3. GitHub に登録</h3>
+<ol type="1">
+<li>GitHub にログイン</li>
+<li>右上のアイコン → Settings → SSH and GPG keys</li>
+<li>「New SSH key」をクリック</li>
+<li>Title に任意の名前（例：<code>MacBook Pro</code>）</li>
+<li>Key に先ほどコピーした公開鍵を貼り付け</li>
+<li>「Add SSH key」をクリック</li>
+</ol>
+</section>
+<section id="git-の初期設定" class="level3">
+<h3 class="anchored" data-anchor-id="git-の初期設定">4. Git の初期設定</h3>
+<p>RStudio のコンソールで以下を実行します（自分の情報に置き換えてください）：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># usethis パッケージのインストール（初回のみ）</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"usethis"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ユーザー名とメールアドレスの設定</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_git_config</span>(</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">user.name =</span> <span class="st">"あなたの名前"</span>,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">user.email =</span> <span class="st">"あなたのメールアドレス"</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
-<section id="対象者" class="level2">
-<h2 class="anchored" data-anchor-id="対象者">対象者</h2>
-<ul>
-<li>小杉ゼミのゼミ生</li>
-<li>統計解析・論文執筆の環境を整えたい方</li>
-<li>Rでのデータ分析を学びたい方</li>
-</ul>
+<section id="リポジトリのクローン" class="level2">
+<h2 class="anchored" data-anchor-id="リポジトリのクローン">リポジトリのクローン</h2>
+<section id="rstudio-から" class="level3">
+<h3 class="anchored" data-anchor-id="rstudio-から">RStudio から</h3>
+<ol type="1">
+<li>File &gt; New Project &gt; Version Control &gt; Git</li>
+<li>Repository URL に SSH アドレス（<code>git@github.com:...</code>）を入力</li>
+<li>プロジェクトを保存する場所を指定</li>
+<li>「Create Project」をクリック</li>
+</ol>
+</section>
+<section id="github-desktop-から" class="level3">
+<h3 class="anchored" data-anchor-id="github-desktop-から">GitHub Desktop から</h3>
+<ol type="1">
+<li>File &gt; Clone repository</li>
+<li>URL タブでリポジトリの URL を入力</li>
+<li>Local path でクローン先を指定</li>
+<li>「Clone」をクリック</li>
+</ol>
+</section>
+</section>
+<section id="基本的なワークフロー" class="level2">
+<h2 class="anchored" data-anchor-id="基本的なワークフロー">基本的なワークフロー</h2>
+<ol type="1">
+<li><strong>Pull</strong>：GitHub 上の最新の変更を取得</li>
+<li><strong>作業</strong>：ファイルの編集・作成</li>
+<li><strong>Commit</strong>：変更をローカルに記録</li>
+<li><strong>Push</strong>：変更を GitHub に送信</li>
+</ol>
+<p>この順序を守ることで、チームでの共同作業もスムーズに行えます。</p>
 
 
 </section>

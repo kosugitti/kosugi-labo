@@ -1,0 +1,233 @@
+---
+title: "可視化ギャラリー"
+---
+
+```{r}
+#| include: false
+library(tidyverse)
+theme_set(theme_minimal(base_family = "HiraginoSans-W3"))
+```
+
+この章では、ggplot2で描ける様々な図を紹介します。「こんな図を描きたい！」と思ったら、対応するコードを参考にしてください。
+
+## ggplot2の基本構造
+
+```r
+ggplot(data, aes(x = 変数1, y = 変数2)) +
+  geom_xxx()  # 図の種類
+```
+
+- `data`：使用するデータフレーム
+- `aes()`：軸や色などの「見た目」と変数の対応
+- `geom_xxx()`：図の種類（点、線、棒など）
+
+## 散布図
+
+2つの連続変数の関係を見る。
+
+```{r}
+#| fig-width: 6
+#| fig-height: 4
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  labs(x = "排気量", y = "燃費（高速）", title = "散布図の例")
+```
+
+### グループで色分け
+
+```{r}
+#| fig-width: 7
+#| fig-height: 4
+ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
+  geom_point() +
+  labs(x = "排気量", y = "燃費（高速）", color = "車種")
+```
+
+### 回帰直線を追加
+
+```{r}
+#| fig-width: 6
+#| fig-height: 4
+#| message: false
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(x = "排気量", y = "燃費（高速）")
+```
+
+## ヒストグラム
+
+連続変数の分布を見る。
+
+```{r}
+#| fig-width: 6
+#| fig-height: 4
+#| message: false
+ggplot(mpg, aes(x = hwy)) +
+  geom_histogram() +
+  labs(x = "燃費（高速）", y = "度数", title = "ヒストグラムの例")
+```
+
+### ビン幅を指定
+
+```{r}
+#| fig-width: 6
+#| fig-height: 4
+ggplot(mpg, aes(x = hwy)) +
+  geom_histogram(binwidth = 2, fill = "steelblue", color = "white") +
+  labs(x = "燃費（高速）", y = "度数")
+```
+
+## 密度プロット
+
+分布を滑らかな曲線で表す。
+
+```{r}
+#| fig-width: 6
+#| fig-height: 4
+ggplot(mpg, aes(x = hwy)) +
+  geom_density(fill = "steelblue", alpha = 0.5) +
+  labs(x = "燃費（高速）", y = "密度")
+```
+
+### グループで比較
+
+```{r}
+#| fig-width: 7
+#| fig-height: 4
+ggplot(mpg, aes(x = hwy, fill = drv)) +
+  geom_density(alpha = 0.5) +
+  labs(x = "燃費（高速）", y = "密度", fill = "駆動方式")
+```
+
+## 棒グラフ
+
+カテゴリごとの度数や集計値を表す。
+
+### 度数
+
+```{r}
+#| fig-width: 6
+#| fig-height: 4
+ggplot(mpg, aes(x = class)) +
+  geom_bar() +
+  labs(x = "車種", y = "台数")
+```
+
+### 集計値
+
+```{r}
+#| fig-width: 6
+#| fig-height: 4
+mpg |>
+  group_by(class) |>
+  summarize(mean_hwy = mean(hwy)) |>
+  ggplot(aes(x = reorder(class, mean_hwy), y = mean_hwy)) +
+  geom_col(fill = "steelblue") +
+  labs(x = "車種", y = "平均燃費（高速）") +
+  coord_flip()
+```
+
+## 箱ひげ図
+
+グループ間の分布を比較。
+
+```{r}
+#| fig-width: 7
+#| fig-height: 4
+ggplot(mpg, aes(x = class, y = hwy)) +
+  geom_boxplot() +
+  labs(x = "車種", y = "燃費（高速）")
+```
+
+## バイオリンプロット
+
+箱ひげ図＋分布の形状。
+
+```{r}
+#| fig-width: 7
+#| fig-height: 4
+ggplot(mpg, aes(x = class, y = hwy)) +
+  geom_violin(fill = "steelblue", alpha = 0.5) +
+  geom_boxplot(width = 0.1) +
+  labs(x = "車種", y = "燃費（高速）")
+```
+
+## 折れ線グラフ
+
+時系列や順序のあるデータ。
+
+```{r}
+#| fig-width: 7
+#| fig-height: 4
+economics |>
+  ggplot(aes(x = date, y = unemploy)) +
+  geom_line() +
+  labs(x = "年", y = "失業者数（千人）", title = "アメリカの失業者数推移")
+```
+
+## ファセット（小さな複数グラフ）
+
+グループごとに別々のパネルで表示。
+
+```{r}
+#| fig-width: 8
+#| fig-height: 6
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  facet_wrap(~ class) +
+  labs(x = "排気量", y = "燃費（高速）")
+```
+
+## ヒートマップ
+
+2つのカテゴリ変数のクロス集計。
+
+```{r}
+#| fig-width: 7
+#| fig-height: 5
+mpg |>
+  count(class, drv) |>
+  ggplot(aes(x = drv, y = class, fill = n)) +
+  geom_tile() +
+  geom_text(aes(label = n), color = "white") +
+  scale_fill_viridis_c() +
+  labs(x = "駆動方式", y = "車種", fill = "台数")
+```
+
+## 相関行列
+
+```{r}
+#| fig-width: 6
+#| fig-height: 5
+#| message: false
+mtcars |>
+  select(mpg, cyl, disp, hp, wt) |>
+  cor() |>
+  as.data.frame() |>
+  rownames_to_column("var1") |>
+  pivot_longer(-var1, names_to = "var2", values_to = "cor") |>
+  ggplot(aes(x = var1, y = var2, fill = cor)) +
+  geom_tile() +
+  geom_text(aes(label = round(cor, 2))) +
+  scale_fill_gradient2(low = "blue", mid = "white", high = "red", midpoint = 0) +
+  labs(x = "", y = "", fill = "相関係数") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+## 図の保存
+
+```r
+# 最後に描いた図を保存
+ggsave("figure.png", width = 6, height = 4, dpi = 300)
+
+# 特定の図を保存
+p <- ggplot(mpg, aes(x = displ, y = hwy)) + geom_point()
+ggsave("scatter.pdf", plot = p, width = 6, height = 4)
+```
+
+## 次のステップ
+
+- [R Graph Gallery](https://r-graph-gallery.com/)：様々な図のコード例
+- [ggplot2公式リファレンス](https://ggplot2.tidyverse.org/reference/)
+- [Data to Viz](https://www.data-to-viz.com/)：データの種類から適切な図を選ぶ

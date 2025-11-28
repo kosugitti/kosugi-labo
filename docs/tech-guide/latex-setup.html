@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Kosugi Labo</title>
+<title>LaTeX 環境構築 – Kosugi Labo</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,27 +20,62 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-a25750924116104412f7a457768fb952.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-a25750924116104412f7a457768fb952.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -70,7 +105,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -80,7 +115,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Kosugi Labo</span>
     </a>
   </div>
@@ -91,7 +126,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">ホーム</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -100,23 +135,23 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-">    
         <li>
-    <a class="dropdown-item" href="./tech-guide/github-setup.html">
+    <a class="dropdown-item" href="../tech-guide/github-setup.html">
  <span class="dropdown-text">GitHub</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./tech-guide/vscode-setup.html">
+    <a class="dropdown-item" href="../tech-guide/vscode-setup.html">
  <span class="dropdown-text">VSCode</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./tech-guide/latex-setup.html">
+    <a class="dropdown-item" href="../tech-guide/latex-setup.html">
  <span class="dropdown-text">LaTeX</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./tech-guide/ssh-remote.html">
+    <a class="dropdown-item" href="../tech-guide/ssh-remote.html">
  <span class="dropdown-text">SSH接続</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./tech-guide/tailscale.html">
+    <a class="dropdown-item" href="../tech-guide/tailscale.html">
  <span class="dropdown-text">Tailscale</span></a>
   </li>  
     </ul>
@@ -127,33 +162,33 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-rチュートリアル">    
         <li>
-    <a class="dropdown-item" href="./r-tutorial/index.html">
+    <a class="dropdown-item" href="../r-tutorial/index.html">
  <span class="dropdown-text">はじめに</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./r-tutorial/r-basics.html">
+    <a class="dropdown-item" href="../r-tutorial/r-basics.html">
  <span class="dropdown-text">Rの基礎</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./r-tutorial/data-handling.html">
+    <a class="dropdown-item" href="../r-tutorial/data-handling.html">
  <span class="dropdown-text">データの読み込み</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./r-tutorial/tidyverse.html">
+    <a class="dropdown-item" href="../r-tutorial/tidyverse.html">
  <span class="dropdown-text">tidyverse入門</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./r-tutorial/visualization.html">
+    <a class="dropdown-item" href="../r-tutorial/visualization.html">
  <span class="dropdown-text">可視化ギャラリー</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="./members.html"> 
+    <a class="nav-link" href="../members.html"> 
 <span class="menu-text">メンバー</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./feedback.html"> 
+    <a class="nav-link" href="../feedback.html"> 
 <span class="menu-text">フィードバック</span></a>
   </li>  
 </ul>
@@ -172,13 +207,20 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">目次</h2>
    
   <ul>
-  <li><a href="#このサイトについて" id="toc-このサイトについて" class="nav-link active" data-scroll-target="#このサイトについて">このサイトについて</a></li>
-  <li><a href="#コンテンツ" id="toc-コンテンツ" class="nav-link" data-scroll-target="#コンテンツ">コンテンツ</a>
+  <li><a href="#latex-とは" id="toc-latex-とは" class="nav-link active" data-scroll-target="#latex-とは">LaTeX とは</a></li>
+  <li><a href="#tex-live-のインストール" id="toc-tex-live-のインストール" class="nav-link" data-scroll-target="#tex-live-のインストール">TeX Live のインストール</a>
   <ul class="collapse">
-  <li><a href="#技術ガイド" id="toc-技術ガイド" class="nav-link" data-scroll-target="#技術ガイド">技術ガイド</a></li>
-  <li><a href="#rチュートリアル" id="toc-rチュートリアル" class="nav-link" data-scroll-target="#rチュートリアル">Rチュートリアル</a></li>
+  <li><a href="#windows" id="toc-windows" class="nav-link" data-scroll-target="#windows">Windows</a></li>
+  <li><a href="#macos" id="toc-macos" class="nav-link" data-scroll-target="#macos">macOS</a></li>
   </ul></li>
-  <li><a href="#対象者" id="toc-対象者" class="nav-link" data-scroll-target="#対象者">対象者</a></li>
+  <li><a href="#vscode-での-latex-執筆" id="toc-vscode-での-latex-執筆" class="nav-link" data-scroll-target="#vscode-での-latex-執筆">VSCode での LaTeX 執筆</a>
+  <ul class="collapse">
+  <li><a href="#latex-workshop-のインストール" id="toc-latex-workshop-のインストール" class="nav-link" data-scroll-target="#latex-workshop-のインストール">LaTeX Workshop のインストール</a></li>
+  <li><a href="#lualatex-の設定" id="toc-lualatex-の設定" class="nav-link" data-scroll-target="#lualatex-の設定">LuaLaTeX の設定</a></li>
+  <li><a href="#基本的な使い方" id="toc-基本的な使い方" class="nav-link" data-scroll-target="#基本的な使い方">基本的な使い方</a></li>
+  </ul></li>
+  <li><a href="#簡単な-latex-文書" id="toc-簡単な-latex-文書" class="nav-link" data-scroll-target="#簡単な-latex-文書">簡単な LaTeX 文書</a></li>
+  <li><a href="#参考リンク" id="toc-参考リンク" class="nav-link" data-scroll-target="#参考リンク">参考リンク</a></li>
   </ul>
 </nav>
     </div>
@@ -187,7 +229,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Kosugi Labo</h1>
+<h1 class="title">LaTeX 環境構築</h1>
 </div>
 
 
@@ -204,41 +246,135 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="このサイトについて" class="level2">
-<h2 class="anchored" data-anchor-id="このサイトについて">このサイトについて</h2>
-<p>小杉ゼミで使用するツールのセットアップ方法や、R/統計分析のチュートリアルをまとめたサイトです。</p>
+<section id="latex-とは" class="level2">
+<h2 class="anchored" data-anchor-id="latex-とは">LaTeX とは</h2>
+<p>LaTeX は論文執筆のための組版システムです。数式の美しい表現、参考文献の自動管理、構造化された文書作成が可能で、学術論文の執筆には欠かせません。</p>
 </section>
-<section id="コンテンツ" class="level2">
-<h2 class="anchored" data-anchor-id="コンテンツ">コンテンツ</h2>
-<section id="技術ガイド" class="level3">
-<h3 class="anchored" data-anchor-id="技術ガイド">技術ガイド</h3>
-<p>研究に必要な環境構築の手順書です。</p>
+<section id="tex-live-のインストール" class="level2">
+<h2 class="anchored" data-anchor-id="tex-live-のインストール">TeX Live のインストール</h2>
+<p>LaTeX を使うには、まず TeX Live というディストリビューションをインストールします。</p>
+<section id="windows" class="level3">
+<h3 class="anchored" data-anchor-id="windows">Windows</h3>
+<ol type="1">
+<li><a href="https://www.tug.org/texlive/">TeX Live</a> にアクセス</li>
+<li>「install-tl-windows.exe」をダウンロード</li>
+<li>インストーラを実行</li>
+<li>「フルインストール」を選択（推奨）</li>
+</ol>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">警告</span>時間がかかります
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>フルインストールには数時間かかることがあります。時間に余裕のあるときに行ってください。</p>
+</div>
+</div>
+</section>
+<section id="macos" class="level3">
+<h3 class="anchored" data-anchor-id="macos">macOS</h3>
+<section id="homebrew-を使う場合推奨" class="level4">
+<h4 class="anchored" data-anchor-id="homebrew-を使う場合推奨">Homebrew を使う場合（推奨）</h4>
+<p>ターミナルで以下を実行：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install <span class="at">--cask</span> mactex</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="手動インストール" class="level4">
+<h4 class="anchored" data-anchor-id="手動インストール">手動インストール</h4>
+<ol type="1">
+<li><a href="https://www.tug.org/mactex/">MacTeX</a> にアクセス</li>
+<li>「MacTeX.pkg」をダウンロード</li>
+<li>インストーラを実行</li>
+</ol>
+</section>
+</section>
+</section>
+<section id="vscode-での-latex-執筆" class="level2">
+<h2 class="anchored" data-anchor-id="vscode-での-latex-執筆">VSCode での LaTeX 執筆</h2>
+<section id="latex-workshop-のインストール" class="level3">
+<h3 class="anchored" data-anchor-id="latex-workshop-のインストール">LaTeX Workshop のインストール</h3>
+<ol type="1">
+<li>VSCode の拡張機能から「LaTeX Workshop」を検索</li>
+<li>インストール</li>
+</ol>
+</section>
+<section id="lualatex-の設定" class="level3">
+<h3 class="anchored" data-anchor-id="lualatex-の設定">LuaLaTeX の設定</h3>
+<p>日本語を含む文書をコンパイルするには、LuaLaTeX を使用します。</p>
+<p>VSCode の設定（<code>settings.json</code>）に以下を追加：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"latex-workshop.latex.tools"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"name"</span><span class="fu">:</span> <span class="st">"lualatex"</span><span class="fu">,</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"command"</span><span class="fu">:</span> <span class="st">"lualatex"</span><span class="fu">,</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"args"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">"-synctex=1"</span><span class="ot">,</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">"-interaction=nonstopmode"</span><span class="ot">,</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">"-file-line-error"</span><span class="ot">,</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">"%DOC%"</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"name"</span><span class="fu">:</span> <span class="st">"biber"</span><span class="fu">,</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"command"</span><span class="fu">:</span> <span class="st">"biber"</span><span class="fu">,</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"args"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        <span class="st">"%DOCFILE%"</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"latex-workshop.latex.recipes"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"name"</span><span class="fu">:</span> <span class="st">"lualatex"</span><span class="fu">,</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"tools"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"lualatex"</span><span class="ot">]</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"name"</span><span class="fu">:</span> <span class="st">"lualatex -&gt; biber -&gt; lualatex*2"</span><span class="fu">,</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"tools"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"lualatex"</span><span class="ot">,</span> <span class="st">"biber"</span><span class="ot">,</span> <span class="st">"lualatex"</span><span class="ot">,</span> <span class="st">"lualatex"</span><span class="ot">]</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"latex-workshop.latex.recipe.default"</span><span class="fu">:</span> <span class="st">"lualatex"</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="基本的な使い方" class="level3">
+<h3 class="anchored" data-anchor-id="基本的な使い方">基本的な使い方</h3>
+<ol type="1">
+<li><code>.tex</code> ファイルを開く</li>
+<li>保存すると自動的にコンパイルされる（または <code>Cmd + Alt + B</code>）</li>
+<li><code>Cmd + Alt + V</code> で PDF プレビューを表示</li>
+<li>PDF 上でクリックすると、対応するソースコードにジャンプ（SyncTeX）</li>
+</ol>
+</section>
+</section>
+<section id="簡単な-latex-文書" class="level2">
+<h2 class="anchored" data-anchor-id="簡単な-latex-文書">簡単な LaTeX 文書</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode latex code-with-copy"><code class="sourceCode latex"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">\documentclass</span>{<span class="ex">ltjsarticle</span>}</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">\usepackage</span>{<span class="ex">luatexja</span>}</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">\title</span>{タイトル}</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">\author</span>{著者名}</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">\date</span>{<span class="fu">\today</span>}</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="kw">\begin</span>{<span class="ex">document</span>}</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">\maketitle</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="kw">\section</span>{はじめに}</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>ここに本文を書きます。</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>数式も書けます：</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="kw">\begin</span>{<span class="ex">equation</span>}</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="ss">  E = mc^2</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">equation</span>}</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">document</span>}</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="参考リンク" class="level2">
+<h2 class="anchored" data-anchor-id="参考リンク">参考リンク</h2>
 <ul>
-<li><a href="./tech-guide/github-setup.html">GitHub のセットアップ</a>：アカウント作成からSSH接続まで</li>
-<li><a href="./tech-guide/vscode-setup.html">VSCode のセットアップ</a>：インストールと拡張機能の導入</li>
-<li><a href="./tech-guide/latex-setup.html">LaTeX 環境構築</a>：TeX LiveとVSCodeでの執筆環境</li>
-<li><a href="./tech-guide/ssh-remote.html">SSH でリモート接続</a>：VSCodeからサーバに接続して作業する方法</li>
-<li><a href="./tech-guide/tailscale.html">Tailscale の導入</a>：学外からサーバに接続する方法</li>
-</ul>
-</section>
-<section id="rチュートリアル" class="level3">
-<h3 class="anchored" data-anchor-id="rチュートリアル">Rチュートリアル</h3>
-<p>データ分析・可視化の技術を学ぶ教材です。</p>
-<ul>
-<li><a href="./r-tutorial/index.html">はじめに</a>：この教材の使い方</li>
-<li><a href="./r-tutorial/r-basics.html">Rの基礎</a>：計算、オブジェクト、関数</li>
-<li><a href="./r-tutorial/data-handling.html">データの読み込み</a>：CSVファイルの読み込みとデータ確認</li>
-<li><a href="./r-tutorial/tidyverse.html">tidyverse入門</a>：効率的なデータ整形</li>
-<li><a href="./r-tutorial/visualization.html">可視化ギャラリー</a>：ggplot2で描ける様々な図</li>
-</ul>
-</section>
-</section>
-<section id="対象者" class="level2">
-<h2 class="anchored" data-anchor-id="対象者">対象者</h2>
-<ul>
-<li>小杉ゼミのゼミ生</li>
-<li>統計解析・論文執筆の環境を整えたい方</li>
-<li>Rでのデータ分析を学びたい方</li>
+<li><a href="https://texwiki.texjp.org/?LaTeX%E5%85%A5%E9%96%80">LaTeX入門</a></li>
+<li><a href="https://www.overleaf.com/">Overleaf（オンラインLaTeXエディタ）</a></li>
 </ul>
 
 

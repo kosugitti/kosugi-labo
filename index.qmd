@@ -1,24 +1,35 @@
 ---
-title: "小杉ラボ 技術ガイド"
+title: "Kosugi Labo"
 ---
 
 ## このサイトについて
 
-小杉ゼミで使用するツールのセットアップ方法や技術的なチュートリアルをまとめたサイトです。
+小杉ゼミで使用するツールのセットアップ方法や、R/統計分析のチュートリアルをまとめたサイトです。
 
 ## コンテンツ
 
-- [GitHub のセットアップ](github-setup.qmd)：アカウント作成からSSH接続まで
-- [VSCode のセットアップ](vscode-setup.qmd)：インストールと拡張機能の導入
-- [LaTeX 環境構築](latex-setup.qmd)：TeX LiveとVSCodeでの執筆環境
-- [SSH でリモート接続](ssh-remote.qmd)：VSCodeからサーバに接続して作業する方法
-- [Tailscale の導入](tailscale.qmd)：学外からサーバに接続する方法
+### 技術ガイド
+
+研究に必要な環境構築の手順書です。
+
+- [GitHub のセットアップ](tech-guide/github-setup.qmd)：アカウント作成からSSH接続まで
+- [VSCode のセットアップ](tech-guide/vscode-setup.qmd)：インストールと拡張機能の導入
+- [LaTeX 環境構築](tech-guide/latex-setup.qmd)：TeX LiveとVSCodeでの執筆環境
+- [SSH でリモート接続](tech-guide/ssh-remote.qmd)：VSCodeからサーバに接続して作業する方法
+- [Tailscale の導入](tech-guide/tailscale.qmd)：学外からサーバに接続する方法
+
+### Rチュートリアル
+
+データ分析・可視化の技術を学ぶ教材です。
+
+- [はじめに](r-tutorial/index.qmd)：この教材の使い方
+- [Rの基礎](r-tutorial/r-basics.qmd)：計算、オブジェクト、関数
+- [データの読み込み](r-tutorial/data-handling.qmd)：CSVファイルの読み込みとデータ確認
+- [tidyverse入門](r-tutorial/tidyverse.qmd)：効率的なデータ整形
+- [可視化ギャラリー](r-tutorial/visualization.qmd)：ggplot2で描ける様々な図
 
 ## 対象者
 
 - 小杉ゼミのゼミ生
 - 統計解析・論文執筆の環境を整えたい方
-
-## 更新履歴
-
-- 2025-11-28：サイト公開
+- Rでのデータ分析を学びたい方

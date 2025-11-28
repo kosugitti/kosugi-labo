@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>VSCode のセットアップ – 小杉ラボ 技術ガイド</title>
+<title>Rチュートリアル – Kosugi Labo</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,27 +20,62 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-a25750924116104412f7a457768fb952.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-a25750924116104412f7a457768fb952.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -70,7 +105,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -80,8 +115,8 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">小杉ラボ 技術ガイド</span>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Kosugi Labo</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="サーチ"></div>
@@ -91,28 +126,70 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">ホーム</span></a>
   </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">技術ガイド</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-">    
+        <li>
+    <a class="dropdown-item" href="../tech-guide/github-setup.html">
+ <span class="dropdown-text">GitHub</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tech-guide/vscode-setup.html">
+ <span class="dropdown-text">VSCode</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tech-guide/latex-setup.html">
+ <span class="dropdown-text">LaTeX</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tech-guide/ssh-remote.html">
+ <span class="dropdown-text">SSH接続</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tech-guide/tailscale.html">
+ <span class="dropdown-text">Tailscale</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-rチュートリアル" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Rチュートリアル</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-rチュートリアル">    
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/index.html">
+ <span class="dropdown-text">はじめに</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/r-basics.html">
+ <span class="dropdown-text">Rの基礎</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/data-handling.html">
+ <span class="dropdown-text">データの読み込み</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/tidyverse.html">
+ <span class="dropdown-text">tidyverse入門</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/visualization.html">
+ <span class="dropdown-text">可視化ギャラリー</span></a>
+  </li>  
+    </ul>
+  </li>
   <li class="nav-item">
-    <a class="nav-link" href="./github-setup.html"> 
-<span class="menu-text">GitHub</span></a>
+    <a class="nav-link" href="../members.html"> 
+<span class="menu-text">メンバー</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./vscode-setup.html" aria-current="page"> 
-<span class="menu-text">VSCode</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./latex-setup.html"> 
-<span class="menu-text">LaTeX</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./ssh-remote.html"> 
-<span class="menu-text">SSH接続</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./tailscale.html"> 
-<span class="menu-text">Tailscale</span></a>
+    <a class="nav-link" href="../feedback.html"> 
+<span class="menu-text">フィードバック</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -130,23 +207,15 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">目次</h2>
    
   <ul>
-  <li><a href="#visual-studio-code-とは" id="toc-visual-studio-code-とは" class="nav-link active" data-scroll-target="#visual-studio-code-とは">Visual Studio Code とは</a></li>
-  <li><a href="#インストール" id="toc-インストール" class="nav-link" data-scroll-target="#インストール">インストール</a></li>
-  <li><a href="#推奨拡張機能" id="toc-推奨拡張機能" class="nav-link" data-scroll-target="#推奨拡張機能">推奨拡張機能</a>
+  <li><a href="#この教材について" id="toc-この教材について" class="nav-link active" data-scroll-target="#この教材について">この教材について</a></li>
+  <li><a href="#目標スキル" id="toc-目標スキル" class="nav-link" data-scroll-target="#目標スキル">目標スキル</a></li>
+  <li><a href="#学習の進め方" id="toc-学習の進め方" class="nav-link" data-scroll-target="#学習の進め方">学習の進め方</a>
   <ul class="collapse">
-  <li><a href="#基本" id="toc-基本" class="nav-link" data-scroll-target="#基本">基本</a></li>
-  <li><a href="#r-関連" id="toc-r-関連" class="nav-link" data-scroll-target="#r-関連">R 関連</a></li>
-  <li><a href="#latex-関連" id="toc-latex-関連" class="nav-link" data-scroll-target="#latex-関連">LaTeX 関連</a></li>
-  <li><a href="#ai-コーディング支援" id="toc-ai-コーディング支援" class="nav-link" data-scroll-target="#ai-コーディング支援">AI コーディング支援</a></li>
-  <li><a href="#リモート開発" id="toc-リモート開発" class="nav-link" data-scroll-target="#リモート開発">リモート開発</a></li>
+  <li><a href="#ゴールベースビジョン主導型" id="toc-ゴールベースビジョン主導型" class="nav-link" data-scroll-target="#ゴールベースビジョン主導型">ゴールベース・ビジョン主導型</a></li>
+  <li><a href="#生成aiとの協働" id="toc-生成aiとの協働" class="nav-link" data-scroll-target="#生成aiとの協働">生成AIとの協働</a></li>
   </ul></li>
-  <li><a href="#基本的な使い方" id="toc-基本的な使い方" class="nav-link" data-scroll-target="#基本的な使い方">基本的な使い方</a>
-  <ul class="collapse">
-  <li><a href="#フォルダを開く" id="toc-フォルダを開く" class="nav-link" data-scroll-target="#フォルダを開く">フォルダを開く</a></li>
-  <li><a href="#ターミナル" id="toc-ターミナル" class="nav-link" data-scroll-target="#ターミナル">ターミナル</a></li>
-  <li><a href="#コマンドパレット" id="toc-コマンドパレット" class="nav-link" data-scroll-target="#コマンドパレット">コマンドパレット</a></li>
-  </ul></li>
-  <li><a href="#設定の同期" id="toc-設定の同期" class="nav-link" data-scroll-target="#設定の同期">設定の同期</a></li>
+  <li><a href="#教材の構成" id="toc-教材の構成" class="nav-link" data-scroll-target="#教材の構成">教材の構成</a></li>
+  <li><a href="#必要な環境" id="toc-必要な環境" class="nav-link" data-scroll-target="#必要な環境">必要な環境</a></li>
   </ul>
 </nav>
     </div>
@@ -155,7 +224,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">VSCode のセットアップ</h1>
+<h1 class="title">Rチュートリアル</h1>
 </div>
 
 
@@ -172,92 +241,86 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="visual-studio-code-とは" class="level2">
-<h2 class="anchored" data-anchor-id="visual-studio-code-とは">Visual Studio Code とは</h2>
-<p>Visual Studio Code（VSCode）は Microsoft が開発した無料のコードエディタです。拡張機能が豊富で、R、Python、LaTeX など様々な言語に対応しています。</p>
+<section id="この教材について" class="level2">
+<h2 class="anchored" data-anchor-id="この教材について">この教材について</h2>
+<p>この教材は、Rを使ったデータ分析・可視化の基礎を学ぶためのものです。</p>
 </section>
-<section id="インストール" class="level2">
-<h2 class="anchored" data-anchor-id="インストール">インストール</h2>
+<section id="目標スキル" class="level2">
+<h2 class="anchored" data-anchor-id="目標スキル">目標スキル</h2>
+<p>この教材を終えると、以下のことができるようになります：</p>
 <ol type="1">
-<li><a href="https://code.visualstudio.com/">Visual Studio Code</a> にアクセス</li>
-<li>自分の OS に合ったバージョンをダウンロード</li>
-<li>インストーラを実行</li>
+<li><strong>データ整形技術</strong>：自分が欲しい形にデータを整えることができる</li>
+<li><strong>tidyverseマスター</strong>：tidyverseを使った効率的なデータハンドリング</li>
+<li><strong>データ可視化技術</strong>：研究に必要な図表を自在に作成できる</li>
+<li><strong>生成AI活用力</strong>：俯瞰的ビジョンのもとで生成AIに適切な指示が出せる</li>
 </ol>
 </section>
-<section id="推奨拡張機能" class="level2">
-<h2 class="anchored" data-anchor-id="推奨拡張機能">推奨拡張機能</h2>
-<p>VSCode を起動したら、左側の拡張機能アイコン（四角が4つ）をクリックして、以下の拡張機能をインストールしてください。</p>
-<section id="基本" class="level3">
-<h3 class="anchored" data-anchor-id="基本">基本</h3>
-<ul>
-<li><strong>Japanese Language Pack for Visual Studio Code</strong>：日本語化</li>
-<li><strong>Git Graph</strong>：Git の履歴を視覚的に確認</li>
-</ul>
-</section>
-<section id="r-関連" class="level3">
-<h3 class="anchored" data-anchor-id="r-関連">R 関連</h3>
-<ul>
-<li><strong>R</strong>：R 言語のサポート</li>
-<li><strong>R Debugger</strong>：R のデバッグ機能</li>
-</ul>
-</section>
-<section id="latex-関連" class="level3">
-<h3 class="anchored" data-anchor-id="latex-関連">LaTeX 関連</h3>
-<ul>
-<li><strong>LaTeX Workshop</strong>：LaTeX の編集・コンパイル・プレビュー</li>
-</ul>
-</section>
-<section id="ai-コーディング支援" class="level3">
-<h3 class="anchored" data-anchor-id="ai-コーディング支援">AI コーディング支援</h3>
-<ul>
-<li><strong>GitHub Copilot</strong>：AI によるコード補完</li>
-<li><strong>GitHub Copilot Chat</strong>：AI とのチャット機能</li>
-</ul>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">ヒント</span>GitHub Copilot は学生無料
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>GitHub Education に登録すると、GitHub Copilot を無料で利用できます。 <a href="https://education.github.com/">GitHub Education</a> から申請してください。</p>
-</div>
-</div>
-</section>
-<section id="リモート開発" class="level3">
-<h3 class="anchored" data-anchor-id="リモート開発">リモート開発</h3>
-<ul>
-<li><strong>Remote - SSH</strong>：SSH 経由でリモートサーバに接続</li>
-<li><strong>Remote - Tunnels</strong>：トンネル経由で接続</li>
-</ul>
-</section>
-</section>
-<section id="基本的な使い方" class="level2">
-<h2 class="anchored" data-anchor-id="基本的な使い方">基本的な使い方</h2>
-<section id="フォルダを開く" class="level3">
-<h3 class="anchored" data-anchor-id="フォルダを開く">フォルダを開く</h3>
-<p>File &gt; Open Folder でプロジェクトフォルダを開きます。 VSCode ではフォルダ単位で作業するのが基本です。</p>
-</section>
-<section id="ターミナル" class="level3">
-<h3 class="anchored" data-anchor-id="ターミナル">ターミナル</h3>
-<p>View &gt; Terminal でエディタ内にターミナルを表示できます。 Git コマンドやシェルコマンドを直接実行できます。</p>
-</section>
-<section id="コマンドパレット" class="level3">
-<h3 class="anchored" data-anchor-id="コマンドパレット">コマンドパレット</h3>
-<p><code>Cmd + Shift + P</code>（Mac）または <code>Ctrl + Shift + P</code>（Windows）でコマンドパレットを開けます。 VSCode のほとんどの機能はここから呼び出せます。</p>
-</section>
-</section>
-<section id="設定の同期" class="level2">
-<h2 class="anchored" data-anchor-id="設定の同期">設定の同期</h2>
-<p>GitHub アカウントでサインインすると、設定や拡張機能を複数のデバイス間で同期できます。</p>
+<section id="学習の進め方" class="level2">
+<h2 class="anchored" data-anchor-id="学習の進め方">学習の進め方</h2>
+<section id="ゴールベースビジョン主導型" class="level3">
+<h3 class="anchored" data-anchor-id="ゴールベースビジョン主導型">ゴールベース・ビジョン主導型</h3>
+<p>この教材では、「こういう図を描きたい」「こういうデータにしたい」というゴールから逆算して学んでいきます。</p>
 <ol type="1">
-<li>左下の歯車アイコン → Turn on Settings Sync</li>
-<li>GitHub アカウントでサインイン</li>
-<li>同期する項目を選択</li>
+<li><strong>可視化ギャラリーを見る</strong> → 「こんな図が描けるんだ」という目標を知る</li>
+<li><strong>必要なデータ形式を理解する</strong> → その図を描くにはどんなデータが必要か</li>
+<li><strong>データを整形する</strong> → 手元のデータを必要な形に変える</li>
+<li><strong>実際に描いてみる</strong> → 試行錯誤しながら完成させる</li>
 </ol>
+</section>
+<section id="生成aiとの協働" class="level3">
+<h3 class="anchored" data-anchor-id="生成aiとの協働">生成AIとの協働</h3>
+<p>わからないことは積極的に生成AI（ChatGPT、Claude等）に相談してください。</p>
+<p><strong>良い質問の例：</strong></p>
+<ul>
+<li>「年齢別の平均スコアを棒グラフで描きたいのですが、どうすればいいですか？」</li>
+<li>「このエラーメッセージの意味を教えてください：〇〇」</li>
+<li>「group_by() と summarize() の違いを教えてください」</li>
+</ul>
+<p><strong>避けたほうがよい質問：</strong></p>
+<ul>
+<li>「Rがわかりません」（具体性がない）</li>
+<li>「全部やってください」（学習にならない）</li>
+</ul>
+</section>
+</section>
+<section id="教材の構成" class="level2">
+<h2 class="anchored" data-anchor-id="教材の構成">教材の構成</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>ページ</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="../r-tutorial/r-basics.html">Rの基礎</a></td>
+<td>計算、オブジェクト、関数の基本</td>
+</tr>
+<tr class="even">
+<td><a href="../r-tutorial/data-handling.html">データの読み込み</a></td>
+<td>CSVファイルを読み込んで中身を確認</td>
+</tr>
+<tr class="odd">
+<td><a href="../r-tutorial/tidyverse.html">tidyverse入門</a></td>
+<td>dplyr, tidyrを使ったデータ整形</td>
+</tr>
+<tr class="even">
+<td><a href="../r-tutorial/visualization.html">可視化ギャラリー</a></td>
+<td>ggplot2で描ける様々な図の例</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="必要な環境" class="level2">
+<h2 class="anchored" data-anchor-id="必要な環境">必要な環境</h2>
+<ul>
+<li>R（最新版推奨）</li>
+<li>RStudio または RStudio Server</li>
+<li>tidyverse パッケージ</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># tidyverseのインストール（初回のみ）</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 
 
 </section>

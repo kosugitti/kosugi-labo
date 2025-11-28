@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>SSH でリモート接続 – 小杉ラボ 技術ガイド</title>
+<title>SSH でリモート接続 – Kosugi Labo</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -58,24 +58,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-a25750924116104412f7a457768fb952.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-a25750924116104412f7a457768fb952.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -105,7 +105,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -115,8 +115,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">小杉ラボ 技術ガイド</span>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Kosugi Labo</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="サーチ"></div>
@@ -126,28 +126,70 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">ホーム</span></a>
   </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">技術ガイド</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-">    
+        <li>
+    <a class="dropdown-item" href="../tech-guide/github-setup.html">
+ <span class="dropdown-text">GitHub</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tech-guide/vscode-setup.html">
+ <span class="dropdown-text">VSCode</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tech-guide/latex-setup.html">
+ <span class="dropdown-text">LaTeX</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tech-guide/ssh-remote.html">
+ <span class="dropdown-text">SSH接続</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tech-guide/tailscale.html">
+ <span class="dropdown-text">Tailscale</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-rチュートリアル" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Rチュートリアル</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-rチュートリアル">    
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/index.html">
+ <span class="dropdown-text">はじめに</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/r-basics.html">
+ <span class="dropdown-text">Rの基礎</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/data-handling.html">
+ <span class="dropdown-text">データの読み込み</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/tidyverse.html">
+ <span class="dropdown-text">tidyverse入門</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/visualization.html">
+ <span class="dropdown-text">可視化ギャラリー</span></a>
+  </li>  
+    </ul>
+  </li>
   <li class="nav-item">
-    <a class="nav-link" href="./github-setup.html"> 
-<span class="menu-text">GitHub</span></a>
+    <a class="nav-link" href="../members.html"> 
+<span class="menu-text">メンバー</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./vscode-setup.html"> 
-<span class="menu-text">VSCode</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./latex-setup.html"> 
-<span class="menu-text">LaTeX</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link active" href="./ssh-remote.html" aria-current="page"> 
-<span class="menu-text">SSH接続</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./tailscale.html"> 
-<span class="menu-text">Tailscale</span></a>
+    <a class="nav-link" href="../feedback.html"> 
+<span class="menu-text">フィードバック</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
