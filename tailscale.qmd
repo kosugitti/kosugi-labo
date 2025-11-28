@@ -1,0 +1,111 @@
+---
+title: "Tailscale の導入"
+---
+
+## Tailscale とは
+
+Tailscale は、簡単に使える VPN サービスです。インストールするだけで、異なるネットワークにあるデバイス同士を安全に接続できます。
+
+学外から研究室のサーバに接続したい場合に便利です。
+
+## 仕組み
+
+Tailscale は WireGuard という VPN 技術をベースにしています。
+各デバイスに Tailscale をインストールすると、それらが同じ仮想ネットワーク（Tailnet）に参加し、直接通信できるようになります。
+
+```
+自宅PC ─────┐
+            │
+スマホ ─────┼──── Tailnet ──── 研究室サーバ
+            │
+大学PC ─────┘
+```
+
+## インストール
+
+### Windows / macOS
+
+1. [Tailscale](https://tailscale.com/download) にアクセス
+2. 自分の OS 用のインストーラをダウンロード
+3. インストール後、ログイン（Google / Microsoft / GitHub アカウントが使えます）
+
+### iOS / Android
+
+App Store または Google Play から「Tailscale」をインストール。
+
+### Linux（サーバ側）
+
+```bash
+curl -fsSL https://tailscale.com/install.sh | sh
+sudo tailscale up
+```
+
+表示される URL にアクセスして認証します。
+
+## 初期設定
+
+### 1. アカウント作成
+
+Tailscale を初めて起動すると、ログイン画面が表示されます。
+Google、Microsoft、GitHub などのアカウントでログインできます。
+
+::: {.callout-note}
+## ゼミでの利用
+ゼミで Tailscale を利用する場合は、小杉から招待を送ります。
+招待メールのリンクからチームに参加してください。
+:::
+
+### 2. デバイスの確認
+
+ログイン後、[Tailscale Admin Console](https://login.tailscale.com/admin/machines) で接続中のデバイスを確認できます。
+
+各デバイスには `100.x.x.x` 形式の IP アドレスが割り当てられます。
+
+## 使い方
+
+### サーバへの接続
+
+Tailscale が起動している状態で、サーバの Tailscale IP アドレスを使って SSH 接続します。
+
+```bash
+ssh ユーザー名@100.x.x.x
+```
+
+または、VSCode の Remote-SSH で接続：
+
+`~/.ssh/config` に追加：
+
+```
+Host server-tailscale
+    HostName 100.x.x.x
+    User ユーザー名
+```
+
+### RStudio Server への接続
+
+ブラウザで `http://100.x.x.x:8787` にアクセスすると、RStudio Server のログイン画面が表示されます。
+
+## セキュリティ
+
+- 通信は WireGuard で暗号化されています
+- Tailscale にログインしたデバイスのみが Tailnet 内のデバイスにアクセスできます
+- 不要になったデバイスは Admin Console から削除できます
+
+## トラブルシューティング
+
+### 接続できない
+
+1. Tailscale が起動しているか確認（メニューバー/タスクバーのアイコン）
+2. 相手のデバイスも Tailscale が起動しているか確認
+3. Admin Console で両方のデバイスが「Connected」になっているか確認
+
+### 接続が遅い
+
+- Tailscale は可能な場合、デバイス間で直接通信（Direct）します
+- 直接通信できない場合、リレーサーバ経由（Relayed）になり、速度が低下することがあります
+- Admin Console でルート状況を確認できます
+
+## 参考リンク
+
+- [Tailscale 公式ドキュメント](https://tailscale.com/kb/)
+- [Tailscale Admin Console](https://login.tailscale.com/admin/machines)

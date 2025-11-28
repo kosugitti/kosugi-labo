@@ -1,0 +1,73 @@
+---
+title: "VSCode のセットアップ"
+---
+
+## Visual Studio Code とは
+
+Visual Studio Code（VSCode）は Microsoft が開発した無料のコードエディタです。拡張機能が豊富で、R、Python、LaTeX など様々な言語に対応しています。
+
+## インストール
+
+1. [Visual Studio Code](https://code.visualstudio.com/) にアクセス
+2. 自分の OS に合ったバージョンをダウンロード
+3. インストーラを実行
+
+## 推奨拡張機能
+
+VSCode を起動したら、左側の拡張機能アイコン（四角が4つ）をクリックして、以下の拡張機能をインストールしてください。
+
+### 基本
+
+- **Japanese Language Pack for Visual Studio Code**：日本語化
+- **Git Graph**：Git の履歴を視覚的に確認
+
+### R 関連
+
+- **R**：R 言語のサポート
+- **R Debugger**：R のデバッグ機能
+
+### LaTeX 関連
+
+- **LaTeX Workshop**：LaTeX の編集・コンパイル・プレビュー
+
+### AI コーディング支援
+
+- **GitHub Copilot**：AI によるコード補完
+- **GitHub Copilot Chat**：AI とのチャット機能
+
+::: {.callout-tip}
+## GitHub Copilot は学生無料
+
+GitHub Education に登録すると、GitHub Copilot を無料で利用できます。
+[GitHub Education](https://education.github.com/) から申請してください。
+:::
+
+### リモート開発
+
+- **Remote - SSH**：SSH 経由でリモートサーバに接続
+- **Remote - Tunnels**：トンネル経由で接続
+
+## 基本的な使い方
+
+### フォルダを開く
+
+File > Open Folder でプロジェクトフォルダを開きます。
+VSCode ではフォルダ単位で作業するのが基本です。
+
+### ターミナル
+
+View > Terminal でエディタ内にターミナルを表示できます。
+Git コマンドやシェルコマンドを直接実行できます。
+
+### コマンドパレット
+
+`Cmd + Shift + P`（Mac）または `Ctrl + Shift + P`（Windows）でコマンドパレットを開けます。
+VSCode のほとんどの機能はここから呼び出せます。
+
+## 設定の同期
+
+GitHub アカウントでサインインすると、設定や拡張機能を複数のデバイス間で同期できます。
+
+1. 左下の歯車アイコン → Turn on Settings Sync
+2. GitHub アカウントでサインイン
+3. 同期する項目を選択

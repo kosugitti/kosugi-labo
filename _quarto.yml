@@ -1,0 +1,31 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "小杉ラボ 技術ガイド"
+  navbar:
+    left:
+      - href: index.qmd
+        text: ホーム
+      - href: github-setup.qmd
+        text: GitHub
+      - href: vscode-setup.qmd
+        text: VSCode
+      - href: latex-setup.qmd
+        text: LaTeX
+      - href: ssh-remote.qmd
+        text: SSH接続
+      - href: tailscale.qmd
+        text: Tailscale
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    toc-depth: 3
+    lang: ja
+
+execute:
+  freeze: auto

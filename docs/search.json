@@ -1,0 +1,282 @@
+[
+  {
+    "objectID": "tailscale.html",
+    "href": "tailscale.html",
+    "title": "Tailscale の導入",
+    "section": "",
+    "text": "Tailscale は、簡単に使える VPN サービスです。インストールするだけで、異なるネットワークにあるデバイス同士を安全に接続できます。\n学外から研究室のサーバに接続したい場合に便利です。"
+  },
+  {
+    "objectID": "tailscale.html#tailscale-とは",
+    "href": "tailscale.html#tailscale-とは",
+    "title": "Tailscale の導入",
+    "section": "",
+    "text": "Tailscale は、簡単に使える VPN サービスです。インストールするだけで、異なるネットワークにあるデバイス同士を安全に接続できます。\n学外から研究室のサーバに接続したい場合に便利です。"
+  },
+  {
+    "objectID": "tailscale.html#仕組み",
+    "href": "tailscale.html#仕組み",
+    "title": "Tailscale の導入",
+    "section": "仕組み",
+    "text": "仕組み\nTailscale は WireGuard という VPN 技術をベースにしています。 各デバイスに Tailscale をインストールすると、それらが同じ仮想ネットワーク（Tailnet）に参加し、直接通信できるようになります。\n自宅PC ─────┐\n            │\nスマホ ─────┼──── Tailnet ──── 研究室サーバ\n            │\n大学PC ─────┘"
+  },
+  {
+    "objectID": "tailscale.html#インストール",
+    "href": "tailscale.html#インストール",
+    "title": "Tailscale の導入",
+    "section": "インストール",
+    "text": "インストール\n\nWindows / macOS\n\nTailscale にアクセス\n自分の OS 用のインストーラをダウンロード\nインストール後、ログイン（Google / Microsoft / GitHub アカウントが使えます）\n\n\n\niOS / Android\nApp Store または Google Play から「Tailscale」をインストール。\n\n\nLinux（サーバ側）\ncurl -fsSL https://tailscale.com/install.sh | sh\nsudo tailscale up\n表示される URL にアクセスして認証します。"
+  },
+  {
+    "objectID": "tailscale.html#初期設定",
+    "href": "tailscale.html#初期設定",
+    "title": "Tailscale の導入",
+    "section": "初期設定",
+    "text": "初期設定\n\n1. アカウント作成\nTailscale を初めて起動すると、ログイン画面が表示されます。 Google、Microsoft、GitHub などのアカウントでログインできます。\n\n\n\n\n\n\nノートゼミでの利用\n\n\n\nゼミで Tailscale を利用する場合は、小杉から招待を送ります。 招待メールのリンクからチームに参加してください。\n\n\n\n\n2. デバイスの確認\nログイン後、Tailscale Admin Console で接続中のデバイスを確認できます。\n各デバイスには 100.x.x.x 形式の IP アドレスが割り当てられます。"
+  },
+  {
+    "objectID": "tailscale.html#使い方",
+    "href": "tailscale.html#使い方",
+    "title": "Tailscale の導入",
+    "section": "使い方",
+    "text": "使い方\n\nサーバへの接続\nTailscale が起動している状態で、サーバの Tailscale IP アドレスを使って SSH 接続します。\nssh ユーザー名@100.x.x.x\nまたは、VSCode の Remote-SSH で接続：\n~/.ssh/config に追加：\nHost server-tailscale\n    HostName 100.x.x.x\n    User ユーザー名\n\n\nRStudio Server への接続\nブラウザで http://100.x.x.x:8787 にアクセスすると、RStudio Server のログイン画面が表示されます。"
+  },
+  {
+    "objectID": "tailscale.html#セキュリティ",
+    "href": "tailscale.html#セキュリティ",
+    "title": "Tailscale の導入",
+    "section": "セキュリティ",
+    "text": "セキュリティ\n\n通信は WireGuard で暗号化されています\nTailscale にログインしたデバイスのみが Tailnet 内のデバイスにアクセスできます\n不要になったデバイスは Admin Console から削除できます"
+  },
+  {
+    "objectID": "tailscale.html#トラブルシューティング",
+    "href": "tailscale.html#トラブルシューティング",
+    "title": "Tailscale の導入",
+    "section": "トラブルシューティング",
+    "text": "トラブルシューティング\n\n接続できない\n\nTailscale が起動しているか確認（メニューバー/タスクバーのアイコン）\n相手のデバイスも Tailscale が起動しているか確認\nAdmin Console で両方のデバイスが「Connected」になっているか確認\n\n\n\n接続が遅い\n\nTailscale は可能な場合、デバイス間で直接通信（Direct）します\n直接通信できない場合、リレーサーバ経由（Relayed）になり、速度が低下することがあります\nAdmin Console でルート状況を確認できます"
+  },
+  {
+    "objectID": "tailscale.html#参考リンク",
+    "href": "tailscale.html#参考リンク",
+    "title": "Tailscale の導入",
+    "section": "参考リンク",
+    "text": "参考リンク\n\nTailscale 公式ドキュメント\nTailscale Admin Console"
+  },
+  {
+    "objectID": "ssh-remote.html",
+    "href": "ssh-remote.html",
+    "title": "SSH でリモート接続",
+    "section": "",
+    "text": "VSCode の Remote-SSH 拡張機能を使うと、リモートサーバに SSH 接続し、まるでローカルで作業しているかのようにファイル編集やターミナル操作ができます。"
+  },
+  {
+    "objectID": "ssh-remote.html#vscode-remote-ssh-とは",
+    "href": "ssh-remote.html#vscode-remote-ssh-とは",
+    "title": "SSH でリモート接続",
+    "section": "",
+    "text": "VSCode の Remote-SSH 拡張機能を使うと、リモートサーバに SSH 接続し、まるでローカルで作業しているかのようにファイル編集やターミナル操作ができます。"
+  },
+  {
+    "objectID": "ssh-remote.html#前提条件",
+    "href": "ssh-remote.html#前提条件",
+    "title": "SSH でリモート接続",
+    "section": "前提条件",
+    "text": "前提条件\n\nVSCode がインストールされていること\nRemote-SSH 拡張機能がインストールされていること\n接続先サーバのアカウントがあること\nサーバに SSH 接続できるネットワーク環境であること"
+  },
+  {
+    "objectID": "ssh-remote.html#ssh-キーの準備",
+    "href": "ssh-remote.html#ssh-キーの準備",
+    "title": "SSH でリモート接続",
+    "section": "SSH キーの準備",
+    "text": "SSH キーの準備\nパスワード認証でも接続できますが、SSH キーを使うと毎回パスワードを入力する必要がなくなります。\n\nキーの生成（まだ持っていない場合）\nターミナルで以下を実行：\nssh-keygen -t ed25519\n\n保存場所はデフォルト（~/.ssh/id_ed25519）で OK\nパスフレーズは空欄でも OK（セキュリティを高めたい場合は設定）\n\n\n\n公開鍵をサーバに登録\nssh-copy-id ユーザー名@サーバのIPアドレス\nまたは、手動で ~/.ssh/id_ed25519.pub の内容をサーバの ~/.ssh/authorized_keys に追加します。"
+  },
+  {
+    "objectID": "ssh-remote.html#vscode-での接続",
+    "href": "ssh-remote.html#vscode-での接続",
+    "title": "SSH でリモート接続",
+    "section": "VSCode での接続",
+    "text": "VSCode での接続\n\n1. SSH 設定ファイルの作成\n~/.ssh/config ファイルに接続先の情報を記述します：\nHost myserver\n    HostName サーバのIPアドレス\n    User ユーザー名\n    IdentityFile ~/.ssh/id_ed25519\n\n\n2. 接続\n\nVSCode でコマンドパレット（Cmd + Shift + P）を開く\n「Remote-SSH: Connect to Host…」を選択\n設定したホスト名（例：myserver）を選択\n新しいウィンドウが開き、サーバに接続\n\n\n\n3. フォルダを開く\n接続後、File &gt; Open Folder でサーバ上のフォルダを開けます。"
+  },
+  {
+    "objectID": "ssh-remote.html#便利な機能",
+    "href": "ssh-remote.html#便利な機能",
+    "title": "SSH でリモート接続",
+    "section": "便利な機能",
+    "text": "便利な機能\n\nターミナル\nView &gt; Terminal でサーバ上のターミナルが使えます。 R や Python をサーバで実行できます。\n\n\nポートフォワーディング\nサーバで起動した Web アプリ（Shiny、Jupyter など）をローカルのブラウザで確認できます。\n\nサーバでアプリを起動（例：ポート 8888）\nVSCode の「PORTS」パネルで「Forward a Port」\nポート番号（8888）を入力\nローカルのブラウザで localhost:8888 にアクセス\n\n\n\n拡張機能\nリモート接続中に拡張機能をインストールすると、サーバ側にインストールされます。 R 拡張機能をインストールすれば、サーバの R 環境を使って作業できます。"
+  },
+  {
+    "objectID": "ssh-remote.html#トラブルシューティング",
+    "href": "ssh-remote.html#トラブルシューティング",
+    "title": "SSH でリモート接続",
+    "section": "トラブルシューティング",
+    "text": "トラブルシューティング\n\n接続できない\n\nサーバが起動しているか確認\nネットワーク接続を確認（VPN が必要な場合も）\nファイアウォールの設定を確認\nSSH の設定（ユーザー名、IP アドレス）を確認\n\n\n\n接続が切れる\n~/.ssh/config に以下を追加：\nHost *\n    ServerAliveInterval 60\n    ServerAliveCountMax 3"
+  },
+  {
+    "objectID": "github-setup.html",
+    "href": "github-setup.html",
+    "title": "GitHub のセットアップ",
+    "section": "",
+    "text": "GitHub はバージョン管理システム Git をインターネット上で利用できるようにしたサービスです。卒論に関するデータ、プログラム、日々の議事録や論文そのものなど、加筆修正するファイルをこのシステム上で管理すると、喪失することがなくなるので便利です。"
+  },
+  {
+    "objectID": "github-setup.html#github-とは",
+    "href": "github-setup.html#github-とは",
+    "title": "GitHub のセットアップ",
+    "section": "",
+    "text": "GitHub はバージョン管理システム Git をインターネット上で利用できるようにしたサービスです。卒論に関するデータ、プログラム、日々の議事録や論文そのものなど、加筆修正するファイルをこのシステム上で管理すると、喪失することがなくなるので便利です。"
+  },
+  {
+    "objectID": "github-setup.html#アカウントの作成",
+    "href": "github-setup.html#アカウントの作成",
+    "title": "GitHub のセットアップ",
+    "section": "アカウントの作成",
+    "text": "アカウントの作成\n\nGitHub にアクセス\n「Sign up」をクリック\nメールアドレス、パスワード、ユーザー名を設定\n\nメールアドレスは @psy.senshu-u.ac.jp を推奨\n\nアカウント作成後、メールで届く確認リンクをクリック"
+  },
+  {
+    "objectID": "github-setup.html#github-desktop-のインストール",
+    "href": "github-setup.html#github-desktop-のインストール",
+    "title": "GitHub のセットアップ",
+    "section": "GitHub Desktop のインストール",
+    "text": "GitHub Desktop のインストール\nGitHub Desktop は GitHub を GUI で操作できるアプリケーションです。\n\nGitHub Desktop にアクセス\n自分の OS に合ったバージョンをダウンロード\nインストール後、GitHub アカウントでログイン"
+  },
+  {
+    "objectID": "github-setup.html#ssh-キーの設定rstudio-との連携",
+    "href": "github-setup.html#ssh-キーの設定rstudio-との連携",
+    "title": "GitHub のセットアップ",
+    "section": "SSH キーの設定（RStudio との連携）",
+    "text": "SSH キーの設定（RStudio との連携）\nRStudio から GitHub にアクセスするために SSH キーを設定します。\n\n1. SSH キーの生成\nRStudio で Tools &gt; Global Options &gt; Git/SVN を開き、「Create SSH Key…」をクリックします。\n\nKey type: ED25519（デフォルト）\nPassphrase: 空欄でも OK\n\n「Create」をクリックすると、SSH キーが生成されます。\n\n\n2. 公開鍵のコピー\n同じ画面で「View public key」をクリックし、表示された文字列をすべてコピーします。\n\n\n3. GitHub に登録\n\nGitHub にログイン\n右上のアイコン → Settings → SSH and GPG keys\n「New SSH key」をクリック\nTitle に任意の名前（例：MacBook Pro）\nKey に先ほどコピーした公開鍵を貼り付け\n「Add SSH key」をクリック\n\n\n\n4. Git の初期設定\nRStudio のコンソールで以下を実行します（自分の情報に置き換えてください）：\n# usethis パッケージのインストール（初回のみ）\ninstall.packages(\"usethis\")\n\n# ユーザー名とメールアドレスの設定\nusethis::use_git_config(\n  user.name = \"あなたの名前\",\n  user.email = \"あなたのメールアドレス\"\n)"
+  },
+  {
+    "objectID": "github-setup.html#リポジトリのクローン",
+    "href": "github-setup.html#リポジトリのクローン",
+    "title": "GitHub のセットアップ",
+    "section": "リポジトリのクローン",
+    "text": "リポジトリのクローン\n\nRStudio から\n\nFile &gt; New Project &gt; Version Control &gt; Git\nRepository URL に SSH アドレス（git@github.com:...）を入力\nプロジェクトを保存する場所を指定\n「Create Project」をクリック\n\n\n\nGitHub Desktop から\n\nFile &gt; Clone repository\nURL タブでリポジトリの URL を入力\nLocal path でクローン先を指定\n「Clone」をクリック"
+  },
+  {
+    "objectID": "github-setup.html#基本的なワークフロー",
+    "href": "github-setup.html#基本的なワークフロー",
+    "title": "GitHub のセットアップ",
+    "section": "基本的なワークフロー",
+    "text": "基本的なワークフロー\n\nPull：GitHub 上の最新の変更を取得\n作業：ファイルの編集・作成\nCommit：変更をローカルに記録\nPush：変更を GitHub に送信\n\nこの順序を守ることで、チームでの共同作業もスムーズに行えます。"
+  },
+  {
+    "objectID": "vscode-setup.html",
+    "href": "vscode-setup.html",
+    "title": "VSCode のセットアップ",
+    "section": "",
+    "text": "Visual Studio Code（VSCode）は Microsoft が開発した無料のコードエディタです。拡張機能が豊富で、R、Python、LaTeX など様々な言語に対応しています。"
+  },
+  {
+    "objectID": "vscode-setup.html#visual-studio-code-とは",
+    "href": "vscode-setup.html#visual-studio-code-とは",
+    "title": "VSCode のセットアップ",
+    "section": "",
+    "text": "Visual Studio Code（VSCode）は Microsoft が開発した無料のコードエディタです。拡張機能が豊富で、R、Python、LaTeX など様々な言語に対応しています。"
+  },
+  {
+    "objectID": "vscode-setup.html#インストール",
+    "href": "vscode-setup.html#インストール",
+    "title": "VSCode のセットアップ",
+    "section": "インストール",
+    "text": "インストール\n\nVisual Studio Code にアクセス\n自分の OS に合ったバージョンをダウンロード\nインストーラを実行"
+  },
+  {
+    "objectID": "vscode-setup.html#推奨拡張機能",
+    "href": "vscode-setup.html#推奨拡張機能",
+    "title": "VSCode のセットアップ",
+    "section": "推奨拡張機能",
+    "text": "推奨拡張機能\nVSCode を起動したら、左側の拡張機能アイコン（四角が4つ）をクリックして、以下の拡張機能をインストールしてください。\n\n基本\n\nJapanese Language Pack for Visual Studio Code：日本語化\nGit Graph：Git の履歴を視覚的に確認\n\n\n\nR 関連\n\nR：R 言語のサポート\nR Debugger：R のデバッグ機能\n\n\n\nLaTeX 関連\n\nLaTeX Workshop：LaTeX の編集・コンパイル・プレビュー\n\n\n\nAI コーディング支援\n\nGitHub Copilot：AI によるコード補完\nGitHub Copilot Chat：AI とのチャット機能\n\n\n\n\n\n\n\nヒントGitHub Copilot は学生無料\n\n\n\nGitHub Education に登録すると、GitHub Copilot を無料で利用できます。 GitHub Education から申請してください。\n\n\n\n\nリモート開発\n\nRemote - SSH：SSH 経由でリモートサーバに接続\nRemote - Tunnels：トンネル経由で接続"
+  },
+  {
+    "objectID": "vscode-setup.html#基本的な使い方",
+    "href": "vscode-setup.html#基本的な使い方",
+    "title": "VSCode のセットアップ",
+    "section": "基本的な使い方",
+    "text": "基本的な使い方\n\nフォルダを開く\nFile &gt; Open Folder でプロジェクトフォルダを開きます。 VSCode ではフォルダ単位で作業するのが基本です。\n\n\nターミナル\nView &gt; Terminal でエディタ内にターミナルを表示できます。 Git コマンドやシェルコマンドを直接実行できます。\n\n\nコマンドパレット\nCmd + Shift + P（Mac）または Ctrl + Shift + P（Windows）でコマンドパレットを開けます。 VSCode のほとんどの機能はここから呼び出せます。"
+  },
+  {
+    "objectID": "vscode-setup.html#設定の同期",
+    "href": "vscode-setup.html#設定の同期",
+    "title": "VSCode のセットアップ",
+    "section": "設定の同期",
+    "text": "設定の同期\nGitHub アカウントでサインインすると、設定や拡張機能を複数のデバイス間で同期できます。\n\n左下の歯車アイコン → Turn on Settings Sync\nGitHub アカウントでサインイン\n同期する項目を選択"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "小杉ラボ 技術ガイド",
+    "section": "",
+    "text": "小杉ゼミで使用するツールのセットアップ方法や技術的なチュートリアルをまとめたサイトです。"
+  },
+  {
+    "objectID": "index.html#このサイトについて",
+    "href": "index.html#このサイトについて",
+    "title": "小杉ラボ 技術ガイド",
+    "section": "",
+    "text": "小杉ゼミで使用するツールのセットアップ方法や技術的なチュートリアルをまとめたサイトです。"
+  },
+  {
+    "objectID": "index.html#コンテンツ",
+    "href": "index.html#コンテンツ",
+    "title": "小杉ラボ 技術ガイド",
+    "section": "コンテンツ",
+    "text": "コンテンツ\n\nGitHub のセットアップ：アカウント作成からSSH接続まで\nVSCode のセットアップ：インストールと拡張機能の導入\nLaTeX 環境構築：TeX LiveとVSCodeでの執筆環境\nSSH でリモート接続：VSCodeからサーバに接続して作業する方法\nTailscale の導入：学外からサーバに接続する方法"
+  },
+  {
+    "objectID": "index.html#対象者",
+    "href": "index.html#対象者",
+    "title": "小杉ラボ 技術ガイド",
+    "section": "対象者",
+    "text": "対象者\n\n小杉ゼミのゼミ生\n統計解析・論文執筆の環境を整えたい方"
+  },
+  {
+    "objectID": "index.html#更新履歴",
+    "href": "index.html#更新履歴",
+    "title": "小杉ラボ 技術ガイド",
+    "section": "更新履歴",
+    "text": "更新履歴\n\n2025-11-28：サイト公開"
+  },
+  {
+    "objectID": "latex-setup.html",
+    "href": "latex-setup.html",
+    "title": "LaTeX 環境構築",
+    "section": "",
+    "text": "LaTeX は論文執筆のための組版システムです。数式の美しい表現、参考文献の自動管理、構造化された文書作成が可能で、学術論文の執筆には欠かせません。"
+  },
+  {
+    "objectID": "latex-setup.html#latex-とは",
+    "href": "latex-setup.html#latex-とは",
+    "title": "LaTeX 環境構築",
+    "section": "",
+    "text": "LaTeX は論文執筆のための組版システムです。数式の美しい表現、参考文献の自動管理、構造化された文書作成が可能で、学術論文の執筆には欠かせません。"
+  },
+  {
+    "objectID": "latex-setup.html#tex-live-のインストール",
+    "href": "latex-setup.html#tex-live-のインストール",
+    "title": "LaTeX 環境構築",
+    "section": "TeX Live のインストール",
+    "text": "TeX Live のインストール\nLaTeX を使うには、まず TeX Live というディストリビューションをインストールします。\n\nWindows\n\nTeX Live にアクセス\n「install-tl-windows.exe」をダウンロード\nインストーラを実行\n「フルインストール」を選択（推奨）\n\n\n\n\n\n\n\n警告時間がかかります\n\n\n\nフルインストールには数時間かかることがあります。時間に余裕のあるときに行ってください。\n\n\n\n\nmacOS\n\nHomebrew を使う場合（推奨）\nターミナルで以下を実行：\nbrew install --cask mactex\n\n\n手動インストール\n\nMacTeX にアクセス\n「MacTeX.pkg」をダウンロード\nインストーラを実行"
+  },
+  {
+    "objectID": "latex-setup.html#vscode-での-latex-執筆",
+    "href": "latex-setup.html#vscode-での-latex-執筆",
+    "title": "LaTeX 環境構築",
+    "section": "VSCode での LaTeX 執筆",
+    "text": "VSCode での LaTeX 執筆\n\nLaTeX Workshop のインストール\n\nVSCode の拡張機能から「LaTeX Workshop」を検索\nインストール\n\n\n\nLuaLaTeX の設定\n日本語を含む文書をコンパイルするには、LuaLaTeX を使用します。\nVSCode の設定（settings.json）に以下を追加：\n{\n  \"latex-workshop.latex.tools\": [\n    {\n      \"name\": \"lualatex\",\n      \"command\": \"lualatex\",\n      \"args\": [\n        \"-synctex=1\",\n        \"-interaction=nonstopmode\",\n        \"-file-line-error\",\n        \"%DOC%\"\n      ]\n    },\n    {\n      \"name\": \"biber\",\n      \"command\": \"biber\",\n      \"args\": [\n        \"%DOCFILE%\"\n      ]\n    }\n  ],\n  \"latex-workshop.latex.recipes\": [\n    {\n      \"name\": \"lualatex\",\n      \"tools\": [\"lualatex\"]\n    },\n    {\n      \"name\": \"lualatex -&gt; biber -&gt; lualatex*2\",\n      \"tools\": [\"lualatex\", \"biber\", \"lualatex\", \"lualatex\"]\n    }\n  ],\n  \"latex-workshop.latex.recipe.default\": \"lualatex\"\n}\n\n\n基本的な使い方\n\n.tex ファイルを開く\n保存すると自動的にコンパイルされる（または Cmd + Alt + B）\nCmd + Alt + V で PDF プレビューを表示\nPDF 上でクリックすると、対応するソースコードにジャンプ（SyncTeX）"
+  },
+  {
+    "objectID": "latex-setup.html#簡単な-latex-文書",
+    "href": "latex-setup.html#簡単な-latex-文書",
+    "title": "LaTeX 環境構築",
+    "section": "簡単な LaTeX 文書",
+    "text": "簡単な LaTeX 文書\n\\documentclass{ltjsarticle}\n\\usepackage{luatexja}\n\n\\title{タイトル}\n\\author{著者名}\n\\date{\\today}\n\n\\begin{document}\n\\maketitle\n\n\\section{はじめに}\nここに本文を書きます。\n\n数式も書けます：\n\\begin{equation}\n  E = mc^2\n\\end{equation}\n\n\\end{document}"
+  },
+  {
+    "objectID": "latex-setup.html#参考リンク",
+    "href": "latex-setup.html#参考リンク",
+    "title": "LaTeX 環境構築",
+    "section": "参考リンク",
+    "text": "参考リンク\n\nLaTeX入門\nOverleaf（オンラインLaTeXエディタ）"
+  }
+]

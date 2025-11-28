@@ -1,0 +1,123 @@
+---
+title: "LaTeX 環境構築"
+---
+
+## LaTeX とは
+
+LaTeX は論文執筆のための組版システムです。数式の美しい表現、参考文献の自動管理、構造化された文書作成が可能で、学術論文の執筆には欠かせません。
+
+## TeX Live のインストール
+
+LaTeX を使うには、まず TeX Live というディストリビューションをインストールします。
+
+### Windows
+
+1. [TeX Live](https://www.tug.org/texlive/) にアクセス
+2. 「install-tl-windows.exe」をダウンロード
+3. インストーラを実行
+4. 「フルインストール」を選択（推奨）
+
+::: {.callout-warning}
+## 時間がかかります
+フルインストールには数時間かかることがあります。時間に余裕のあるときに行ってください。
+:::
+
+### macOS
+
+#### Homebrew を使う場合（推奨）
+
+ターミナルで以下を実行：
+
+```bash
+brew install --cask mactex
+```
+
+#### 手動インストール
+
+1. [MacTeX](https://www.tug.org/mactex/) にアクセス
+2. 「MacTeX.pkg」をダウンロード
+3. インストーラを実行
+
+## VSCode での LaTeX 執筆
+
+### LaTeX Workshop のインストール
+
+1. VSCode の拡張機能から「LaTeX Workshop」を検索
+2. インストール
+
+### LuaLaTeX の設定
+
+日本語を含む文書をコンパイルするには、LuaLaTeX を使用します。
+
+VSCode の設定（`settings.json`）に以下を追加：
+
+```json
+{
+  "latex-workshop.latex.tools": [
+    {
+      "name": "lualatex",
+      "command": "lualatex",
+      "args": [
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "-file-line-error",
+        "%DOC%"
+      ]
+    },
+    {
+      "name": "biber",
+      "command": "biber",
+      "args": [
+        "%DOCFILE%"
+      ]
+    }
+  ],
+  "latex-workshop.latex.recipes": [
+    {
+      "name": "lualatex",
+      "tools": ["lualatex"]
+    },
+    {
+      "name": "lualatex -> biber -> lualatex*2",
+      "tools": ["lualatex", "biber", "lualatex", "lualatex"]
+    }
+  ],
+  "latex-workshop.latex.recipe.default": "lualatex"
+}
+```
+
+### 基本的な使い方
+
+1. `.tex` ファイルを開く
+2. 保存すると自動的にコンパイルされる（または `Cmd + Alt + B`）
+3. `Cmd + Alt + V` で PDF プレビューを表示
+4. PDF 上でクリックすると、対応するソースコードにジャンプ（SyncTeX）
+
+## 簡単な LaTeX 文書
+
+```latex
+\documentclass{ltjsarticle}
+\usepackage{luatexja}
+
+\title{タイトル}
+\author{著者名}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{はじめに}
+ここに本文を書きます。
+
+数式も書けます：
+\begin{equation}
+  E = mc^2
+\end{equation}
+
+\end{document}
+```
+
+## 参考リンク
+
+- [LaTeX入門](https://texwiki.texjp.org/?LaTeX%E5%85%A5%E9%96%80)
+- [Overleaf（オンラインLaTeXエディタ）](https://www.overleaf.com/)

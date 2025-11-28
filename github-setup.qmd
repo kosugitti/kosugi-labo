@@ -1,0 +1,89 @@
+---
+title: "GitHub のセットアップ"
+---
+
+## GitHub とは
+
+GitHub はバージョン管理システム Git をインターネット上で利用できるようにしたサービスです。卒論に関するデータ、プログラム、日々の議事録や論文そのものなど、加筆修正するファイルをこのシステム上で管理すると、喪失することがなくなるので便利です。
+
+## アカウントの作成
+
+1. [GitHub](https://github.com/) にアクセス
+2. 「Sign up」をクリック
+3. メールアドレス、パスワード、ユーザー名を設定
+   - メールアドレスは `@psy.senshu-u.ac.jp` を推奨
+4. アカウント作成後、メールで届く確認リンクをクリック
+
+## GitHub Desktop のインストール
+
+GitHub Desktop は GitHub を GUI で操作できるアプリケーションです。
+
+1. [GitHub Desktop](https://desktop.github.com/) にアクセス
+2. 自分の OS に合ったバージョンをダウンロード
+3. インストール後、GitHub アカウントでログイン
+
+## SSH キーの設定（RStudio との連携）
+
+RStudio から GitHub にアクセスするために SSH キーを設定します。
+
+### 1. SSH キーの生成
+
+RStudio で Tools > Global Options > Git/SVN を開き、「Create SSH Key...」をクリックします。
+
+- Key type: ED25519（デフォルト）
+- Passphrase: 空欄でも OK
+
+「Create」をクリックすると、SSH キーが生成されます。
+
+### 2. 公開鍵のコピー
+
+同じ画面で「View public key」をクリックし、表示された文字列をすべてコピーします。
+
+### 3. GitHub に登録
+
+1. GitHub にログイン
+2. 右上のアイコン → Settings → SSH and GPG keys
+3. 「New SSH key」をクリック
+4. Title に任意の名前（例：`MacBook Pro`）
+5. Key に先ほどコピーした公開鍵を貼り付け
+6. 「Add SSH key」をクリック
+
+### 4. Git の初期設定
+
+RStudio のコンソールで以下を実行します（自分の情報に置き換えてください）：
+
+```r
+# usethis パッケージのインストール（初回のみ）
+install.packages("usethis")
+
+# ユーザー名とメールアドレスの設定
+usethis::use_git_config(
+  user.name = "あなたの名前",
+  user.email = "あなたのメールアドレス"
+)
+```
+
+## リポジトリのクローン
+
+### RStudio から
+
+1. File > New Project > Version Control > Git
+2. Repository URL に SSH アドレス（`git@github.com:...`）を入力
+3. プロジェクトを保存する場所を指定
+4. 「Create Project」をクリック
+
+### GitHub Desktop から
+
+1. File > Clone repository
+2. URL タブでリポジトリの URL を入力
+3. Local path でクローン先を指定
+4. 「Clone」をクリック
+
+## 基本的なワークフロー
+
+1. **Pull**：GitHub 上の最新の変更を取得
+2. **作業**：ファイルの編集・作成
+3. **Commit**：変更をローカルに記録
+4. **Push**：変更を GitHub に送信
+
+この順序を守ることで、チームでの共同作業もスムーズに行えます。
