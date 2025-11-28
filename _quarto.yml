@@ -21,7 +21,7 @@ website:
 
 format:
   html:
-    theme: cosmo
+    theme: zephyr
     css: styles.css
     toc: true
     toc-depth: 3
