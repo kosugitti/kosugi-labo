@@ -237,7 +237,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>このページは5分ごとに自動更新されます。最終更新時刻を確認してください。</p>
+<p>このページは5分ごとに自動更新されます。 <strong>最終更新: <span id="last-update-note">読み込み中…</span></strong></p>
 </div>
 </div>
 <style>
@@ -404,8 +404,9 @@ function renderDashboard(data) {
 
   // Update time
   const updateTime = new Date(data.updated_at);
-  document.getElementById('update-time').textContent =
-    `最終更新: ${updateTime.toLocaleString('ja-JP')}`;
+  const timeString = updateTime.toLocaleString('ja-JP');
+  document.getElementById('update-time').textContent = `最終更新: ${timeString}`;
+  document.getElementById('last-update-note').textContent = timeString;
 }
 
 // Initial load
