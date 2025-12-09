@@ -395,8 +395,17 @@ function renderDashboard(data) {
   // Update time
   const updateTime = new Date(data.updated_at);
   const timeString = updateTime.toLocaleString('ja-JP');
+  const now = new Date();
+  const diffMinutes = (now - updateTime) / 1000 / 60;
+
   document.getElementById('update-time').textContent = `最終更新: ${timeString}`;
-  document.getElementById('last-update-note').textContent = timeString;
+
+  const noteEl = document.getElementById('last-update-note');
+  if (diffMinutes > 60) {
+    noteEl.innerHTML = `<span style="color: #dc3545;">${timeString} ⚠️ 更新が停止しています</span>`;
+  } else {
+    noteEl.textContent = timeString;
+  }
 }
 
 // Initial load
