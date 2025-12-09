@@ -42,382 +42,228 @@
     "text": "過去のフィードバック\n過去年度のフィードバック記録は、アーカイブとして保存されています。"
   },
   {
-    "objectID": "anti-harassment.html",
-    "href": "anti-harassment.html",
-    "title": "アンチハラスメントポリシー",
+    "objectID": "server-status.html",
+    "href": "server-status.html",
+    "title": "サーバー稼働状況",
     "section": "",
-    "text": "なお、本ポリシーは以下のアンチハラスメントポリシーを参考に、一部改変したものです。\nなお、Discordでの議論に関しては、Discordコミュニティガイドラインが上位規定となります。"
+    "text": "研究室の計算サーバーの稼働状況をリアルタイムで確認できます。"
   },
   {
-    "objectID": "anti-harassment.html#当ポリシーの目的と適用範囲",
-    "href": "anti-harassment.html#当ポリシーの目的と適用範囲",
-    "title": "アンチハラスメントポリシー",
-    "section": "当ポリシーの目的と適用範囲",
-    "text": "当ポリシーの目的と適用範囲\n当ポリシーは、ゼミ生全員が楽しく、安全に集える場を維持するために策定されました。 「ゼミ生全員が楽しく、安全に集える場を維持する」という目的には、「将来もみなさんが不安や心配を感じることなく、気軽に参加できること」も含まれています。\nよって、当ポリシーはゼミ授業時間内の発言や行動だけでなく、ゼミ活動に関連した参加者同士のコミュニケーションや、SNS・ブログ等での情報発信に対しても適用されます。\n全てのゼミ生は、他のゼミ生からハラスメント行為を止めるように求められた場合、直ちに従わなければなりません。"
+    "objectID": "server-status.html#サーバー情報",
+    "href": "server-status.html#サーバー情報",
+    "title": "サーバー稼働状況",
+    "section": "サーバー情報",
+    "text": "サーバー情報\n\n\n\nマシン名\n用途\nGPU\n\n\n\n\nAl-Khwarizumi\nメインサーバー（LLM環境等）\nRTX 5070 Ti 16GB\n\n\nShimura\n計算用\nGTX 1660 SUPER 6GB\n\n\nTaniyama\n計算用\nGTX 1660 SUPER 6GB\n\n\nSeki\n計算用\nGTX 1660 SUPER 6GB"
   },
   {
-    "objectID": "anti-harassment.html#ハラスメントの観点",
-    "href": "anti-harassment.html#ハラスメントの観点",
-    "title": "アンチハラスメントポリシー",
-    "section": "ハラスメントの観点",
-    "text": "ハラスメントの観点\nハラスメント（他人を困らせる行為や嫌がらせ）の観点には、以下のような例があります。\n\nジェンダー、性自認やジェンダー表現、性的指向\n外見、身体的特徴\n人種、民族、国籍\n年齢\n宗教\n疾患、障がい\n結婚・離婚・妊娠・出産・育児休業など個人的なライフイベント\n持っている知識や経験\nキャリアや職位・職階などのポジション\n研究方法や研究に対するスタンスなど\n\nただし、上記の観点はあくまで一例です。上記以外の観点であっても、ゼミ生が不快、不安に感じる発言や行動はハラスメントとみなされます。"
-  },
-  {
-    "objectID": "anti-harassment.html#禁止行為",
-    "href": "anti-harassment.html#禁止行為",
-    "title": "アンチハラスメントポリシー",
-    "section": "禁止行為",
-    "text": "禁止行為\n小杉ゼミでは、上記の観点を含むハラスメントとなりうるすべての観点について、ゼミ生が不快感、不安感を感じる行為をとることを禁止します。具体例として、以下のような行為を禁止します：\n\n攻撃的、非建設的、過剰に批判的な発言や揶揄（やゆ）\n脅迫、ストーキング、つきまとい\n不適切な身体的接触\n性的な関心を引く行為（性的な画像の掲示や、性的なコスチュームの着用等）\nジェンダーを強く意識させるコンテキストで、特定の個人をほめたたえる行為\n発信者（発言者）の望まない写真撮影、録画、録音、SNS等での情報拡散（ただし、ハラスメント被害の記録としての撮影・録画・録音は除く）\nその他、ゼミ生全員がハラスメントであると判断した行為\n\n性的なハラスメントについては男性から女性に対してだけではなく、女性から男性に対するハラスメントも禁止です。"
-  },
-  {
-    "objectID": "anti-harassment.html#ハラスメントを受けたら判断に迷ったら",
-    "href": "anti-harassment.html#ハラスメントを受けたら判断に迷ったら",
-    "title": "アンチハラスメントポリシー",
-    "section": "ハラスメントを受けたら、判断に迷ったら",
-    "text": "ハラスメントを受けたら、判断に迷ったら\nハラスメントを受けた場合、見かけた場合、もしくはハラスメントかどうか判断に迷った場合は、まずは小杉に相談してください（ただし小杉が加害者の場合は除く）。専修大学のハラスメント対策室（4号館1F）あるいは学生相談室（グリーントップB1F）に行って相談することもできます。躊躇する必要はありません。\nゼミ生一同は、ハラスメントに直面している参加者の心理的、身体的な安全を、全力で確保するように努めます。\nまた、ハラスメント行為をやめるように要請された参加者は、運営者の指示に直ちに従ってください。従っていただけない場合やハラスメントの影響の大きさによっては、当塾の関わるイベントへの参加を認めないことや、アカウントの解除（ワークスペースへの参加ができなくなる）も含めた対処をとります。\n\n\n\n\n\n\n\nノートみなさんへのお願い\n\n\n\nわざわざ厳格なルールを定めなくとも、参加者ひとりひとりが「ちょっとだけ、相手の立場や気持ちを想像してみること」を心がければ、上記の願いは容易に叶えられるはずです。\n誰もが安心して参加しやすい環境を維持するために、みなさんのご理解とご協力をよろしくお願いします。"
-  },
-  {
-    "objectID": "anti-harassment.html#ライセンス",
-    "href": "anti-harassment.html#ライセンス",
-    "title": "アンチハラスメントポリシー",
-    "section": "ライセンス",
-    "text": "ライセンス\n本ポリシーは CC BY 4.0 のライセンス下で提供されています。\nThis work is licensed under CC BY 4.0."
-  },
-  {
-    "objectID": "tech-guide/tailscale.html",
-    "href": "tech-guide/tailscale.html",
-    "title": "Tailscale の導入",
-    "section": "",
-    "text": "Tailscale は、簡単に使える VPN サービスです。インストールするだけで、異なるネットワークにあるデバイス同士を安全に接続できます。\n学外から研究室のサーバに接続したい場合に便利です。"
-  },
-  {
-    "objectID": "tech-guide/tailscale.html#tailscale-とは",
-    "href": "tech-guide/tailscale.html#tailscale-とは",
-    "title": "Tailscale の導入",
-    "section": "",
-    "text": "Tailscale は、簡単に使える VPN サービスです。インストールするだけで、異なるネットワークにあるデバイス同士を安全に接続できます。\n学外から研究室のサーバに接続したい場合に便利です。"
-  },
-  {
-    "objectID": "tech-guide/tailscale.html#仕組み",
-    "href": "tech-guide/tailscale.html#仕組み",
-    "title": "Tailscale の導入",
-    "section": "仕組み",
-    "text": "仕組み\nTailscale は WireGuard という VPN 技術をベースにしています。 各デバイスに Tailscale をインストールすると、それらが同じ仮想ネットワーク（Tailnet）に参加し、直接通信できるようになります。\n自宅PC ─────┐\n            │\nスマホ ─────┼──── Tailnet ──── 研究室サーバ\n            │\n大学PC ─────┘"
-  },
-  {
-    "objectID": "tech-guide/tailscale.html#インストール",
-    "href": "tech-guide/tailscale.html#インストール",
-    "title": "Tailscale の導入",
-    "section": "インストール",
-    "text": "インストール\n\nWindows / macOS\n\nTailscale にアクセス\n自分の OS 用のインストーラをダウンロード\nインストール後、ログイン（Google / Microsoft / GitHub アカウントが使えます）\n\n\n\niOS / Android\nApp Store または Google Play から「Tailscale」をインストール。\n\n\nLinux（サーバ側）\ncurl -fsSL https://tailscale.com/install.sh | sh\nsudo tailscale up\n表示される URL にアクセスして認証します。"
-  },
-  {
-    "objectID": "tech-guide/tailscale.html#初期設定",
-    "href": "tech-guide/tailscale.html#初期設定",
-    "title": "Tailscale の導入",
-    "section": "初期設定",
-    "text": "初期設定\n\n1. アカウント作成\nTailscale を初めて起動すると、ログイン画面が表示されます。 Google、Microsoft、GitHub などのアカウントでログインできます。\n\n\n\n\n\n\nノートゼミでの利用\n\n\n\nゼミで Tailscale を利用する場合は、小杉から招待を送ります。 招待メールのリンクからチームに参加してください。\n\n\n\n\n2. デバイスの確認\nログイン後、Tailscale Admin Console で接続中のデバイスを確認できます。\n各デバイスには 100.x.x.x 形式の IP アドレスが割り当てられます。"
-  },
-  {
-    "objectID": "tech-guide/tailscale.html#使い方",
-    "href": "tech-guide/tailscale.html#使い方",
-    "title": "Tailscale の導入",
+    "objectID": "server-status.html#使い方",
+    "href": "server-status.html#使い方",
+    "title": "サーバー稼働状況",
     "section": "使い方",
-    "text": "使い方\n\nサーバへの接続\nTailscale が起動している状態で、サーバの Tailscale IP アドレスを使って SSH 接続します。\nssh ユーザー名@100.x.x.x\nまたは、VSCode の Remote-SSH で接続：\n~/.ssh/config に追加：\nHost server-tailscale\n    HostName 100.x.x.x\n    User ユーザー名\n\n\nRStudio Server への接続\nブラウザで http://100.x.x.x:8787 にアクセスすると、RStudio Server のログイン画面が表示されます。"
+    "text": "使い方\nサーバーを利用したい場合は、SSH接続ガイドを参照してください。"
   },
   {
-    "objectID": "tech-guide/tailscale.html#セキュリティ",
-    "href": "tech-guide/tailscale.html#セキュリティ",
-    "title": "Tailscale の導入",
-    "section": "セキュリティ",
-    "text": "セキュリティ\n\n通信は WireGuard で暗号化されています\nTailscale にログインしたデバイスのみが Tailnet 内のデバイスにアクセスできます\n不要になったデバイスは Admin Console から削除できます"
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Kosugi Labo",
+    "section": "",
+    "text": "小杉ゼミの運営方針、研究ガイド、技術セットアップ、R/統計分析のチュートリアルをまとめたサイトです。"
   },
   {
-    "objectID": "tech-guide/tailscale.html#トラブルシューティング",
-    "href": "tech-guide/tailscale.html#トラブルシューティング",
-    "title": "Tailscale の導入",
-    "section": "トラブルシューティング",
-    "text": "トラブルシューティング\n\n接続できない\n\nTailscale が起動しているか確認（メニューバー/タスクバーのアイコン）\n相手のデバイスも Tailscale が起動しているか確認\nAdmin Console で両方のデバイスが「Connected」になっているか確認\n\n\n\n接続が遅い\n\nTailscale は可能な場合、デバイス間で直接通信（Direct）します\n直接通信できない場合、リレーサーバ経由（Relayed）になり、速度が低下することがあります\nAdmin Console でルート状況を確認できます"
+    "objectID": "index.html#このサイトについて",
+    "href": "index.html#このサイトについて",
+    "title": "Kosugi Labo",
+    "section": "",
+    "text": "小杉ゼミの運営方針、研究ガイド、技術セットアップ、R/統計分析のチュートリアルをまとめたサイトです。"
   },
   {
-    "objectID": "tech-guide/tailscale.html#参考リンク",
-    "href": "tech-guide/tailscale.html#参考リンク",
-    "title": "Tailscale の導入",
+    "objectID": "index.html#コンテンツ",
+    "href": "index.html#コンテンツ",
+    "title": "Kosugi Labo",
+    "section": "コンテンツ",
+    "text": "コンテンツ\n\nゼミガイド\nゼミの運営方針や研究の進め方に関するガイドです。\n\nゼミの運営方針：研究とは、ゼミモットー、活動内容\n研究の進め方：思考の技術、研究の設計、時間の使い方\n文章の読み書き：文献検索、パラグラフライティング、執筆ツール\nアンチハラスメントポリシー：ゼミの安全な環境を守るために\n\n\n\n技術ガイド\n研究に必要な環境構築の手順書です。\n\nGitHub のセットアップ：アカウント作成からSSH接続まで\nVSCode のセットアップ：インストールと拡張機能の導入\nLaTeX 環境構築：TeX LiveとVSCodeでの執筆環境\nSSH でリモート接続：VSCodeからサーバに接続して作業する方法\nTailscale の導入：学外からサーバに接続する方法\n\n\n\nRチュートリアル\nデータ分析・可視化の技術を学ぶ教材です。\n\nはじめに：この教材の使い方\nRの基礎：計算、オブジェクト、関数\nデータの読み込み：CSVファイルの読み込みとデータ確認\ntidyverse入門：効率的なデータ整形\n可視化ギャラリー：ggplot2で描ける様々な図"
+  },
+  {
+    "objectID": "index.html#対象者",
+    "href": "index.html#対象者",
+    "title": "Kosugi Labo",
+    "section": "対象者",
+    "text": "対象者\n\n小杉ゼミのゼミ生\n統計解析・論文執筆の環境を整えたい方\nRでのデータ分析を学びたい方"
+  },
+  {
+    "objectID": "tech-guide/latex-setup.html",
+    "href": "tech-guide/latex-setup.html",
+    "title": "LaTeX 環境構築",
+    "section": "",
+    "text": "LaTeX は論文執筆のための組版システムです。数式の美しい表現、参考文献の自動管理、構造化された文書作成が可能で、学術論文の執筆には欠かせません。"
+  },
+  {
+    "objectID": "tech-guide/latex-setup.html#latex-とは",
+    "href": "tech-guide/latex-setup.html#latex-とは",
+    "title": "LaTeX 環境構築",
+    "section": "",
+    "text": "LaTeX は論文執筆のための組版システムです。数式の美しい表現、参考文献の自動管理、構造化された文書作成が可能で、学術論文の執筆には欠かせません。"
+  },
+  {
+    "objectID": "tech-guide/latex-setup.html#tex-live-のインストール",
+    "href": "tech-guide/latex-setup.html#tex-live-のインストール",
+    "title": "LaTeX 環境構築",
+    "section": "TeX Live のインストール",
+    "text": "TeX Live のインストール\nLaTeX を使うには、まず TeX Live というディストリビューションをインストールします。\n\nWindows\n\nTeX Live にアクセス\n「install-tl-windows.exe」をダウンロード\nインストーラを実行\n「フルインストール」を選択（推奨）\n\n\n\n\n\n\n\n警告時間がかかります\n\n\n\nフルインストールには数時間かかることがあります。時間に余裕のあるときに行ってください。\n\n\n\n\nmacOS\n\nHomebrew を使う場合（推奨）\nターミナルで以下を実行：\nbrew install --cask mactex\n\n\n手動インストール\n\nMacTeX にアクセス\n「MacTeX.pkg」をダウンロード\nインストーラを実行"
+  },
+  {
+    "objectID": "tech-guide/latex-setup.html#vscode-での-latex-執筆",
+    "href": "tech-guide/latex-setup.html#vscode-での-latex-執筆",
+    "title": "LaTeX 環境構築",
+    "section": "VSCode での LaTeX 執筆",
+    "text": "VSCode での LaTeX 執筆\n\nLaTeX Workshop のインストール\n\nVSCode の拡張機能から「LaTeX Workshop」を検索\nインストール\n\n\n\nLuaLaTeX の設定\n日本語を含む文書をコンパイルするには、LuaLaTeX を使用します。\nVSCode の設定（settings.json）に以下を追加：\n{\n  \"latex-workshop.latex.tools\": [\n    {\n      \"name\": \"lualatex\",\n      \"command\": \"lualatex\",\n      \"args\": [\n        \"-synctex=1\",\n        \"-interaction=nonstopmode\",\n        \"-file-line-error\",\n        \"%DOC%\"\n      ]\n    },\n    {\n      \"name\": \"biber\",\n      \"command\": \"biber\",\n      \"args\": [\n        \"%DOCFILE%\"\n      ]\n    }\n  ],\n  \"latex-workshop.latex.recipes\": [\n    {\n      \"name\": \"lualatex\",\n      \"tools\": [\"lualatex\"]\n    },\n    {\n      \"name\": \"lualatex -&gt; biber -&gt; lualatex*2\",\n      \"tools\": [\"lualatex\", \"biber\", \"lualatex\", \"lualatex\"]\n    }\n  ],\n  \"latex-workshop.latex.recipe.default\": \"lualatex\"\n}\n\n\n基本的な使い方\n\n.tex ファイルを開く\n保存すると自動的にコンパイルされる（または Cmd + Alt + B）\nCmd + Alt + V で PDF プレビューを表示\nPDF 上でクリックすると、対応するソースコードにジャンプ（SyncTeX）"
+  },
+  {
+    "objectID": "tech-guide/latex-setup.html#簡単な-latex-文書",
+    "href": "tech-guide/latex-setup.html#簡単な-latex-文書",
+    "title": "LaTeX 環境構築",
+    "section": "簡単な LaTeX 文書",
+    "text": "簡単な LaTeX 文書\n\\documentclass{ltjsarticle}\n\\usepackage{luatexja}\n\n\\title{タイトル}\n\\author{著者名}\n\\date{\\today}\n\n\\begin{document}\n\\maketitle\n\n\\section{はじめに}\nここに本文を書きます。\n\n数式も書けます：\n\\begin{equation}\n  E = mc^2\n\\end{equation}\n\n\\end{document}"
+  },
+  {
+    "objectID": "tech-guide/latex-setup.html#参考リンク",
+    "href": "tech-guide/latex-setup.html#参考リンク",
+    "title": "LaTeX 環境構築",
     "section": "参考リンク",
-    "text": "参考リンク\n\nTailscale 公式ドキュメント\nTailscale Admin Console"
+    "text": "参考リンク\n\nLaTeX入門\nOverleaf（オンラインLaTeXエディタ）"
   },
   {
-    "objectID": "tech-guide/ssh-remote.html",
-    "href": "tech-guide/ssh-remote.html",
-    "title": "SSH でリモート接続",
+    "objectID": "tech-guide/github-setup.html",
+    "href": "tech-guide/github-setup.html",
+    "title": "GitHub のセットアップ",
     "section": "",
-    "text": "VSCode の Remote-SSH 拡張機能を使うと、リモートサーバに SSH 接続し、まるでローカルで作業しているかのようにファイル編集やターミナル操作ができます。"
+    "text": "GitHub はバージョン管理システム Git をインターネット上で利用できるようにしたサービスです。卒論に関するデータ、プログラム、日々の議事録や論文そのものなど、加筆修正するファイルをこのシステム上で管理すると、喪失することがなくなるので便利です。"
   },
   {
-    "objectID": "tech-guide/ssh-remote.html#vscode-remote-ssh-とは",
-    "href": "tech-guide/ssh-remote.html#vscode-remote-ssh-とは",
-    "title": "SSH でリモート接続",
+    "objectID": "tech-guide/github-setup.html#github-とは",
+    "href": "tech-guide/github-setup.html#github-とは",
+    "title": "GitHub のセットアップ",
     "section": "",
-    "text": "VSCode の Remote-SSH 拡張機能を使うと、リモートサーバに SSH 接続し、まるでローカルで作業しているかのようにファイル編集やターミナル操作ができます。"
+    "text": "GitHub はバージョン管理システム Git をインターネット上で利用できるようにしたサービスです。卒論に関するデータ、プログラム、日々の議事録や論文そのものなど、加筆修正するファイルをこのシステム上で管理すると、喪失することがなくなるので便利です。"
   },
   {
-    "objectID": "tech-guide/ssh-remote.html#前提条件",
-    "href": "tech-guide/ssh-remote.html#前提条件",
-    "title": "SSH でリモート接続",
-    "section": "前提条件",
-    "text": "前提条件\n\nVSCode がインストールされていること\nRemote-SSH 拡張機能がインストールされていること\n接続先サーバのアカウントがあること\nサーバに SSH 接続できるネットワーク環境であること"
+    "objectID": "tech-guide/github-setup.html#アカウントの作成",
+    "href": "tech-guide/github-setup.html#アカウントの作成",
+    "title": "GitHub のセットアップ",
+    "section": "アカウントの作成",
+    "text": "アカウントの作成\n\nGitHub にアクセス\n「Sign up」をクリック\nメールアドレス、パスワード、ユーザー名を設定\n\nメールアドレスは @psy.senshu-u.ac.jp を推奨\n\nアカウント作成後、メールで届く確認リンクをクリック"
   },
   {
-    "objectID": "tech-guide/ssh-remote.html#ssh-キーの準備",
-    "href": "tech-guide/ssh-remote.html#ssh-キーの準備",
-    "title": "SSH でリモート接続",
-    "section": "SSH キーの準備",
-    "text": "SSH キーの準備\nパスワード認証でも接続できますが、SSH キーを使うと毎回パスワードを入力する必要がなくなります。\n\nキーの生成（まだ持っていない場合）\nターミナルで以下を実行：\nssh-keygen -t ed25519\n\n保存場所はデフォルト（~/.ssh/id_ed25519）で OK\nパスフレーズは空欄でも OK（セキュリティを高めたい場合は設定）\n\n\n\n公開鍵をサーバに登録\nssh-copy-id ユーザー名@サーバのIPアドレス\nまたは、手動で ~/.ssh/id_ed25519.pub の内容をサーバの ~/.ssh/authorized_keys に追加します。"
+    "objectID": "tech-guide/github-setup.html#github-desktop-のインストール",
+    "href": "tech-guide/github-setup.html#github-desktop-のインストール",
+    "title": "GitHub のセットアップ",
+    "section": "GitHub Desktop のインストール",
+    "text": "GitHub Desktop のインストール\nGitHub Desktop は GitHub を GUI で操作できるアプリケーションです。\n\nGitHub Desktop にアクセス\n自分の OS に合ったバージョンをダウンロード\nインストール後、GitHub アカウントでログイン"
   },
   {
-    "objectID": "tech-guide/ssh-remote.html#vscode-での接続",
-    "href": "tech-guide/ssh-remote.html#vscode-での接続",
-    "title": "SSH でリモート接続",
-    "section": "VSCode での接続",
-    "text": "VSCode での接続\n\n1. SSH 設定ファイルの作成\n~/.ssh/config ファイルに接続先の情報を記述します：\nHost myserver\n    HostName サーバのIPアドレス\n    User ユーザー名\n    IdentityFile ~/.ssh/id_ed25519\n\n\n2. 接続\n\nVSCode でコマンドパレット（Cmd + Shift + P）を開く\n「Remote-SSH: Connect to Host…」を選択\n設定したホスト名（例：myserver）を選択\n新しいウィンドウが開き、サーバに接続\n\n\n\n3. フォルダを開く\n接続後、File &gt; Open Folder でサーバ上のフォルダを開けます。"
+    "objectID": "tech-guide/github-setup.html#ssh-キーの設定rstudio-との連携",
+    "href": "tech-guide/github-setup.html#ssh-キーの設定rstudio-との連携",
+    "title": "GitHub のセットアップ",
+    "section": "SSH キーの設定（RStudio との連携）",
+    "text": "SSH キーの設定（RStudio との連携）\nRStudio から GitHub にアクセスするために SSH キーを設定します。\n\n1. SSH キーの生成\nRStudio で Tools &gt; Global Options &gt; Git/SVN を開き、「Create SSH Key…」をクリックします。\n\nKey type: ED25519（デフォルト）\nPassphrase: 空欄でも OK\n\n「Create」をクリックすると、SSH キーが生成されます。\n\n\n2. 公開鍵のコピー\n同じ画面で「View public key」をクリックし、表示された文字列をすべてコピーします。\n\n\n3. GitHub に登録\n\nGitHub にログイン\n右上のアイコン → Settings → SSH and GPG keys\n「New SSH key」をクリック\nTitle に任意の名前（例：MacBook Pro）\nKey に先ほどコピーした公開鍵を貼り付け\n「Add SSH key」をクリック\n\n\n\n4. Git の初期設定\nRStudio のコンソールで以下を実行します（自分の情報に置き換えてください）：\n# usethis パッケージのインストール（初回のみ）\ninstall.packages(\"usethis\")\n\n# ユーザー名とメールアドレスの設定\nusethis::use_git_config(\n  user.name = \"あなたの名前\",\n  user.email = \"あなたのメールアドレス\"\n)"
   },
   {
-    "objectID": "tech-guide/ssh-remote.html#便利な機能",
-    "href": "tech-guide/ssh-remote.html#便利な機能",
-    "title": "SSH でリモート接続",
-    "section": "便利な機能",
-    "text": "便利な機能\n\nターミナル\nView &gt; Terminal でサーバ上のターミナルが使えます。 R や Python をサーバで実行できます。\n\n\nポートフォワーディング\nサーバで起動した Web アプリ（Shiny、Jupyter など）をローカルのブラウザで確認できます。\n\nサーバでアプリを起動（例：ポート 8888）\nVSCode の「PORTS」パネルで「Forward a Port」\nポート番号（8888）を入力\nローカルのブラウザで localhost:8888 にアクセス\n\n\n\n拡張機能\nリモート接続中に拡張機能をインストールすると、サーバ側にインストールされます。 R 拡張機能をインストールすれば、サーバの R 環境を使って作業できます。"
+    "objectID": "tech-guide/github-setup.html#リポジトリのクローン",
+    "href": "tech-guide/github-setup.html#リポジトリのクローン",
+    "title": "GitHub のセットアップ",
+    "section": "リポジトリのクローン",
+    "text": "リポジトリのクローン\n\nRStudio から\n\nFile &gt; New Project &gt; Version Control &gt; Git\nRepository URL に SSH アドレス（git@github.com:...）を入力\nプロジェクトを保存する場所を指定\n「Create Project」をクリック\n\n\n\nGitHub Desktop から\n\nFile &gt; Clone repository\nURL タブでリポジトリの URL を入力\nLocal path でクローン先を指定\n「Clone」をクリック"
   },
   {
-    "objectID": "tech-guide/ssh-remote.html#トラブルシューティング",
-    "href": "tech-guide/ssh-remote.html#トラブルシューティング",
-    "title": "SSH でリモート接続",
-    "section": "トラブルシューティング",
-    "text": "トラブルシューティング\n\n接続できない\n\nサーバが起動しているか確認\nネットワーク接続を確認（VPN が必要な場合も）\nファイアウォールの設定を確認\nSSH の設定（ユーザー名、IP アドレス）を確認\n\n\n\n接続が切れる\n~/.ssh/config に以下を追加：\nHost *\n    ServerAliveInterval 60\n    ServerAliveCountMax 3"
+    "objectID": "tech-guide/github-setup.html#基本的なワークフロー",
+    "href": "tech-guide/github-setup.html#基本的なワークフロー",
+    "title": "GitHub のセットアップ",
+    "section": "基本的なワークフロー",
+    "text": "基本的なワークフロー\n\nPull：GitHub 上の最新の変更を取得\n作業：ファイルの編集・作成\nCommit：変更をローカルに記録\nPush：変更を GitHub に送信\n\nこの順序を守ることで、チームでの共同作業もスムーズに行えます。"
   },
   {
-    "objectID": "tech-guide/vscode-setup.html",
-    "href": "tech-guide/vscode-setup.html",
-    "title": "VSCode のセットアップ",
+    "objectID": "zemi-policy.html",
+    "href": "zemi-policy.html",
+    "title": "ゼミの運営方針",
     "section": "",
-    "text": "Visual Studio Code（VSCode）は Microsoft が開発した無料のコードエディタです。拡張機能が豊富で、R、Python、LaTeX など様々な言語に対応しています。"
+    "text": "研究は「真偽を明らかにする」ゲームです。それ以外の価値判断基準は必要ではありません。社会学者のルーマンによれば、対人関係を媒介するものとして「権力」「愛」「貨幣」「真偽」の4種類があります。これらはコミュニケーションをスムーズにするための形式のようなものだと捉えてください。権力という形式のもとでは、一方の行為に他方が従うことが求められます。双方がその形式と関係性を把握していると、社会関係はスムーズです。「愛」という形式のもとでは、与える–受け入れるという形式になります。「貨幣」の形式のもとでは、与える–それに対価を返すという形式になります。「真偽」の形式はこのいずれでもありません。論理的・経験的に真であるならば、人は強いる・与える・受け入れる・お返しするという選択をすることなく、その真実を受け入れるのみです。\n大事なポイントは、これらのコミュニケーションスタイルを混在させてはいけないということです。大学教育とは「先生が強制するから課題をする(権力)」でもなく、「教え子が可愛いから教えてあげる(愛)」でもなく、「学費を払っているから卒業させる(貨幣)」ものでもありません。真偽の前では年齢・性別・立場をこえて正しいかどうかだけの判断があり、それが最大限尊重されるということです。虚偽が含まれる卒業論文は認められませんが、ちゃんとやって仮説が成立しないことが明らかになった、というのが真実であれば、それを記載した論文は素晴らしい業績として褒め称えられます。\nこのような真偽の基準にのみ基づいたコミュニケーションが「研究」であり、このゼミでは心理学と統計法をベースに研究を実践していきます。\n\n\nゼミでの活動は「卒業研究」につながるものであり、四年間の集大成である卒業研究の報告書が「卒業論文」になります。\n卒業研究は、皆さん一人一人が研究を計画し、実行し、報告書を執筆するものですが、これらはいずれも科学活動の一環です。大学生だから趣味的な内容で、大学生だから単位をもらうためにやる授業のレポートだ、とはいきません。実験参加者や調査協力者の力を借りて、心理学的な知識を少しでも広げることが目的であり、科学者が行う科学活動の一端を皆さんも担うわけです。\nそのために必要な考え方として、研究の記録と結果の公開が必要です。科学的レポートはその内容が捏造であってはいけませんので、何をどのように実施したかの克明な記録が必要です。もちろんはじめての研究活動でうまくできないこと、というのもあると思います。そのために記録を公開することを考えます。いつか誰かが同じような研究をする時に、失敗や問題が含まれていたとしても、欠点を含めて理解し、修正する足掛かりとなるような仕組みを用意しておく必要があります。\n本ゼミでは、研究の記録、結果の公開を基本方針とします。卒業研究にあたってはこの2点を考慮して計画を立ててください。\n\n\n\n卒業研究は卒業論文という公文書になり、認められれば皆さんは学士という学位を得ます。この過程の中で育まれるべきことは、学問に対する価値観と学術的態度です。\nここでいう価値観とは、なにをおもしろいと思うか、なにを美しいと思うかという審美基準であり、それを内在化することが目標になります。「おもしろい」だけでいうとゲームやギャンブルをすればよいのか、と思うかもしれませんが、それらはせいぜいお金や体力などが十分あれば処理できる程度の刺激にすぎません。これに対して、学術的面白さ、物事を徹底的に突き詰めて考える面白さというのは底が知れません。とくにその対象が人間や社会のような不確実で不安定なものであれば、一生興味を持って考え続けることができるぐらい、おもしろいものです。\nそしてなにをおもしろいと思うか、ということについてもトレーニングを受けなければなりません。「人間ってこんなもんだろう」「大学ってこんなもんだろう」と思っている人の人生は、そんなもんになります。考え方のトレーニングを受けていなければ、「よくわからないからこんなもんだろう」で終わってしまいます。本を読み、映画を見て、音楽を聴き、恋をして、美味しいものを食べて、お酒を飲んで、ダメになって、論文を読み、データ分析をして、とにかくさまざまな角度から生きてるとは何かを考える可能性を探りましょう。\n学術的態度とは、批判的思考技術とコミュニケーションの継続に対する意欲からなります。学術論文や書籍を読むこと、あるいは学術的なコミュニケーションに対しては、批判的な精神で進めることが基本です。さまざまな批判をすることで、多角的に研究テーマに光を当てて考えることになります。さまざまな批判する・されることを通じて、自らの中に「これだと批判のしようがないぐらいおもしろいでしょう」というものが見つかり、あるいはそれを見つける術を身につけることができるのです。ちなみに、批判とは、否定でも拒絶でも論破することでもありません。批判は「さまざまな角度から味わうこと」であり、コミュニケーションを活発化させるためのものです。これに対し、否定・拒絶・論破はコミュニケーションを遮断することであり、怒りや恥じらいなどの感情もコミュニケーションを阻害する要因として排除すべきものです。\n科学的営みとは、コミュニケーションです。論文を書く、読んで意見を言いあうなど、とにかく言葉を尽くして真実に近づくことが目的です。皆さんは「言葉」に敏感になってもらわなければなりませんし、コミュニケーションに貪欲になってもらわなければなりません。言葉は共通見解を生む土台です。言葉が違う、意味を異なって理解しているとコミュニケーションが成立しません。「察してほしい」「推し量って欲しい」というのは受身的なコミュニケーションスタイルであり、学術的場面では相応しくありません。"
   },
   {
-    "objectID": "tech-guide/vscode-setup.html#visual-studio-code-とは",
-    "href": "tech-guide/vscode-setup.html#visual-studio-code-とは",
-    "title": "VSCode のセットアップ",
+    "objectID": "zemi-policy.html#研究とは",
+    "href": "zemi-policy.html#研究とは",
+    "title": "ゼミの運営方針",
     "section": "",
-    "text": "Visual Studio Code（VSCode）は Microsoft が開発した無料のコードエディタです。拡張機能が豊富で、R、Python、LaTeX など様々な言語に対応しています。"
+    "text": "研究は「真偽を明らかにする」ゲームです。それ以外の価値判断基準は必要ではありません。社会学者のルーマンによれば、対人関係を媒介するものとして「権力」「愛」「貨幣」「真偽」の4種類があります。これらはコミュニケーションをスムーズにするための形式のようなものだと捉えてください。権力という形式のもとでは、一方の行為に他方が従うことが求められます。双方がその形式と関係性を把握していると、社会関係はスムーズです。「愛」という形式のもとでは、与える–受け入れるという形式になります。「貨幣」の形式のもとでは、与える–それに対価を返すという形式になります。「真偽」の形式はこのいずれでもありません。論理的・経験的に真であるならば、人は強いる・与える・受け入れる・お返しするという選択をすることなく、その真実を受け入れるのみです。\n大事なポイントは、これらのコミュニケーションスタイルを混在させてはいけないということです。大学教育とは「先生が強制するから課題をする(権力)」でもなく、「教え子が可愛いから教えてあげる(愛)」でもなく、「学費を払っているから卒業させる(貨幣)」ものでもありません。真偽の前では年齢・性別・立場をこえて正しいかどうかだけの判断があり、それが最大限尊重されるということです。虚偽が含まれる卒業論文は認められませんが、ちゃんとやって仮説が成立しないことが明らかになった、というのが真実であれば、それを記載した論文は素晴らしい業績として褒め称えられます。\nこのような真偽の基準にのみ基づいたコミュニケーションが「研究」であり、このゼミでは心理学と統計法をベースに研究を実践していきます。\n\n\nゼミでの活動は「卒業研究」につながるものであり、四年間の集大成である卒業研究の報告書が「卒業論文」になります。\n卒業研究は、皆さん一人一人が研究を計画し、実行し、報告書を執筆するものですが、これらはいずれも科学活動の一環です。大学生だから趣味的な内容で、大学生だから単位をもらうためにやる授業のレポートだ、とはいきません。実験参加者や調査協力者の力を借りて、心理学的な知識を少しでも広げることが目的であり、科学者が行う科学活動の一端を皆さんも担うわけです。\nそのために必要な考え方として、研究の記録と結果の公開が必要です。科学的レポートはその内容が捏造であってはいけませんので、何をどのように実施したかの克明な記録が必要です。もちろんはじめての研究活動でうまくできないこと、というのもあると思います。そのために記録を公開することを考えます。いつか誰かが同じような研究をする時に、失敗や問題が含まれていたとしても、欠点を含めて理解し、修正する足掛かりとなるような仕組みを用意しておく必要があります。\n本ゼミでは、研究の記録、結果の公開を基本方針とします。卒業研究にあたってはこの2点を考慮して計画を立ててください。\n\n\n\n卒業研究は卒業論文という公文書になり、認められれば皆さんは学士という学位を得ます。この過程の中で育まれるべきことは、学問に対する価値観と学術的態度です。\nここでいう価値観とは、なにをおもしろいと思うか、なにを美しいと思うかという審美基準であり、それを内在化することが目標になります。「おもしろい」だけでいうとゲームやギャンブルをすればよいのか、と思うかもしれませんが、それらはせいぜいお金や体力などが十分あれば処理できる程度の刺激にすぎません。これに対して、学術的面白さ、物事を徹底的に突き詰めて考える面白さというのは底が知れません。とくにその対象が人間や社会のような不確実で不安定なものであれば、一生興味を持って考え続けることができるぐらい、おもしろいものです。\nそしてなにをおもしろいと思うか、ということについてもトレーニングを受けなければなりません。「人間ってこんなもんだろう」「大学ってこんなもんだろう」と思っている人の人生は、そんなもんになります。考え方のトレーニングを受けていなければ、「よくわからないからこんなもんだろう」で終わってしまいます。本を読み、映画を見て、音楽を聴き、恋をして、美味しいものを食べて、お酒を飲んで、ダメになって、論文を読み、データ分析をして、とにかくさまざまな角度から生きてるとは何かを考える可能性を探りましょう。\n学術的態度とは、批判的思考技術とコミュニケーションの継続に対する意欲からなります。学術論文や書籍を読むこと、あるいは学術的なコミュニケーションに対しては、批判的な精神で進めることが基本です。さまざまな批判をすることで、多角的に研究テーマに光を当てて考えることになります。さまざまな批判する・されることを通じて、自らの中に「これだと批判のしようがないぐらいおもしろいでしょう」というものが見つかり、あるいはそれを見つける術を身につけることができるのです。ちなみに、批判とは、否定でも拒絶でも論破することでもありません。批判は「さまざまな角度から味わうこと」であり、コミュニケーションを活発化させるためのものです。これに対し、否定・拒絶・論破はコミュニケーションを遮断することであり、怒りや恥じらいなどの感情もコミュニケーションを阻害する要因として排除すべきものです。\n科学的営みとは、コミュニケーションです。論文を書く、読んで意見を言いあうなど、とにかく言葉を尽くして真実に近づくことが目的です。皆さんは「言葉」に敏感になってもらわなければなりませんし、コミュニケーションに貪欲になってもらわなければなりません。言葉は共通見解を生む土台です。言葉が違う、意味を異なって理解しているとコミュニケーションが成立しません。「察してほしい」「推し量って欲しい」というのは受身的なコミュニケーションスタイルであり、学術的場面では相応しくありません。"
   },
   {
-    "objectID": "tech-guide/vscode-setup.html#インストール",
-    "href": "tech-guide/vscode-setup.html#インストール",
-    "title": "VSCode のセットアップ",
-    "section": "インストール",
-    "text": "インストール\n\nVisual Studio Code にアクセス\n自分の OS に合ったバージョンをダウンロード\nインストーラを実行"
+    "objectID": "zemi-policy.html#ゼミモットー",
+    "href": "zemi-policy.html#ゼミモットー",
+    "title": "ゼミの運営方針",
+    "section": "ゼミ・モットー",
+    "text": "ゼミ・モットー\nゼミにおけるコミュニケーションについて、成員は以下の方針を理解して挑んでください。\n\n小杉ゼミとは心理学的技法を通じた人間理解のための修練の場の総体である。\n\nゼミはコミュニケーションを要素とするオートポイエーシスシステムであり、その目的は「人間理解」である。\nゼミの境界は議論に参加するメンバーの相互作用にもとづき、創発的に現れるパターンである。\n個体は関係を結び止める点にすぎない。ゼミは位相空間の関係に対する呼称であり、物理レベルの個体は機能を構成する基盤にすぎない。\n\nメンバーは個々が独立した研究者であり、このことが常に最大限に尊重され、年齢、性別、その他外的基準による判断は常に捨て置かれる。\n\n【今、ココ】の座標点として、個人は常に唯一無二であり、自分の思いつき以上に正しい答えなぞ存在しない。\n知識量や技術力に秀でたものは、惜しげもなく与えるべきである。なぜなら、仲間が面白くなることが自分の成長に繋がるからである。\n知識量や技術力に劣るものは、恥じることなく喜ぶべきである。なぜなら、今後の成長の可能性が具体的に現れているからである。\n\nいつでも誰にでも発言は許されているし、望まれている。\n\n発言内容を個人の人格に帰属してはならない。\n沈黙は「理解しないこと」と「同意したこと」を弁別しないコミュニケーションスタイルであり、避けるべきである。\n理解を阻む最大の障害は、自らの世界が閉じていることにあり、それが自覚できないことにある。解決策は外部環境の動乱による影響を得ることである。\n自らの発言(疑問)は他者の発言(疑問)を誘発するため称賛されるべきことである。"
   },
   {
-    "objectID": "tech-guide/vscode-setup.html#推奨拡張機能",
-    "href": "tech-guide/vscode-setup.html#推奨拡張機能",
-    "title": "VSCode のセットアップ",
-    "section": "推奨拡張機能",
-    "text": "推奨拡張機能\nVSCode を起動したら、左側の拡張機能アイコン（四角が4つ）をクリックして、以下の拡張機能をインストールしてください。\n\n基本\n\nJapanese Language Pack for Visual Studio Code：日本語化\nGit Graph：Git の履歴を視覚的に確認\n\n\n\nR 関連\n\nR：R 言語のサポート\nR Debugger：R のデバッグ機能\n\n\n\nLaTeX 関連\n\nLaTeX Workshop：LaTeX の編集・コンパイル・プレビュー\n\n\n\nAI コーディング支援\n\nGitHub Copilot：AI によるコード補完\nGitHub Copilot Chat：AI とのチャット機能\n\n\n\n\n\n\n\nヒントGitHub Copilot は学生無料\n\n\n\nGitHub Education に登録すると、GitHub Copilot を無料で利用できます。 GitHub Education から申請してください。\n\n\n\n\nリモート開発\n\nRemote - SSH：SSH 経由でリモートサーバに接続\nRemote - Tunnels：トンネル経由で接続"
+    "objectID": "zemi-policy.html#アンチハラスメントポリシー",
+    "href": "zemi-policy.html#アンチハラスメントポリシー",
+    "title": "ゼミの運営方針",
+    "section": "アンチハラスメントポリシー",
+    "text": "アンチハラスメントポリシー\nゼミではアンチハラスメントポリシーを用意しています。成員はそちらの方針を遵守するよう心がけてください。"
   },
   {
-    "objectID": "tech-guide/vscode-setup.html#基本的な使い方",
-    "href": "tech-guide/vscode-setup.html#基本的な使い方",
-    "title": "VSCode のセットアップ",
-    "section": "基本的な使い方",
-    "text": "基本的な使い方\n\nフォルダを開く\nFile &gt; Open Folder でプロジェクトフォルダを開きます。 VSCode ではフォルダ単位で作業するのが基本です。\n\n\nターミナル\nView &gt; Terminal でエディタ内にターミナルを表示できます。 Git コマンドやシェルコマンドを直接実行できます。\n\n\nコマンドパレット\nCmd + Shift + P（Mac）または Ctrl + Shift + P（Windows）でコマンドパレットを開けます。 VSCode のほとんどの機能はここから呼び出せます。"
+    "objectID": "zemi-policy.html#ゼミ活動内容",
+    "href": "zemi-policy.html#ゼミ活動内容",
+    "title": "ゼミの運営方針",
+    "section": "ゼミ活動内容",
+    "text": "ゼミ活動内容\nゼミでの活動内容は、基本的に個人単位になります。幼稚園児の「並行遊び」のような感じになればよいでしょう。つまり、各々が自分の好きなように遊んでいるのが基本で、同じ遊具を使ったり、複数人でないとできない遊びをするときは協力し合うという感じです。目的はあくまでもそれぞれが良い卒論を書くことです。\n別に他人に興味を持つなと言っているわけではないことに注意してください。「私の研究の話ではないから聞く耳もたない」というのではなく、「あなたの研究も楽しそうね。私の研究も楽しいのよ」と互いに刺激しあってください。技術や知識を共有することは、自分と一緒に面白がってくれる人を増やす、同じレベルのプレイヤーを育てることでもあり、知的面白さの世界を広げることに寄与します。\n\n研究発表\n研究発表は「話題提供者」を定め、その人の提供するテーマについて皆で議論することが目的です。ここで提供されるテーマは、「文献紹介」と「研究発表」の2種類です。\n文献紹介は自らの卒業研究に関わる先行研究を批判的に読むこと、のトレーニングです。研究発表は自らの研究を他者に伝えるコミュニケーションスタイルのトレーニングです。両者を通じて、批判的思考とコミュニケーションを続けることの楽しさを身につけてもらいます。\nどんな研究や論文にも長所と短所があります。文献紹介の場合、発表者はその論文の筆者の代理です。研究発表は自身がその代表者ですから、研究・論文の長所を全面に押し出して論じてください。オーディエンスは論文の限界、方法論的問題点などを指摘し、それに対して発表者がどのようにディフェンスするかを味わいましょう。また発表者は、最後に必ずおもしろポイント、批判的ポイントを3点ずつ挙げるようにしてください。\n\n\n個別面談\n卒業研究は個別の研究テーマを扱いますから、小杉との個別面談の時間をゼミ時間内に設定することがあります。研究は皆さんの4年間の集大成であり、その内容については少なくとも学内の誰よりも詳しく知っている必要があるでしょう。\n指導教員にできることは、研究の進め方や分析のアイデアを出すことにすぎません。また、日々の研究の進捗状況によってはアドバイスの内容も変わってくるでしょうから、面談の内容を記録するようにしてください。議事録には、1.報告事項、2.審議事項、3.今後の進め方、4.その他の段落を設け、細かいことでも全て記録していきましょう。\n\n\n技術のトレーニング\n統計的分析に関して、小杉ゼミではR/RStudioを用います。そのほか、Stanなど確率プログラミング言語を使うこともあります。しかし研究テーマによっては、その他のプログラミング言語(Python, Juliaなど)、分析・実験環境(jPsychoPy/Pavlovia, jsPsych, Qualtricsなど)が必要になることもあります。これらについては小杉が十分教えられないものも少なくありませんので、必要に応じて自学自習する時間をゼミの時間にとることができます。同じツールを使うもの同士は互いに教え合い、卒業を目指しましょう。"
   },
   {
-    "objectID": "tech-guide/vscode-setup.html#設定の同期",
-    "href": "tech-guide/vscode-setup.html#設定の同期",
-    "title": "VSCode のセットアップ",
-    "section": "設定の同期",
-    "text": "設定の同期\nGitHub アカウントでサインインすると、設定や拡張機能を複数のデバイス間で同期できます。\n\n左下の歯車アイコン → Turn on Settings Sync\nGitHub アカウントでサインイン\n同期する項目を選択"
-  },
-  {
-    "objectID": "research-guide.html",
-    "href": "research-guide.html",
-    "title": "研究の進め方",
+    "objectID": "r-tutorial/r-basics.html",
+    "href": "r-tutorial/r-basics.html",
+    "title": "Rの基礎",
     "section": "",
-    "text": "卒業研究では、「誰も考えたことのないことを考える」ことが必要になります。これは難しいことに思えるかもしれませんが、研究を進める上で重要な3つの思考技術を紹介します。\n\n\n研究を進めていると、「これは面倒だな」「これは難しそうだな」と感じることがあります。しかし、そうした「いやがること」の中にこそ、重要な発見や成長の機会が隠れていることが多いのです。面倒なことを避けていると、いつまでも同じ場所にとどまることになります。「いやだな」と思ったら、むしろそこに向かっていきましょう。\n\n\n\n思考が行き詰まったときは、極端な立場を想定してみることが有効です。例えば、ある変数の影響を考えるとき、その変数が「ゼロ」の場合と「無限大」の場合を想像してみます。現実にはありえない極端な状況を考えることで、その変数が持つ本質的な意味が見えてくることがあります。\nカメラのパンニングのように、一方の極端からもう一方の極端まで視野を動かすことで、全体像を把握することができます。\n\n\n\n抽象的な概念を理解したり説明したりするとき、比喩（メタファー）は非常に有効です。「〜のようなもの」という表現を恐れずに使いましょう。ただし、中途半端な比喩は誤解を招きます。比喩を使うなら、思い切って大胆に使うことで、かえって本質を突いた説明になることがあります。"
+    "text": "Rは高機能な電卓として使えます。コンソールに計算式を入力してEnterを押すと、結果が表示されます。\n\n# 四則演算\n1 + 2\n\n[1] 3\n\n10 - 3\n\n[1] 7\n\n4 * 5\n\n[1] 20\n\n20 / 4\n\n[1] 5\n\n\n\n# べき乗\n2^3\n\n[1] 8\n\n2^10\n\n[1] 1024\n\n\n\n# 余りと商\n17 %% 5   # 余り\n\n[1] 2\n\n17 %/% 5  # 商\n\n[1] 3"
   },
   {
-    "objectID": "research-guide.html#思考の三大技術",
-    "href": "research-guide.html#思考の三大技術",
-    "title": "研究の進め方",
+    "objectID": "r-tutorial/r-basics.html#rを電卓として使う",
+    "href": "r-tutorial/r-basics.html#rを電卓として使う",
+    "title": "Rの基礎",
     "section": "",
-    "text": "卒業研究では、「誰も考えたことのないことを考える」ことが必要になります。これは難しいことに思えるかもしれませんが、研究を進める上で重要な3つの思考技術を紹介します。\n\n\n研究を進めていると、「これは面倒だな」「これは難しそうだな」と感じることがあります。しかし、そうした「いやがること」の中にこそ、重要な発見や成長の機会が隠れていることが多いのです。面倒なことを避けていると、いつまでも同じ場所にとどまることになります。「いやだな」と思ったら、むしろそこに向かっていきましょう。\n\n\n\n思考が行き詰まったときは、極端な立場を想定してみることが有効です。例えば、ある変数の影響を考えるとき、その変数が「ゼロ」の場合と「無限大」の場合を想像してみます。現実にはありえない極端な状況を考えることで、その変数が持つ本質的な意味が見えてくることがあります。\nカメラのパンニングのように、一方の極端からもう一方の極端まで視野を動かすことで、全体像を把握することができます。\n\n\n\n抽象的な概念を理解したり説明したりするとき、比喩（メタファー）は非常に有効です。「〜のようなもの」という表現を恐れずに使いましょう。ただし、中途半端な比喩は誤解を招きます。比喩を使うなら、思い切って大胆に使うことで、かえって本質を突いた説明になることがあります。"
+    "text": "Rは高機能な電卓として使えます。コンソールに計算式を入力してEnterを押すと、結果が表示されます。\n\n# 四則演算\n1 + 2\n\n[1] 3\n\n10 - 3\n\n[1] 7\n\n4 * 5\n\n[1] 20\n\n20 / 4\n\n[1] 5\n\n\n\n# べき乗\n2^3\n\n[1] 8\n\n2^10\n\n[1] 1024\n\n\n\n# 余りと商\n17 %% 5   # 余り\n\n[1] 2\n\n17 %/% 5  # 商\n\n[1] 3"
   },
   {
-    "objectID": "research-guide.html#生成aiとのつきあいかた",
-    "href": "research-guide.html#生成aiとのつきあいかた",
-    "title": "研究の進め方",
-    "section": "生成AIとのつきあいかた",
-    "text": "生成AIとのつきあいかた\nChatGPT、Claude、Geminiなどの生成AIは、研究を進める上で強力なツールになりえます。しかし、適切に使うためにはいくつかの注意点があります。\n\nハルシネーション（幻覚）\n生成AIは、もっともらしいが事実ではない情報を生成することがあります。これを「ハルシネーション」と呼びます。特に、具体的な数値、人名、論文の引用などについては、必ず元の情報源で確認する必要があります。AIの回答を鵜呑みにせず、クリティカルに評価する姿勢を持ちましょう。\n\n\n著作権の問題\n生成AIが出力した文章をそのまま論文に使用することには、著作権上の問題があります。また、AIに他者の著作物を入力することも問題になる可能性があります。AIの出力は参考にとどめ、最終的な文章は自分の言葉で書くようにしましょう。\n\n\n思考の代替ではなく補助として\n生成AIは「考える」ことの代わりにはなりません。AIに丸投げして得た回答は、あなた自身の理解にはなっていません。AIは思考を補助するツールとして使い、最終的な判断や理解は自分自身で行うことが重要です。\n\n\n効果的な使い方\n\nブレインストーミング：アイデアを広げるための壁打ち相手として\n文献要約の補助：長い論文の概要を把握するための補助として\nコードのデバッグ：プログラミングエラーの原因特定の補助として\n文章の推敲：書いた文章の改善点を指摘してもらう"
+    "objectID": "r-tutorial/r-basics.html#オブジェクト変数",
+    "href": "r-tutorial/r-basics.html#オブジェクト変数",
+    "title": "Rの基礎",
+    "section": "オブジェクト（変数）",
+    "text": "オブジェクト（変数）\n計算結果を保存しておくには、オブジェクト（変数）を使います。&lt;- で値を代入します。\n\nx &lt;- 10\ny &lt;- 3\nx + y\n\n[1] 13\n\nx * y\n\n[1] 30\n\n\nオブジェクト名は自由につけられますが、以下のルールがあります：\n\n英数字とアンダースコア（_）、ピリオド（.）が使える\n数字で始めてはいけない\n大文字と小文字は区別される（X と x は別物）\n\n\nmy_score &lt;- 85\naverage_score &lt;- 72.5\nmy_score - average_score\n\n[1] 12.5"
   },
   {
-    "objectID": "research-guide.html#議論のマナーについて",
-    "href": "research-guide.html#議論のマナーについて",
-    "title": "研究の進め方",
-    "section": "議論のマナーについて",
-    "text": "議論のマナーについて\nゼミでは活発な議論が行われます。議論を実りあるものにするために、以下のマナーを心がけてください。\n\n批判と否定は違う\n「批判」は、さまざまな角度から検討し、よりよいものにするための建設的な行為です。一方、「否定」や「論破」はコミュニケーションを遮断する行為です。ゼミでは批判は歓迎されますが、否定や論破は避けてください。\n\n\n発言は人格とは別\n発言内容と発言者の人格を混同してはいけません。ある意見を批判することは、その人を批判することではありません。また、自分の意見が批判されても、自分自身が否定されたわけではありません。\n\n\n沈黙は避ける\n沈黙は、「理解した」のか「理解していない」のかを区別できません。わからないことがあれば質問し、思ったことがあれば発言しましょう。発言することで議論が活性化し、あなた自身の理解も深まります。\n\n\n質問は貢献\n「こんなことを聞いてもいいのだろうか」と躊躇する必要はありません。あなたの疑問は、他の人も持っている可能性があります。質問することは議論への貢献です。"
+    "objectID": "r-tutorial/r-basics.html#ベクトル",
+    "href": "r-tutorial/r-basics.html#ベクトル",
+    "title": "Rの基礎",
+    "section": "ベクトル",
+    "text": "ベクトル\n複数の値をまとめて扱うには、ベクトルを使います。c() 関数で作成します。\n\nscores &lt;- c(80, 75, 90, 85, 70)\nscores\n\n[1] 80 75 90 85 70\n\n\n\n# ベクトルの演算\nscores + 10       # 全要素に10を足す\n\n[1]  90  85 100  95  80\n\nscores * 2        # 全要素を2倍\n\n[1] 160 150 180 170 140\n\nmean(scores)      # 平均\n\n[1] 80\n\nsum(scores)       # 合計\n\n[1] 400\n\nlength(scores)    # 要素数\n\n[1] 5"
   },
   {
-    "objectID": "research-guide.html#研究の設計",
-    "href": "research-guide.html#研究の設計",
-    "title": "研究の進め方",
-    "section": "研究の設計",
-    "text": "研究の設計\n\n時間の使いかた\n卒業研究は、企画立案、計画、実行、分析、執筆までを自分の力で行う必要があります。基礎実験のようにレールが敷かれているわけではありません。\n重要なポイント：\n\n報告・連絡・相談が重要：進捗状況を教員に伝えることで、適切な指導を受けられます\n徹夜は機能しない：一発逆転スケジュールは研究には向きません\nよく寝てよく食べる：基本的な生活リズムを崩すことは効率を悪くするだけです\n相談の敷居を下げる：「こんなことで相談していいのだろうか」と悩まず、気軽に連絡してください\n\n\n\n研究の組み立てかた\n研究の基本は、お手本となる先行研究を見つけることから始まります。\n\n自分の興味のあるテーマで論文検索\n自分の興味関心と合致する論文を見つける\nその研究を完全に再現する（追試）\n\n先行研究が見つからない理由：\n\n問いの形式の問題：「なぜ」ではなく「どのように」で問う\nキーワードの問題：日常用語と専門用語の違い、類義語の存在\n概念の中身の問題：自分が興味ある対象が何なのか明確でない\n\n自分の興味関心と100%マッチする先行研究は見つかりません。60-80%マッチすれば十分です。\n\n\n興味がない場合\n特に研究したいテーマが見当たらない場合も、気軽に教員に相談してください。こちらからいくつか研究テーマを提示します。統計ゼミですから、分析モデルを提案する形になります。\n\n\n卒論で求められていること\n卒論に求められているのは、研究者の卵としての潜在的な能力です。\n\n自分の研究の面白さを説明できること\n自分の研究の長所と限界を理解していること\n自分のやったことを十分に理解していること\n\n卒論発表会では必ず「研究は面白かったですか」と尋ねます。面白くなかったのであれば、もっと研究を続けるチャンスを与えます。"
+    "objectID": "r-tutorial/r-basics.html#関数",
+    "href": "r-tutorial/r-basics.html#関数",
+    "title": "Rの基礎",
+    "section": "関数",
+    "text": "関数\n関数は「入力を受け取って、何かの処理をして、結果を返す」ものです。\n\n# よく使う関数\nsqrt(16)          # 平方根\n\n[1] 4\n\nabs(-5)           # 絶対値\n\n[1] 5\n\nround(3.14159, 2) # 四捨五入（小数点以下2桁）\n\n[1] 3.14\n\n\n\n# 統計関連の関数\nx &lt;- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)\nmean(x)    # 平均\n\n[1] 5.5\n\nmedian(x)  # 中央値\n\n[1] 5.5\n\nsd(x)      # 標準偏差\n\n[1] 3.02765\n\nvar(x)     # 分散\n\n[1] 9.166667\n\nmin(x)     # 最小値\n\n[1] 1\n\nmax(x)     # 最大値\n\n[1] 10\n\nrange(x)   # 範囲（最小値と最大値）\n\n[1]  1 10"
   },
   {
-    "objectID": "r-tutorial/tidyverse.html",
-    "href": "r-tutorial/tidyverse.html",
-    "title": "tidyverse入門",
-    "section": "",
-    "text": "tidyverseは、データサイエンスのためのRパッケージ集です。一貫した文法でデータ操作ができます。\nlibrary(tidyverse)"
+    "objectID": "r-tutorial/r-basics.html#ヘルプの見方",
+    "href": "r-tutorial/r-basics.html#ヘルプの見方",
+    "title": "Rの基礎",
+    "section": "ヘルプの見方",
+    "text": "ヘルプの見方\n関数の使い方がわからないときは、? をつけてヘルプを表示できます。\n?mean\n?round"
   },
   {
-    "objectID": "r-tutorial/tidyverse.html#tidyverseとは",
-    "href": "r-tutorial/tidyverse.html#tidyverseとは",
-    "title": "tidyverse入門",
-    "section": "",
-    "text": "tidyverseは、データサイエンスのためのRパッケージ集です。一貫した文法でデータ操作ができます。\nlibrary(tidyverse)"
-  },
-  {
-    "objectID": "r-tutorial/tidyverse.html#パイプ演算子",
-    "href": "r-tutorial/tidyverse.html#パイプ演算子",
-    "title": "tidyverse入門",
-    "section": "パイプ演算子 |>",
-    "text": "パイプ演算子 |&gt;\nパイプ演算子 |&gt; は、左側の結果を右側の関数の第1引数に渡します。\n\n# これは\nmean(students$score)\n\n[1] 80.3\n\n# これと同じ\nstudents$score |&gt; mean()\n\n[1] 80.3\n\n\n複数の操作を連続して行うとき、パイプを使うと読みやすくなります。\n\n# パイプなし（読みにくい）\nround(mean(students$score), 1)\n\n[1] 80.3\n\n# パイプあり（読みやすい）\nstudents$score |&gt; mean() |&gt; round(1)\n\n[1] 80.3"
-  },
-  {
-    "objectID": "r-tutorial/tidyverse.html#dplyrの主要な関数",
-    "href": "r-tutorial/tidyverse.html#dplyrの主要な関数",
-    "title": "tidyverse入門",
-    "section": "dplyrの主要な関数",
-    "text": "dplyrの主要な関数\n\nfilter()：行の絞り込み\n条件に合う行だけを取り出します。\n\n# スコアが80以上\nstudents |&gt; filter(score &gt;= 80)\n\n# A tibble: 5 × 5\n     id name  grade score group\n  &lt;int&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;\n1     2 鈴木      2    82 B    \n2     3 佐藤      4    91 A    \n3     6 渡辺      4    88 B    \n4     8 小林      2    95 B    \n5     9 加藤      4    83 A    \n\n\n\n# グループAかつ3年生\nstudents |&gt; filter(group == \"A\", grade == 3)\n\n# A tibble: 2 × 5\n     id name  grade score group\n  &lt;int&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;\n1     1 田中      3    78 A    \n2     7 中村      3    70 A    \n\n\n\n\nselect()：列の選択\n必要な列だけを取り出します。\n\n# name と score だけ\nstudents |&gt; select(name, score)\n\n# A tibble: 10 × 2\n   name  score\n   &lt;chr&gt; &lt;dbl&gt;\n 1 田中     78\n 2 鈴木     82\n 3 佐藤     91\n 4 山田     65\n 5 伊藤     74\n 6 渡辺     88\n 7 中村     70\n 8 小林     95\n 9 加藤     83\n10 吉田     77\n\n\n\n# id 以外\nstudents |&gt; select(-id)\n\n# A tibble: 10 × 4\n   name  grade score group\n   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;\n 1 田中      3    78 A    \n 2 鈴木      2    82 B    \n 3 佐藤      4    91 A    \n 4 山田      3    65 B    \n 5 伊藤      2    74 A    \n 6 渡辺      4    88 B    \n 7 中村      3    70 A    \n 8 小林      2    95 B    \n 9 加藤      4    83 A    \n10 吉田      3    77 B    \n\n\n\n\nmutate()：新しい列を作る\n計算結果から新しい列を追加します。\n\nstudents |&gt; mutate(\n  score_centered = score - mean(score),\n  passed = score &gt;= 70\n)\n\n# A tibble: 10 × 7\n      id name  grade score group score_centered passed\n   &lt;int&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;          &lt;dbl&gt; &lt;lgl&gt; \n 1     1 田中      3    78 A              -2.30 TRUE  \n 2     2 鈴木      2    82 B               1.70 TRUE  \n 3     3 佐藤      4    91 A              10.7  TRUE  \n 4     4 山田      3    65 B             -15.3  FALSE \n 5     5 伊藤      2    74 A              -6.3  TRUE  \n 6     6 渡辺      4    88 B               7.7  TRUE  \n 7     7 中村      3    70 A             -10.3  TRUE  \n 8     8 小林      2    95 B              14.7  TRUE  \n 9     9 加藤      4    83 A               2.70 TRUE  \n10    10 吉田      3    77 B              -3.30 TRUE  \n\n\n\n\narrange()：並べ替え\n指定した列で並べ替えます。\n\n# スコア昇順\nstudents |&gt; arrange(score)\n\n# A tibble: 10 × 5\n      id name  grade score group\n   &lt;int&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;\n 1     4 山田      3    65 B    \n 2     7 中村      3    70 A    \n 3     5 伊藤      2    74 A    \n 4    10 吉田      3    77 B    \n 5     1 田中      3    78 A    \n 6     2 鈴木      2    82 B    \n 7     9 加藤      4    83 A    \n 8     6 渡辺      4    88 B    \n 9     3 佐藤      4    91 A    \n10     8 小林      2    95 B    \n\n\n\n# スコア降順\nstudents |&gt; arrange(desc(score))\n\n# A tibble: 10 × 5\n      id name  grade score group\n   &lt;int&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;\n 1     8 小林      2    95 B    \n 2     3 佐藤      4    91 A    \n 3     6 渡辺      4    88 B    \n 4     9 加藤      4    83 A    \n 5     2 鈴木      2    82 B    \n 6     1 田中      3    78 A    \n 7    10 吉田      3    77 B    \n 8     5 伊藤      2    74 A    \n 9     7 中村      3    70 A    \n10     4 山田      3    65 B    \n\n\n\n\nsummarize()：集計\nデータを集計します。\n\nstudents |&gt; summarize(\n  mean_score = mean(score),\n  sd_score = sd(score),\n  n = n()\n)\n\n# A tibble: 1 × 3\n  mean_score sd_score     n\n       &lt;dbl&gt;    &lt;dbl&gt; &lt;int&gt;\n1       80.3     9.41    10\n\n\n\n\ngroup_by()：グループ化\nグループごとに集計できます。\n\nstudents |&gt;\n  group_by(group) |&gt;\n  summarize(\n    mean_score = mean(score),\n    n = n()\n  )\n\n# A tibble: 2 × 3\n  group mean_score     n\n  &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;\n1 A           79.2     5\n2 B           81.4     5\n\n\n\nstudents |&gt;\n  group_by(grade) |&gt;\n  summarize(\n    mean_score = mean(score),\n    n = n()\n  )\n\n# A tibble: 3 × 3\n  grade mean_score     n\n  &lt;dbl&gt;      &lt;dbl&gt; &lt;int&gt;\n1     2       83.7     3\n2     3       72.5     4\n3     4       87.3     3"
-  },
-  {
-    "objectID": "r-tutorial/tidyverse.html#組み合わせて使う",
-    "href": "r-tutorial/tidyverse.html#組み合わせて使う",
-    "title": "tidyverse入門",
-    "section": "組み合わせて使う",
-    "text": "組み合わせて使う\nパイプで複数の操作をつなげます。\n\n# 3年生以上で、グループ別の平均スコアを計算し、降順に並べる\nstudents |&gt;\n  filter(grade &gt;= 3) |&gt;\n  group_by(group) |&gt;\n  summarize(mean_score = mean(score)) |&gt;\n  arrange(desc(mean_score))\n\n# A tibble: 2 × 2\n  group mean_score\n  &lt;chr&gt;      &lt;dbl&gt;\n1 A           80.5\n2 B           76.7"
-  },
-  {
-    "objectID": "r-tutorial/tidyverse.html#tidyrの主要な関数",
-    "href": "r-tutorial/tidyverse.html#tidyrの主要な関数",
-    "title": "tidyverse入門",
-    "section": "tidyrの主要な関数",
-    "text": "tidyrの主要な関数\n\npivot_longer()：縦長に変換\n複数の列を1つの列にまとめます（ワイド形式 → ロング形式）。\n\n# 例：テストの点数データ\nexam_wide &lt;- tibble(\n  name = c(\"田中\", \"鈴木\"),\n  math = c(80, 75),\n  english = c(70, 85),\n  science = c(90, 80)\n)\nexam_wide\n\n# A tibble: 2 × 4\n  name   math english science\n  &lt;chr&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;\n1 田中     80      70      90\n2 鈴木     75      85      80\n\n# 縦長に変換\nexam_wide |&gt;\n  pivot_longer(\n    cols = c(math, english, science),\n    names_to = \"subject\",\n    values_to = \"score\"\n  )\n\n# A tibble: 6 × 3\n  name  subject score\n  &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt;\n1 田中  math       80\n2 田中  english    70\n3 田中  science    90\n4 鈴木  math       75\n5 鈴木  english    85\n6 鈴木  science    80\n\n\n\n\npivot_wider()：横長に変換\n1つの列を複数の列に展開します（ロング形式 → ワイド形式）。\n\n# 例：縦長データ\nexam_long &lt;- tibble(\n  name = rep(c(\"田中\", \"鈴木\"), each = 3),\n  subject = rep(c(\"math\", \"english\", \"science\"), 2),\n  score = c(80, 70, 90, 75, 85, 80)\n)\nexam_long\n\n# A tibble: 6 × 3\n  name  subject score\n  &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt;\n1 田中  math       80\n2 田中  english    70\n3 田中  science    90\n4 鈴木  math       75\n5 鈴木  english    85\n6 鈴木  science    80\n\n# 横長に変換\nexam_long |&gt;\n  pivot_wider(\n    names_from = subject,\n    values_from = score\n  )\n\n# A tibble: 2 × 4\n  name   math english science\n  &lt;chr&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;\n1 田中     80      70      90\n2 鈴木     75      85      80"
-  },
-  {
-    "objectID": "r-tutorial/tidyverse.html#練習問題",
-    "href": "r-tutorial/tidyverse.html#練習問題",
-    "title": "tidyverse入門",
+    "objectID": "r-tutorial/r-basics.html#練習問題",
+    "href": "r-tutorial/r-basics.html#練習問題",
+    "title": "Rの基礎",
     "section": "練習問題",
-    "text": "練習問題\nstudents データを使って以下を行ってください：\n\nスコアが75以上の学生だけを抽出し、スコアの降順で並べる\n各学年（grade）の平均スコアを計算する\nスコアの偏差値（平均50、標準偏差10に変換した値）を新しい列として追加する\n\n\n\n\n\n\n\nヒント解答例\n\n\n\n\n\n\n# 1\nstudents |&gt;\n  filter(score &gt;= 75) |&gt;\n  arrange(desc(score))\n\n# A tibble: 7 × 5\n     id name  grade score group\n  &lt;int&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;\n1     8 小林      2    95 B    \n2     3 佐藤      4    91 A    \n3     6 渡辺      4    88 B    \n4     9 加藤      4    83 A    \n5     2 鈴木      2    82 B    \n6     1 田中      3    78 A    \n7    10 吉田      3    77 B    \n\n# 2\nstudents |&gt;\n  group_by(grade) |&gt;\n  summarize(mean_score = mean(score))\n\n# A tibble: 3 × 2\n  grade mean_score\n  &lt;dbl&gt;      &lt;dbl&gt;\n1     2       83.7\n2     3       72.5\n3     4       87.3\n\n# 3\nstudents |&gt;\n  mutate(\n    deviation = (score - mean(score)) / sd(score) * 10 + 50\n  )\n\n# A tibble: 10 × 6\n      id name  grade score group deviation\n   &lt;int&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;\n 1     1 田中      3    78 A          47.6\n 2     2 鈴木      2    82 B          51.8\n 3     3 佐藤      4    91 A          61.4\n 4     4 山田      3    65 B          33.7\n 5     5 伊藤      2    74 A          43.3\n 6     6 渡辺      4    88 B          58.2\n 7     7 中村      3    70 A          39.0\n 8     8 小林      2    95 B          65.6\n 9     9 加藤      4    83 A          52.9\n10    10 吉田      3    77 B          46.5"
-  },
-  {
-    "objectID": "r-tutorial/index.html",
-    "href": "r-tutorial/index.html",
-    "title": "Rチュートリアル",
-    "section": "",
-    "text": "この教材は、Rを使ったデータ分析・可視化の基礎を学ぶためのものです。"
-  },
-  {
-    "objectID": "r-tutorial/index.html#この教材について",
-    "href": "r-tutorial/index.html#この教材について",
-    "title": "Rチュートリアル",
-    "section": "",
-    "text": "この教材は、Rを使ったデータ分析・可視化の基礎を学ぶためのものです。"
-  },
-  {
-    "objectID": "r-tutorial/index.html#目標スキル",
-    "href": "r-tutorial/index.html#目標スキル",
-    "title": "Rチュートリアル",
-    "section": "目標スキル",
-    "text": "目標スキル\nこの教材を終えると、以下のことができるようになります：\n\nデータ整形技術：自分が欲しい形にデータを整えることができる\ntidyverseマスター：tidyverseを使った効率的なデータハンドリング\nデータ可視化技術：研究に必要な図表を自在に作成できる\n生成AI活用力：俯瞰的ビジョンのもとで生成AIに適切な指示が出せる"
-  },
-  {
-    "objectID": "r-tutorial/index.html#学習の進め方",
-    "href": "r-tutorial/index.html#学習の進め方",
-    "title": "Rチュートリアル",
-    "section": "学習の進め方",
-    "text": "学習の進め方\n\nゴールベース・ビジョン主導型\nこの教材では、「こういう図を描きたい」「こういうデータにしたい」というゴールから逆算して学んでいきます。\n\n可視化ギャラリーを見る → 「こんな図が描けるんだ」という目標を知る\n必要なデータ形式を理解する → その図を描くにはどんなデータが必要か\nデータを整形する → 手元のデータを必要な形に変える\n実際に描いてみる → 試行錯誤しながら完成させる\n\n\n\n生成AIとの協働\nわからないことは積極的に生成AI（ChatGPT、Claude等）に相談してください。\n良い質問の例：\n\n「年齢別の平均スコアを棒グラフで描きたいのですが、どうすればいいですか？」\n「このエラーメッセージの意味を教えてください：〇〇」\n「group_by() と summarize() の違いを教えてください」\n\n避けたほうがよい質問：\n\n「Rがわかりません」（具体性がない）\n「全部やってください」（学習にならない）"
-  },
-  {
-    "objectID": "r-tutorial/index.html#教材の構成",
-    "href": "r-tutorial/index.html#教材の構成",
-    "title": "Rチュートリアル",
-    "section": "教材の構成",
-    "text": "教材の構成\n\n\n\nページ\n内容\n\n\n\n\nRの基礎\n計算、オブジェクト、関数の基本\n\n\nデータの読み込み\nCSVファイルを読み込んで中身を確認\n\n\ntidyverse入門\ndplyr, tidyrを使ったデータ整形\n\n\n可視化ギャラリー\nggplot2で描ける様々な図の例"
-  },
-  {
-    "objectID": "r-tutorial/index.html#必要な環境",
-    "href": "r-tutorial/index.html#必要な環境",
-    "title": "Rチュートリアル",
-    "section": "必要な環境",
-    "text": "必要な環境\n\nR（最新版推奨）\nRStudio または RStudio Server\ntidyverse パッケージ\n\n# tidyverseのインストール（初回のみ）\ninstall.packages(\"tidyverse\")"
-  },
-  {
-    "objectID": "members.html",
-    "href": "members.html",
-    "title": "メンバー紹介",
-    "section": "",
-    "text": "2008/H20年卒　秋好さつき(1)・山本三紀子(2)\n2009/H21年卒　小川菜々(3)・高本佳枝(4)・谷昭子(5)\n2010/H22年卒\n2011/H23年卒　栗原慧(6)\n2012/H24年卒　川谷義隆(7)・日高美咲(8)\n2013/H25年卒　林由紀(9)・前表理美(10)\n2014/H26年卒　上田晋平(11)・坪井雄馬(12)\n2015/H27年卒　中田達也(13)\n2016/H28年卒　石丸さやか(14)\n2017/H29年卒　小田美優(15)・本田志保(16)\n2018/H30年卒　小林仁美(17)\n補欠　大江慶寛(18)\n\n\n\n\n\n2010/H22年修了　若藤夏子(-1)\n2011/H23年修了　川本静香(-2)\n2012/H24年修了\n2013/H25年修了　池田正博(-3)・松沼風子(-4)\n2014/H26年修了　日高美咲(-5)・井土優(-6)\n2015/H27年修了\n2016/H28年修了\n2017/H29年修了　片桐咲恵(-7)\n\n\n\n\n\n\n\n\n2019/H31年卒　市原拓海(19)\n2020/R2年卒　安藤正和(20)・川村莉奈(21)\n2021/R3年卒　梶原睦美(22)・真島宏明(23)・寺田慎之介(24)\n2022/R4年卒　山崎明輝(25)・粕谷麻子(26)\n2023/R5年卒　今井怜(27)・竹本周平(29)・芦口竜斗(30)・寺内悠祐(31)\n2024/R6年卒　小林美月(32)・谷口龍治郎(33)・上村大地(35)・寒河江皓(36)・清水龍人(37)\n2025/R7年卒　細谷柊真(38)\n\n\n\n\n\n2020/R02年修了　池田孝恒(-8)\n2022/R04年修了　安藤正和(-9)\n2022/R04年単位取得退学　越智宏明(-10)"
-  },
-  {
-    "objectID": "members.html#研究室メンバー",
-    "href": "members.html#研究室メンバー",
-    "title": "メンバー紹介",
-    "section": "",
-    "text": "2008/H20年卒　秋好さつき(1)・山本三紀子(2)\n2009/H21年卒　小川菜々(3)・高本佳枝(4)・谷昭子(5)\n2010/H22年卒\n2011/H23年卒　栗原慧(6)\n2012/H24年卒　川谷義隆(7)・日高美咲(8)\n2013/H25年卒　林由紀(9)・前表理美(10)\n2014/H26年卒　上田晋平(11)・坪井雄馬(12)\n2015/H27年卒　中田達也(13)\n2016/H28年卒　石丸さやか(14)\n2017/H29年卒　小田美優(15)・本田志保(16)\n2018/H30年卒　小林仁美(17)\n補欠　大江慶寛(18)\n\n\n\n\n\n2010/H22年修了　若藤夏子(-1)\n2011/H23年修了　川本静香(-2)\n2012/H24年修了\n2013/H25年修了　池田正博(-3)・松沼風子(-4)\n2014/H26年修了　日高美咲(-5)・井土優(-6)\n2015/H27年修了\n2016/H28年修了\n2017/H29年修了　片桐咲恵(-7)\n\n\n\n\n\n\n\n\n2019/H31年卒　市原拓海(19)\n2020/R2年卒　安藤正和(20)・川村莉奈(21)\n2021/R3年卒　梶原睦美(22)・真島宏明(23)・寺田慎之介(24)\n2022/R4年卒　山崎明輝(25)・粕谷麻子(26)\n2023/R5年卒　今井怜(27)・竹本周平(29)・芦口竜斗(30)・寺内悠祐(31)\n2024/R6年卒　小林美月(32)・谷口龍治郎(33)・上村大地(35)・寒河江皓(36)・清水龍人(37)\n2025/R7年卒　細谷柊真(38)\n\n\n\n\n\n2020/R02年修了　池田孝恒(-8)\n2022/R04年修了　安藤正和(-9)\n2022/R04年単位取得退学　越智宏明(-10)"
-  },
-  {
-    "objectID": "r-tutorial/data-handling.html",
-    "href": "r-tutorial/data-handling.html",
-    "title": "データの読み込み",
-    "section": "",
-    "text": "研究で使うデータは、多くの場合CSVファイル（カンマ区切りテキスト）で提供されます。\n\n\ntidyverseに含まれるreadrパッケージのread_csv()関数を使います。\nlibrary(tidyverse)\n\n# CSVファイルを読み込む\ndata &lt;- read_csv(\"data.csv\")\n\n\n\n日本語を含むファイルで文字化けする場合は、エンコーディングを指定します。\ndata &lt;- read_csv(\"data.csv\", locale = locale(encoding = \"CP932\"))"
-  },
-  {
-    "objectID": "r-tutorial/data-handling.html#csvファイルの読み込み",
-    "href": "r-tutorial/data-handling.html#csvファイルの読み込み",
-    "title": "データの読み込み",
-    "section": "",
-    "text": "研究で使うデータは、多くの場合CSVファイル（カンマ区切りテキスト）で提供されます。\n\n\ntidyverseに含まれるreadrパッケージのread_csv()関数を使います。\nlibrary(tidyverse)\n\n# CSVファイルを読み込む\ndata &lt;- read_csv(\"data.csv\")\n\n\n\n日本語を含むファイルで文字化けする場合は、エンコーディングを指定します。\ndata &lt;- read_csv(\"data.csv\", locale = locale(encoding = \"CP932\"))"
-  },
-  {
-    "objectID": "r-tutorial/data-handling.html#データの確認",
-    "href": "r-tutorial/data-handling.html#データの確認",
-    "title": "データの読み込み",
-    "section": "データの確認",
-    "text": "データの確認\n読み込んだデータを確認する方法はいくつかあります。\n\nhead() と tail()\n最初の数行、最後の数行を表示します。\nhead(data)       # 最初の6行\nhead(data, 10)   # 最初の10行\ntail(data)       # 最後の6行\n\n\nglimpse()\nデータの構造をコンパクトに表示します。\nglimpse(data)\n\n\nsummary()\n各変数の要約統計量を表示します。\nsummary(data)\n\n\nView()\nRStudioでスプレッドシート形式で表示します。\nView(data)"
-  },
-  {
-    "objectID": "r-tutorial/data-handling.html#練習用データ",
-    "href": "r-tutorial/data-handling.html#練習用データ",
-    "title": "データの読み込み",
-    "section": "練習用データ",
-    "text": "練習用データ\nこの教材では、以下のようなデータを使って練習します。\n\nサンプルデータの作成\n\nlibrary(tidyverse)\n\n# サンプルデータを作成\nstudents &lt;- tibble(\n  id = 1:10,\n  name = c(\"田中\", \"鈴木\", \"佐藤\", \"山田\", \"伊藤\",\n           \"渡辺\", \"中村\", \"小林\", \"加藤\", \"吉田\"),\n  grade = c(3, 2, 4, 3, 2, 4, 3, 2, 4, 3),\n  score = c(78, 82, 91, 65, 74, 88, 70, 95, 83, 77),\n  group = c(\"A\", \"B\", \"A\", \"B\", \"A\", \"B\", \"A\", \"B\", \"A\", \"B\")\n)\n\nstudents\n\n# A tibble: 10 × 5\n      id name  grade score group\n   &lt;int&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;\n 1     1 田中      3    78 A    \n 2     2 鈴木      2    82 B    \n 3     3 佐藤      4    91 A    \n 4     4 山田      3    65 B    \n 5     5 伊藤      2    74 A    \n 6     6 渡辺      4    88 B    \n 7     7 中村      3    70 A    \n 8     8 小林      2    95 B    \n 9     9 加藤      4    83 A    \n10    10 吉田      3    77 B    \n\n\n\n\nデータの確認\n\n# 構造を確認\nglimpse(students)\n\nRows: 10\nColumns: 5\n$ id    &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10\n$ name  &lt;chr&gt; \"田中\", \"鈴木\", \"佐藤\", \"山田\", \"伊藤\", \"渡辺\", \"中村\", \"小林\", \"加藤\", \"吉田\"…\n$ grade &lt;dbl&gt; 3, 2, 4, 3, 2, 4, 3, 2, 4, 3\n$ score &lt;dbl&gt; 78, 82, 91, 65, 74, 88, 70, 95, 83, 77\n$ group &lt;chr&gt; \"A\", \"B\", \"A\", \"B\", \"A\", \"B\", \"A\", \"B\", \"A\", \"B\"\n\n\n\n# 要約統計量\nsummary(students)\n\n       id            name               grade          score      \n Min.   : 1.00   Length:10          Min.   :2.00   Min.   :65.00  \n 1st Qu.: 3.25   Class :character   1st Qu.:2.25   1st Qu.:74.75  \n Median : 5.50   Mode  :character   Median :3.00   Median :80.00  \n Mean   : 5.50                      Mean   :3.00   Mean   :80.30  \n 3rd Qu.: 7.75                      3rd Qu.:3.75   3rd Qu.:86.75  \n Max.   :10.00                      Max.   :4.00   Max.   :95.00  \n    group          \n Length:10         \n Class :character  \n Mode  :character"
-  },
-  {
-    "objectID": "r-tutorial/data-handling.html#データ型",
-    "href": "r-tutorial/data-handling.html#データ型",
-    "title": "データの読み込み",
-    "section": "データ型",
-    "text": "データ型\nRには主に以下のデータ型があります：\n\n\n\n型\n説明\n例\n\n\n\n\nnumeric\n数値\n1.5, 100\n\n\ncharacter\n文字列\n\"hello\", \"田中\"\n\n\nlogical\n論理値\nTRUE, FALSE\n\n\nfactor\nカテゴリ\n順序のあるカテゴリ\n\n\n\n\n# 型の確認\nclass(students$score)  # 数値\n\n[1] \"numeric\"\n\nclass(students$name)   # 文字列\n\n[1] \"character\"\n\nclass(students$grade)  # 数値\n\n[1] \"numeric\""
-  },
-  {
-    "objectID": "r-tutorial/data-handling.html#特定の列行を取り出す",
-    "href": "r-tutorial/data-handling.html#特定の列行を取り出す",
-    "title": "データの読み込み",
-    "section": "特定の列・行を取り出す",
-    "text": "特定の列・行を取り出す\n\n列の取り出し\n\n# $ を使う\nstudents$score\n\n [1] 78 82 91 65 74 88 70 95 83 77\n\n# [[]] を使う\nstudents[[\"score\"]]\n\n [1] 78 82 91 65 74 88 70 95 83 77\n\n\n\n\n行の取り出し\n\n# 1行目\nstudents[1, ]\n\n# A tibble: 1 × 5\n     id name  grade score group\n  &lt;int&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;\n1     1 田中      3    78 A    \n\n# 1〜3行目\nstudents[1:3, ]\n\n# A tibble: 3 × 5\n     id name  grade score group\n  &lt;int&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;\n1     1 田中      3    78 A    \n2     2 鈴木      2    82 B    \n3     3 佐藤      4    91 A    \n\n\n\n\n条件で絞り込む\n\n# スコアが80以上の行\nstudents[students$score &gt;= 80, ]\n\n# A tibble: 5 × 5\n     id name  grade score group\n  &lt;int&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;\n1     2 鈴木      2    82 B    \n2     3 佐藤      4    91 A    \n3     6 渡辺      4    88 B    \n4     8 小林      2    95 B    \n5     9 加藤      4    83 A    \n\n\n\n\n\n\n\n\nノート\n\n\n\n次の「tidyverse入門」では、より直感的な方法でデータを操作する方法を学びます。"
+    "text": "練習問題\n\n次の計算をRで行ってください\n\n\\(3 + 5 \\times 2\\)\n\\(\\sqrt{144}\\)\n\\(2^{8}\\)\n\n以下の5人のテスト得点について、平均と標準偏差を求めてください\n\n78, 82, 91, 65, 74\n\n1から100までの整数の合計を求めてください（ヒント：1:100 で連番を作れます）\n\n\n\n\n\n\n\nヒント解答例\n\n\n\n\n\n\n# 1\n3 + 5 * 2\n\n[1] 13\n\nsqrt(144)\n\n[1] 12\n\n2^8\n\n[1] 256\n\n# 2\nscores &lt;- c(78, 82, 91, 65, 74)\nmean(scores)\n\n[1] 78\n\nsd(scores)\n\n[1] 9.617692\n\n# 3\nsum(1:100)\n\n[1] 5050"
   },
   {
     "objectID": "r-tutorial/visualization.html",
@@ -518,207 +364,382 @@
     "text": "次のステップ\n\nR Graph Gallery：様々な図のコード例\nggplot2公式リファレンス\nData to Viz：データの種類から適切な図を選ぶ"
   },
   {
-    "objectID": "r-tutorial/r-basics.html",
-    "href": "r-tutorial/r-basics.html",
-    "title": "Rの基礎",
+    "objectID": "r-tutorial/data-handling.html",
+    "href": "r-tutorial/data-handling.html",
+    "title": "データの読み込み",
     "section": "",
-    "text": "Rは高機能な電卓として使えます。コンソールに計算式を入力してEnterを押すと、結果が表示されます。\n\n# 四則演算\n1 + 2\n\n[1] 3\n\n10 - 3\n\n[1] 7\n\n4 * 5\n\n[1] 20\n\n20 / 4\n\n[1] 5\n\n\n\n# べき乗\n2^3\n\n[1] 8\n\n2^10\n\n[1] 1024\n\n\n\n# 余りと商\n17 %% 5   # 余り\n\n[1] 2\n\n17 %/% 5  # 商\n\n[1] 3"
+    "text": "研究で使うデータは、多くの場合CSVファイル（カンマ区切りテキスト）で提供されます。\n\n\ntidyverseに含まれるreadrパッケージのread_csv()関数を使います。\nlibrary(tidyverse)\n\n# CSVファイルを読み込む\ndata &lt;- read_csv(\"data.csv\")\n\n\n\n日本語を含むファイルで文字化けする場合は、エンコーディングを指定します。\ndata &lt;- read_csv(\"data.csv\", locale = locale(encoding = \"CP932\"))"
   },
   {
-    "objectID": "r-tutorial/r-basics.html#rを電卓として使う",
-    "href": "r-tutorial/r-basics.html#rを電卓として使う",
-    "title": "Rの基礎",
+    "objectID": "r-tutorial/data-handling.html#csvファイルの読み込み",
+    "href": "r-tutorial/data-handling.html#csvファイルの読み込み",
+    "title": "データの読み込み",
     "section": "",
-    "text": "Rは高機能な電卓として使えます。コンソールに計算式を入力してEnterを押すと、結果が表示されます。\n\n# 四則演算\n1 + 2\n\n[1] 3\n\n10 - 3\n\n[1] 7\n\n4 * 5\n\n[1] 20\n\n20 / 4\n\n[1] 5\n\n\n\n# べき乗\n2^3\n\n[1] 8\n\n2^10\n\n[1] 1024\n\n\n\n# 余りと商\n17 %% 5   # 余り\n\n[1] 2\n\n17 %/% 5  # 商\n\n[1] 3"
+    "text": "研究で使うデータは、多くの場合CSVファイル（カンマ区切りテキスト）で提供されます。\n\n\ntidyverseに含まれるreadrパッケージのread_csv()関数を使います。\nlibrary(tidyverse)\n\n# CSVファイルを読み込む\ndata &lt;- read_csv(\"data.csv\")\n\n\n\n日本語を含むファイルで文字化けする場合は、エンコーディングを指定します。\ndata &lt;- read_csv(\"data.csv\", locale = locale(encoding = \"CP932\"))"
   },
   {
-    "objectID": "r-tutorial/r-basics.html#オブジェクト変数",
-    "href": "r-tutorial/r-basics.html#オブジェクト変数",
-    "title": "Rの基礎",
-    "section": "オブジェクト（変数）",
-    "text": "オブジェクト（変数）\n計算結果を保存しておくには、オブジェクト（変数）を使います。&lt;- で値を代入します。\n\nx &lt;- 10\ny &lt;- 3\nx + y\n\n[1] 13\n\nx * y\n\n[1] 30\n\n\nオブジェクト名は自由につけられますが、以下のルールがあります：\n\n英数字とアンダースコア（_）、ピリオド（.）が使える\n数字で始めてはいけない\n大文字と小文字は区別される（X と x は別物）\n\n\nmy_score &lt;- 85\naverage_score &lt;- 72.5\nmy_score - average_score\n\n[1] 12.5"
+    "objectID": "r-tutorial/data-handling.html#データの確認",
+    "href": "r-tutorial/data-handling.html#データの確認",
+    "title": "データの読み込み",
+    "section": "データの確認",
+    "text": "データの確認\n読み込んだデータを確認する方法はいくつかあります。\n\nhead() と tail()\n最初の数行、最後の数行を表示します。\nhead(data)       # 最初の6行\nhead(data, 10)   # 最初の10行\ntail(data)       # 最後の6行\n\n\nglimpse()\nデータの構造をコンパクトに表示します。\nglimpse(data)\n\n\nsummary()\n各変数の要約統計量を表示します。\nsummary(data)\n\n\nView()\nRStudioでスプレッドシート形式で表示します。\nView(data)"
   },
   {
-    "objectID": "r-tutorial/r-basics.html#ベクトル",
-    "href": "r-tutorial/r-basics.html#ベクトル",
-    "title": "Rの基礎",
-    "section": "ベクトル",
-    "text": "ベクトル\n複数の値をまとめて扱うには、ベクトルを使います。c() 関数で作成します。\n\nscores &lt;- c(80, 75, 90, 85, 70)\nscores\n\n[1] 80 75 90 85 70\n\n\n\n# ベクトルの演算\nscores + 10       # 全要素に10を足す\n\n[1]  90  85 100  95  80\n\nscores * 2        # 全要素を2倍\n\n[1] 160 150 180 170 140\n\nmean(scores)      # 平均\n\n[1] 80\n\nsum(scores)       # 合計\n\n[1] 400\n\nlength(scores)    # 要素数\n\n[1] 5"
+    "objectID": "r-tutorial/data-handling.html#練習用データ",
+    "href": "r-tutorial/data-handling.html#練習用データ",
+    "title": "データの読み込み",
+    "section": "練習用データ",
+    "text": "練習用データ\nこの教材では、以下のようなデータを使って練習します。\n\nサンプルデータの作成\n\nlibrary(tidyverse)\n\n# サンプルデータを作成\nstudents &lt;- tibble(\n  id = 1:10,\n  name = c(\"田中\", \"鈴木\", \"佐藤\", \"山田\", \"伊藤\",\n           \"渡辺\", \"中村\", \"小林\", \"加藤\", \"吉田\"),\n  grade = c(3, 2, 4, 3, 2, 4, 3, 2, 4, 3),\n  score = c(78, 82, 91, 65, 74, 88, 70, 95, 83, 77),\n  group = c(\"A\", \"B\", \"A\", \"B\", \"A\", \"B\", \"A\", \"B\", \"A\", \"B\")\n)\n\nstudents\n\n# A tibble: 10 × 5\n      id name  grade score group\n   &lt;int&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;\n 1     1 田中      3    78 A    \n 2     2 鈴木      2    82 B    \n 3     3 佐藤      4    91 A    \n 4     4 山田      3    65 B    \n 5     5 伊藤      2    74 A    \n 6     6 渡辺      4    88 B    \n 7     7 中村      3    70 A    \n 8     8 小林      2    95 B    \n 9     9 加藤      4    83 A    \n10    10 吉田      3    77 B    \n\n\n\n\nデータの確認\n\n# 構造を確認\nglimpse(students)\n\nRows: 10\nColumns: 5\n$ id    &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10\n$ name  &lt;chr&gt; \"田中\", \"鈴木\", \"佐藤\", \"山田\", \"伊藤\", \"渡辺\", \"中村\", \"小林\", \"加藤\", \"吉田\"…\n$ grade &lt;dbl&gt; 3, 2, 4, 3, 2, 4, 3, 2, 4, 3\n$ score &lt;dbl&gt; 78, 82, 91, 65, 74, 88, 70, 95, 83, 77\n$ group &lt;chr&gt; \"A\", \"B\", \"A\", \"B\", \"A\", \"B\", \"A\", \"B\", \"A\", \"B\"\n\n\n\n# 要約統計量\nsummary(students)\n\n       id            name               grade          score      \n Min.   : 1.00   Length:10          Min.   :2.00   Min.   :65.00  \n 1st Qu.: 3.25   Class :character   1st Qu.:2.25   1st Qu.:74.75  \n Median : 5.50   Mode  :character   Median :3.00   Median :80.00  \n Mean   : 5.50                      Mean   :3.00   Mean   :80.30  \n 3rd Qu.: 7.75                      3rd Qu.:3.75   3rd Qu.:86.75  \n Max.   :10.00                      Max.   :4.00   Max.   :95.00  \n    group          \n Length:10         \n Class :character  \n Mode  :character"
   },
   {
-    "objectID": "r-tutorial/r-basics.html#関数",
-    "href": "r-tutorial/r-basics.html#関数",
-    "title": "Rの基礎",
-    "section": "関数",
-    "text": "関数\n関数は「入力を受け取って、何かの処理をして、結果を返す」ものです。\n\n# よく使う関数\nsqrt(16)          # 平方根\n\n[1] 4\n\nabs(-5)           # 絶対値\n\n[1] 5\n\nround(3.14159, 2) # 四捨五入（小数点以下2桁）\n\n[1] 3.14\n\n\n\n# 統計関連の関数\nx &lt;- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)\nmean(x)    # 平均\n\n[1] 5.5\n\nmedian(x)  # 中央値\n\n[1] 5.5\n\nsd(x)      # 標準偏差\n\n[1] 3.02765\n\nvar(x)     # 分散\n\n[1] 9.166667\n\nmin(x)     # 最小値\n\n[1] 1\n\nmax(x)     # 最大値\n\n[1] 10\n\nrange(x)   # 範囲（最小値と最大値）\n\n[1]  1 10"
+    "objectID": "r-tutorial/data-handling.html#データ型",
+    "href": "r-tutorial/data-handling.html#データ型",
+    "title": "データの読み込み",
+    "section": "データ型",
+    "text": "データ型\nRには主に以下のデータ型があります：\n\n\n\n型\n説明\n例\n\n\n\n\nnumeric\n数値\n1.5, 100\n\n\ncharacter\n文字列\n\"hello\", \"田中\"\n\n\nlogical\n論理値\nTRUE, FALSE\n\n\nfactor\nカテゴリ\n順序のあるカテゴリ\n\n\n\n\n# 型の確認\nclass(students$score)  # 数値\n\n[1] \"numeric\"\n\nclass(students$name)   # 文字列\n\n[1] \"character\"\n\nclass(students$grade)  # 数値\n\n[1] \"numeric\""
   },
   {
-    "objectID": "r-tutorial/r-basics.html#ヘルプの見方",
-    "href": "r-tutorial/r-basics.html#ヘルプの見方",
-    "title": "Rの基礎",
-    "section": "ヘルプの見方",
-    "text": "ヘルプの見方\n関数の使い方がわからないときは、? をつけてヘルプを表示できます。\n?mean\n?round"
+    "objectID": "r-tutorial/data-handling.html#特定の列行を取り出す",
+    "href": "r-tutorial/data-handling.html#特定の列行を取り出す",
+    "title": "データの読み込み",
+    "section": "特定の列・行を取り出す",
+    "text": "特定の列・行を取り出す\n\n列の取り出し\n\n# $ を使う\nstudents$score\n\n [1] 78 82 91 65 74 88 70 95 83 77\n\n# [[]] を使う\nstudents[[\"score\"]]\n\n [1] 78 82 91 65 74 88 70 95 83 77\n\n\n\n\n行の取り出し\n\n# 1行目\nstudents[1, ]\n\n# A tibble: 1 × 5\n     id name  grade score group\n  &lt;int&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;\n1     1 田中      3    78 A    \n\n# 1〜3行目\nstudents[1:3, ]\n\n# A tibble: 3 × 5\n     id name  grade score group\n  &lt;int&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;\n1     1 田中      3    78 A    \n2     2 鈴木      2    82 B    \n3     3 佐藤      4    91 A    \n\n\n\n\n条件で絞り込む\n\n# スコアが80以上の行\nstudents[students$score &gt;= 80, ]\n\n# A tibble: 5 × 5\n     id name  grade score group\n  &lt;int&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;\n1     2 鈴木      2    82 B    \n2     3 佐藤      4    91 A    \n3     6 渡辺      4    88 B    \n4     8 小林      2    95 B    \n5     9 加藤      4    83 A    \n\n\n\n\n\n\n\n\nノート\n\n\n\n次の「tidyverse入門」では、より直感的な方法でデータを操作する方法を学びます。"
   },
   {
-    "objectID": "r-tutorial/r-basics.html#練習問題",
-    "href": "r-tutorial/r-basics.html#練習問題",
-    "title": "Rの基礎",
+    "objectID": "members.html",
+    "href": "members.html",
+    "title": "メンバー紹介",
+    "section": "",
+    "text": "2008/H20年卒　秋好さつき(1)・山本三紀子(2)\n2009/H21年卒　小川菜々(3)・高本佳枝(4)・谷昭子(5)\n2010/H22年卒\n2011/H23年卒　栗原慧(6)\n2012/H24年卒　川谷義隆(7)・日高美咲(8)\n2013/H25年卒　林由紀(9)・前表理美(10)\n2014/H26年卒　上田晋平(11)・坪井雄馬(12)\n2015/H27年卒　中田達也(13)\n2016/H28年卒　石丸さやか(14)\n2017/H29年卒　小田美優(15)・本田志保(16)\n2018/H30年卒　小林仁美(17)\n補欠　大江慶寛(18)\n\n\n\n\n\n2010/H22年修了　若藤夏子(-1)\n2011/H23年修了　川本静香(-2)\n2012/H24年修了\n2013/H25年修了　池田正博(-3)・松沼風子(-4)\n2014/H26年修了　日高美咲(-5)・井土優(-6)\n2015/H27年修了\n2016/H28年修了\n2017/H29年修了　片桐咲恵(-7)\n\n\n\n\n\n\n\n\n2019/H31年卒　市原拓海(19)\n2020/R2年卒　安藤正和(20)・川村莉奈(21)\n2021/R3年卒　梶原睦美(22)・真島宏明(23)・寺田慎之介(24)\n2022/R4年卒　山崎明輝(25)・粕谷麻子(26)\n2023/R5年卒　今井怜(27)・竹本周平(29)・芦口竜斗(30)・寺内悠祐(31)\n2024/R6年卒　小林美月(32)・谷口龍治郎(33)・上村大地(35)・寒河江皓(36)・清水龍人(37)\n2025/R7年卒　細谷柊真(38)\n\n\n\n\n\n2020/R02年修了　池田孝恒(-8)\n2022/R04年修了　安藤正和(-9)\n2022/R04年単位取得退学　越智宏明(-10)"
+  },
+  {
+    "objectID": "members.html#研究室メンバー",
+    "href": "members.html#研究室メンバー",
+    "title": "メンバー紹介",
+    "section": "",
+    "text": "2008/H20年卒　秋好さつき(1)・山本三紀子(2)\n2009/H21年卒　小川菜々(3)・高本佳枝(4)・谷昭子(5)\n2010/H22年卒\n2011/H23年卒　栗原慧(6)\n2012/H24年卒　川谷義隆(7)・日高美咲(8)\n2013/H25年卒　林由紀(9)・前表理美(10)\n2014/H26年卒　上田晋平(11)・坪井雄馬(12)\n2015/H27年卒　中田達也(13)\n2016/H28年卒　石丸さやか(14)\n2017/H29年卒　小田美優(15)・本田志保(16)\n2018/H30年卒　小林仁美(17)\n補欠　大江慶寛(18)\n\n\n\n\n\n2010/H22年修了　若藤夏子(-1)\n2011/H23年修了　川本静香(-2)\n2012/H24年修了\n2013/H25年修了　池田正博(-3)・松沼風子(-4)\n2014/H26年修了　日高美咲(-5)・井土優(-6)\n2015/H27年修了\n2016/H28年修了\n2017/H29年修了　片桐咲恵(-7)\n\n\n\n\n\n\n\n\n2019/H31年卒　市原拓海(19)\n2020/R2年卒　安藤正和(20)・川村莉奈(21)\n2021/R3年卒　梶原睦美(22)・真島宏明(23)・寺田慎之介(24)\n2022/R4年卒　山崎明輝(25)・粕谷麻子(26)\n2023/R5年卒　今井怜(27)・竹本周平(29)・芦口竜斗(30)・寺内悠祐(31)\n2024/R6年卒　小林美月(32)・谷口龍治郎(33)・上村大地(35)・寒河江皓(36)・清水龍人(37)\n2025/R7年卒　細谷柊真(38)\n\n\n\n\n\n2020/R02年修了　池田孝恒(-8)\n2022/R04年修了　安藤正和(-9)\n2022/R04年単位取得退学　越智宏明(-10)"
+  },
+  {
+    "objectID": "r-tutorial/index.html",
+    "href": "r-tutorial/index.html",
+    "title": "Rチュートリアル",
+    "section": "",
+    "text": "この教材は、Rを使ったデータ分析・可視化の基礎を学ぶためのものです。"
+  },
+  {
+    "objectID": "r-tutorial/index.html#この教材について",
+    "href": "r-tutorial/index.html#この教材について",
+    "title": "Rチュートリアル",
+    "section": "",
+    "text": "この教材は、Rを使ったデータ分析・可視化の基礎を学ぶためのものです。"
+  },
+  {
+    "objectID": "r-tutorial/index.html#目標スキル",
+    "href": "r-tutorial/index.html#目標スキル",
+    "title": "Rチュートリアル",
+    "section": "目標スキル",
+    "text": "目標スキル\nこの教材を終えると、以下のことができるようになります：\n\nデータ整形技術：自分が欲しい形にデータを整えることができる\ntidyverseマスター：tidyverseを使った効率的なデータハンドリング\nデータ可視化技術：研究に必要な図表を自在に作成できる\n生成AI活用力：俯瞰的ビジョンのもとで生成AIに適切な指示が出せる"
+  },
+  {
+    "objectID": "r-tutorial/index.html#学習の進め方",
+    "href": "r-tutorial/index.html#学習の進め方",
+    "title": "Rチュートリアル",
+    "section": "学習の進め方",
+    "text": "学習の進め方\n\nゴールベース・ビジョン主導型\nこの教材では、「こういう図を描きたい」「こういうデータにしたい」というゴールから逆算して学んでいきます。\n\n可視化ギャラリーを見る → 「こんな図が描けるんだ」という目標を知る\n必要なデータ形式を理解する → その図を描くにはどんなデータが必要か\nデータを整形する → 手元のデータを必要な形に変える\n実際に描いてみる → 試行錯誤しながら完成させる\n\n\n\n生成AIとの協働\nわからないことは積極的に生成AI（ChatGPT、Claude等）に相談してください。\n良い質問の例：\n\n「年齢別の平均スコアを棒グラフで描きたいのですが、どうすればいいですか？」\n「このエラーメッセージの意味を教えてください：〇〇」\n「group_by() と summarize() の違いを教えてください」\n\n避けたほうがよい質問：\n\n「Rがわかりません」（具体性がない）\n「全部やってください」（学習にならない）"
+  },
+  {
+    "objectID": "r-tutorial/index.html#教材の構成",
+    "href": "r-tutorial/index.html#教材の構成",
+    "title": "Rチュートリアル",
+    "section": "教材の構成",
+    "text": "教材の構成\n\n\n\nページ\n内容\n\n\n\n\nRの基礎\n計算、オブジェクト、関数の基本\n\n\nデータの読み込み\nCSVファイルを読み込んで中身を確認\n\n\ntidyverse入門\ndplyr, tidyrを使ったデータ整形\n\n\n可視化ギャラリー\nggplot2で描ける様々な図の例"
+  },
+  {
+    "objectID": "r-tutorial/index.html#必要な環境",
+    "href": "r-tutorial/index.html#必要な環境",
+    "title": "Rチュートリアル",
+    "section": "必要な環境",
+    "text": "必要な環境\n\nR（最新版推奨）\nRStudio または RStudio Server\ntidyverse パッケージ\n\n# tidyverseのインストール（初回のみ）\ninstall.packages(\"tidyverse\")"
+  },
+  {
+    "objectID": "r-tutorial/tidyverse.html",
+    "href": "r-tutorial/tidyverse.html",
+    "title": "tidyverse入門",
+    "section": "",
+    "text": "tidyverseは、データサイエンスのためのRパッケージ集です。一貫した文法でデータ操作ができます。\nlibrary(tidyverse)"
+  },
+  {
+    "objectID": "r-tutorial/tidyverse.html#tidyverseとは",
+    "href": "r-tutorial/tidyverse.html#tidyverseとは",
+    "title": "tidyverse入門",
+    "section": "",
+    "text": "tidyverseは、データサイエンスのためのRパッケージ集です。一貫した文法でデータ操作ができます。\nlibrary(tidyverse)"
+  },
+  {
+    "objectID": "r-tutorial/tidyverse.html#パイプ演算子",
+    "href": "r-tutorial/tidyverse.html#パイプ演算子",
+    "title": "tidyverse入門",
+    "section": "パイプ演算子 |>",
+    "text": "パイプ演算子 |&gt;\nパイプ演算子 |&gt; は、左側の結果を右側の関数の第1引数に渡します。\n\n# これは\nmean(students$score)\n\n[1] 80.3\n\n# これと同じ\nstudents$score |&gt; mean()\n\n[1] 80.3\n\n\n複数の操作を連続して行うとき、パイプを使うと読みやすくなります。\n\n# パイプなし（読みにくい）\nround(mean(students$score), 1)\n\n[1] 80.3\n\n# パイプあり（読みやすい）\nstudents$score |&gt; mean() |&gt; round(1)\n\n[1] 80.3"
+  },
+  {
+    "objectID": "r-tutorial/tidyverse.html#dplyrの主要な関数",
+    "href": "r-tutorial/tidyverse.html#dplyrの主要な関数",
+    "title": "tidyverse入門",
+    "section": "dplyrの主要な関数",
+    "text": "dplyrの主要な関数\n\nfilter()：行の絞り込み\n条件に合う行だけを取り出します。\n\n# スコアが80以上\nstudents |&gt; filter(score &gt;= 80)\n\n# A tibble: 5 × 5\n     id name  grade score group\n  &lt;int&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;\n1     2 鈴木      2    82 B    \n2     3 佐藤      4    91 A    \n3     6 渡辺      4    88 B    \n4     8 小林      2    95 B    \n5     9 加藤      4    83 A    \n\n\n\n# グループAかつ3年生\nstudents |&gt; filter(group == \"A\", grade == 3)\n\n# A tibble: 2 × 5\n     id name  grade score group\n  &lt;int&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;\n1     1 田中      3    78 A    \n2     7 中村      3    70 A    \n\n\n\n\nselect()：列の選択\n必要な列だけを取り出します。\n\n# name と score だけ\nstudents |&gt; select(name, score)\n\n# A tibble: 10 × 2\n   name  score\n   &lt;chr&gt; &lt;dbl&gt;\n 1 田中     78\n 2 鈴木     82\n 3 佐藤     91\n 4 山田     65\n 5 伊藤     74\n 6 渡辺     88\n 7 中村     70\n 8 小林     95\n 9 加藤     83\n10 吉田     77\n\n\n\n# id 以外\nstudents |&gt; select(-id)\n\n# A tibble: 10 × 4\n   name  grade score group\n   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;\n 1 田中      3    78 A    \n 2 鈴木      2    82 B    \n 3 佐藤      4    91 A    \n 4 山田      3    65 B    \n 5 伊藤      2    74 A    \n 6 渡辺      4    88 B    \n 7 中村      3    70 A    \n 8 小林      2    95 B    \n 9 加藤      4    83 A    \n10 吉田      3    77 B    \n\n\n\n\nmutate()：新しい列を作る\n計算結果から新しい列を追加します。\n\nstudents |&gt; mutate(\n  score_centered = score - mean(score),\n  passed = score &gt;= 70\n)\n\n# A tibble: 10 × 7\n      id name  grade score group score_centered passed\n   &lt;int&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;          &lt;dbl&gt; &lt;lgl&gt; \n 1     1 田中      3    78 A              -2.30 TRUE  \n 2     2 鈴木      2    82 B               1.70 TRUE  \n 3     3 佐藤      4    91 A              10.7  TRUE  \n 4     4 山田      3    65 B             -15.3  FALSE \n 5     5 伊藤      2    74 A              -6.3  TRUE  \n 6     6 渡辺      4    88 B               7.7  TRUE  \n 7     7 中村      3    70 A             -10.3  TRUE  \n 8     8 小林      2    95 B              14.7  TRUE  \n 9     9 加藤      4    83 A               2.70 TRUE  \n10    10 吉田      3    77 B              -3.30 TRUE  \n\n\n\n\narrange()：並べ替え\n指定した列で並べ替えます。\n\n# スコア昇順\nstudents |&gt; arrange(score)\n\n# A tibble: 10 × 5\n      id name  grade score group\n   &lt;int&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;\n 1     4 山田      3    65 B    \n 2     7 中村      3    70 A    \n 3     5 伊藤      2    74 A    \n 4    10 吉田      3    77 B    \n 5     1 田中      3    78 A    \n 6     2 鈴木      2    82 B    \n 7     9 加藤      4    83 A    \n 8     6 渡辺      4    88 B    \n 9     3 佐藤      4    91 A    \n10     8 小林      2    95 B    \n\n\n\n# スコア降順\nstudents |&gt; arrange(desc(score))\n\n# A tibble: 10 × 5\n      id name  grade score group\n   &lt;int&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;\n 1     8 小林      2    95 B    \n 2     3 佐藤      4    91 A    \n 3     6 渡辺      4    88 B    \n 4     9 加藤      4    83 A    \n 5     2 鈴木      2    82 B    \n 6     1 田中      3    78 A    \n 7    10 吉田      3    77 B    \n 8     5 伊藤      2    74 A    \n 9     7 中村      3    70 A    \n10     4 山田      3    65 B    \n\n\n\n\nsummarize()：集計\nデータを集計します。\n\nstudents |&gt; summarize(\n  mean_score = mean(score),\n  sd_score = sd(score),\n  n = n()\n)\n\n# A tibble: 1 × 3\n  mean_score sd_score     n\n       &lt;dbl&gt;    &lt;dbl&gt; &lt;int&gt;\n1       80.3     9.41    10\n\n\n\n\ngroup_by()：グループ化\nグループごとに集計できます。\n\nstudents |&gt;\n  group_by(group) |&gt;\n  summarize(\n    mean_score = mean(score),\n    n = n()\n  )\n\n# A tibble: 2 × 3\n  group mean_score     n\n  &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;\n1 A           79.2     5\n2 B           81.4     5\n\n\n\nstudents |&gt;\n  group_by(grade) |&gt;\n  summarize(\n    mean_score = mean(score),\n    n = n()\n  )\n\n# A tibble: 3 × 3\n  grade mean_score     n\n  &lt;dbl&gt;      &lt;dbl&gt; &lt;int&gt;\n1     2       83.7     3\n2     3       72.5     4\n3     4       87.3     3"
+  },
+  {
+    "objectID": "r-tutorial/tidyverse.html#組み合わせて使う",
+    "href": "r-tutorial/tidyverse.html#組み合わせて使う",
+    "title": "tidyverse入門",
+    "section": "組み合わせて使う",
+    "text": "組み合わせて使う\nパイプで複数の操作をつなげます。\n\n# 3年生以上で、グループ別の平均スコアを計算し、降順に並べる\nstudents |&gt;\n  filter(grade &gt;= 3) |&gt;\n  group_by(group) |&gt;\n  summarize(mean_score = mean(score)) |&gt;\n  arrange(desc(mean_score))\n\n# A tibble: 2 × 2\n  group mean_score\n  &lt;chr&gt;      &lt;dbl&gt;\n1 A           80.5\n2 B           76.7"
+  },
+  {
+    "objectID": "r-tutorial/tidyverse.html#tidyrの主要な関数",
+    "href": "r-tutorial/tidyverse.html#tidyrの主要な関数",
+    "title": "tidyverse入門",
+    "section": "tidyrの主要な関数",
+    "text": "tidyrの主要な関数\n\npivot_longer()：縦長に変換\n複数の列を1つの列にまとめます（ワイド形式 → ロング形式）。\n\n# 例：テストの点数データ\nexam_wide &lt;- tibble(\n  name = c(\"田中\", \"鈴木\"),\n  math = c(80, 75),\n  english = c(70, 85),\n  science = c(90, 80)\n)\nexam_wide\n\n# A tibble: 2 × 4\n  name   math english science\n  &lt;chr&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;\n1 田中     80      70      90\n2 鈴木     75      85      80\n\n# 縦長に変換\nexam_wide |&gt;\n  pivot_longer(\n    cols = c(math, english, science),\n    names_to = \"subject\",\n    values_to = \"score\"\n  )\n\n# A tibble: 6 × 3\n  name  subject score\n  &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt;\n1 田中  math       80\n2 田中  english    70\n3 田中  science    90\n4 鈴木  math       75\n5 鈴木  english    85\n6 鈴木  science    80\n\n\n\n\npivot_wider()：横長に変換\n1つの列を複数の列に展開します（ロング形式 → ワイド形式）。\n\n# 例：縦長データ\nexam_long &lt;- tibble(\n  name = rep(c(\"田中\", \"鈴木\"), each = 3),\n  subject = rep(c(\"math\", \"english\", \"science\"), 2),\n  score = c(80, 70, 90, 75, 85, 80)\n)\nexam_long\n\n# A tibble: 6 × 3\n  name  subject score\n  &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt;\n1 田中  math       80\n2 田中  english    70\n3 田中  science    90\n4 鈴木  math       75\n5 鈴木  english    85\n6 鈴木  science    80\n\n# 横長に変換\nexam_long |&gt;\n  pivot_wider(\n    names_from = subject,\n    values_from = score\n  )\n\n# A tibble: 2 × 4\n  name   math english science\n  &lt;chr&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;\n1 田中     80      70      90\n2 鈴木     75      85      80"
+  },
+  {
+    "objectID": "r-tutorial/tidyverse.html#練習問題",
+    "href": "r-tutorial/tidyverse.html#練習問題",
+    "title": "tidyverse入門",
     "section": "練習問題",
-    "text": "練習問題\n\n次の計算をRで行ってください\n\n\\(3 + 5 \\times 2\\)\n\\(\\sqrt{144}\\)\n\\(2^{8}\\)\n\n以下の5人のテスト得点について、平均と標準偏差を求めてください\n\n78, 82, 91, 65, 74\n\n1から100までの整数の合計を求めてください（ヒント：1:100 で連番を作れます）\n\n\n\n\n\n\n\nヒント解答例\n\n\n\n\n\n\n# 1\n3 + 5 * 2\n\n[1] 13\n\nsqrt(144)\n\n[1] 12\n\n2^8\n\n[1] 256\n\n# 2\nscores &lt;- c(78, 82, 91, 65, 74)\nmean(scores)\n\n[1] 78\n\nsd(scores)\n\n[1] 9.617692\n\n# 3\nsum(1:100)\n\n[1] 5050"
+    "text": "練習問題\nstudents データを使って以下を行ってください：\n\nスコアが75以上の学生だけを抽出し、スコアの降順で並べる\n各学年（grade）の平均スコアを計算する\nスコアの偏差値（平均50、標準偏差10に変換した値）を新しい列として追加する\n\n\n\n\n\n\n\nヒント解答例\n\n\n\n\n\n\n# 1\nstudents |&gt;\n  filter(score &gt;= 75) |&gt;\n  arrange(desc(score))\n\n# A tibble: 7 × 5\n     id name  grade score group\n  &lt;int&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;\n1     8 小林      2    95 B    \n2     3 佐藤      4    91 A    \n3     6 渡辺      4    88 B    \n4     9 加藤      4    83 A    \n5     2 鈴木      2    82 B    \n6     1 田中      3    78 A    \n7    10 吉田      3    77 B    \n\n# 2\nstudents |&gt;\n  group_by(grade) |&gt;\n  summarize(mean_score = mean(score))\n\n# A tibble: 3 × 2\n  grade mean_score\n  &lt;dbl&gt;      &lt;dbl&gt;\n1     2       83.7\n2     3       72.5\n3     4       87.3\n\n# 3\nstudents |&gt;\n  mutate(\n    deviation = (score - mean(score)) / sd(score) * 10 + 50\n  )\n\n# A tibble: 10 × 6\n      id name  grade score group deviation\n   &lt;int&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;\n 1     1 田中      3    78 A          47.6\n 2     2 鈴木      2    82 B          51.8\n 3     3 佐藤      4    91 A          61.4\n 4     4 山田      3    65 B          33.7\n 5     5 伊藤      2    74 A          43.3\n 6     6 渡辺      4    88 B          58.2\n 7     7 中村      3    70 A          39.0\n 8     8 小林      2    95 B          65.6\n 9     9 加藤      4    83 A          52.9\n10    10 吉田      3    77 B          46.5"
   },
   {
-    "objectID": "zemi-policy.html",
-    "href": "zemi-policy.html",
-    "title": "ゼミの運営方針",
+    "objectID": "research-guide.html",
+    "href": "research-guide.html",
+    "title": "研究の進め方",
     "section": "",
-    "text": "研究は「真偽を明らかにする」ゲームです。それ以外の価値判断基準は必要ではありません。社会学者のルーマンによれば、対人関係を媒介するものとして「権力」「愛」「貨幣」「真偽」の4種類があります。これらはコミュニケーションをスムーズにするための形式のようなものだと捉えてください。権力という形式のもとでは、一方の行為に他方が従うことが求められます。双方がその形式と関係性を把握していると、社会関係はスムーズです。「愛」という形式のもとでは、与える–受け入れるという形式になります。「貨幣」の形式のもとでは、与える–それに対価を返すという形式になります。「真偽」の形式はこのいずれでもありません。論理的・経験的に真であるならば、人は強いる・与える・受け入れる・お返しするという選択をすることなく、その真実を受け入れるのみです。\n大事なポイントは、これらのコミュニケーションスタイルを混在させてはいけないということです。大学教育とは「先生が強制するから課題をする(権力)」でもなく、「教え子が可愛いから教えてあげる(愛)」でもなく、「学費を払っているから卒業させる(貨幣)」ものでもありません。真偽の前では年齢・性別・立場をこえて正しいかどうかだけの判断があり、それが最大限尊重されるということです。虚偽が含まれる卒業論文は認められませんが、ちゃんとやって仮説が成立しないことが明らかになった、というのが真実であれば、それを記載した論文は素晴らしい業績として褒め称えられます。\nこのような真偽の基準にのみ基づいたコミュニケーションが「研究」であり、このゼミでは心理学と統計法をベースに研究を実践していきます。\n\n\nゼミでの活動は「卒業研究」につながるものであり、四年間の集大成である卒業研究の報告書が「卒業論文」になります。\n卒業研究は、皆さん一人一人が研究を計画し、実行し、報告書を執筆するものですが、これらはいずれも科学活動の一環です。大学生だから趣味的な内容で、大学生だから単位をもらうためにやる授業のレポートだ、とはいきません。実験参加者や調査協力者の力を借りて、心理学的な知識を少しでも広げることが目的であり、科学者が行う科学活動の一端を皆さんも担うわけです。\nそのために必要な考え方として、研究の記録と結果の公開が必要です。科学的レポートはその内容が捏造であってはいけませんので、何をどのように実施したかの克明な記録が必要です。もちろんはじめての研究活動でうまくできないこと、というのもあると思います。そのために記録を公開することを考えます。いつか誰かが同じような研究をする時に、失敗や問題が含まれていたとしても、欠点を含めて理解し、修正する足掛かりとなるような仕組みを用意しておく必要があります。\n本ゼミでは、研究の記録、結果の公開を基本方針とします。卒業研究にあたってはこの2点を考慮して計画を立ててください。\n\n\n\n卒業研究は卒業論文という公文書になり、認められれば皆さんは学士という学位を得ます。この過程の中で育まれるべきことは、学問に対する価値観と学術的態度です。\nここでいう価値観とは、なにをおもしろいと思うか、なにを美しいと思うかという審美基準であり、それを内在化することが目標になります。「おもしろい」だけでいうとゲームやギャンブルをすればよいのか、と思うかもしれませんが、それらはせいぜいお金や体力などが十分あれば処理できる程度の刺激にすぎません。これに対して、学術的面白さ、物事を徹底的に突き詰めて考える面白さというのは底が知れません。とくにその対象が人間や社会のような不確実で不安定なものであれば、一生興味を持って考え続けることができるぐらい、おもしろいものです。\nそしてなにをおもしろいと思うか、ということについてもトレーニングを受けなければなりません。「人間ってこんなもんだろう」「大学ってこんなもんだろう」と思っている人の人生は、そんなもんになります。考え方のトレーニングを受けていなければ、「よくわからないからこんなもんだろう」で終わってしまいます。本を読み、映画を見て、音楽を聴き、恋をして、美味しいものを食べて、お酒を飲んで、ダメになって、論文を読み、データ分析をして、とにかくさまざまな角度から生きてるとは何かを考える可能性を探りましょう。\n学術的態度とは、批判的思考技術とコミュニケーションの継続に対する意欲からなります。学術論文や書籍を読むこと、あるいは学術的なコミュニケーションに対しては、批判的な精神で進めることが基本です。さまざまな批判をすることで、多角的に研究テーマに光を当てて考えることになります。さまざまな批判する・されることを通じて、自らの中に「これだと批判のしようがないぐらいおもしろいでしょう」というものが見つかり、あるいはそれを見つける術を身につけることができるのです。ちなみに、批判とは、否定でも拒絶でも論破することでもありません。批判は「さまざまな角度から味わうこと」であり、コミュニケーションを活発化させるためのものです。これに対し、否定・拒絶・論破はコミュニケーションを遮断することであり、怒りや恥じらいなどの感情もコミュニケーションを阻害する要因として排除すべきものです。\n科学的営みとは、コミュニケーションです。論文を書く、読んで意見を言いあうなど、とにかく言葉を尽くして真実に近づくことが目的です。皆さんは「言葉」に敏感になってもらわなければなりませんし、コミュニケーションに貪欲になってもらわなければなりません。言葉は共通見解を生む土台です。言葉が違う、意味を異なって理解しているとコミュニケーションが成立しません。「察してほしい」「推し量って欲しい」というのは受身的なコミュニケーションスタイルであり、学術的場面では相応しくありません。"
+    "text": "卒業研究では、「誰も考えたことのないことを考える」ことが必要になります。これは難しいことに思えるかもしれませんが、研究を進める上で重要な3つの思考技術を紹介します。\n\n\n研究を進めていると、「これは面倒だな」「これは難しそうだな」と感じることがあります。しかし、そうした「いやがること」の中にこそ、重要な発見や成長の機会が隠れていることが多いのです。面倒なことを避けていると、いつまでも同じ場所にとどまることになります。「いやだな」と思ったら、むしろそこに向かっていきましょう。\n\n\n\n思考が行き詰まったときは、極端な立場を想定してみることが有効です。例えば、ある変数の影響を考えるとき、その変数が「ゼロ」の場合と「無限大」の場合を想像してみます。現実にはありえない極端な状況を考えることで、その変数が持つ本質的な意味が見えてくることがあります。\nカメラのパンニングのように、一方の極端からもう一方の極端まで視野を動かすことで、全体像を把握することができます。\n\n\n\n抽象的な概念を理解したり説明したりするとき、比喩（メタファー）は非常に有効です。「〜のようなもの」という表現を恐れずに使いましょう。ただし、中途半端な比喩は誤解を招きます。比喩を使うなら、思い切って大胆に使うことで、かえって本質を突いた説明になることがあります。"
   },
   {
-    "objectID": "zemi-policy.html#研究とは",
-    "href": "zemi-policy.html#研究とは",
-    "title": "ゼミの運営方針",
+    "objectID": "research-guide.html#思考の三大技術",
+    "href": "research-guide.html#思考の三大技術",
+    "title": "研究の進め方",
     "section": "",
-    "text": "研究は「真偽を明らかにする」ゲームです。それ以外の価値判断基準は必要ではありません。社会学者のルーマンによれば、対人関係を媒介するものとして「権力」「愛」「貨幣」「真偽」の4種類があります。これらはコミュニケーションをスムーズにするための形式のようなものだと捉えてください。権力という形式のもとでは、一方の行為に他方が従うことが求められます。双方がその形式と関係性を把握していると、社会関係はスムーズです。「愛」という形式のもとでは、与える–受け入れるという形式になります。「貨幣」の形式のもとでは、与える–それに対価を返すという形式になります。「真偽」の形式はこのいずれでもありません。論理的・経験的に真であるならば、人は強いる・与える・受け入れる・お返しするという選択をすることなく、その真実を受け入れるのみです。\n大事なポイントは、これらのコミュニケーションスタイルを混在させてはいけないということです。大学教育とは「先生が強制するから課題をする(権力)」でもなく、「教え子が可愛いから教えてあげる(愛)」でもなく、「学費を払っているから卒業させる(貨幣)」ものでもありません。真偽の前では年齢・性別・立場をこえて正しいかどうかだけの判断があり、それが最大限尊重されるということです。虚偽が含まれる卒業論文は認められませんが、ちゃんとやって仮説が成立しないことが明らかになった、というのが真実であれば、それを記載した論文は素晴らしい業績として褒め称えられます。\nこのような真偽の基準にのみ基づいたコミュニケーションが「研究」であり、このゼミでは心理学と統計法をベースに研究を実践していきます。\n\n\nゼミでの活動は「卒業研究」につながるものであり、四年間の集大成である卒業研究の報告書が「卒業論文」になります。\n卒業研究は、皆さん一人一人が研究を計画し、実行し、報告書を執筆するものですが、これらはいずれも科学活動の一環です。大学生だから趣味的な内容で、大学生だから単位をもらうためにやる授業のレポートだ、とはいきません。実験参加者や調査協力者の力を借りて、心理学的な知識を少しでも広げることが目的であり、科学者が行う科学活動の一端を皆さんも担うわけです。\nそのために必要な考え方として、研究の記録と結果の公開が必要です。科学的レポートはその内容が捏造であってはいけませんので、何をどのように実施したかの克明な記録が必要です。もちろんはじめての研究活動でうまくできないこと、というのもあると思います。そのために記録を公開することを考えます。いつか誰かが同じような研究をする時に、失敗や問題が含まれていたとしても、欠点を含めて理解し、修正する足掛かりとなるような仕組みを用意しておく必要があります。\n本ゼミでは、研究の記録、結果の公開を基本方針とします。卒業研究にあたってはこの2点を考慮して計画を立ててください。\n\n\n\n卒業研究は卒業論文という公文書になり、認められれば皆さんは学士という学位を得ます。この過程の中で育まれるべきことは、学問に対する価値観と学術的態度です。\nここでいう価値観とは、なにをおもしろいと思うか、なにを美しいと思うかという審美基準であり、それを内在化することが目標になります。「おもしろい」だけでいうとゲームやギャンブルをすればよいのか、と思うかもしれませんが、それらはせいぜいお金や体力などが十分あれば処理できる程度の刺激にすぎません。これに対して、学術的面白さ、物事を徹底的に突き詰めて考える面白さというのは底が知れません。とくにその対象が人間や社会のような不確実で不安定なものであれば、一生興味を持って考え続けることができるぐらい、おもしろいものです。\nそしてなにをおもしろいと思うか、ということについてもトレーニングを受けなければなりません。「人間ってこんなもんだろう」「大学ってこんなもんだろう」と思っている人の人生は、そんなもんになります。考え方のトレーニングを受けていなければ、「よくわからないからこんなもんだろう」で終わってしまいます。本を読み、映画を見て、音楽を聴き、恋をして、美味しいものを食べて、お酒を飲んで、ダメになって、論文を読み、データ分析をして、とにかくさまざまな角度から生きてるとは何かを考える可能性を探りましょう。\n学術的態度とは、批判的思考技術とコミュニケーションの継続に対する意欲からなります。学術論文や書籍を読むこと、あるいは学術的なコミュニケーションに対しては、批判的な精神で進めることが基本です。さまざまな批判をすることで、多角的に研究テーマに光を当てて考えることになります。さまざまな批判する・されることを通じて、自らの中に「これだと批判のしようがないぐらいおもしろいでしょう」というものが見つかり、あるいはそれを見つける術を身につけることができるのです。ちなみに、批判とは、否定でも拒絶でも論破することでもありません。批判は「さまざまな角度から味わうこと」であり、コミュニケーションを活発化させるためのものです。これに対し、否定・拒絶・論破はコミュニケーションを遮断することであり、怒りや恥じらいなどの感情もコミュニケーションを阻害する要因として排除すべきものです。\n科学的営みとは、コミュニケーションです。論文を書く、読んで意見を言いあうなど、とにかく言葉を尽くして真実に近づくことが目的です。皆さんは「言葉」に敏感になってもらわなければなりませんし、コミュニケーションに貪欲になってもらわなければなりません。言葉は共通見解を生む土台です。言葉が違う、意味を異なって理解しているとコミュニケーションが成立しません。「察してほしい」「推し量って欲しい」というのは受身的なコミュニケーションスタイルであり、学術的場面では相応しくありません。"
+    "text": "卒業研究では、「誰も考えたことのないことを考える」ことが必要になります。これは難しいことに思えるかもしれませんが、研究を進める上で重要な3つの思考技術を紹介します。\n\n\n研究を進めていると、「これは面倒だな」「これは難しそうだな」と感じることがあります。しかし、そうした「いやがること」の中にこそ、重要な発見や成長の機会が隠れていることが多いのです。面倒なことを避けていると、いつまでも同じ場所にとどまることになります。「いやだな」と思ったら、むしろそこに向かっていきましょう。\n\n\n\n思考が行き詰まったときは、極端な立場を想定してみることが有効です。例えば、ある変数の影響を考えるとき、その変数が「ゼロ」の場合と「無限大」の場合を想像してみます。現実にはありえない極端な状況を考えることで、その変数が持つ本質的な意味が見えてくることがあります。\nカメラのパンニングのように、一方の極端からもう一方の極端まで視野を動かすことで、全体像を把握することができます。\n\n\n\n抽象的な概念を理解したり説明したりするとき、比喩（メタファー）は非常に有効です。「〜のようなもの」という表現を恐れずに使いましょう。ただし、中途半端な比喩は誤解を招きます。比喩を使うなら、思い切って大胆に使うことで、かえって本質を突いた説明になることがあります。"
   },
   {
-    "objectID": "zemi-policy.html#ゼミモットー",
-    "href": "zemi-policy.html#ゼミモットー",
-    "title": "ゼミの運営方針",
-    "section": "ゼミ・モットー",
-    "text": "ゼミ・モットー\nゼミにおけるコミュニケーションについて、成員は以下の方針を理解して挑んでください。\n\n小杉ゼミとは心理学的技法を通じた人間理解のための修練の場の総体である。\n\nゼミはコミュニケーションを要素とするオートポイエーシスシステムであり、その目的は「人間理解」である。\nゼミの境界は議論に参加するメンバーの相互作用にもとづき、創発的に現れるパターンである。\n個体は関係を結び止める点にすぎない。ゼミは位相空間の関係に対する呼称であり、物理レベルの個体は機能を構成する基盤にすぎない。\n\nメンバーは個々が独立した研究者であり、このことが常に最大限に尊重され、年齢、性別、その他外的基準による判断は常に捨て置かれる。\n\n【今、ココ】の座標点として、個人は常に唯一無二であり、自分の思いつき以上に正しい答えなぞ存在しない。\n知識量や技術力に秀でたものは、惜しげもなく与えるべきである。なぜなら、仲間が面白くなることが自分の成長に繋がるからである。\n知識量や技術力に劣るものは、恥じることなく喜ぶべきである。なぜなら、今後の成長の可能性が具体的に現れているからである。\n\nいつでも誰にでも発言は許されているし、望まれている。\n\n発言内容を個人の人格に帰属してはならない。\n沈黙は「理解しないこと」と「同意したこと」を弁別しないコミュニケーションスタイルであり、避けるべきである。\n理解を阻む最大の障害は、自らの世界が閉じていることにあり、それが自覚できないことにある。解決策は外部環境の動乱による影響を得ることである。\n自らの発言(疑問)は他者の発言(疑問)を誘発するため称賛されるべきことである。"
+    "objectID": "research-guide.html#生成aiとのつきあいかた",
+    "href": "research-guide.html#生成aiとのつきあいかた",
+    "title": "研究の進め方",
+    "section": "生成AIとのつきあいかた",
+    "text": "生成AIとのつきあいかた\nChatGPT、Claude、Geminiなどの生成AIは、研究を進める上で強力なツールになりえます。しかし、適切に使うためにはいくつかの注意点があります。\n\nハルシネーション（幻覚）\n生成AIは、もっともらしいが事実ではない情報を生成することがあります。これを「ハルシネーション」と呼びます。特に、具体的な数値、人名、論文の引用などについては、必ず元の情報源で確認する必要があります。AIの回答を鵜呑みにせず、クリティカルに評価する姿勢を持ちましょう。\n\n\n著作権の問題\n生成AIが出力した文章をそのまま論文に使用することには、著作権上の問題があります。また、AIに他者の著作物を入力することも問題になる可能性があります。AIの出力は参考にとどめ、最終的な文章は自分の言葉で書くようにしましょう。\n\n\n思考の代替ではなく補助として\n生成AIは「考える」ことの代わりにはなりません。AIに丸投げして得た回答は、あなた自身の理解にはなっていません。AIは思考を補助するツールとして使い、最終的な判断や理解は自分自身で行うことが重要です。\n\n\n効果的な使い方\n\nブレインストーミング：アイデアを広げるための壁打ち相手として\n文献要約の補助：長い論文の概要を把握するための補助として\nコードのデバッグ：プログラミングエラーの原因特定の補助として\n文章の推敲：書いた文章の改善点を指摘してもらう"
   },
   {
-    "objectID": "zemi-policy.html#アンチハラスメントポリシー",
-    "href": "zemi-policy.html#アンチハラスメントポリシー",
-    "title": "ゼミの運営方針",
-    "section": "アンチハラスメントポリシー",
-    "text": "アンチハラスメントポリシー\nゼミではアンチハラスメントポリシーを用意しています。成員はそちらの方針を遵守するよう心がけてください。"
+    "objectID": "research-guide.html#議論のマナーについて",
+    "href": "research-guide.html#議論のマナーについて",
+    "title": "研究の進め方",
+    "section": "議論のマナーについて",
+    "text": "議論のマナーについて\nゼミでは活発な議論が行われます。議論を実りあるものにするために、以下のマナーを心がけてください。\n\n批判と否定は違う\n「批判」は、さまざまな角度から検討し、よりよいものにするための建設的な行為です。一方、「否定」や「論破」はコミュニケーションを遮断する行為です。ゼミでは批判は歓迎されますが、否定や論破は避けてください。\n\n\n発言は人格とは別\n発言内容と発言者の人格を混同してはいけません。ある意見を批判することは、その人を批判することではありません。また、自分の意見が批判されても、自分自身が否定されたわけではありません。\n\n\n沈黙は避ける\n沈黙は、「理解した」のか「理解していない」のかを区別できません。わからないことがあれば質問し、思ったことがあれば発言しましょう。発言することで議論が活性化し、あなた自身の理解も深まります。\n\n\n質問は貢献\n「こんなことを聞いてもいいのだろうか」と躊躇する必要はありません。あなたの疑問は、他の人も持っている可能性があります。質問することは議論への貢献です。"
   },
   {
-    "objectID": "zemi-policy.html#ゼミ活動内容",
-    "href": "zemi-policy.html#ゼミ活動内容",
-    "title": "ゼミの運営方針",
-    "section": "ゼミ活動内容",
-    "text": "ゼミ活動内容\nゼミでの活動内容は、基本的に個人単位になります。幼稚園児の「並行遊び」のような感じになればよいでしょう。つまり、各々が自分の好きなように遊んでいるのが基本で、同じ遊具を使ったり、複数人でないとできない遊びをするときは協力し合うという感じです。目的はあくまでもそれぞれが良い卒論を書くことです。\n別に他人に興味を持つなと言っているわけではないことに注意してください。「私の研究の話ではないから聞く耳もたない」というのではなく、「あなたの研究も楽しそうね。私の研究も楽しいのよ」と互いに刺激しあってください。技術や知識を共有することは、自分と一緒に面白がってくれる人を増やす、同じレベルのプレイヤーを育てることでもあり、知的面白さの世界を広げることに寄与します。\n\n研究発表\n研究発表は「話題提供者」を定め、その人の提供するテーマについて皆で議論することが目的です。ここで提供されるテーマは、「文献紹介」と「研究発表」の2種類です。\n文献紹介は自らの卒業研究に関わる先行研究を批判的に読むこと、のトレーニングです。研究発表は自らの研究を他者に伝えるコミュニケーションスタイルのトレーニングです。両者を通じて、批判的思考とコミュニケーションを続けることの楽しさを身につけてもらいます。\nどんな研究や論文にも長所と短所があります。文献紹介の場合、発表者はその論文の筆者の代理です。研究発表は自身がその代表者ですから、研究・論文の長所を全面に押し出して論じてください。オーディエンスは論文の限界、方法論的問題点などを指摘し、それに対して発表者がどのようにディフェンスするかを味わいましょう。また発表者は、最後に必ずおもしろポイント、批判的ポイントを3点ずつ挙げるようにしてください。\n\n\n個別面談\n卒業研究は個別の研究テーマを扱いますから、小杉との個別面談の時間をゼミ時間内に設定することがあります。研究は皆さんの4年間の集大成であり、その内容については少なくとも学内の誰よりも詳しく知っている必要があるでしょう。\n指導教員にできることは、研究の進め方や分析のアイデアを出すことにすぎません。また、日々の研究の進捗状況によってはアドバイスの内容も変わってくるでしょうから、面談の内容を記録するようにしてください。議事録には、1.報告事項、2.審議事項、3.今後の進め方、4.その他の段落を設け、細かいことでも全て記録していきましょう。\n\n\n技術のトレーニング\n統計的分析に関して、小杉ゼミではR/RStudioを用います。そのほか、Stanなど確率プログラミング言語を使うこともあります。しかし研究テーマによっては、その他のプログラミング言語(Python, Juliaなど)、分析・実験環境(jPsychoPy/Pavlovia, jsPsych, Qualtricsなど)が必要になることもあります。これらについては小杉が十分教えられないものも少なくありませんので、必要に応じて自学自習する時間をゼミの時間にとることができます。同じツールを使うもの同士は互いに教え合い、卒業を目指しましょう。"
+    "objectID": "research-guide.html#研究の設計",
+    "href": "research-guide.html#研究の設計",
+    "title": "研究の進め方",
+    "section": "研究の設計",
+    "text": "研究の設計\n\n時間の使いかた\n卒業研究は、企画立案、計画、実行、分析、執筆までを自分の力で行う必要があります。基礎実験のようにレールが敷かれているわけではありません。\n重要なポイント：\n\n報告・連絡・相談が重要：進捗状況を教員に伝えることで、適切な指導を受けられます\n徹夜は機能しない：一発逆転スケジュールは研究には向きません\nよく寝てよく食べる：基本的な生活リズムを崩すことは効率を悪くするだけです\n相談の敷居を下げる：「こんなことで相談していいのだろうか」と悩まず、気軽に連絡してください\n\n\n\n研究の組み立てかた\n研究の基本は、お手本となる先行研究を見つけることから始まります。\n\n自分の興味のあるテーマで論文検索\n自分の興味関心と合致する論文を見つける\nその研究を完全に再現する（追試）\n\n先行研究が見つからない理由：\n\n問いの形式の問題：「なぜ」ではなく「どのように」で問う\nキーワードの問題：日常用語と専門用語の違い、類義語の存在\n概念の中身の問題：自分が興味ある対象が何なのか明確でない\n\n自分の興味関心と100%マッチする先行研究は見つかりません。60-80%マッチすれば十分です。\n\n\n興味がない場合\n特に研究したいテーマが見当たらない場合も、気軽に教員に相談してください。こちらからいくつか研究テーマを提示します。統計ゼミですから、分析モデルを提案する形になります。\n\n\n卒論で求められていること\n卒論に求められているのは、研究者の卵としての潜在的な能力です。\n\n自分の研究の面白さを説明できること\n自分の研究の長所と限界を理解していること\n自分のやったことを十分に理解していること\n\n卒論発表会では必ず「研究は面白かったですか」と尋ねます。面白くなかったのであれば、もっと研究を続けるチャンスを与えます。"
   },
   {
-    "objectID": "tech-guide/github-setup.html",
-    "href": "tech-guide/github-setup.html",
-    "title": "GitHub のセットアップ",
+    "objectID": "tech-guide/vscode-setup.html",
+    "href": "tech-guide/vscode-setup.html",
+    "title": "VSCode のセットアップ",
     "section": "",
-    "text": "GitHub はバージョン管理システム Git をインターネット上で利用できるようにしたサービスです。卒論に関するデータ、プログラム、日々の議事録や論文そのものなど、加筆修正するファイルをこのシステム上で管理すると、喪失することがなくなるので便利です。"
+    "text": "Visual Studio Code（VSCode）は Microsoft が開発した無料のコードエディタです。拡張機能が豊富で、R、Python、LaTeX など様々な言語に対応しています。"
   },
   {
-    "objectID": "tech-guide/github-setup.html#github-とは",
-    "href": "tech-guide/github-setup.html#github-とは",
-    "title": "GitHub のセットアップ",
+    "objectID": "tech-guide/vscode-setup.html#visual-studio-code-とは",
+    "href": "tech-guide/vscode-setup.html#visual-studio-code-とは",
+    "title": "VSCode のセットアップ",
     "section": "",
-    "text": "GitHub はバージョン管理システム Git をインターネット上で利用できるようにしたサービスです。卒論に関するデータ、プログラム、日々の議事録や論文そのものなど、加筆修正するファイルをこのシステム上で管理すると、喪失することがなくなるので便利です。"
+    "text": "Visual Studio Code（VSCode）は Microsoft が開発した無料のコードエディタです。拡張機能が豊富で、R、Python、LaTeX など様々な言語に対応しています。"
   },
   {
-    "objectID": "tech-guide/github-setup.html#アカウントの作成",
-    "href": "tech-guide/github-setup.html#アカウントの作成",
-    "title": "GitHub のセットアップ",
-    "section": "アカウントの作成",
-    "text": "アカウントの作成\n\nGitHub にアクセス\n「Sign up」をクリック\nメールアドレス、パスワード、ユーザー名を設定\n\nメールアドレスは @psy.senshu-u.ac.jp を推奨\n\nアカウント作成後、メールで届く確認リンクをクリック"
+    "objectID": "tech-guide/vscode-setup.html#インストール",
+    "href": "tech-guide/vscode-setup.html#インストール",
+    "title": "VSCode のセットアップ",
+    "section": "インストール",
+    "text": "インストール\n\nVisual Studio Code にアクセス\n自分の OS に合ったバージョンをダウンロード\nインストーラを実行"
   },
   {
-    "objectID": "tech-guide/github-setup.html#github-desktop-のインストール",
-    "href": "tech-guide/github-setup.html#github-desktop-のインストール",
-    "title": "GitHub のセットアップ",
-    "section": "GitHub Desktop のインストール",
-    "text": "GitHub Desktop のインストール\nGitHub Desktop は GitHub を GUI で操作できるアプリケーションです。\n\nGitHub Desktop にアクセス\n自分の OS に合ったバージョンをダウンロード\nインストール後、GitHub アカウントでログイン"
+    "objectID": "tech-guide/vscode-setup.html#推奨拡張機能",
+    "href": "tech-guide/vscode-setup.html#推奨拡張機能",
+    "title": "VSCode のセットアップ",
+    "section": "推奨拡張機能",
+    "text": "推奨拡張機能\nVSCode を起動したら、左側の拡張機能アイコン（四角が4つ）をクリックして、以下の拡張機能をインストールしてください。\n\n基本\n\nJapanese Language Pack for Visual Studio Code：日本語化\nGit Graph：Git の履歴を視覚的に確認\n\n\n\nR 関連\n\nR：R 言語のサポート\nR Debugger：R のデバッグ機能\n\n\n\nLaTeX 関連\n\nLaTeX Workshop：LaTeX の編集・コンパイル・プレビュー\n\n\n\nAI コーディング支援\n\nGitHub Copilot：AI によるコード補完\nGitHub Copilot Chat：AI とのチャット機能\n\n\n\n\n\n\n\nヒントGitHub Copilot は学生無料\n\n\n\nGitHub Education に登録すると、GitHub Copilot を無料で利用できます。 GitHub Education から申請してください。\n\n\n\n\nリモート開発\n\nRemote - SSH：SSH 経由でリモートサーバに接続\nRemote - Tunnels：トンネル経由で接続"
   },
   {
-    "objectID": "tech-guide/github-setup.html#ssh-キーの設定rstudio-との連携",
-    "href": "tech-guide/github-setup.html#ssh-キーの設定rstudio-との連携",
-    "title": "GitHub のセットアップ",
-    "section": "SSH キーの設定（RStudio との連携）",
-    "text": "SSH キーの設定（RStudio との連携）\nRStudio から GitHub にアクセスするために SSH キーを設定します。\n\n1. SSH キーの生成\nRStudio で Tools &gt; Global Options &gt; Git/SVN を開き、「Create SSH Key…」をクリックします。\n\nKey type: ED25519（デフォルト）\nPassphrase: 空欄でも OK\n\n「Create」をクリックすると、SSH キーが生成されます。\n\n\n2. 公開鍵のコピー\n同じ画面で「View public key」をクリックし、表示された文字列をすべてコピーします。\n\n\n3. GitHub に登録\n\nGitHub にログイン\n右上のアイコン → Settings → SSH and GPG keys\n「New SSH key」をクリック\nTitle に任意の名前（例：MacBook Pro）\nKey に先ほどコピーした公開鍵を貼り付け\n「Add SSH key」をクリック\n\n\n\n4. Git の初期設定\nRStudio のコンソールで以下を実行します（自分の情報に置き換えてください）：\n# usethis パッケージのインストール（初回のみ）\ninstall.packages(\"usethis\")\n\n# ユーザー名とメールアドレスの設定\nusethis::use_git_config(\n  user.name = \"あなたの名前\",\n  user.email = \"あなたのメールアドレス\"\n)"
+    "objectID": "tech-guide/vscode-setup.html#基本的な使い方",
+    "href": "tech-guide/vscode-setup.html#基本的な使い方",
+    "title": "VSCode のセットアップ",
+    "section": "基本的な使い方",
+    "text": "基本的な使い方\n\nフォルダを開く\nFile &gt; Open Folder でプロジェクトフォルダを開きます。 VSCode ではフォルダ単位で作業するのが基本です。\n\n\nターミナル\nView &gt; Terminal でエディタ内にターミナルを表示できます。 Git コマンドやシェルコマンドを直接実行できます。\n\n\nコマンドパレット\nCmd + Shift + P（Mac）または Ctrl + Shift + P（Windows）でコマンドパレットを開けます。 VSCode のほとんどの機能はここから呼び出せます。"
   },
   {
-    "objectID": "tech-guide/github-setup.html#リポジトリのクローン",
-    "href": "tech-guide/github-setup.html#リポジトリのクローン",
-    "title": "GitHub のセットアップ",
-    "section": "リポジトリのクローン",
-    "text": "リポジトリのクローン\n\nRStudio から\n\nFile &gt; New Project &gt; Version Control &gt; Git\nRepository URL に SSH アドレス（git@github.com:...）を入力\nプロジェクトを保存する場所を指定\n「Create Project」をクリック\n\n\n\nGitHub Desktop から\n\nFile &gt; Clone repository\nURL タブでリポジトリの URL を入力\nLocal path でクローン先を指定\n「Clone」をクリック"
+    "objectID": "tech-guide/vscode-setup.html#設定の同期",
+    "href": "tech-guide/vscode-setup.html#設定の同期",
+    "title": "VSCode のセットアップ",
+    "section": "設定の同期",
+    "text": "設定の同期\nGitHub アカウントでサインインすると、設定や拡張機能を複数のデバイス間で同期できます。\n\n左下の歯車アイコン → Turn on Settings Sync\nGitHub アカウントでサインイン\n同期する項目を選択"
   },
   {
-    "objectID": "tech-guide/github-setup.html#基本的なワークフロー",
-    "href": "tech-guide/github-setup.html#基本的なワークフロー",
-    "title": "GitHub のセットアップ",
-    "section": "基本的なワークフロー",
-    "text": "基本的なワークフロー\n\nPull：GitHub 上の最新の変更を取得\n作業：ファイルの編集・作成\nCommit：変更をローカルに記録\nPush：変更を GitHub に送信\n\nこの順序を守ることで、チームでの共同作業もスムーズに行えます。"
-  },
-  {
-    "objectID": "tech-guide/latex-setup.html",
-    "href": "tech-guide/latex-setup.html",
-    "title": "LaTeX 環境構築",
+    "objectID": "tech-guide/ssh-remote.html",
+    "href": "tech-guide/ssh-remote.html",
+    "title": "SSH でリモート接続",
     "section": "",
-    "text": "LaTeX は論文執筆のための組版システムです。数式の美しい表現、参考文献の自動管理、構造化された文書作成が可能で、学術論文の執筆には欠かせません。"
+    "text": "VSCode の Remote-SSH 拡張機能を使うと、リモートサーバに SSH 接続し、まるでローカルで作業しているかのようにファイル編集やターミナル操作ができます。"
   },
   {
-    "objectID": "tech-guide/latex-setup.html#latex-とは",
-    "href": "tech-guide/latex-setup.html#latex-とは",
-    "title": "LaTeX 環境構築",
+    "objectID": "tech-guide/ssh-remote.html#vscode-remote-ssh-とは",
+    "href": "tech-guide/ssh-remote.html#vscode-remote-ssh-とは",
+    "title": "SSH でリモート接続",
     "section": "",
-    "text": "LaTeX は論文執筆のための組版システムです。数式の美しい表現、参考文献の自動管理、構造化された文書作成が可能で、学術論文の執筆には欠かせません。"
+    "text": "VSCode の Remote-SSH 拡張機能を使うと、リモートサーバに SSH 接続し、まるでローカルで作業しているかのようにファイル編集やターミナル操作ができます。"
   },
   {
-    "objectID": "tech-guide/latex-setup.html#tex-live-のインストール",
-    "href": "tech-guide/latex-setup.html#tex-live-のインストール",
-    "title": "LaTeX 環境構築",
-    "section": "TeX Live のインストール",
-    "text": "TeX Live のインストール\nLaTeX を使うには、まず TeX Live というディストリビューションをインストールします。\n\nWindows\n\nTeX Live にアクセス\n「install-tl-windows.exe」をダウンロード\nインストーラを実行\n「フルインストール」を選択（推奨）\n\n\n\n\n\n\n\n警告時間がかかります\n\n\n\nフルインストールには数時間かかることがあります。時間に余裕のあるときに行ってください。\n\n\n\n\nmacOS\n\nHomebrew を使う場合（推奨）\nターミナルで以下を実行：\nbrew install --cask mactex\n\n\n手動インストール\n\nMacTeX にアクセス\n「MacTeX.pkg」をダウンロード\nインストーラを実行"
+    "objectID": "tech-guide/ssh-remote.html#前提条件",
+    "href": "tech-guide/ssh-remote.html#前提条件",
+    "title": "SSH でリモート接続",
+    "section": "前提条件",
+    "text": "前提条件\n\nVSCode がインストールされていること\nRemote-SSH 拡張機能がインストールされていること\n接続先サーバのアカウントがあること\nサーバに SSH 接続できるネットワーク環境であること"
   },
   {
-    "objectID": "tech-guide/latex-setup.html#vscode-での-latex-執筆",
-    "href": "tech-guide/latex-setup.html#vscode-での-latex-執筆",
-    "title": "LaTeX 環境構築",
-    "section": "VSCode での LaTeX 執筆",
-    "text": "VSCode での LaTeX 執筆\n\nLaTeX Workshop のインストール\n\nVSCode の拡張機能から「LaTeX Workshop」を検索\nインストール\n\n\n\nLuaLaTeX の設定\n日本語を含む文書をコンパイルするには、LuaLaTeX を使用します。\nVSCode の設定（settings.json）に以下を追加：\n{\n  \"latex-workshop.latex.tools\": [\n    {\n      \"name\": \"lualatex\",\n      \"command\": \"lualatex\",\n      \"args\": [\n        \"-synctex=1\",\n        \"-interaction=nonstopmode\",\n        \"-file-line-error\",\n        \"%DOC%\"\n      ]\n    },\n    {\n      \"name\": \"biber\",\n      \"command\": \"biber\",\n      \"args\": [\n        \"%DOCFILE%\"\n      ]\n    }\n  ],\n  \"latex-workshop.latex.recipes\": [\n    {\n      \"name\": \"lualatex\",\n      \"tools\": [\"lualatex\"]\n    },\n    {\n      \"name\": \"lualatex -&gt; biber -&gt; lualatex*2\",\n      \"tools\": [\"lualatex\", \"biber\", \"lualatex\", \"lualatex\"]\n    }\n  ],\n  \"latex-workshop.latex.recipe.default\": \"lualatex\"\n}\n\n\n基本的な使い方\n\n.tex ファイルを開く\n保存すると自動的にコンパイルされる（または Cmd + Alt + B）\nCmd + Alt + V で PDF プレビューを表示\nPDF 上でクリックすると、対応するソースコードにジャンプ（SyncTeX）"
+    "objectID": "tech-guide/ssh-remote.html#ssh-キーの準備",
+    "href": "tech-guide/ssh-remote.html#ssh-キーの準備",
+    "title": "SSH でリモート接続",
+    "section": "SSH キーの準備",
+    "text": "SSH キーの準備\nパスワード認証でも接続できますが、SSH キーを使うと毎回パスワードを入力する必要がなくなります。\n\nキーの生成（まだ持っていない場合）\nターミナルで以下を実行：\nssh-keygen -t ed25519\n\n保存場所はデフォルト（~/.ssh/id_ed25519）で OK\nパスフレーズは空欄でも OK（セキュリティを高めたい場合は設定）\n\n\n\n公開鍵をサーバに登録\nssh-copy-id ユーザー名@サーバのIPアドレス\nまたは、手動で ~/.ssh/id_ed25519.pub の内容をサーバの ~/.ssh/authorized_keys に追加します。"
   },
   {
-    "objectID": "tech-guide/latex-setup.html#簡単な-latex-文書",
-    "href": "tech-guide/latex-setup.html#簡単な-latex-文書",
-    "title": "LaTeX 環境構築",
-    "section": "簡単な LaTeX 文書",
-    "text": "簡単な LaTeX 文書\n\\documentclass{ltjsarticle}\n\\usepackage{luatexja}\n\n\\title{タイトル}\n\\author{著者名}\n\\date{\\today}\n\n\\begin{document}\n\\maketitle\n\n\\section{はじめに}\nここに本文を書きます。\n\n数式も書けます：\n\\begin{equation}\n  E = mc^2\n\\end{equation}\n\n\\end{document}"
+    "objectID": "tech-guide/ssh-remote.html#vscode-での接続",
+    "href": "tech-guide/ssh-remote.html#vscode-での接続",
+    "title": "SSH でリモート接続",
+    "section": "VSCode での接続",
+    "text": "VSCode での接続\n\n1. SSH 設定ファイルの作成\n~/.ssh/config ファイルに接続先の情報を記述します：\nHost myserver\n    HostName サーバのIPアドレス\n    User ユーザー名\n    IdentityFile ~/.ssh/id_ed25519\n\n\n2. 接続\n\nVSCode でコマンドパレット（Cmd + Shift + P）を開く\n「Remote-SSH: Connect to Host…」を選択\n設定したホスト名（例：myserver）を選択\n新しいウィンドウが開き、サーバに接続\n\n\n\n3. フォルダを開く\n接続後、File &gt; Open Folder でサーバ上のフォルダを開けます。"
   },
   {
-    "objectID": "tech-guide/latex-setup.html#参考リンク",
-    "href": "tech-guide/latex-setup.html#参考リンク",
-    "title": "LaTeX 環境構築",
+    "objectID": "tech-guide/ssh-remote.html#便利な機能",
+    "href": "tech-guide/ssh-remote.html#便利な機能",
+    "title": "SSH でリモート接続",
+    "section": "便利な機能",
+    "text": "便利な機能\n\nターミナル\nView &gt; Terminal でサーバ上のターミナルが使えます。 R や Python をサーバで実行できます。\n\n\nポートフォワーディング\nサーバで起動した Web アプリ（Shiny、Jupyter など）をローカルのブラウザで確認できます。\n\nサーバでアプリを起動（例：ポート 8888）\nVSCode の「PORTS」パネルで「Forward a Port」\nポート番号（8888）を入力\nローカルのブラウザで localhost:8888 にアクセス\n\n\n\n拡張機能\nリモート接続中に拡張機能をインストールすると、サーバ側にインストールされます。 R 拡張機能をインストールすれば、サーバの R 環境を使って作業できます。"
+  },
+  {
+    "objectID": "tech-guide/ssh-remote.html#トラブルシューティング",
+    "href": "tech-guide/ssh-remote.html#トラブルシューティング",
+    "title": "SSH でリモート接続",
+    "section": "トラブルシューティング",
+    "text": "トラブルシューティング\n\n接続できない\n\nサーバが起動しているか確認\nネットワーク接続を確認（VPN が必要な場合も）\nファイアウォールの設定を確認\nSSH の設定（ユーザー名、IP アドレス）を確認\n\n\n\n接続が切れる\n~/.ssh/config に以下を追加：\nHost *\n    ServerAliveInterval 60\n    ServerAliveCountMax 3"
+  },
+  {
+    "objectID": "tech-guide/tailscale.html",
+    "href": "tech-guide/tailscale.html",
+    "title": "Tailscale の導入",
+    "section": "",
+    "text": "Tailscale は、簡単に使える VPN サービスです。インストールするだけで、異なるネットワークにあるデバイス同士を安全に接続できます。\n学外から研究室のサーバに接続したい場合に便利です。"
+  },
+  {
+    "objectID": "tech-guide/tailscale.html#tailscale-とは",
+    "href": "tech-guide/tailscale.html#tailscale-とは",
+    "title": "Tailscale の導入",
+    "section": "",
+    "text": "Tailscale は、簡単に使える VPN サービスです。インストールするだけで、異なるネットワークにあるデバイス同士を安全に接続できます。\n学外から研究室のサーバに接続したい場合に便利です。"
+  },
+  {
+    "objectID": "tech-guide/tailscale.html#仕組み",
+    "href": "tech-guide/tailscale.html#仕組み",
+    "title": "Tailscale の導入",
+    "section": "仕組み",
+    "text": "仕組み\nTailscale は WireGuard という VPN 技術をベースにしています。 各デバイスに Tailscale をインストールすると、それらが同じ仮想ネットワーク（Tailnet）に参加し、直接通信できるようになります。\n自宅PC ─────┐\n            │\nスマホ ─────┼──── Tailnet ──── 研究室サーバ\n            │\n大学PC ─────┘"
+  },
+  {
+    "objectID": "tech-guide/tailscale.html#インストール",
+    "href": "tech-guide/tailscale.html#インストール",
+    "title": "Tailscale の導入",
+    "section": "インストール",
+    "text": "インストール\n\nWindows / macOS\n\nTailscale にアクセス\n自分の OS 用のインストーラをダウンロード\nインストール後、ログイン（Google / Microsoft / GitHub アカウントが使えます）\n\n\n\niOS / Android\nApp Store または Google Play から「Tailscale」をインストール。\n\n\nLinux（サーバ側）\ncurl -fsSL https://tailscale.com/install.sh | sh\nsudo tailscale up\n表示される URL にアクセスして認証します。"
+  },
+  {
+    "objectID": "tech-guide/tailscale.html#初期設定",
+    "href": "tech-guide/tailscale.html#初期設定",
+    "title": "Tailscale の導入",
+    "section": "初期設定",
+    "text": "初期設定\n\n1. アカウント作成\nTailscale を初めて起動すると、ログイン画面が表示されます。 Google、Microsoft、GitHub などのアカウントでログインできます。\n\n\n\n\n\n\nノートゼミでの利用\n\n\n\nゼミで Tailscale を利用する場合は、小杉から招待を送ります。 招待メールのリンクからチームに参加してください。\n\n\n\n\n2. デバイスの確認\nログイン後、Tailscale Admin Console で接続中のデバイスを確認できます。\n各デバイスには 100.x.x.x 形式の IP アドレスが割り当てられます。"
+  },
+  {
+    "objectID": "tech-guide/tailscale.html#使い方",
+    "href": "tech-guide/tailscale.html#使い方",
+    "title": "Tailscale の導入",
+    "section": "使い方",
+    "text": "使い方\n\nサーバへの接続\nTailscale が起動している状態で、サーバの Tailscale IP アドレスを使って SSH 接続します。\nssh ユーザー名@100.x.x.x\nまたは、VSCode の Remote-SSH で接続：\n~/.ssh/config に追加：\nHost server-tailscale\n    HostName 100.x.x.x\n    User ユーザー名\n\n\nRStudio Server への接続\nブラウザで http://100.x.x.x:8787 にアクセスすると、RStudio Server のログイン画面が表示されます。"
+  },
+  {
+    "objectID": "tech-guide/tailscale.html#セキュリティ",
+    "href": "tech-guide/tailscale.html#セキュリティ",
+    "title": "Tailscale の導入",
+    "section": "セキュリティ",
+    "text": "セキュリティ\n\n通信は WireGuard で暗号化されています\nTailscale にログインしたデバイスのみが Tailnet 内のデバイスにアクセスできます\n不要になったデバイスは Admin Console から削除できます"
+  },
+  {
+    "objectID": "tech-guide/tailscale.html#トラブルシューティング",
+    "href": "tech-guide/tailscale.html#トラブルシューティング",
+    "title": "Tailscale の導入",
+    "section": "トラブルシューティング",
+    "text": "トラブルシューティング\n\n接続できない\n\nTailscale が起動しているか確認（メニューバー/タスクバーのアイコン）\n相手のデバイスも Tailscale が起動しているか確認\nAdmin Console で両方のデバイスが「Connected」になっているか確認\n\n\n\n接続が遅い\n\nTailscale は可能な場合、デバイス間で直接通信（Direct）します\n直接通信できない場合、リレーサーバ経由（Relayed）になり、速度が低下することがあります\nAdmin Console でルート状況を確認できます"
+  },
+  {
+    "objectID": "tech-guide/tailscale.html#参考リンク",
+    "href": "tech-guide/tailscale.html#参考リンク",
+    "title": "Tailscale の導入",
     "section": "参考リンク",
-    "text": "参考リンク\n\nLaTeX入門\nOverleaf（オンラインLaTeXエディタ）"
+    "text": "参考リンク\n\nTailscale 公式ドキュメント\nTailscale Admin Console"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Kosugi Labo",
+    "objectID": "anti-harassment.html",
+    "href": "anti-harassment.html",
+    "title": "アンチハラスメントポリシー",
     "section": "",
-    "text": "小杉ゼミの運営方針、研究ガイド、技術セットアップ、R/統計分析のチュートリアルをまとめたサイトです。"
+    "text": "なお、本ポリシーは以下のアンチハラスメントポリシーを参考に、一部改変したものです。\nなお、Discordでの議論に関しては、Discordコミュニティガイドラインが上位規定となります。"
   },
   {
-    "objectID": "index.html#このサイトについて",
-    "href": "index.html#このサイトについて",
-    "title": "Kosugi Labo",
-    "section": "",
-    "text": "小杉ゼミの運営方針、研究ガイド、技術セットアップ、R/統計分析のチュートリアルをまとめたサイトです。"
+    "objectID": "anti-harassment.html#当ポリシーの目的と適用範囲",
+    "href": "anti-harassment.html#当ポリシーの目的と適用範囲",
+    "title": "アンチハラスメントポリシー",
+    "section": "当ポリシーの目的と適用範囲",
+    "text": "当ポリシーの目的と適用範囲\n当ポリシーは、ゼミ生全員が楽しく、安全に集える場を維持するために策定されました。 「ゼミ生全員が楽しく、安全に集える場を維持する」という目的には、「将来もみなさんが不安や心配を感じることなく、気軽に参加できること」も含まれています。\nよって、当ポリシーはゼミ授業時間内の発言や行動だけでなく、ゼミ活動に関連した参加者同士のコミュニケーションや、SNS・ブログ等での情報発信に対しても適用されます。\n全てのゼミ生は、他のゼミ生からハラスメント行為を止めるように求められた場合、直ちに従わなければなりません。"
   },
   {
-    "objectID": "index.html#コンテンツ",
-    "href": "index.html#コンテンツ",
-    "title": "Kosugi Labo",
-    "section": "コンテンツ",
-    "text": "コンテンツ\n\nゼミガイド\nゼミの運営方針や研究の進め方に関するガイドです。\n\nゼミの運営方針：研究とは、ゼミモットー、活動内容\n研究の進め方：思考の技術、研究の設計、時間の使い方\n文章の読み書き：文献検索、パラグラフライティング、執筆ツール\nアンチハラスメントポリシー：ゼミの安全な環境を守るために\n\n\n\n技術ガイド\n研究に必要な環境構築の手順書です。\n\nGitHub のセットアップ：アカウント作成からSSH接続まで\nVSCode のセットアップ：インストールと拡張機能の導入\nLaTeX 環境構築：TeX LiveとVSCodeでの執筆環境\nSSH でリモート接続：VSCodeからサーバに接続して作業する方法\nTailscale の導入：学外からサーバに接続する方法\n\n\n\nRチュートリアル\nデータ分析・可視化の技術を学ぶ教材です。\n\nはじめに：この教材の使い方\nRの基礎：計算、オブジェクト、関数\nデータの読み込み：CSVファイルの読み込みとデータ確認\ntidyverse入門：効率的なデータ整形\n可視化ギャラリー：ggplot2で描ける様々な図"
+    "objectID": "anti-harassment.html#ハラスメントの観点",
+    "href": "anti-harassment.html#ハラスメントの観点",
+    "title": "アンチハラスメントポリシー",
+    "section": "ハラスメントの観点",
+    "text": "ハラスメントの観点\nハラスメント（他人を困らせる行為や嫌がらせ）の観点には、以下のような例があります。\n\nジェンダー、性自認やジェンダー表現、性的指向\n外見、身体的特徴\n人種、民族、国籍\n年齢\n宗教\n疾患、障がい\n結婚・離婚・妊娠・出産・育児休業など個人的なライフイベント\n持っている知識や経験\nキャリアや職位・職階などのポジション\n研究方法や研究に対するスタンスなど\n\nただし、上記の観点はあくまで一例です。上記以外の観点であっても、ゼミ生が不快、不安に感じる発言や行動はハラスメントとみなされます。"
   },
   {
-    "objectID": "index.html#対象者",
-    "href": "index.html#対象者",
-    "title": "Kosugi Labo",
-    "section": "対象者",
-    "text": "対象者\n\n小杉ゼミのゼミ生\n統計解析・論文執筆の環境を整えたい方\nRでのデータ分析を学びたい方"
+    "objectID": "anti-harassment.html#禁止行為",
+    "href": "anti-harassment.html#禁止行為",
+    "title": "アンチハラスメントポリシー",
+    "section": "禁止行為",
+    "text": "禁止行為\n小杉ゼミでは、上記の観点を含むハラスメントとなりうるすべての観点について、ゼミ生が不快感、不安感を感じる行為をとることを禁止します。具体例として、以下のような行為を禁止します：\n\n攻撃的、非建設的、過剰に批判的な発言や揶揄（やゆ）\n脅迫、ストーキング、つきまとい\n不適切な身体的接触\n性的な関心を引く行為（性的な画像の掲示や、性的なコスチュームの着用等）\nジェンダーを強く意識させるコンテキストで、特定の個人をほめたたえる行為\n発信者（発言者）の望まない写真撮影、録画、録音、SNS等での情報拡散（ただし、ハラスメント被害の記録としての撮影・録画・録音は除く）\nその他、ゼミ生全員がハラスメントであると判断した行為\n\n性的なハラスメントについては男性から女性に対してだけではなく、女性から男性に対するハラスメントも禁止です。"
+  },
+  {
+    "objectID": "anti-harassment.html#ハラスメントを受けたら判断に迷ったら",
+    "href": "anti-harassment.html#ハラスメントを受けたら判断に迷ったら",
+    "title": "アンチハラスメントポリシー",
+    "section": "ハラスメントを受けたら、判断に迷ったら",
+    "text": "ハラスメントを受けたら、判断に迷ったら\nハラスメントを受けた場合、見かけた場合、もしくはハラスメントかどうか判断に迷った場合は、まずは小杉に相談してください（ただし小杉が加害者の場合は除く）。専修大学のハラスメント対策室（4号館1F）あるいは学生相談室（グリーントップB1F）に行って相談することもできます。躊躇する必要はありません。\nゼミ生一同は、ハラスメントに直面している参加者の心理的、身体的な安全を、全力で確保するように努めます。\nまた、ハラスメント行為をやめるように要請された参加者は、運営者の指示に直ちに従ってください。従っていただけない場合やハラスメントの影響の大きさによっては、当塾の関わるイベントへの参加を認めないことや、アカウントの解除（ワークスペースへの参加ができなくなる）も含めた対処をとります。\n\n\n\n\n\n\n\nノートみなさんへのお願い\n\n\n\nわざわざ厳格なルールを定めなくとも、参加者ひとりひとりが「ちょっとだけ、相手の立場や気持ちを想像してみること」を心がければ、上記の願いは容易に叶えられるはずです。\n誰もが安心して参加しやすい環境を維持するために、みなさんのご理解とご協力をよろしくお願いします。"
+  },
+  {
+    "objectID": "anti-harassment.html#ライセンス",
+    "href": "anti-harassment.html#ライセンス",
+    "title": "アンチハラスメントポリシー",
+    "section": "ライセンス",
+    "text": "ライセンス\n本ポリシーは CC BY 4.0 のライセンス下で提供されています。\nThis work is licensed under CC BY 4.0."
   },
   {
     "objectID": "writing-guide.html",
@@ -747,26 +768,5 @@
     "title": "文章の読み書き",
     "section": "構造化された文書を書く書式とツール",
     "text": "構造化された文書を書く書式とツール\n\nなぜWordを使わないのか\n商用ソフトウェアで論文を書くことはお勧めしません：\n\n会社が倒産してアプリ開発が止まると論文が読めなくなる\nWordのアウトライン機能を十分使いこなせている人は少ない\n\n\n\nコンテンツとデザインの分離\n\n文章そのものはプレーンな書き方\nデザインは別途設定ファイルで指定\n出力時にコンパイラや表示装置がレイアウトを整える\n\n\n\n推奨ツール\nRmarkdown / Quarto\n\nプレーンテキスト形式\n構造を#の数で表現（#セクション、##サブセクション…）\nWord、HTML、ePub、PDFなど様々な形式に変換可能\n\nLaTeX\n\n非常に美しい構成の文書を作成できる\n数式や参考文献の管理に優れている\n学術論文の執筆には欠かせない\n\n本ゼミではLaTeXを使った論文執筆を推奨します。環境構築の方法はLaTeX環境構築を参照してください。"
-  },
-  {
-    "objectID": "server-status.html",
-    "href": "server-status.html",
-    "title": "サーバー稼働状況",
-    "section": "",
-    "text": "研究室の計算サーバーの稼働状況をリアルタイムで確認できます。"
-  },
-  {
-    "objectID": "server-status.html#サーバー情報",
-    "href": "server-status.html#サーバー情報",
-    "title": "サーバー稼働状況",
-    "section": "サーバー情報",
-    "text": "サーバー情報\n\n\n\nマシン名\n用途\nGPU\n\n\n\n\nAl-Khwarizumi\nメインサーバー（LLM環境等）\nRTX 5070 Ti 16GB\n\n\nShimura\n計算用\nGTX 1660 SUPER 6GB\n\n\nTaniyama\n計算用\nGTX 1660 SUPER 6GB\n\n\nSeki\n計算用\nGTX 1660 SUPER 6GB"
-  },
-  {
-    "objectID": "server-status.html#使い方",
-    "href": "server-status.html#使い方",
-    "title": "サーバー稼働状況",
-    "section": "使い方",
-    "text": "使い方\nサーバーを利用したい場合は、SSH接続ガイドを参照してください。"
   }
 ]
