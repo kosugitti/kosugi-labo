@@ -747,5 +747,26 @@
     "title": "文章の読み書き",
     "section": "構造化された文書を書く書式とツール",
     "text": "構造化された文書を書く書式とツール\n\nなぜWordを使わないのか\n商用ソフトウェアで論文を書くことはお勧めしません：\n\n会社が倒産してアプリ開発が止まると論文が読めなくなる\nWordのアウトライン機能を十分使いこなせている人は少ない\n\n\n\nコンテンツとデザインの分離\n\n文章そのものはプレーンな書き方\nデザインは別途設定ファイルで指定\n出力時にコンパイラや表示装置がレイアウトを整える\n\n\n\n推奨ツール\nRmarkdown / Quarto\n\nプレーンテキスト形式\n構造を#の数で表現（#セクション、##サブセクション…）\nWord、HTML、ePub、PDFなど様々な形式に変換可能\n\nLaTeX\n\n非常に美しい構成の文書を作成できる\n数式や参考文献の管理に優れている\n学術論文の執筆には欠かせない\n\n本ゼミではLaTeXを使った論文執筆を推奨します。環境構築の方法はLaTeX環境構築を参照してください。"
+  },
+  {
+    "objectID": "server-status.html",
+    "href": "server-status.html",
+    "title": "サーバー稼働状況",
+    "section": "",
+    "text": "研究室の計算サーバーの稼働状況をリアルタイムで確認できます。"
+  },
+  {
+    "objectID": "server-status.html#サーバー情報",
+    "href": "server-status.html#サーバー情報",
+    "title": "サーバー稼働状況",
+    "section": "サーバー情報",
+    "text": "サーバー情報\n\n\n\nマシン名\n用途\nGPU\n\n\n\n\nAl-Khwarizumi\nメインサーバー（LLM環境等）\nRTX 5070 Ti 16GB\n\n\nShimura\n計算用\nGTX 1660 SUPER 6GB\n\n\nTaniyama\n計算用\nGTX 1660 SUPER 6GB\n\n\nSeki\n計算用\nGTX 1660 SUPER 6GB"
+  },
+  {
+    "objectID": "server-status.html#使い方",
+    "href": "server-status.html#使い方",
+    "title": "サーバー稼働状況",
+    "section": "使い方",
+    "text": "使い方\nサーバーを利用したい場合は、SSH接続ガイドを参照してください。"
   }
 ]

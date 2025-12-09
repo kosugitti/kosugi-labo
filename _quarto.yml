@@ -44,6 +44,8 @@ website:
             text: 可視化ギャラリー
       - href: members.qmd
         text: メンバー
+      - href: server-status.qmd
+        text: サーバー状況
       - href: feedback.qmd
         text: フィードバック
 
