@@ -1,0 +1,51 @@
+\documentclass{ltjsarticle}
+\usepackage{luatexja-fontspec}
+\usepackage{amsmath} % 数式用
+\usepackage{bm} % ベクトル・行列用
+\usepackage{graphicx} % 図の挿入用
+\usepackage{caption} % キャプションのカスタマイズ用
+\captionsetup{justification=raggedright,singlelinecheck=false} % キャプション左揃え
+\usepackage[top=25truemm,bottom=25truemm,includefoot,includehead,heightrounded]{geometry} % 余白設定
+
+\usepackage{hyperref} % ハイパーリンク用
+\hypersetup{
+    setpagesize=false,
+    bookmarksnumbered=true,
+    bookmarksopen=true,
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    urlcolor=magenta
+}
+
+\usepackage[backend=biber,style=jpa]{biblatex}
+\addbibresource{sample.bib}
+
+% タイトル、著者、日付
+\title{タイトル}
+\author{著者名}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{はじめに}
+ここに本文を書く。
+
+\section{方法}
+
+\subsection{参加者}
+
+\subsection{手続き}
+
+\section{結果}
+
+\section{考察}
+
+\section{結論}
+
+\printbibliography[title=引用文献]
+
+\end{document}

@@ -4,35 +4,14 @@
     "href": "feedback.html",
     "title": "研究フィードバック",
     "section": "",
-    "text": "ゼミでの研究発表に対するフィードバックを記録・共有するページです。"
+    "text": "ゼミでの研究発表に対するフィードバックを記録・共有するページです。\n\n\n\n\n\n準備中"
   },
   {
     "objectID": "feedback.html#このページについて",
     "href": "feedback.html#このページについて",
     "title": "研究フィードバック",
     "section": "",
-    "text": "ゼミでの研究発表に対するフィードバックを記録・共有するページです。"
-  },
-  {
-    "objectID": "feedback.html#フィードバックの目的",
-    "href": "feedback.html#フィードバックの目的",
-    "title": "研究フィードバック",
-    "section": "フィードバックの目的",
-    "text": "フィードバックの目的\n\n発表内容の改善点を明確にする\n研究の進捗を可視化する\n良かった点を共有し、他のメンバーの参考にする"
-  },
-  {
-    "objectID": "feedback.html#フィードバックの観点",
-    "href": "feedback.html#フィードバックの観点",
-    "title": "研究フィードバック",
-    "section": "フィードバックの観点",
-    "text": "フィードバックの観点\n\n研究内容について\n\n問い（リサーチクエスチョン）：明確か、答えられる形になっているか\n先行研究：適切にレビューされているか、位置づけは明確か\n方法：問いに答えるために適切か、再現可能か\n結果：正しく分析されているか、解釈は妥当か\n考察：結果から言えることと言えないことが区別されているか\n\n\n\n発表について\n\n構成：論理的な流れになっているか\nスライド：見やすいか、情報量は適切か\n説明：聞き手に伝わる話し方か"
-  },
-  {
-    "objectID": "feedback.html#フィードバック記録",
-    "href": "feedback.html#フィードバック記録",
-    "title": "研究フィードバック",
-    "section": "フィードバック記録",
-    "text": "フィードバック記録\n\n\n\n\n\n\nノート記録の追加方法\n\n\n\n各回のフィードバックは、日付ごとにセクションを追加して記録します。\n\n\n\n\n2025年度\n\n第1回（日付未定）\n準備中"
+    "text": "ゼミでの研究発表に対するフィードバックを記録・共有するページです。\n\n\n\n\n\n準備中"
   },
   {
     "objectID": "feedback.html#過去のフィードバック",
@@ -119,18 +98,18 @@
     "text": "VSCode での LaTeX 執筆\n\nLaTeX Workshop のインストール\n\nVSCode の拡張機能から「LaTeX Workshop」を検索\nインストール\n\n\n\nLuaLaTeX の設定\n日本語を含む文書をコンパイルするには、LuaLaTeX を使用します。\nVSCode の設定（settings.json）に以下を追加：\n{\n  \"latex-workshop.latex.tools\": [\n    {\n      \"name\": \"lualatex\",\n      \"command\": \"lualatex\",\n      \"args\": [\n        \"-synctex=1\",\n        \"-interaction=nonstopmode\",\n        \"-file-line-error\",\n        \"%DOC%\"\n      ]\n    },\n    {\n      \"name\": \"biber\",\n      \"command\": \"biber\",\n      \"args\": [\n        \"%DOCFILE%\"\n      ]\n    }\n  ],\n  \"latex-workshop.latex.recipes\": [\n    {\n      \"name\": \"lualatex\",\n      \"tools\": [\"lualatex\"]\n    },\n    {\n      \"name\": \"lualatex -&gt; biber -&gt; lualatex*2\",\n      \"tools\": [\"lualatex\", \"biber\", \"lualatex\", \"lualatex\"]\n    }\n  ],\n  \"latex-workshop.latex.recipe.default\": \"lualatex\"\n}\n\n\n基本的な使い方\n\n.tex ファイルを開く\n保存すると自動的にコンパイルされる（または Cmd + Alt + B）\nCmd + Alt + V で PDF プレビューを表示\nPDF 上でクリックすると、対応するソースコードにジャンプ（SyncTeX）"
   },
   {
-    "objectID": "tech-guide/latex-setup.html#簡単な-latex-文書",
-    "href": "tech-guide/latex-setup.html#簡単な-latex-文書",
+    "objectID": "tech-guide/latex-setup.html#latex-文書の書き方",
+    "href": "tech-guide/latex-setup.html#latex-文書の書き方",
     "title": "LaTeX 環境構築",
-    "section": "簡単な LaTeX 文書",
-    "text": "簡単な LaTeX 文書\n\\documentclass{ltjsarticle}\n\\usepackage{luatexja}\n\n\\title{タイトル}\n\\author{著者名}\n\\date{\\today}\n\n\\begin{document}\n\\maketitle\n\n\\section{はじめに}\nここに本文を書きます。\n\n数式も書けます：\n\\begin{equation}\n  E = mc^2\n\\end{equation}\n\n\\end{document}"
+    "section": "LaTeX 文書の書き方",
+    "text": "LaTeX 文書の書き方\nLaTeX の詳しい書き方については、以下のガイドを参照してください。\n\n\n\n\n\n\nヒントLaTeX ガイド\n\n\n\nlatex_guide.pdf に、LaTeX の基本的な書き方から参考文献の扱い方まで詳しくまとめています。\n\n\n\n練習用ファイルのダウンロード\n以下のファイルをダウンロードして練習してください：\n\n\n\nファイル\n説明\n\n\n\n\ntemplete.tex\nテンプレートファイル（リネームして使用）\n\n\nsample.bib\n参考文献サンプル\n\n\nsample_figure.png\n図のサンプル\n\n\njpa.bbx / jpa.cbx / jpa.dbx\n日本心理学会スタイル\n\n\n\n\n\n練習の流れ\n\n上記のファイルを同じフォルダにダウンロード\ntemplete.tex を 自分の名前.tex などにリネーム\nlatex_guide.pdf を見ながら、テンプレートに書き足していく\nコンパイルして PDF を確認\n\n\n\nコンパイル方法\n\nVSCode の場合\nファイルを保存すると自動でコンパイルされます（LaTeX Workshop 使用時）。\n参考文献を使う場合は、レシピを「lualatex -&gt; biber -&gt; lualatex*2」に切り替えてください。\n\n\nコマンドラインの場合\n以下のスクリプトを使うと便利です：tex_build.sh\n# 使い方\n./tex_build.sh ファイル名.tex\nこのスクリプトは LuaLaTeX と Biber を適切な順序で実行し、中間ファイルを削除します。\n\n\n\n\n\n\nノート研究室サーバ（アルちゃん）を使う場合\n\n\n\n研究室サーバにログインすると、ホームディレクトリに tex_practice/ フォルダがあり、練習用ファイル一式が入っています。ダウンロードせずにそのまま使えます。"
   },
   {
     "objectID": "tech-guide/latex-setup.html#参考リンク",
     "href": "tech-guide/latex-setup.html#参考リンク",
     "title": "LaTeX 環境構築",
     "section": "参考リンク",
-    "text": "参考リンク\n\nLaTeX入門\nOverleaf（オンラインLaTeXエディタ）"
+    "text": "参考リンク\n\nTeX Wiki\nOverleaf（オンラインLaTeXエディタ）"
   },
   {
     "objectID": "tech-guide/github-setup.html",

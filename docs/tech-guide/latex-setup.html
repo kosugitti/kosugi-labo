@@ -246,7 +246,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#lualatex-の設定" id="toc-lualatex-の設定" class="nav-link" data-scroll-target="#lualatex-の設定">LuaLaTeX の設定</a></li>
   <li><a href="#基本的な使い方" id="toc-基本的な使い方" class="nav-link" data-scroll-target="#基本的な使い方">基本的な使い方</a></li>
   </ul></li>
-  <li><a href="#簡単な-latex-文書" id="toc-簡単な-latex-文書" class="nav-link" data-scroll-target="#簡単な-latex-文書">簡単な LaTeX 文書</a></li>
+  <li><a href="#latex-文書の書き方" id="toc-latex-文書の書き方" class="nav-link" data-scroll-target="#latex-文書の書き方">LaTeX 文書の書き方</a>
+  <ul class="collapse">
+  <li><a href="#練習用ファイルのダウンロード" id="toc-練習用ファイルのダウンロード" class="nav-link" data-scroll-target="#練習用ファイルのダウンロード">練習用ファイルのダウンロード</a></li>
+  <li><a href="#練習の流れ" id="toc-練習の流れ" class="nav-link" data-scroll-target="#練習の流れ">練習の流れ</a></li>
+  <li><a href="#コンパイル方法" id="toc-コンパイル方法" class="nav-link" data-scroll-target="#コンパイル方法">コンパイル方法</a></li>
+  </ul></li>
   <li><a href="#参考リンク" id="toc-参考リンク" class="nav-link" data-scroll-target="#参考リンク">参考リンク</a></li>
   </ul>
 </nav>
@@ -375,32 +380,94 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 </section>
 </section>
-<section id="簡単な-latex-文書" class="level2">
-<h2 class="anchored" data-anchor-id="簡単な-latex-文書">簡単な LaTeX 文書</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode latex code-with-copy"><code class="sourceCode latex"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">\documentclass</span>{<span class="ex">ltjsarticle</span>}</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">\usepackage</span>{<span class="ex">luatexja</span>}</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">\title</span>{タイトル}</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">\author</span>{著者名}</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">\date</span>{<span class="fu">\today</span>}</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="kw">\begin</span>{<span class="ex">document</span>}</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">\maketitle</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="kw">\section</span>{はじめに}</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>ここに本文を書きます。</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>数式も書けます：</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="kw">\begin</span>{<span class="ex">equation</span>}</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="ss">  E = mc^2</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">equation</span>}</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">document</span>}</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="latex-文書の書き方" class="level2">
+<h2 class="anchored" data-anchor-id="latex-文書の書き方">LaTeX 文書の書き方</h2>
+<p>LaTeX の詳しい書き方については、以下のガイドを参照してください。</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">ヒント</span>LaTeX ガイド
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><a href="latex-files/latex_guide.pdf">latex_guide.pdf</a> に、LaTeX の基本的な書き方から参考文献の扱い方まで詳しくまとめています。</p>
+</div>
+</div>
+<section id="練習用ファイルのダウンロード" class="level3">
+<h3 class="anchored" data-anchor-id="練習用ファイルのダウンロード">練習用ファイルのダウンロード</h3>
+<p>以下のファイルをダウンロードして練習してください：</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>ファイル</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="latex-files/templete.tex">templete.tex</a></td>
+<td>テンプレートファイル（リネームして使用）</td>
+</tr>
+<tr class="even">
+<td><a href="latex-files/sample.bib">sample.bib</a></td>
+<td>参考文献サンプル</td>
+</tr>
+<tr class="odd">
+<td><a href="latex-files/sample_figure.png">sample_figure.png</a></td>
+<td>図のサンプル</td>
+</tr>
+<tr class="even">
+<td><a href="latex-files/jpa.bbx">jpa.bbx</a> / <a href="latex-files/jpa.cbx">jpa.cbx</a> / <a href="latex-files/jpa.dbx">jpa.dbx</a></td>
+<td>日本心理学会スタイル</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="練習の流れ" class="level3">
+<h3 class="anchored" data-anchor-id="練習の流れ">練習の流れ</h3>
+<ol type="1">
+<li>上記のファイルを同じフォルダにダウンロード</li>
+<li><code>templete.tex</code> を <code>自分の名前.tex</code> などにリネーム</li>
+<li><code>latex_guide.pdf</code> を見ながら、テンプレートに書き足していく</li>
+<li>コンパイルして PDF を確認</li>
+</ol>
+</section>
+<section id="コンパイル方法" class="level3">
+<h3 class="anchored" data-anchor-id="コンパイル方法">コンパイル方法</h3>
+<section id="vscode-の場合" class="level4">
+<h4 class="anchored" data-anchor-id="vscode-の場合">VSCode の場合</h4>
+<p>ファイルを保存すると自動でコンパイルされます（LaTeX Workshop 使用時）。</p>
+<p>参考文献を使う場合は、レシピを「lualatex -&gt; biber -&gt; lualatex*2」に切り替えてください。</p>
+</section>
+<section id="コマンドラインの場合" class="level4">
+<h4 class="anchored" data-anchor-id="コマンドラインの場合">コマンドラインの場合</h4>
+<p>以下のスクリプトを使うと便利です：<a href="latex-files/tex_build.sh">tex_build.sh</a></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 使い方</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">./tex_build.sh</span> ファイル名.tex</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<p>このスクリプトは LuaLaTeX と Biber を適切な順序で実行し、中間ファイルを削除します。</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">ノート</span>研究室サーバ（アルちゃん）を使う場合
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>研究室サーバにログインすると、ホームディレクトリに <code>tex_practice/</code> フォルダがあり、練習用ファイル一式が入っています。ダウンロードせずにそのまま使えます。</p>
+</div>
+</div>
+</section>
+</section>
 </section>
 <section id="参考リンク" class="level2">
 <h2 class="anchored" data-anchor-id="参考リンク">参考リンク</h2>
 <ul>
-<li><a href="https://texwiki.texjp.org/?LaTeX%E5%85%A5%E9%96%80">LaTeX入門</a></li>
+<li><a href="https://texwiki.texjp.org/?LaTeX%E5%85%A5%E9%96%80">TeX Wiki</a></li>
 <li><a href="https://www.overleaf.com/">Overleaf（オンラインLaTeXエディタ）</a></li>
 </ul>
 

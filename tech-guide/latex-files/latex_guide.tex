@@ -1,0 +1,503 @@
+\documentclass{ltjsarticle}
+\usepackage{luatexja-fontspec}
+\usepackage{amsmath} % 数式用
+\usepackage{bm} % ベクトル・行列用
+\usepackage{graphicx} % 図の挿入用
+\usepackage{caption} % キャプションのカスタマイズ用
+\captionsetup{justification=raggedright,singlelinecheck=false} % キャプション左揃え
+\usepackage[top=25truemm,bottom=25truemm,includefoot,includehead,heightrounded]{geometry} % 余白設定
+
+\usepackage{hyperref} % ハイパーリンク用
+% Hyper Linkを目立たせない呪文
+\hypersetup{
+setpagesize=false,
+ bookmarksnumbered=true,%
+ bookmarksopen=true,%
+ colorlinks=true,%
+ linkcolor=blue,
+ citecolor=pinegreen,
+ urlcolor=magenta
+}
+
+
+\usepackage[backend=biber,style=jpa]{biblatex}
+
+\addbibresource{sample.bib}
+
+% タイトル、著者、日付
+\title{LaTeX入門}
+\author{小杉考司}
+\date{\today}
+
+\begin{document}
+% タイトル出力
+\maketitle
+\tableofcontents % 目次出力
+
+\newpage
+
+\section{LaTeX文書の基本構造}
+
+LaTeX文書は大きく「プリアンブル」と「本文」に分かれる。
+
+\subsection{プリアンブル}
+\verb|\documentclass{...}|から\verb|\begin{document}|までの部分をプリアンブルと呼ぶ。
+文書全体の設定を行う場所である。
+
+\subsubsection{ドキュメントクラス}
+\begin{verbatim}
+\documentclass{ltjsarticle}
+\end{verbatim}
+文書の種類を指定する。LuaLaTeXで日本語を使う場合は以下のいずれかを使う：
+\begin{description}
+    \item[ltjsarticle] 論文・レポート向け（セクション番号あり）
+    \item[ltjsreport] 長めのレポート向け（章から始まる）
+    \item[ltjsbook] 書籍向け
+\end{description}
+
+\subsubsection{パッケージの読み込み}
+\verb|\usepackage{パッケージ名}|で機能を追加する。このテンプレートで使用しているパッケージは次のとおりである。
+\begin{description}
+    \item[luatexja-fontspec] 日本語フォントの設定
+    \item[amsmath] 数式環境の拡張
+    \item[bm] 太字の数式記号（ベクトル・行列用）
+    \item[graphicx] 図の挿入
+    \item[caption] キャプションのカスタマイズ
+    \item[geometry] 余白の設定
+    \item[hyperref] ハイパーリンク・PDF目次
+    \item[biblatex] 引用文献管理
+\end{description}
+
+\subsubsection{タイトル情報}
+\begin{verbatim}
+\title{論文タイトル}
+\author{著者名}
+\date{\today}  % または \date{2025年1月7日}
+\end{verbatim}
+これらはプリアンブルで設定し，本文中で\verb|\maketitle|を呼ぶと出力される。
+\verb|\today|は自動的に今日の日付になる。
+
+\subsection{本文}
+\verb|\begin{document}|から\verb|\end{document}|までが本文である。
+本文はプレーンテキストなので，そのまま書けば良い。ちなみに，よくある質問として「改行できない」「字下げできない」というのがあるが，改行は空行を入れればよく，字下げは自動的に行われるので特に意識する必要はない。
+
+\subsubsection{タイトルの出力}
+\begin{verbatim}
+\maketitle
+\end{verbatim}
+プリアンブルで設定した\verb|\title|，\verb|\author|，\verb|\date|の内容を出力する。
+
+\subsubsection{目次の出力}
+\begin{verbatim}
+\tableofcontents
+\end{verbatim}
+\verb|\section|，\verb|\subsection|などの見出しから自動的に目次を生成する。
+目次を正しく出力するには2回以上のコンパイルが必要。
+
+\subsubsection{改ページ}
+\begin{verbatim}
+\newpage
+\end{verbatim}
+強制的に改ページする。目次の後などで使う。
+
+\section{段落レベル・セクション}
+見出しレベル。
+\subsection{見出し・サブセクション}
+サブセクションのレベル
+\subsubsection{小見出し・サブサブセクション}
+サブサブサブセクションのレベル
+\paragraph{小小見出し・パラグラフ}パラグラフはこうなる。
+\section{段落レベル・セクション}
+見出しレベル２
+\subsection{見出し・サブセクション}
+サブセクションのレベル２
+
+\section{数式の書き方}
+文中に書くときは$y=f(x)$のようにドルマークでくくる。ドルマークが二つになると一行独立する。
+$$ y=ax+b $$
+ただしこの書き方はあまり推奨されておらず，今は
+\[ f=ma \]
+のように書くと良い。
+
+数式でよく使う，上付き，下付きはそれぞれ\texttt{\^}，\texttt{\_}を使う。
+
+\[ \sum_{i=1}^{n} i=\frac{n(n+1)}{2} \]
+
+ギリシア文字，特殊文字は\texttt{\textbackslash}に続けて名前を書く。$\beta_0$など。\LaTeX もコマンドででる。詳しくはネットでググるといい。
+
+ベクトルや行列は\verb|bm|パッケージを読み込んで，\bm{v}や\bm{A}のように書くと良い。
+
+また、\texttt{equation}環境を使うこともできる。
+\begin{equation}
+E=mc^2
+\end{equation}
+
+\section{リストの書き方}
+リストの書き方は3つある。
+
+\subsection{箇条書き（itemize）}
+\texttt{itemize}環境を使う。
+\begin{itemize}
+    \item 最初の項目
+    \item 2番目の項目
+    \item 3番目の項目
+\end{itemize}
+
+\subsection{番号付きリスト（enumerate）}
+\texttt{enumerate}環境を使う。
+\begin{enumerate}
+    \item 手順1：データを収集する
+    \item 手順2：データを分析する
+    \item 手順3：結果を報告する
+\end{enumerate}
+
+\subsection{定義リスト（description）}
+\texttt{description}環境を使う。用語の定義などに便利。
+\begin{description}
+    \item[信頼性] 測定の一貫性・安定性を表す指標
+    \item[妥当性] 測定したいものを正しく測定しているかを表す指標
+    \item[客観性] 測定者によらず同じ結果が得られるかを表す指標
+\end{description}
+
+\subsection{ネストしたリスト}
+リストは入れ子にすることができる。
+\begin{itemize}
+    \item 大項目1
+    \begin{itemize}
+        \item 中項目1-1
+        \item 中項目1-2
+        \begin{itemize}
+            \item 小項目1-2-1
+            \item 小項目1-2-2
+        \end{itemize}
+    \end{itemize}
+    \item 大項目2
+\end{itemize}
+
+番号付きリストもネストできる。
+\begin{enumerate}
+    \item 第1章
+    \begin{enumerate}
+        \item 第1節
+        \item 第2節
+        \begin{enumerate}
+            \item 第1項
+            \item 第2項
+        \end{enumerate}
+    \end{enumerate}
+    \item 第2章
+\end{enumerate}
+
+異なる種類のリストを組み合わせることもできる。
+\begin{enumerate}
+    \item 研究の目的
+    \begin{itemize}
+        \item 仮説1の検証
+        \item 仮説2の検証
+    \end{itemize}
+    \item 研究の方法
+    \begin{description}
+        \item[参加者] 大学生100名
+        \item[手続き] 質問紙調査
+    \end{description}
+\end{enumerate}
+
+\section{図表の書き方}\label{sec:figure_table}
+
+\subsection{図の挿入}
+図を挿入するには\texttt{graphicx}パッケージを使う（プリアンブルで読み込む）。
+\texttt{figure}環境で囲むとキャプションや参照ラベルを付けられる。
+
+\begin{figure}[htbp]
+    \caption{図のキャプション例}
+    \label{fig:example}
+    \centering
+    \includegraphics[keepaspectratio,width=0.8\textwidth]{sample_figure.png}
+\end{figure}
+
+配置オプション\texttt{[htbp]}の意味：
+\begin{description}
+    \item[h] here（その場所に配置）
+    \item[t] top（ページ上部に配置）
+    \item[b] bottom（ページ下部に配置）
+    \item[p] page（独立したページに配置）
+\end{description}
+
+\verb|\includegraphics|のオプション：
+\begin{description}
+    \item[width=0.8\textbackslash textwidth] 幅をテキスト幅の80\%に指定
+    \item[height=5cm] 高さを5cmに指定
+    \item[scale=0.5] 元のサイズの50\%に縮小
+    \item[keepaspectratio] 縦横比を維持（widthとheightを同時指定した場合に有効）
+    \item[angle=90] 90度回転
+    \item[trim=左 下 右 上, clip] 指定した余白を切り取る（単位はbp）
+\end{description}
+
+\subsection{表の作成}\label{subsec:table}
+表は\texttt{table}環境と\texttt{tabular}環境を組み合わせて作る。
+
+\begin{table}[htbp]
+    \caption{記述統計量の例}
+    \label{tab:descriptive}
+    \centering
+    \begin{tabular}{lrrr}
+        \hline
+        変数 & $M$ & $SD$ & $n$ \\
+        \hline
+        年齢 & 20.5 & 1.2 & 100 \\
+        テスト得点 & 75.3 & 12.4 & 100 \\
+        反応時間(ms) & 450.2 & 85.6 & 100 \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\texttt{tabular}の列指定：
+\begin{description}
+    \item[l] 左揃え
+    \item[c] 中央揃え
+    \item[r] 右揃え
+    \item[|] 縦罫線（APAスタイルでは使わない）
+\end{description}
+
+より複雑な表の例：
+\begin{table}[htbp]
+    \caption{相関行列の例}
+    \label{tab:correlation}
+    \centering
+    \begin{tabular}{lccc}
+        \hline
+        & 変数1 & 変数2 & 変数3 \\
+        \hline
+        変数1 & --- & & \\
+        変数2 & .45** & --- & \\
+        変数3 & .32* & .58** & --- \\
+        \hline
+    \end{tabular}
+
+    \medskip
+    \raggedright
+    \small 注）*$p<.05$, **$p<.01$
+\end{table}
+
+\section{相互参照}\label{sec:crossref}
+\LaTeX では\verb|\label{}|でラベルを付け，\verb|\ref{}|や\verb|\pageref{}|で参照できる。
+
+\subsection{セクションの参照}
+このセクションは第\ref{sec:crossref}節である。
+図表の書き方は第\ref{sec:figure_table}節（\pageref{sec:figure_table}ページ）を参照。
+表の作成については第\ref{subsec:table}項で説明した。
+
+\subsection{図の参照}
+図\ref{fig:example}に例を示した。
+この図は\pageref{fig:example}ページにある。
+
+\subsection{表の参照}
+表\ref{tab:descriptive}に記述統計量を示した。
+また，表\ref{tab:correlation}（\pageref{tab:correlation}ページ）には相関行列を示した。
+
+\subsection{数式の参照}
+\texttt{equation}環境にもラベルを付けられる。
+\begin{equation}
+    \bar{x} = \frac{1}{n}\sum_{i=1}^{n}x_i
+    \label{eq:mean}
+\end{equation}
+平均値の定義は式(\ref{eq:mean})の通りである。
+
+\subsection{ラベル命名の慣習}
+ラベルには接頭辞を付けると管理しやすい。
+\begin{description}
+    \item[sec:] セクション（例：\texttt{sec:introduction}）
+    \item[subsec:] サブセクション（例：\texttt{subsec:method}）
+    \item[fig:] 図（例：\texttt{fig:result1}）
+    \item[tab:] 表（例：\texttt{tab:descriptive}）
+    \item[eq:] 数式（例：\texttt{eq:regression}）
+\end{description}
+
+\section{引用文献の書き方}
+
+\subsection{概要}
+引用文献はBibLaTeX + Biberシステムを使う。BibTeXファイル（拡張子.bib）を用意して，\verb|\addbibresource{ファイル名.bib}|で読み込む。コンパイル手順は以下の通り：
+\begin{enumerate}
+    \item LuaLaTeXでコンパイル（参照箇所を抽出）
+    \item Biberで引用文献リストを作成
+    \item LuaLaTeXでコンパイル（引用文献リストを組み込み）
+    \item LuaLaTeXでコンパイル（相互参照を解決）
+\end{enumerate}
+
+\subsection{JPAスタイルの導入}
+JPAに沿った引用文献スタイルは\url{https://github.com/sbtseiji/biblatex-jpa}から入手する。
+展開して得られる\texttt{jpa.bbx}，\texttt{jpa.cbx}，\texttt{jpa.dbx}を同じディレクトリに置く。
+プリアンブルで以下のように指定：
+\begin{verbatim}
+\usepackage[backend=biber,style=jpa]{biblatex}
+\addbibresource{ファイル名.bib}
+\end{verbatim}
+
+\subsection{Bibファイルの書き方}
+
+各フィールドの基本的な意味：
+\begin{description}
+    \item[@タイプ] 文献の種類（article, book, inbook, online, softwareなど）
+    \item[引用キー] 文献を特定するキー（例：\texttt{Haebara1987}）
+    \item[author] 著者名。日本語は「姓,名」の形式で
+    \item[title] タイトル
+    \item[date] 出版年（\texttt{year}より\texttt{date}推奨）
+    \item[language] 日本語文献は\texttt{japanese}を指定
+    \item[sortname] 日本語著者のソート用ローマ字表記（後述）
+\end{description}
+
+ネットからコピペすると不完全なことが多いので、随時補完・修正すること。
+
+\paragraph{sortnameについて}
+引用文献リストはアルファベット順に並ぶが，日本語の著者名はそのままではソートできない。
+\texttt{sortname}フィールドに著者名のローマ字表記を指定することで，正しい順序でソートされる。
+
+\begin{verbatim}
+author   = {南風原,朝和 and 芝,祐順},
+sortname = {Haebara,Tomokazu and Shiba, Sukeyori},
+\end{verbatim}
+
+注意点：
+\begin{itemize}
+    \item \texttt{author}と同じ形式（姓,名 and 姓,名）で記述する
+    \item ヘボン式ローマ字を使用する
+    \item 団体名の場合も同様に指定（例：\texttt{sortname = \{Nihon Shinrigakukai\}}）
+    \item \texttt{sortname}がないと，日本語文献がリストの末尾にまとめて表示される
+\end{itemize}
+
+\subsubsection{英語論文（article）}
+\begin{verbatim}
+@article{abelson1954technique,
+    author  = {Abelson, Robert P},
+    title   = {A technique and a model for multi-dimensional
+               attitude scaling},
+    journal = {Public Opinion Quarterly},
+    volume  = {18},
+    number  = {4},
+    pages   = {405--418},
+    date    = {1954}
+}
+\end{verbatim}
+
+\subsubsection{日本語論文（article）}
+日本語文献には\texttt{language = \{japanese\}}と\texttt{sortname}を追加する。
+\begin{verbatim}
+@article{Haebara1987,
+    author   = {南風原,朝和 and 芝,祐順},
+    sortname = {Haebara,Tomokazu and Shiba, Sukeyori},
+    title    = {相関係数および平均値差の解釈のための確率的な指標},
+    journal  = {教育心理学研究},
+    volume   = {35},
+    number   = {3},
+    pages    = {259-265},
+    date     = {1987},
+    doi      = {10.5926/jjep1953.35.3_259},
+    language = {japanese}
+}
+\end{verbatim}
+
+\subsubsection{英語の本（book）}
+\begin{verbatim}
+@book{Borsboom2005,
+    author    = {Borsboom, Denny},
+    title     = {Measuring the mind: conceptual issues in
+                 contemporary psychometrics},
+    publisher = {Cambridge University Press},
+    date      = {2005}
+}
+\end{verbatim}
+
+\subsubsection{日本語の本（book）}
+\begin{verbatim}
+@book{anatomia,
+    author    = {吉森,護},
+    sortname  = {Yoshimori,Mamoru},
+    title     = {アナトミア社会心理学},
+    subtitle  = {社会心理学のこれまでとこれから},
+    publisher = {北大路書房},
+    date      = {2002},
+    language  = {japanese}
+}
+\end{verbatim}
+
+\subsubsection{翻訳書}
+翻訳書は\texttt{translator}，\texttt{origauthor}，\texttt{origdate}などを使う。
+\begin{verbatim}
+@book{Annette_J_Dobson2008-09-08,
+    author         = {ドブソン, A.J.},
+    sortname       = {Dobson, A.J.},
+    origauthor     = {Dobson, Annette Jane},
+    origdate       = {2008},
+    origtitle      = {Annette Jane Dobsons},
+    translator     = {田中, 豊 and 森川, 敏彦 and 山中, 竹春
+                      and 冨田, 誠},
+    translatortype = {訳},
+    title          = {一般化線形モデル入門},
+    edition        = {原著第2版},
+    origpublisher  = {Chapman \& Hall/CRC Press},
+    publisher      = {共立出版},
+    date           = {2021},
+    language       = {japanese}
+}
+\end{verbatim}
+
+\subsubsection{本の一章（inbook）}
+\begin{verbatim}
+@inbook{Allport1935,
+    author    = {Allport, Gordon William},
+    title     = {Attitudes},
+    booktitle = {Readings in Attitude Theory and Measurement},
+    editor    = {Martin Fishbein},
+    publisher = {John Wiley \& Sons Inc},
+    address   = {New York},
+    pages     = {3--13},
+    date      = {1967}
+}
+\end{verbatim}
+
+\subsubsection{オンライン資料（online）}
+\texttt{url}と\texttt{urldate}（アクセス日）を必ず記載する。
+\begin{verbatim}
+@online{jpa_manual2022,
+    author   = {{日本心理学会}},
+    sortname = {Nihon Shinrigakukai},
+    title    = {執筆・投稿の手びき（2022年版）},
+    url      = {https://psych.or.jp/manual/},
+    urldate  = {2025-01-07},
+    date     = {2022},
+    language = {japanese}
+}
+\end{verbatim}
+団体名は二重波括弧\verb|{{...}}|で囲むと姓名分割されない。
+
+\subsubsection{ソフトウェア（software）}
+\begin{verbatim}
+@software{R2024,
+    author  = {{R Core Team}},
+    title   = {R: A Language and Environment for
+               Statistical Computing},
+    url     = {https://www.R-project.org/},
+    version = {4.4.0},
+    date    = {2024},
+    address = {Vienna, Austria}
+}
+\end{verbatim}
+
+\subsection{引用コマンド}
+\begin{description}
+    \item[\textbackslash textcite\{\}] 本文中に著者名を出す：\textcite{abelson1954technique}
+    \item[\textbackslash parencite\{\}] 括弧内に著者名と年：\parencite{Borsboom2005}
+    \item[複数文献] カンマ区切りで指定：\textcite{Haebara1987,anatomia}
+\end{description}
+
+オンライン資料やソフトウェアも同様に引用できる：\parencite{jpa_manual2022,R2024,jamoviJP}
+
+\subsection{引用文献リストの出力}
+文書の最後に次のコマンドを書く：
+\begin{verbatim}
+\printbibliography[title=引用文献]
+\end{verbatim}
+
+\printbibliography[title=引用文献]
+
+\end{document}

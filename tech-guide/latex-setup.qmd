@@ -93,31 +93,58 @@ VSCode の設定（`settings.json`）に以下を追加：
 3. `Cmd + Alt + V` で PDF プレビューを表示
 4. PDF 上でクリックすると、対応するソースコードにジャンプ（SyncTeX）
 
-## 簡単な LaTeX 文書
+## LaTeX 文書の書き方
 
-```latex
-\documentclass{ltjsarticle}
-\usepackage{luatexja}
+LaTeX の詳しい書き方については、以下のガイドを参照してください。
 
-\title{タイトル}
-\author{著者名}
-\date{\today}
+::: {.callout-tip}
+## LaTeX ガイド
+[latex_guide.pdf](latex-files/latex_guide.pdf) に、LaTeX の基本的な書き方から参考文献の扱い方まで詳しくまとめています。
+:::
 
-\begin{document}
-\maketitle
+### 練習用ファイルのダウンロード
 
-\section{はじめに}
-ここに本文を書きます。
+以下のファイルをダウンロードして練習してください：
 
-数式も書けます：
-\begin{equation}
-  E = mc^2
-\end{equation}
+| ファイル | 説明 |
+|---------|------|
+| [templete.tex](latex-files/templete.tex) | テンプレートファイル（リネームして使用） |
+| [sample.bib](latex-files/sample.bib) | 参考文献サンプル |
+| [sample_figure.png](latex-files/sample_figure.png) | 図のサンプル |
+| [jpa.bbx](latex-files/jpa.bbx) / [jpa.cbx](latex-files/jpa.cbx) / [jpa.dbx](latex-files/jpa.dbx) | 日本心理学会スタイル |
 
-\end{document}
+### 練習の流れ
+
+1. 上記のファイルを同じフォルダにダウンロード
+2. `templete.tex` を `自分の名前.tex` などにリネーム
+3. `latex_guide.pdf` を見ながら、テンプレートに書き足していく
+4. コンパイルして PDF を確認
+
+### コンパイル方法
+
+#### VSCode の場合
+
+ファイルを保存すると自動でコンパイルされます（LaTeX Workshop 使用時）。
+
+参考文献を使う場合は、レシピを「lualatex -> biber -> lualatex*2」に切り替えてください。
+
+#### コマンドラインの場合
+
+以下のスクリプトを使うと便利です：[tex_build.sh](latex-files/tex_build.sh)
+
+```bash
+# 使い方
+./tex_build.sh ファイル名.tex
 ```
+
+このスクリプトは LuaLaTeX と Biber を適切な順序で実行し、中間ファイルを削除します。
+
+::: {.callout-note}
+## 研究室サーバ（アルちゃん）を使う場合
+研究室サーバにログインすると、ホームディレクトリに `tex_practice/` フォルダがあり、練習用ファイル一式が入っています。ダウンロードせずにそのまま使えます。
+:::
 
 ## 参考リンク
 
-- [LaTeX入門](https://texwiki.texjp.org/?LaTeX%E5%85%A5%E9%96%80)
+- [TeX Wiki](https://texwiki.texjp.org/?LaTeX%E5%85%A5%E9%96%80)
 - [Overleaf（オンラインLaTeXエディタ）](https://www.overleaf.com/)
