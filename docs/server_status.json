@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-02-02T23:30:05+09:00",
+  "updated_at": "2026-02-02T23:45:04+09:00",
   "servers": [
     {"name":"Al-Khwarizumi","status":"online","specs":"Xeon 80コア / 188GB RAM / RTX 5070 Ti","cpu":0,"memory":5,"gpu_temp":27},
     {"name":"Shimura","status":"online","specs":"Core i5-11400 / 125GB RAM / GTX 1660 SUPER","cpu":0,"memory":2,"gpu_temp":29},
