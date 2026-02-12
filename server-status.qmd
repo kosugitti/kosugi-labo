@@ -159,8 +159,8 @@ function renderDashboard(data) {
             <div class="metric-label">メモリ</div>
           </div>
           <div class="metric">
-            <div class="metric-value">${server.gpu_temp}°</div>
-            <div class="metric-label">GPU温度</div>
+            <div class="metric-value">${server.gpu_temp === '-' ? '-' : server.gpu_temp + '°'}</div>
+            <div class="metric-label">${server.name === 'Raspberry Pi' ? 'CPU温度' : 'GPU温度'}</div>
           </div>
         </div>
         ` : '<div class="metrics"><div class="metric"><div class="metric-value">-</div></div></div>'}
@@ -203,6 +203,7 @@ setInterval(loadServerStatus, 5 * 60 * 1000);
 | Shimura | 計算用 | GTX 1660 SUPER 6GB |
 | Taniyama | 計算用 | GTX 1660 SUPER 6GB |
 | Seki | 計算用 | GTX 1660 SUPER 6GB |
+| Raspberry Pi | 監視用 | - |
 
 ## 使い方
 
