@@ -1,9 +1,9 @@
 {
-  "updated_at": "2026-02-12T15:15:05+09:00",
+  "updated_at": "2026-02-12T15:30:06+09:00",
   "servers": [
     {"name":"Al-Khwarizumi","status":"online","specs":"Xeon 80コア / 188GB RAM / RTX 5070 Ti","cpu":99,"memory":21,"gpu_temp":29},
     {"name":"Shimura","status":"online","specs":"Core i5-11400 / 125GB RAM / GTX 1660 SUPER","cpu":0,"memory":2,"gpu_temp":28},
     {"name":"Taniyama","status":"online","specs":"Ryzen 7 5700G / 121GB RAM / GTX 1660 SUPER","cpu":0,"memory":2,"gpu_temp":27},
-    {"name":"Seki","status":"online","specs":"Core i5-9400F / 15GB RAM / GTX 1660 SUPER","cpu":2,"memory":3,"gpu_temp":46}
+    {"name":"Seki","status":"online","specs":"Core i5-9400F / 15GB RAM / GTX 1660 SUPER","cpu":7,"memory":3,"gpu_temp":46}
   ]
 }
