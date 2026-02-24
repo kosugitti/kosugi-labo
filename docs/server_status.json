@@ -1,10 +1,10 @@
 {
-  "updated_at": "2026-02-24T23:00:08+09:00",
+  "updated_at": "2026-02-24T23:15:08+09:00",
   "servers": [
     {"name":"Al-Khwarizumi","status":"online","specs":"Xeon 80コア / 188GB RAM / RTX 5070 Ti","cpu":1,"memory":5,"gpu_temp":30},
     {"name":"Shimura","status":"online","specs":"Core i5-11400 / 125GB RAM / GTX 1660 SUPER","cpu":0,"memory":2,"gpu_temp":29},
     {"name":"Taniyama","status":"online","specs":"Ryzen 7 5700G / 121GB RAM / GTX 1660 SUPER","cpu":0,"memory":3,"gpu_temp":28},
     {"name":"Seki","status":"online","specs":"Core i5-9400F / 48GB RAM / GTX 1660 SUPER","cpu":1,"memory":4,"gpu_temp":43},
-    {"name":"Raspberry Pi","status":"online","specs":"Cortex-A72 4コア / 8GB RAM / 監視専用","cpu":2,"memory":4,"gpu_temp":"53"}
+    {"name":"Raspberry Pi","status":"online","specs":"Cortex-A72 4コア / 8GB RAM / 監視専用","cpu":1,"memory":4,"gpu_temp":"52"}
   ]
 }
