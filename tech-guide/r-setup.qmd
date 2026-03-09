@@ -1,0 +1,136 @@
+---
+title: "R / RStudio のセットアップ"
+---
+
+## R とは
+
+R は統計解析とデータ可視化に特化したプログラミング言語です。心理学・社会科学の研究で広く使われています。
+
+## R のインストール
+
+### Windows
+
+1. [CRAN（The Comprehensive R Archive Network）](https://cran.r-project.org/) にアクセス
+2. 「Download R for Windows」をクリック
+3. 「base」をクリック
+4. 「Download R-x.x.x for Windows」をクリックしてインストーラをダウンロード
+5. インストーラを実行し、デフォルト設定のまま進める
+
+### Mac
+
+1. [CRAN](https://cran.r-project.org/) にアクセス
+2. 「Download R for macOS」をクリック
+3. 自分の Mac に合ったバージョンを選択
+    - Apple Silicon（M1/M2/M3/M4）: `arm64` 版
+    - Intel Mac: `x86_64` 版
+4. `.pkg` ファイルをダウンロードしてインストール
+
+::: {.callout-tip}
+## どちらの Mac？
+
+画面左上の  メニュー →「この Mac について」で確認できます。「チップ」に「Apple M1」などと表示されていれば Apple Silicon です。
+:::
+
+## RStudio のインストール
+
+RStudio は R を使いやすくする統合開発環境（IDE）です。R 単体でも動きますが、RStudio を使うことで効率的にコードを書けます。
+
+1. [Posit 社の RStudio ダウンロードページ](https://posit.co/download/rstudio-desktop/) にアクセス
+2. 「RSTUDIO DESKTOP」の無料版（Free）をダウンロード
+3. インストーラを実行
+
+::: {.callout-important}
+## インストール順序
+
+**R を先に、RStudio を後に**インストールしてください。RStudio は R の存在を前提として動作します。
+:::
+
+## Rtools のインストール（Windows のみ）
+
+Rtools は Windows 環境でパッケージをソースからコンパイルするために必要なツールセットです。Mac では不要です。
+
+1. [Rtools のダウンロードページ](https://cran.r-project.org/bin/windows/Rtools/) にアクセス
+2. インストールされている R のバージョンに対応する Rtools を選択
+3. インストーラをダウンロードして実行
+4. デフォルト設定のまま進める
+
+::: {.callout-note}
+## Rtools が必要になる場面
+
+多くのパッケージは `install.packages()` でバイナリ版がインストールされるため、Rtools がなくても問題ありません。ただし、開発版パッケージのインストールやソースコンパイルが必要な場面では Rtools が必須です。あらかじめ入れておくと安心です。
+:::
+
+## RStudio の初期設定
+
+### プロジェクト機能を使う
+
+RStudio では「プロジェクト」単位で作業するのが基本です。
+
+1. File → New Project → New Directory → New Project
+2. プロジェクト名とディレクトリを指定して作成
+
+プロジェクトを使うと、作業ディレクトリが自動的に設定され、ファイルの管理が楽になります。
+
+### 推奨設定
+
+Tools → Global Options から以下の設定を変更しておくことを推奨します。
+
+- **General → Workspace**
+    - 「Restore .RData into workspace at startup」を **オフ**
+    - 「Save workspace to .RData on exit」を **Never**
+- **Code → Saving**
+    - 「Default text encoding」を **UTF-8**
+
+::: {.callout-warning}
+## .RData を保存しない理由
+
+R を起動するたびに前回のデータが読み込まれると、「どのスクリプトからこの変数が作られたのか」がわからなくなります。毎回スクリプトを最初から実行する習慣をつけましょう。再現性のある分析の第一歩です。
+:::
+
+## パッケージのインストール
+
+R の機能を拡張するには「パッケージ」をインストールします。RStudio のコンソールで以下を実行してください。
+
+```r
+# tidyverse: データ操作・可視化の定番パッケージ群
+install.packages("tidyverse")
+```
+
+正しくインストールされたか確認するには、以下を実行します。
+
+```r
+library(tidyverse)
+```
+
+エラーが出なければ成功です。
+
+## 動作確認
+
+すべてのセットアップが完了したら、RStudio のコンソールで以下を実行してみましょう。
+
+```r
+# R のバージョン確認
+R.version.string
+
+# 簡単な計算
+1 + 1
+
+# グラフの描画
+plot(iris$Sepal.Length, iris$Sepal.Width,
+     main = "iris dataset", xlab = "Sepal Length", ylab = "Sepal Width")
+```
+
+グラフが右下の Plots ペインに表示されれば、環境構築は完了です。
+
+## トラブルシューティング
+
+### パッケージのインストールでエラーが出る
+
+- **Windows**: Rtools がインストールされているか確認
+- **Mac**: Xcode Command Line Tools が必要な場合があります。ターミナルで `xcode-select --install` を実行
+- ネットワーク環境（プロキシ等）が原因の場合もあります
+
+### 文字化けする
+
+- RStudio の設定で文字コードを UTF-8 に設定（上記「推奨設定」参照）
+- スクリプトファイル自体の文字コードも UTF-8 で保存する（File → Save with Encoding → UTF-8）

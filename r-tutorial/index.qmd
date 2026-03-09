@@ -241,4 +241,4 @@ document.addEventListener("DOMContentLoaded", function() {
 install.packages("tidyverse")
 ```
 
-各種セットアップは[技術ガイド](../tech-guide/github-setup.qmd)を参照してください。
+各種セットアップは[技術ガイド](../tech-guide/r-setup.qmd)を参照してください。

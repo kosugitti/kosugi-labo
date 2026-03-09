@@ -15,10 +15,14 @@ website:
         text: 研究の進め方
       - href: writing-guide.qmd
         text: 文章の読み書き
+      - href: labo-note-guide.qmd
+        text: ラボノートの書き方
       - href: anti-harassment.qmd
         text: アンチハラスメントポリシー
     - text: 技術ガイド
       menu:
+      - href: tech-guide/r-setup.qmd
+        text: R / RStudio
       - href: tech-guide/github-setup.qmd
         text: GitHub
       - href: tech-guide/vscode-setup.qmd
