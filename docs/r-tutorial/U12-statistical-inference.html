@@ -1,0 +1,1675 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>U12. 統計的推測の基礎 – Kosugi Labo</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-a25750924116104412f7a457768fb952.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "一致なし",
+    "search-matching-documents-text": "一致した文書",
+    "search-copy-link-title": "検索へのリンクをコピー",
+    "search-hide-matches-text": "追加の検索結果を非表示",
+    "search-more-match-text": "追加の検索結果",
+    "search-more-matches-text": "追加の検索結果",
+    "search-clear-button-title": "消去",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "検索",
+    "search-label": "サーチ"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../include/webex.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Kosugi Labo</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="サーチ"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="ナビゲーションを切り替える" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">ホーム</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">ゼミガイド</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-">    
+        <li>
+    <a class="dropdown-item" href="../zemi-policy.html">
+ <span class="dropdown-text">ゼミの運営方針</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../research-guide.html">
+ <span class="dropdown-text">研究の進め方</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../writing-guide.html">
+ <span class="dropdown-text">文章の読み書き</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../anti-harassment.html">
+ <span class="dropdown-text">アンチハラスメントポリシー</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu--1" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">技術ガイド</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu--1">    
+        <li>
+    <a class="dropdown-item" href="../tech-guide/github-setup.html">
+ <span class="dropdown-text">GitHub</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tech-guide/vscode-setup.html">
+ <span class="dropdown-text">VSCode</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tech-guide/latex-setup.html">
+ <span class="dropdown-text">LaTeX</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tech-guide/ssh-remote.html">
+ <span class="dropdown-text">SSH接続</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tech-guide/tailscale.html">
+ <span class="dropdown-text">Tailscale</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-rチュートリアル" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Rチュートリアル</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-rチュートリアル">    
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/index.html">
+ <span class="dropdown-text">はじめに</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/r-basics.html">
+ <span class="dropdown-text">Rの基礎</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/data-handling.html">
+ <span class="dropdown-text">データの読み込み</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/tidyverse.html">
+ <span class="dropdown-text">tidyverse入門</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/visualization.html">
+ <span class="dropdown-text">可視化ギャラリー</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U1-r-basics.html">
+ <span class="dropdown-text">U1. Rの基礎</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U2-data-types.html">
+ <span class="dropdown-text">U2. データ型とオブジェクト</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U3-matrix-basics.html">
+ <span class="dropdown-text">U3. 数学・行列の基礎</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U4-basic-operations.html">
+ <span class="dropdown-text">U4. 基本的なデータ操作</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U5-data-io.html">
+ <span class="dropdown-text">U5. データの読み書き</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U6-data-explore.html">
+ <span class="dropdown-text">U6. データの確認と探索</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U7-dplyr.html">
+ <span class="dropdown-text">U7. dplyr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U8-tidyr.html">
+ <span class="dropdown-text">U8. tidyr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U9-type-conversion.html">
+ <span class="dropdown-text">U9. 変数の型の変換と統一</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U10-ggplot2.html">
+ <span class="dropdown-text">U10. ggplot2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U11-descriptive-stats.html">
+ <span class="dropdown-text">U11. 記述統計</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U12-statistical-inference.html">
+ <span class="dropdown-text">U12. 統計的推測の基礎</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../members.html"> 
+<span class="menu-text">メンバー</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../server-status.html"> 
+<span class="menu-text">サーバー状況</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../feedback.html"> 
+<span class="menu-text">フィードバック</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">目次</h2>
+   
+  <ul>
+  <li><a href="#ユニット概要" id="toc-ユニット概要" class="nav-link active" data-scroll-target="#ユニット概要">ユニット概要</a></li>
+  <li><a href="#事前知識" id="toc-事前知識" class="nav-link" data-scroll-target="#事前知識">事前知識</a>
+  <ul class="collapse">
+  <li><a href="#記述統計から推測統計へ" id="toc-記述統計から推測統計へ" class="nav-link" data-scroll-target="#記述統計から推測統計へ">記述統計から推測統計へ</a></li>
+  <li><a href="#母集団と標本" id="toc-母集団と標本" class="nav-link" data-scroll-target="#母集団と標本">母集団と標本</a></li>
+  <li><a href="#標本分布と標準誤差" id="toc-標本分布と標準誤差" class="nav-link" data-scroll-target="#標本分布と標準誤差">標本分布と標準誤差</a></li>
+  <li><a href="#信頼区間" id="toc-信頼区間" class="nav-link" data-scroll-target="#信頼区間">信頼区間</a></li>
+  <li><a href="#仮説検定の論理" id="toc-仮説検定の論理" class="nav-link" data-scroll-target="#仮説検定の論理">仮説検定の論理</a></li>
+  <li><a href="#つのエラーと検出力" id="toc-つのエラーと検出力" class="nav-link" data-scroll-target="#つのエラーと検出力">2つのエラーと検出力</a></li>
+  <li><a href="#t検定の種類" id="toc-t検定の種類" class="nav-link" data-scroll-target="#t検定の種類">t検定の種類</a></li>
+  </ul></li>
+  <li><a href="#ランクc-基礎知識" id="toc-ランクc-基礎知識" class="nav-link" data-scroll-target="#ランクc-基礎知識">ランクC: 基礎知識</a>
+  <ul class="collapse">
+  <li><a href="#c-1" id="toc-c-1" class="nav-link" data-scroll-target="#c-1">12-C-1</a></li>
+  <li><a href="#c-2" id="toc-c-2" class="nav-link" data-scroll-target="#c-2">12-C-2</a></li>
+  <li><a href="#c-3" id="toc-c-3" class="nav-link" data-scroll-target="#c-3">12-C-3</a></li>
+  <li><a href="#c-4" id="toc-c-4" class="nav-link" data-scroll-target="#c-4">12-C-4</a></li>
+  <li><a href="#c-5" id="toc-c-5" class="nav-link" data-scroll-target="#c-5">12-C-5</a></li>
+  <li><a href="#c-6" id="toc-c-6" class="nav-link" data-scroll-target="#c-6">12-C-6</a></li>
+  <li><a href="#c-7" id="toc-c-7" class="nav-link" data-scroll-target="#c-7">12-C-7</a></li>
+  <li><a href="#c-8" id="toc-c-8" class="nav-link" data-scroll-target="#c-8">12-C-8</a></li>
+  <li><a href="#c-9" id="toc-c-9" class="nav-link" data-scroll-target="#c-9">12-C-9</a></li>
+  <li><a href="#c-10" id="toc-c-10" class="nav-link" data-scroll-target="#c-10">12-C-10</a></li>
+  </ul></li>
+  <li><a href="#ランクb-実践スキル" id="toc-ランクb-実践スキル" class="nav-link" data-scroll-target="#ランクb-実践スキル">ランクB: 実践スキル</a>
+  <ul class="collapse">
+  <li><a href="#b-1" id="toc-b-1" class="nav-link" data-scroll-target="#b-1">12-B-1</a></li>
+  <li><a href="#b-2" id="toc-b-2" class="nav-link" data-scroll-target="#b-2">12-B-2</a></li>
+  <li><a href="#b-3" id="toc-b-3" class="nav-link" data-scroll-target="#b-3">12-B-3</a></li>
+  <li><a href="#b-4" id="toc-b-4" class="nav-link" data-scroll-target="#b-4">12-B-4</a></li>
+  <li><a href="#b-5" id="toc-b-5" class="nav-link" data-scroll-target="#b-5">12-B-5</a></li>
+  <li><a href="#b-6" id="toc-b-6" class="nav-link" data-scroll-target="#b-6">12-B-6</a></li>
+  <li><a href="#b-7" id="toc-b-7" class="nav-link" data-scroll-target="#b-7">12-B-7</a></li>
+  <li><a href="#b-8" id="toc-b-8" class="nav-link" data-scroll-target="#b-8">12-B-8</a></li>
+  </ul></li>
+  <li><a href="#ランクa-ai協働" id="toc-ランクa-ai協働" class="nav-link" data-scroll-target="#ランクa-ai協働">ランクA: AI協働</a>
+  <ul class="collapse">
+  <li><a href="#a-1" id="toc-a-1" class="nav-link" data-scroll-target="#a-1">12-A-1</a></li>
+  <li><a href="#a-2" id="toc-a-2" class="nav-link" data-scroll-target="#a-2">12-A-2</a></li>
+  </ul></li>
+  <li><a href="#まとめ" id="toc-まとめ" class="nav-link" data-scroll-target="#まとめ">まとめ</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">U12. 統計的推測の基礎</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="ユニット概要" class="level2">
+<h2 class="anchored" data-anchor-id="ユニット概要">ユニット概要</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>項目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>分類</td>
+<td>幹（全員必須）</td>
+</tr>
+<tr class="even">
+<td>前提</td>
+<td>U11（記述統計）</td>
+</tr>
+<tr class="odd">
+<td>次のユニット</td>
+<td>U13（回帰モデル）</td>
+</tr>
+<tr class="even">
+<td>使用データ</td>
+<td>BaseballDecade.csv, iris</td>
+</tr>
+<tr class="odd">
+<td>学習目標</td>
+<td>標本分布と標準誤差を理解する / 信頼区間の意味と構成を理解する / 仮説検定の論理を理解する / 検出力と効果量の関係を理解する</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="事前知識" class="level2">
+<h2 class="anchored" data-anchor-id="事前知識">事前知識</h2>
+<section id="記述統計から推測統計へ" class="level3">
+<h3 class="anchored" data-anchor-id="記述統計から推測統計へ">記述統計から推測統計へ</h3>
+<p>U11では、手元のデータを要約する「記述統計」を学びました。しかし、研究で本当に知りたいのは <strong>手元のデータそのものの性質ではなく、その背後にある母集団の性質</strong> です。</p>
+<p>例えば、ある大学の学生100人を調査して平均身長が170cmだったとき、知りたいのは「この100人の平均が170cm」という事実ではなく、「日本の大学生全体の平均身長はどのくらいか」ということです。</p>
+<p>手元のデータ（標本）から母集団の性質を推し量る方法が <strong>推測統計（statistical inference）</strong> です。</p>
+</section>
+<section id="母集団と標本" class="level3">
+<h3 class="anchored" data-anchor-id="母集団と標本">母集団と標本</h3>
+<ul>
+<li><strong>母集団（population）</strong>: 知りたい対象全体。通常は直接調べられない</li>
+<li><strong>標本（sample）</strong>: 母集団から取り出した一部のデータ</li>
+<li><strong>母数（parameter）</strong>: 母集団の特性値（母平均 <span class="math inline">\(\mu\)</span>、母分散 <span class="math inline">\(\sigma^2\)</span> など）</li>
+<li><strong>統計量（statistic）</strong>: 標本から計算される値（標本平均 <span class="math inline">\(\bar{X}\)</span>、標本分散 <span class="math inline">\(s^2\)</span> など）</li>
+</ul>
+<p>統計量は母数の <strong>推定値（estimate）</strong> として使われます。</p>
+</section>
+<section id="標本分布と標準誤差" class="level3">
+<h3 class="anchored" data-anchor-id="標本分布と標準誤差">標本分布と標準誤差</h3>
+<p>同じ母集団から何度も標本を取ると、そのたびに標本平均は異なる値になります。この <strong>標本平均のばらつき</strong> を表す分布が <strong>標本分布（sampling distribution）</strong> です。</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 母集団: 平均170, 標準偏差10の正規分布から</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># n=30の標本を1000回抽出して、それぞれの標本平均を計算</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>sample_means <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">1000</span>, <span class="fu">mean</span>(<span class="fu">rnorm</span>(<span class="dv">30</span>, <span class="at">mean =</span> <span class="dv">170</span>, <span class="at">sd =</span> <span class="dv">10</span>)))</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 標本平均の分布を可視化</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">sample_mean =</span> sample_means) <span class="sc">%&gt;%</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> sample_mean)) <span class="sc">+</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>, <span class="at">fill =</span> <span class="st">"steelblue"</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">170</span>, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"標本平均の分布（n=30, 1000回抽出）"</span>,</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"標本平均"</span>, <span class="at">y =</span> <span class="st">"頻度"</span>) <span class="sc">+</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="U12-statistical-inference_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>標本平均のばらつきの大きさを <strong>標準誤差（standard error; SE）</strong> と呼びます。</p>
+<p><span class="math display">\[
+SE = \frac{s}{\sqrt{n}}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(s\)</span>: 標本の標準偏差</li>
+<li><span class="math inline">\(n\)</span>: 標本サイズ</li>
+</ul>
+<p>標準誤差は標本サイズ <span class="math inline">\(n\)</span> が大きいほど小さくなります。つまり、データが多いほど推定は安定します。</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 標本サイズと標準誤差の関係</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>se_by_n <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">30</span>, <span class="dv">100</span>, <span class="dv">300</span>, <span class="dv">1000</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">se =</span> <span class="fu">sd</span>(<span class="fu">replicate</span>(<span class="dv">5000</span>, <span class="fu">mean</span>(<span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">170</span>, <span class="at">sd =</span> <span class="dv">10</span>))))</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>se_by_n <span class="sc">%&gt;%</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> n, <span class="at">y =</span> se)) <span class="sc">+</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"標本サイズと標準誤差の関係"</span>,</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"標本サイズ (n)"</span>, <span class="at">y =</span> <span class="st">"標準誤差 (SE)"</span>) <span class="sc">+</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="U12-statistical-inference_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="信頼区間" class="level3">
+<h3 class="anchored" data-anchor-id="信頼区間">信頼区間</h3>
+<p><strong>信頼区間（confidence interval; CI）</strong> は、母数がどのあたりにありそうかを区間で示したものです。</p>
+<p>95%信頼区間の計算式（母分散が未知の場合）:</p>
+<p><span class="math display">\[
+\bar{X} \pm t_{0.975,\, n-1} \times \frac{s}{\sqrt{n}}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(t_{0.975,\, n-1}\)</span>: 自由度 <span class="math inline">\(n-1\)</span> の <span class="math inline">\(t\)</span> 分布の上側2.5%点</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 信頼区間の計算例</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">168</span>, <span class="dv">172</span>, <span class="dv">175</span>, <span class="dv">163</span>, <span class="dv">170</span>, <span class="dv">178</span>, <span class="dv">165</span>, <span class="dv">171</span>, <span class="dv">169</span>, <span class="dv">174</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>x_bar <span class="ot">&lt;-</span> <span class="fu">mean</span>(x)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">sd</span>(x)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>se <span class="ot">&lt;-</span> s <span class="sc">/</span> <span class="fu">sqrt</span>(n)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>t_crit <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>)  <span class="co"># t分布の臨界値</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>ci_lower <span class="ot">&lt;-</span> x_bar <span class="sc">-</span> t_crit <span class="sc">*</span> se</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>ci_upper <span class="ot">&lt;-</span> x_bar <span class="sc">+</span> t_crit <span class="sc">*</span> se</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">"標本平均: %.2f</span><span class="sc">\n</span><span class="st">"</span>, x_bar))</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>標本平均: 170.50</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">"標準誤差: %.2f</span><span class="sc">\n</span><span class="st">"</span>, se))</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>標準誤差: 1.44</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">"95%%信頼区間: [%.2f, %.2f]</span><span class="sc">\n</span><span class="st">"</span>, ci_lower, ci_upper))</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>95%信頼区間: [167.24, 173.76]</code></pre>
+</div>
+</div>
+<p><strong>95%信頼区間の正しい解釈</strong>: 同じ方法で100回信頼区間を作ると、そのうち約95回は真の母数を含む。「母数が95%の確率でこの区間にある」という意味では <strong>ない</strong> ことに注意してください。</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 100個の信頼区間のうち、何個が真の母平均(170)を含むか</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="dv">170</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>ci_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">trial =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">sample =</span> <span class="fu">list</span>(<span class="fu">rnorm</span>(<span class="dv">30</span>, <span class="at">mean =</span> mu, <span class="at">sd =</span> <span class="dv">10</span>)),</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">x_bar =</span> <span class="fu">mean</span>(sample),</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">se =</span> <span class="fu">sd</span>(sample) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">30</span>),</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">ci_lower =</span> x_bar <span class="sc">-</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="dv">29</span>) <span class="sc">*</span> se,</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">ci_upper =</span> x_bar <span class="sc">+</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="dv">29</span>) <span class="sc">*</span> se,</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">contains_mu =</span> ci_lower <span class="sc">&lt;=</span> mu <span class="sc">&amp;</span> mu <span class="sc">&lt;=</span> ci_upper</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 母平均を含む割合</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">"真の母平均を含む信頼区間: %d/100</span><span class="sc">\n</span><span class="st">"</span>, <span class="fu">sum</span>(ci_data<span class="sc">$</span>contains_mu)))</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>真の母平均を含む信頼区間: 96/100</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 可視化（最初の50個）</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>ci_data <span class="sc">%&gt;%</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> trial, <span class="at">y =</span> x_bar, <span class="at">color =</span> contains_mu)) <span class="sc">+</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> ci_lower, <span class="at">ymax =</span> ci_upper), <span class="at">width =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> mu, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"TRUE"</span> <span class="ot">=</span> <span class="st">"steelblue"</span>, <span class="st">"FALSE"</span> <span class="ot">=</span> <span class="st">"red"</span>),</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"TRUE"</span> <span class="ot">=</span> <span class="st">"含む"</span>, <span class="st">"FALSE"</span> <span class="ot">=</span> <span class="st">"含まない"</span>)) <span class="sc">+</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"95%信頼区間50個（赤の破線が真の母平均）"</span>,</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"試行"</span>, <span class="at">y =</span> <span class="st">"推定値と95%CI"</span>, <span class="at">color =</span> <span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="U12-statistical-inference_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="仮説検定の論理" class="level3">
+<h3 class="anchored" data-anchor-id="仮説検定の論理">仮説検定の論理</h3>
+<p>仮説検定は <strong>背理法に似た論理</strong> で進みます。</p>
+<ol type="1">
+<li><strong>帰無仮説（<span class="math inline">\(H_0\)</span>）</strong>: 否定したい仮説（例: 「差がない」「効果がない」）</li>
+<li><strong>対立仮説（<span class="math inline">\(H_1\)</span>）</strong>: 主張したい仮説（例: 「差がある」「効果がある」）</li>
+<li><span class="math inline">\(H_0\)</span> が正しいと仮定して、手元のデータが得られる確率（<strong>p値</strong>）を計算する</li>
+<li>p値が十分小さければ（通常 <span class="math inline">\(p &lt; .05\)</span>）、<span class="math inline">\(H_0\)</span> を棄却して <span class="math inline">\(H_1\)</span> を採択する</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1標本t検定の例: この標本の母平均は170と異なるか？</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">175</span>, <span class="dv">172</span>, <span class="dv">178</span>, <span class="dv">180</span>, <span class="dv">173</span>, <span class="dv">176</span>, <span class="dv">174</span>, <span class="dv">179</span>, <span class="dv">177</span>, <span class="dv">171</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">t.test</span>(x, <span class="at">mu =</span> <span class="dv">170</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>result</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    One Sample t-test
+
+data:  x
+t = 5.7446, df = 9, p-value = 0.0002782
+alternative hypothesis: true mean is not equal to 170
+95 percent confidence interval:
+ 173.3341 177.6659
+sample estimates:
+mean of x 
+    175.5 </code></pre>
+</div>
+</div>
+<p>出力の読み方:</p>
+<ul>
+<li><code>t = ...</code>: t統計量の値</li>
+<li><code>df = ...</code>: 自由度</li>
+<li><code>p-value = ...</code>: p値（<span class="math inline">\(H_0\)</span> のもとでこのデータ以上に極端な結果が得られる確率）</li>
+<li><code>95 percent confidence interval</code>: 95%信頼区間</li>
+<li><code>mean of x</code>: 標本平均</li>
+</ul>
+</section>
+<section id="つのエラーと検出力" class="level3">
+<h3 class="anchored" data-anchor-id="つのエラーと検出力">2つのエラーと検出力</h3>
+<p>仮説検定では2種類の誤りが起こりえます。</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th><span class="math inline">\(H_0\)</span> が真</th>
+<th><span class="math inline">\(H_0\)</span> が偽</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(H_0\)</span> を棄却しない</td>
+<td>正しい判断</td>
+<td><strong>第2種の誤り（<span class="math inline">\(\beta\)</span>）</strong></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(H_0\)</span> を棄却する</td>
+<td><strong>第1種の誤り（<span class="math inline">\(\alpha\)</span>）</strong></td>
+<td>正しい判断</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>第1種の誤り（<span class="math inline">\(\alpha\)</span>）</strong>: 本当は差がないのに「差がある」と結論する。通常 <span class="math inline">\(\alpha = .05\)</span> に設定</li>
+<li><strong>第2種の誤り（<span class="math inline">\(\beta\)</span>）</strong>: 本当は差があるのに「差がない」と結論する</li>
+<li><strong>検出力（power）</strong>: <span class="math inline">\(1 - \beta\)</span>。本当に差があるとき、正しく検出できる確率</li>
+</ul>
+<p>検出力は以下の要因で変化します:</p>
+<ul>
+<li><strong>効果量が大きい</strong> ほど検出力は高い</li>
+<li><strong>標本サイズが大きい</strong> ほど検出力は高い</li>
+<li><strong>有意水準を緩める（<span class="math inline">\(\alpha\)</span> を大きくする）</strong> ほど検出力は高い（ただしトレードオフ）</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 検出力の計算例: 効果量d=0.5を検出するのに必要なnは？</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">power.t.test</span>(<span class="at">delta =</span> <span class="fl">0.5</span>, <span class="at">sd =</span> <span class="dv">1</span>, <span class="at">sig.level =</span> <span class="fl">0.05</span>, <span class="at">power =</span> <span class="fl">0.80</span>,</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">type =</span> <span class="st">"two.sample"</span>, <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+     Two-sample t test power calculation 
+
+              n = 63.76576
+          delta = 0.5
+             sd = 1
+      sig.level = 0.05
+          power = 0.8
+    alternative = two.sided
+
+NOTE: n is number in *each* group</code></pre>
+</div>
+</div>
+<p>この結果は、Cohen’s <span class="math inline">\(d = 0.5\)</span>（中程度の効果）を80%の検出力で検出するには、各群約64人（合計128人）が必要であることを示しています。</p>
+</section>
+<section id="t検定の種類" class="level3">
+<h3 class="anchored" data-anchor-id="t検定の種類">t検定の種類</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 22%">
+<col style="width: 33%">
+<col style="width: 44%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>種類</th>
+<th>使う場面</th>
+<th>Rでの書き方</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1標本t検定</td>
+<td>1つの標本の平均が特定の値と異なるか</td>
+<td><code>t.test(x, mu = 値)</code></td>
+</tr>
+<tr class="even">
+<td>対応のないt検定</td>
+<td>2群の平均が異なるか（独立な2群）</td>
+<td><code>t.test(x1, x2)</code></td>
+</tr>
+<tr class="odd">
+<td>対応のあるt検定</td>
+<td>対応のある2条件の平均が異なるか</td>
+<td><code>t.test(x1, x2, paired = TRUE)</code></td>
+</tr>
+<tr class="even">
+<td>Welchのt検定</td>
+<td>2群の分散が等しくない場合（Rのデフォルト）</td>
+<td><code>t.test(x1, x2)</code></td>
+</tr>
+</tbody>
+</table>
+<p>Rの <code>t.test()</code> はデフォルトで <strong>Welchのt検定</strong>（等分散を仮定しない）を行います。等分散を仮定する場合は <code>var.equal = TRUE</code> を指定します。</p>
+<hr>
+</section>
+</section>
+<section id="ランクc-基礎知識" class="level2">
+<h2 class="anchored" data-anchor-id="ランクc-基礎知識">ランクC: 基礎知識</h2>
+<section id="c-1" class="level3">
+<h3 class="anchored" data-anchor-id="c-1">12-C-1</h3>
+<p>母集団から標本を取り出して、標本の統計量から母集団の特性を推し量ることを「推測統計」と呼ぶ。</p>
+<p><select class="webex-select"><option value="blank"></option><option value="answer">TRUE</option><option value="">FALSE</option></select></p>
+</section>
+<section id="c-2" class="level3">
+<h3 class="anchored" data-anchor-id="c-2">12-C-2</h3>
+<p>標本平均の標準偏差のことを何と呼ぶか。</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">標準偏差</option><option value="answer">標準誤差</option><option value="">信頼区間</option><option value="">効果量</option></select></p>
+</section>
+<section id="c-3" class="level3">
+<h3 class="anchored" data-anchor-id="c-3">12-C-3</h3>
+<p>標本サイズ <span class="math inline">\(n\)</span> を大きくすると、標準誤差は大きくなる。</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">TRUE</option><option value="answer">FALSE</option></select></p>
+</section>
+<section id="c-4" class="level3">
+<h3 class="anchored" data-anchor-id="c-4">12-C-4</h3>
+<p>「95%信頼区間」の正しい解釈はどれか。</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">母平均が95%の確率でこの区間に入る</option><option value="answer">同じ方法で繰り返し信頼区間を作ると、約95%が真の母数を含む</option><option value="">データの95%がこの区間に含まれる</option><option value="">この区間の幅が95%の精度を保証する</option></select></p>
+</section>
+<section id="c-5" class="level3">
+<h3 class="anchored" data-anchor-id="c-5">12-C-5</h3>
+<p>仮説検定において、帰無仮説（<span class="math inline">\(H_0\)</span>）が正しいにもかかわらず棄却してしまう誤りを何と呼ぶか。</p>
+<p><select class="webex-select"><option value="blank"></option><option value="answer">第1種の誤り</option><option value="">第2種の誤り</option><option value="">標準誤差</option><option value="">検出力不足</option></select></p>
+</section>
+<section id="c-6" class="level3">
+<h3 class="anchored" data-anchor-id="c-6">12-C-6</h3>
+<p>p値が0.03であった場合、有意水準5%で帰無仮説を棄却できる。</p>
+<p><select class="webex-select"><option value="blank"></option><option value="answer">TRUE</option><option value="">FALSE</option></select></p>
+</section>
+<section id="c-7" class="level3">
+<h3 class="anchored" data-anchor-id="c-7">12-C-7</h3>
+<p>検出力（power）とは何か。</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">帰無仮説が正しいとき、正しく棄却しない確率</option><option value="answer">帰無仮説が誤りであるとき、正しく棄却できる確率</option><option value="">p値が有意水準を下回る確率</option><option value="">信頼区間が母数を含む確率</option></select></p>
+</section>
+<section id="c-8" class="level3">
+<h3 class="anchored" data-anchor-id="c-8">12-C-8</h3>
+<p>Rの <code>t.test()</code> 関数はデフォルトで等分散を仮定したt検定を行う。</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">TRUE</option><option value="answer">FALSE</option></select></p>
+</section>
+<section id="c-9" class="level3">
+<h3 class="anchored" data-anchor-id="c-9">12-C-9</h3>
+<p>効果量（Cohen’s <span class="math inline">\(d\)</span>）が0.8のとき、その効果の大きさの目安はどれか。</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">小さい</option><option value="">中程度</option><option value="answer">大きい</option><option value="">非常に大きい</option></select></p>
+</section>
+<section id="c-10" class="level3">
+<h3 class="anchored" data-anchor-id="c-10">12-C-10</h3>
+<p>標本サイズを大きくすると検出力はどうなるか。</p>
+<p><select class="webex-select"><option value="blank"></option><option value="answer">高くなる</option><option value="">低くなる</option><option value="">変わらない</option><option value="">効果量に依存する</option></select></p>
+<hr>
+</section>
+</section>
+<section id="ランクb-実践スキル" class="level2">
+<h2 class="anchored" data-anchor-id="ランクb-実践スキル">ランクB: 実践スキル</h2>
+<section id="b-1" class="level3">
+<h3 class="anchored" data-anchor-id="b-1">12-B-1</h3>
+<p>irisデータセットの <code>Sepal.Length</code> について、母平均が5.5であるかどうかを1標本t検定で検定しなさい。結果のp値と95%信頼区間を確認すること。</p>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(iris<span class="sc">$</span>Sepal.Length, <span class="at">mu =</span> <span class="fl">5.5</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    One Sample t-test
+
+data:  iris$Sepal.Length
+t = 5.078, df = 149, p-value = 1.123e-06
+alternative hypothesis: true mean is not equal to 5.5
+95 percent confidence interval:
+ 5.709732 5.976934
+sample estimates:
+mean of x 
+ 5.843333 </code></pre>
+</div>
+</div>
+<p>p値が0.05未満なので、母平均が5.5であるという帰無仮説は棄却されます。95%信頼区間は5.5を含んでいないことも確認できます。</p>
+</div>
+</section>
+<section id="b-2" class="level3">
+<h3 class="anchored" data-anchor-id="b-2">12-B-2</h3>
+<p>irisデータで、setosaとversicolorの <code>Sepal.Length</code> に差があるかを対応のないt検定で検定しなさい。</p>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>iris_sub <span class="ot">&lt;-</span> iris <span class="sc">%&gt;%</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(Species <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"setosa"</span>, <span class="st">"versicolor"</span>))</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(Sepal.Length <span class="sc">~</span> Species, <span class="at">data =</span> iris_sub)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Welch Two Sample t-test
+
+data:  Sepal.Length by Species
+t = -10.521, df = 86.538, p-value &lt; 2.2e-16
+alternative hypothesis: true difference in means between group setosa and group versicolor is not equal to 0
+95 percent confidence interval:
+ -1.1057074 -0.7542926
+sample estimates:
+    mean in group setosa mean in group versicolor 
+                   5.006                    5.936 </code></pre>
+</div>
+</div>
+<p>p値が非常に小さく、2種間の萼片長に有意な差があることがわかります。</p>
+</div>
+</section>
+<section id="b-3" class="level3">
+<h3 class="anchored" data-anchor-id="b-3">12-B-3</h3>
+<p>BaseballDecade.csvを読み込み、セ・リーグとパ・リーグの打率に有意な差があるかをt検定で検定しなさい。打率は <code>Hit / AtBats</code> で計算し、リーグは <code>team</code> 変数から判定すること（AtBatsが0の行は除外する）。</p>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>bb <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"../data/BaseballDecade.csv"</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>central <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"巨人"</span>, <span class="st">"阪神"</span>, <span class="st">"中日"</span>, <span class="st">"DeNA"</span>, <span class="st">"広島"</span>, <span class="st">"ヤクルト"</span>)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>bb_bat <span class="ot">&lt;-</span> bb <span class="sc">%&gt;%</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(AtBats <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">BA =</span> Hit <span class="sc">/</span> AtBats,</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">League =</span> <span class="fu">ifelse</span>(team <span class="sc">%in%</span> central, <span class="st">"Central"</span>, <span class="st">"Pacific"</span>)</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(BA <span class="sc">~</span> League, <span class="at">data =</span> bb_bat)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Welch Two Sample t-test
+
+data:  BA by League
+t = 0.76341, df = 308.47, p-value = 0.4458
+alternative hypothesis: true difference in means between group Central and group Pacific is not equal to 0
+95 percent confidence interval:
+ -0.007576293  0.017181859
+sample estimates:
+mean in group Central mean in group Pacific 
+            0.2191978             0.2143951 </code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="b-4" class="level3">
+<h3 class="anchored" data-anchor-id="b-4">12-B-4</h3>
+<p>次のデータについて、95%信頼区間を手計算（<code>qt()</code> と基本的な算術演算）で求め、<code>t.test()</code> の結果と一致することを確認しなさい。</p>
+<p>データ: <code>x &lt;- c(23, 25, 28, 22, 27, 24, 26, 29, 21, 25)</code></p>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">23</span>, <span class="dv">25</span>, <span class="dv">28</span>, <span class="dv">22</span>, <span class="dv">27</span>, <span class="dv">24</span>, <span class="dv">26</span>, <span class="dv">29</span>, <span class="dv">21</span>, <span class="dv">25</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>x_bar <span class="ot">&lt;-</span> <span class="fu">mean</span>(x)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">sd</span>(x)</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>se <span class="ot">&lt;-</span> s <span class="sc">/</span> <span class="fu">sqrt</span>(n)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>t_crit <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>ci_lower <span class="ot">&lt;-</span> x_bar <span class="sc">-</span> t_crit <span class="sc">*</span> se</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>ci_upper <span class="ot">&lt;-</span> x_bar <span class="sc">+</span> t_crit <span class="sc">*</span> se</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">"手計算: [%.4f, %.4f]</span><span class="sc">\n</span><span class="st">"</span>, ci_lower, ci_upper))</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>手計算: [23.1530, 26.8470]</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># t.test()で確認</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">t.test</span>(x)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">"t.test: [%.4f, %.4f]</span><span class="sc">\n</span><span class="st">"</span>, result<span class="sc">$</span>conf.int[<span class="dv">1</span>], result<span class="sc">$</span>conf.int[<span class="dv">2</span>]))</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>t.test: [23.1530, 26.8470]</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="b-5" class="level3">
+<h3 class="anchored" data-anchor-id="b-5">12-B-5</h3>
+<p>irisのsetosaとversicolorの <code>Petal.Length</code> について、Cohen’s <span class="math inline">\(d\)</span> を手計算で求めなさい。プールした標準偏差 <span class="math inline">\(s_p\)</span> を使うこと。</p>
+<p><span class="math display">\[
+d = \frac{\bar{x}_1 - \bar{x}_2}{s_p}, \quad s_p = \sqrt{\frac{(n_1-1)s_1^2 + (n_2-1)s_2^2}{n_1 + n_2 - 2}}
+\]</span></p>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>setosa <span class="ot">&lt;-</span> iris <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(Species <span class="sc">==</span> <span class="st">"setosa"</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">pull</span>(Petal.Length)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>versicolor <span class="ot">&lt;-</span> iris <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(Species <span class="sc">==</span> <span class="st">"versicolor"</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">pull</span>(Petal.Length)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>n1 <span class="ot">&lt;-</span> <span class="fu">length</span>(setosa)</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>n2 <span class="ot">&lt;-</span> <span class="fu">length</span>(versicolor)</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>sp <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(((n1 <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="fu">var</span>(setosa) <span class="sc">+</span> (n2 <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="fu">var</span>(versicolor)) <span class="sc">/</span> (n1 <span class="sc">+</span> n2 <span class="sc">-</span> <span class="dv">2</span>))</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> (<span class="fu">mean</span>(versicolor) <span class="sc">-</span> <span class="fu">mean</span>(setosa)) <span class="sc">/</span> sp</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">"Cohen's d = %.3f</span><span class="sc">\n</span><span class="st">"</span>, d))</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Cohen's d = 7.899</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"目安: 0.2=小, 0.5=中, 0.8=大</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>目安: 0.2=小, 0.5=中, 0.8=大</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">"この効果量は「%s」と判断できます</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>            <span class="fu">ifelse</span>(<span class="fu">abs</span>(d) <span class="sc">&gt;=</span> <span class="fl">0.8</span>, <span class="st">"大きい"</span>,</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">ifelse</span>(<span class="fu">abs</span>(d) <span class="sc">&gt;=</span> <span class="fl">0.5</span>, <span class="st">"中程度"</span>, <span class="st">"小さい"</span>))))</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>この効果量は「大きい」と判断できます</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="b-6" class="level3">
+<h3 class="anchored" data-anchor-id="b-6">12-B-6</h3>
+<p><code>power.t.test()</code> を使って、効果量 <span class="math inline">\(d = 0.3\)</span>（小さい効果）を検出力80%で検出するために必要な1群あたりの標本サイズを求めなさい。</p>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">power.t.test</span>(<span class="at">delta =</span> <span class="fl">0.3</span>, <span class="at">sd =</span> <span class="dv">1</span>, <span class="at">sig.level =</span> <span class="fl">0.05</span>, <span class="at">power =</span> <span class="fl">0.80</span>,</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">type =</span> <span class="st">"two.sample"</span>, <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+     Two-sample t test power calculation 
+
+              n = 175.3851
+          delta = 0.3
+             sd = 1
+      sig.level = 0.05
+          power = 0.8
+    alternative = two.sided
+
+NOTE: n is number in *each* group</code></pre>
+</div>
+</div>
+<p>小さい効果量（<span class="math inline">\(d = 0.3\)</span>）を検出するには、各群約175人（合計約350人）が必要です。心理学研究で小さい効果を検出するのがいかに大変かがわかります。</p>
+</div>
+</section>
+<section id="b-7" class="level3">
+<h3 class="anchored" data-anchor-id="b-7">12-B-7</h3>
+<p>シミュレーションで第1種の誤り率を確認しなさい。母平均170、母標準偏差10の正規分布から <span class="math inline">\(n = 30\)</span> の標本を10000回抽出し、母平均が170であるという帰無仮説を毎回検定する。p値が0.05未満になる割合を求めること。</p>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>p_values <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">10000</span>, {</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">30</span>, <span class="at">mean =</span> <span class="dv">170</span>, <span class="at">sd =</span> <span class="dv">10</span>)</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t.test</span>(x, <span class="at">mu =</span> <span class="dv">170</span>)<span class="sc">$</span>p.value</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 第1種の誤り率（理論値は0.05）</span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">"第1種の誤り率: %.4f</span><span class="sc">\n</span><span class="st">"</span>, <span class="fu">mean</span>(p_values <span class="sc">&lt;</span> <span class="fl">0.05</span>)))</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>第1種の誤り率: 0.0487</code></pre>
+</div>
+</div>
+<p>帰無仮説が正しい（本当に母平均が170）にもかかわらず、約5%の確率で「有意差あり」と誤って判断してしまうことが確認できます。</p>
+</div>
+</section>
+<section id="b-8" class="level3">
+<h3 class="anchored" data-anchor-id="b-8">12-B-8</h3>
+<p>BaseballDecade.csvで、年度（Year）ごとに打率（Hit / AtBats）の平均と95%信頼区間を計算し、エラーバー付きの折れ線グラフを作成しなさい（AtBatsが0の行は除外する）。</p>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>bb <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"../data/BaseballDecade.csv"</span>)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>bb_summary <span class="ot">&lt;-</span> bb <span class="sc">%&gt;%</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(AtBats <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">BA =</span> Hit <span class="sc">/</span> AtBats) <span class="sc">%&gt;%</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(Year) <span class="sc">%&gt;%</span></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_BA =</span> <span class="fu">mean</span>(BA, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">se =</span> <span class="fu">sd</span>(BA, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">/</span> <span class="fu">sqrt</span>(dplyr<span class="sc">::</span><span class="fu">n</span>()),</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">ci_lower =</span> mean_BA <span class="sc">-</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, dplyr<span class="sc">::</span><span class="fu">n</span>() <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> se,</span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">ci_upper =</span> mean_BA <span class="sc">+</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, dplyr<span class="sc">::</span><span class="fu">n</span>() <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> se,</span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a>bb_summary <span class="sc">%&gt;%</span></span>
+<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Year, <span class="at">y =</span> mean_BA)) <span class="sc">+</span></span>
+<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb36-18"><a href="#cb36-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb36-19"><a href="#cb36-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> ci_lower, <span class="at">ymax =</span> ci_upper), <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb36-20"><a href="#cb36-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"年度別打率の推移（95%信頼区間付き）"</span>,</span>
+<span id="cb36-21"><a href="#cb36-21" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"年度"</span>, <span class="at">y =</span> <span class="st">"打率"</span>) <span class="sc">+</span></span>
+<span id="cb36-22"><a href="#cb36-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="U12-statistical-inference_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="ランクa-ai協働" class="level2">
+<h2 class="anchored" data-anchor-id="ランクa-ai協働">ランクA: AI協働</h2>
+<section id="a-1" class="level3">
+<h3 class="anchored" data-anchor-id="a-1">12-A-1</h3>
+<p>あなたが卒業研究で「SNSの利用時間と孤独感の関係」を調べるとします。先行研究から、相関係数は <span class="math inline">\(r = .20\)</span> 程度と予想されています。</p>
+<p>生成AIに次の内容を相談してください:</p>
+<ol type="1">
+<li>この研究で有意な結果を得るために必要な標本サイズはいくらか（検出力80%、有意水準5%）</li>
+<li>検出力分析のRコードを書いてもらい、実行して確認する</li>
+<li>もし標本サイズが50人しか確保できない場合、検出力はどの程度になるか</li>
+<li>検出力を高めるためにどのような研究デザインの工夫ができるか</li>
+</ol>
+<p>生成AIとのやりとりの中で、<strong>検出力分析の結果を自分でRで実行して検証</strong> すること。AIの回答をそのまま信じるのではなく、自分で確かめることが重要です。</p>
+</section>
+<section id="a-2" class="level3">
+<h3 class="anchored" data-anchor-id="a-2">12-A-2</h3>
+<p>BaseballDecade.csvを使い、生成AIと協力して以下の分析レポートを作成してください:</p>
+<ol type="1">
+<li>リーグ間（セ・パ）で本塁打数（HR）に差があるかを検定する</li>
+<li>検定の前提条件（正規性、等分散性）を確認する適切な方法をAIに相談する</li>
+<li>前提条件が満たされない場合の代替手法（ノンパラメトリック検定など）についてAIに聞く</li>
+<li>効果量を算出し、結果を「APA形式」で報告する文章を作成する</li>
+</ol>
+<p>分析の各ステップで <strong>なぜその手法を選ぶのか</strong> をAIに質問し、理解したうえで実行してください。</p>
+<hr>
+</section>
+</section>
+<section id="まとめ" class="level2">
+<h2 class="anchored" data-anchor-id="まとめ">まとめ</h2>
+<p>このユニットで学んだこと:</p>
+<ul>
+<li><strong>標本分布と標準誤差</strong>: 標本平均のばらつきは <span class="math inline">\(SE = s / \sqrt{n}\)</span> で表される</li>
+<li><strong>信頼区間</strong>: 母数の推定を区間で示す方法。「繰り返し作ると約95%が真の値を含む」が正しい解釈</li>
+<li><strong>仮説検定</strong>: 帰無仮説のもとでデータの希少性（p値）を評価し、判断する</li>
+<li><strong>2つの誤り</strong>: 第1種の誤り（<span class="math inline">\(\alpha\)</span>）と第2種の誤り（<span class="math inline">\(\beta\)</span>）のトレードオフ</li>
+<li><strong>検出力</strong>: 真の効果を正しく検出できる確率。標本サイズと効果量に依存する</li>
+<li><strong>t検定</strong>: <code>t.test()</code> で1標本・2標本（対応あり/なし）の検定が実行できる</li>
+</ul>
+<p>次のU13（回帰モデル）では、2変数間の関係をモデル化する方法を学びます。</p>
+<!-- 進捗: C10/B8/A2 -->
+
+
+</section>
+
+</main> <!-- /main -->
+<script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  var t = document.getElementsByClassName("webex-total_correct");
+  for (var i = 0; i < t.length; i++) {
+    p = t[i].parentElement;
+    var correct = p.getElementsByClassName("webex-correct").length;
+    var solvemes = p.getElementsByClassName("webex-solveme").length;
+    var radiogroups = p.getElementsByClassName("webex-radiogroup").length;
+    var selects = p.getElementsByClassName("webex-select").length;
+
+    t[i].innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* check answers */
+check_func = function() {
+  console.log("webex: check answers");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('unchecked')) {
+    cl.remove("unchecked");
+    this.innerHTML = "Hide Answers";
+  } else {
+    cl.add("unchecked");
+    this.innerHTML = "Show Answers";
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+
+  var cl = this.classList
+
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("webex onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  var check_sections = document.getElementsByClassName("webex-check");
+  console.log("check:", check_sections.length);
+  for (var i = 0; i < check_sections.length; i++) {
+    check_sections[i].classList.add("unchecked");
+
+    let btn = document.createElement("button");
+    btn.innerHTML = "Show Answers";
+    btn.classList.add("webex-check-button");
+    btn.onclick = check_func;
+    check_sections[i].appendChild(btn);
+
+    let spn = document.createElement("span");
+    spn.classList.add("webex-total_correct");
+    check_sections[i].appendChild(spn);
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+
+    solveme[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+    selects[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  update_total_correct();
+}
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "コピーしました");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "コピーしました");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

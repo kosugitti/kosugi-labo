@@ -1,0 +1,374 @@
+---
+title: "U6. データの確認と探索"
+format:
+  html:
+    css: ../include/webex.css
+    include-after-body: ../include/webex.js
+---
+
+```{r setup, include=FALSE}
+pacman::p_load(webexercises)
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+## ユニット概要
+
+**分類**: 幹（全員必須）
+
+**依存関係**: U0 → U1 → U2 → U4 → U5 → **U6**
+
+**学習目標**:
+
+- `head()`, `tail()`でデータの冒頭・末尾を確認できる
+- `str()`でデータの構造（型・変数名・行数）を把握できる
+- `summary()`で要約統計量を確認できる
+- `table()`でカテゴリ変数の度数を集計できる
+- `is.na()`と`sum()`で欠損値の状況を確認できる
+- `unique()`, `duplicated()`でデータの重複を確認できる
+
+---
+
+## 事前知識: 分析の前にデータを知る
+
+### なぜデータの確認が必要か
+
+ファイルを読み込んだら、いきなり分析に入ってはいけません。まずデータの「中身」を確認します。
+
+- 行数・列数は想定通りか？
+- 変数の型は正しいか？（数値のはずが文字型になっていないか？）
+- 欠損値はどの程度あるか？
+- 外れ値や異常値はないか？
+
+これらを確認せずに分析すると、間違った結果を得てしまう可能性があります。
+
+### 確認に使う主な関数
+
+| 関数 | 用途 |
+|------|------|
+| `head(df)` / `tail(df)` | 冒頭/末尾の数行を表示 |
+| `str(df)` | 構造（型、変数名、行数、列数） |
+| `summary(df)` | 各変数の要約統計量（最小、最大、平均、中央値等） |
+| `names(df)` | 変数名の一覧 |
+| `nrow(df)` / `ncol(df)` | 行数/列数 |
+| `dim(df)` | 行数と列数を同時に表示 |
+| `table(df$var)` | カテゴリ変数の度数表 |
+| `unique(df$var)` | ユニークな値の一覧 |
+| `is.na(df)` | NAかどうかの判定 |
+| `complete.cases(df)` | 欠損のない行の判定 |
+
+### 確認の手順
+
+データを読み込んだら、以下の順で確認するのが定番です：
+
+1. **サイズ**: `dim()`で行数×列数
+2. **構造**: `str()`で各変数の型
+3. **冒頭**: `head()`で最初の数行を目視
+4. **要約**: `summary()`で数値の範囲や欠損数
+5. **カテゴリ**: `table()`でカテゴリ変数の水準と度数
+6. **欠損**: `colSums(is.na())`で変数ごとの欠損数
+
+---
+
+## ランクC: 基礎知識を確認しよう
+
+### 6-C-1
+
+`head(df)`はデフォルトで何行を表示しますか？
+
+`r mcq(c("3行", answer = "6行", "10行", "全行"))`
+
+`r hide("解説")`
+`head()`のデフォルトは6行です。行数を変えたい場合は`head(df, 10)`のように第2引数で指定します。`tail()`も同様に末尾6行をデフォルトで表示します。
+`r unhide()`
+
+---
+
+### 6-C-2
+
+`str()`関数で確認できる情報はどれですか？
+
+`r mcq(c("平均値と標準偏差", "ファイルのパス", answer = "各変数の型、変数名、行数", "グラフの設定"))`
+
+`r hide("解説")`
+`str()`はstructure（構造）の略で、データフレームの行数（obs.）、変数の数（variables）、各変数の型（num, chr, Factor等）と冒頭の値を表示します。RStudioのEnvironmentタブでオブジェクトをクリックしたときと同等の情報です。
+`r unhide()`
+
+---
+
+### 6-C-3
+
+`summary()`関数を数値型の変数に適用すると、表示されないものはどれですか？
+
+`r mcq(c("最小値と最大値", "中央値", answer = "標準偏差", "第1四分位数と第3四分位数"))`
+
+`r hide("解説")`
+`summary()`は最小値（Min.）、第1四分位数（1st Qu.）、中央値（Median）、平均値（Mean）、第3四分位数（3rd Qu.）、最大値（Max.）を表示します。**標準偏差は表示されません**。標準偏差は`sd()`関数で個別に計算する必要があります。
+`r unhide()`
+
+---
+
+### 6-C-4
+
+`table()`関数の主な用途は何ですか？
+
+`r mcq(c("数値変数の平均を計算する", answer = "カテゴリ変数の度数（個数）を集計する", "データフレームを表形式で保存する", "データを並べ替える"))`
+
+`r hide("解説")`
+```r
+table(iris$Species)
+# setosa versicolor  virginica
+#     50         50         50
+```
+
+`table()`はカテゴリ変数の各水準が何個あるかを数えます。2変数のクロス集計にも使えます：`table(df$var1, df$var2)`
+`r unhide()`
+
+---
+
+### 6-C-5
+
+`is.na()`関数はNAの位置に何を返しますか？
+
+`r mcq(c("NA", "0", answer = "TRUE", "1"))`
+
+`r hide("解説")`
+`is.na()`はNAの位置に`TRUE`、そうでない位置に`FALSE`を返します。`sum(is.na(x))`とすると、TRUEが1として数えられるので、NAの個数がわかります。
+`r unhide()`
+
+---
+
+### 6-C-6
+
+データフレーム全体の欠損値の個数を1行で数えるにはどうしますか？
+
+`r mcq(c("count(is.na(df))", "nrow(is.na(df))", answer = "sum(is.na(df))", "length(is.na(df))"))`
+
+`r hide("解説")`
+`is.na(df)`はデータフレーム全体に対してTRUE/FALSEの行列を返します。`sum()`でTRUE（=1）の合計を取ると、全体のNA個数になります。
+
+変数ごとのNA個数を見るには`colSums(is.na(df))`が便利です。
+`r unhide()`
+
+---
+
+### 6-C-7
+
+`unique()`関数は何を返しますか？
+
+`r mcq(c("重複している値", answer = "重複を除いたユニークな値", "重複の個数", "TRUEとFALSEのベクトル"))`
+
+`r hide("解説")`
+```r
+x <- c("A", "B", "A", "C", "B")
+unique(x)    # "A" "B" "C"
+```
+
+`unique()`は重複を除いたユニークな値を返します。何種類の値があるかは`length(unique(x))`で確認できます。重複しているかどうかをTRUE/FALSEで返すのは`duplicated()`です。
+`r unhide()`
+
+---
+
+### 6-C-8
+
+`complete.cases()`関数は何を返しますか？
+
+`r mcq(c("完全なケースの個数", "NAの位置", answer = "各行が欠損を含まないかのTRUE/FALSEベクトル", "欠損を除いたデータフレーム"))`
+
+`r hide("解説")`
+`complete.cases(df)`は、各行にNAが1つもなければ`TRUE`、1つでもあれば`FALSE`を返します。
+
+```r
+# 欠損のない行だけを取り出す
+df[complete.cases(df), ]
+
+# 欠損のない行の数
+sum(complete.cases(df))
+```
+`r unhide()`
+
+---
+
+## ランクB: 実践スキルを磨こう
+
+### 6-B-1
+
+`BaseballDecade.csv`を読み込み、以下を確認してください。
+
+1. 行数と列数（`dim()`）
+2. 変数名の一覧（`names()`）
+3. 先頭5行（`head()`）
+4. 各変数の型（`str()`）
+
+`r hide("模範解答")`
+```{r, eval=FALSE}
+pacman::p_load(tidyverse)
+df <- readr::read_csv("../data/BaseballDecade.csv")
+
+dim(df)      # 行数×列数
+names(df)    # 変数名
+head(df, 5)  # 先頭5行
+str(df)      # 構造
+```
+
+読み込み直後にこの4つを実行するのを習慣にしてください。想定と違うサイズや型になっていたら、読み込みの段階で問題が起きている可能性があります。
+`r unhide()`
+
+---
+
+### 6-B-2
+
+`BaseballDecade.csv`に`summary()`を適用して、数値変数（salary, height, weight等）の範囲を確認してください。異常に大きい値や小さい値がないか注意して見てください。
+
+`r hide("模範解答")`
+```{r, eval=FALSE}
+df <- readr::read_csv("../data/BaseballDecade.csv")
+summary(df)
+```
+
+`summary()`の結果で確認するポイント：
+
+- **Min / Max**: 明らかにおかしい値がないか（身長0cmや年俸マイナスなど）
+- **NA's**: 欠損値の個数（表示される場合）
+- **Mean vs Median**: 平均と中央値が大きくずれていたら、分布が偏っている証拠
+`r unhide()`
+
+---
+
+### 6-B-3
+
+`BaseballDecade.csv`のteam変数にどんな球団があるか確認し、球団ごとの選手数を集計してください。
+
+`r hide("ヒント")`
+`unique()`でユニークな値を、`table()`で度数を確認します。
+`r unhide()`
+
+`r hide("模範解答")`
+```{r, eval=FALSE}
+df <- readr::read_csv("../data/BaseballDecade.csv")
+
+# どんな球団があるか
+unique(df$team)
+
+# 球団数
+length(unique(df$team))
+
+# 球団ごとの選手数
+table(df$team)
+```
+
+`table()`の結果を`sort()`に渡すと、選手数順に並べ替えられます：`sort(table(df$team), decreasing = TRUE)`
+`r unhide()`
+
+---
+
+### 6-B-4
+
+`BaseballDecade.csv`の各変数に欠損値（NA）がいくつあるか確認してください。
+
+`r hide("模範解答")`
+```{r, eval=FALSE}
+df <- readr::read_csv("../data/BaseballDecade.csv")
+
+# 変数ごとのNA個数
+colSums(is.na(df))
+
+# NA全体の個数
+sum(is.na(df))
+
+# 欠損のない行の数と割合
+sum(complete.cases(df))
+mean(complete.cases(df))  # 欠損なし行の割合
+```
+
+`colSums(is.na(df))`は各列のNA個数を一覧で返すので、どの変数に欠損が多いか一目でわかります。`mean(complete.cases(df))`は「完全ケースの割合」で、たとえば0.95なら95%の行は欠損がないことを意味します。
+`r unhide()`
+
+---
+
+### 6-B-5
+
+`iris`データセットについて、Speciesごとに`Sepal.Length`の平均と`summary()`の結果を確認してください。base Rの関数だけで行ってください。
+
+`r hide("ヒント")`
+`tapply()`関数はグループごとに関数を適用できます：`tapply(値, グループ, 関数)`
+`r unhide()`
+
+`r hide("模範解答")`
+```{r, eval=FALSE}
+# Speciesごとの平均
+tapply(iris$Sepal.Length, iris$Species, mean)
+
+# Speciesごとのsummary
+tapply(iris$Sepal.Length, iris$Species, summary)
+```
+
+`tapply()`はbase Rでグループ別集計を行う関数です。U7で学ぶdplyrの`group_by() + summarise()`と同等の操作ですが、base Rだけで完結します。
+`r unhide()`
+
+---
+
+### 6-B-6
+
+`BaseballDecade.csv`でYear変数とteam変数のクロス集計表（年度×球団の選手数）を作成してください。
+
+`r hide("模範解答")`
+```{r, eval=FALSE}
+df <- readr::read_csv("../data/BaseballDecade.csv")
+
+# 2変数のクロス集計
+cross_tab <- table(df$Year, df$team)
+cross_tab
+```
+
+`table()`に2変数を渡すと、クロス集計表（行×列の度数表）が作られます。各年度に各球団が何名の選手を登録しているかがわかります。
+`r unhide()`
+
+---
+
+## ランクA: AI協働に挑戦しよう
+
+### 6-A-1
+
+**課題**: `BaseballDecade.csv`を読み込み、データの品質チェックレポートを作成してください。
+
+AIに相談しながら、以下の項目を確認・報告してください：
+
+1. データのサイズ（行数×列数）
+2. 各変数の型と欠損率
+3. 数値変数の範囲に異常値がないか
+4. カテゴリ変数の水準数と度数
+5. データ全体の所見（気づいたこと）
+
+**提出物**: AIとの対話ログ、チェックレポート。
+
+---
+
+### 6-A-2
+
+**課題**: 「良いデータ」と「悪いデータ」の違いについてAIと議論してください。
+
+事前知識で学んだ総務省の機械判読可能データの原則や、整然データ（Tidy Data）の概念を踏まえて、身の回りで見かける「分析しにくいデータ」の例を挙げ、何が問題でどう改善できるかを考えてください。
+
+**提出物**: AIとの対話内容、問題のあるデータの例と改善案。
+
+---
+
+## まとめ
+
+このユニットでは、データの確認と探索の方法を学びました：
+
+- **サイズ確認**: `dim()`, `nrow()`, `ncol()`
+- **構造確認**: `str()`, `names()`, `class()`
+- **中身の確認**: `head()`, `tail()`
+- **要約統計量**: `summary()`
+- **度数集計**: `table()`, `unique()`, `length(unique())`
+- **欠損確認**: `is.na()`, `sum(is.na())`, `colSums(is.na())`, `complete.cases()`
+- **グループ別**: `tapply()`
+
+これらは「分析前の儀式」です。データを読み込んだら、まずこれらの関数で中身を確認する習慣をつけてください。ここまでのU1〜U6が、データ分析の土台となる基礎スキルです。
+
+次のユニット: **U7. dplyr**では、tidyverseを使ったより効率的なデータ操作を学びます。
+
+---
+
+進捗: あなたは今 **6-C-8** まで完了しました！（と仮定）次は **6-B-1** に進みましょう。

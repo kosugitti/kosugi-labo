@@ -1,0 +1,862 @@
+---
+title: "U23. プログラミング基礎概念"
+format:
+  html:
+    css: ../include/webex.css
+    include-after-body: ../include/webex.js
+---
+
+```{r setup, include=FALSE}
+pacman::p_load(webexercises, tidyverse, ragg)
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE,
+                      dev = "ragg_png")
+```
+
+## ユニット概要
+
+**分類**: 枝（知っていると強い）
+
+**依存関係**: U0 → U1 → **U23**
+
+**使用データ**: `iris`（R内蔵）、`BaseballDecade.csv`
+
+**学習目標**:
+
+- 自分で関数を定義し、引数・返り値・スコープを理解する
+- `if`/`else`、`for`、`while`による制御構造を使える
+- `apply()`族（`apply`、`lapply`、`sapply`）でループを置き換えられる
+- `purrr::map()`族を使って関数型プログラミングスタイルでデータを処理できる
+- forループとapply/mapの使い分けを判断できる
+
+---
+
+## 事前知識: 関数定義
+
+### 関数とは
+
+Rにはたくさんの組み込み関数（`mean()`、`sum()`、`sd()`など）がありますが、自分で関数を定義することもできます。自作関数を使うと、同じ処理を何度も書かずに済み、コードの見通しがよくなります。
+
+### 関数の基本構文
+
+```r
+関数名 <- function(引数1, 引数2, ...) {
+  処理
+  return(返り値)
+}
+```
+
+`function()`の中に引数を定義し、波括弧`{}`の中に処理を書きます。`return()`で値を返します。`return()`を省略した場合、最後に評価された式の値が自動的に返されます。
+
+### 例: 平均と標準偏差を同時に返す関数
+
+```{r}
+describe_vec <- function(x, na.rm = TRUE) {
+  list(
+    mean = mean(x, na.rm = na.rm),
+    sd = sd(x, na.rm = na.rm),
+    n = sum(!is.na(x))
+  )
+}
+
+describe_vec(c(1, 2, 3, NA, 5))
+```
+
+この関数は、平均・標準偏差・有効ケース数をリストにまとめて返します。`na.rm = TRUE`はデフォルト引数で、呼び出し時に省略すると`TRUE`が使われます。
+
+### デフォルト引数
+
+関数定義時に`引数名 = 値`と書くと、デフォルト値を設定できます。呼び出し時にその引数を指定しなければデフォルト値が使われます。
+
+```{r}
+greet <- function(name, greeting = "こんにちは") {
+  paste(greeting, name, "さん")
+}
+
+greet("太郎")
+greet("花子", "おはよう")
+```
+
+### スコープ: ローカル変数とグローバル変数
+
+関数の中で作られた変数は**ローカル変数**であり、関数の外からはアクセスできません。一方、関数の外で作られた変数は**グローバル変数**で、関数の中からも参照できます（ただし、関数内での変更はグローバル変数に影響しません）。
+
+```{r}
+x <- 100  # グローバル変数
+
+add_ten <- function(y) {
+  z <- 10  # ローカル変数（関数の外からは見えない）
+  y + z
+}
+
+add_ten(5)
+```
+
+```{r, error=TRUE}
+# z は関数の中のローカル変数なので、外からアクセスするとエラーになる
+try(z)
+```
+
+この仕組みにより、関数の中で使う変数名が外の変数と衝突する心配がなくなります。
+
+---
+
+## 事前知識: 制御構造
+
+### if / else: 条件分岐
+
+条件に応じて異なる処理を行うには`if`/`else`を使います。
+
+```{r}
+check_score <- function(score) {
+  if (score >= 80) {
+    "合格"
+  } else if (score >= 60) {
+    "追試"
+  } else {
+    "不合格"
+  }
+}
+
+check_score(85)
+check_score(65)
+check_score(40)
+```
+
+`if`の条件は長さ1の論理値（`TRUE`または`FALSE`）でなければなりません。ベクトル全体に条件を適用したい場合は`ifelse()`を使います。
+
+### for: 繰り返し
+
+`for`ループは、ベクトルの各要素に対して処理を繰り返します。
+
+```{r}
+# 1から5まで2乗を計算する
+squares <- c()
+for (i in 1:5) {
+  squares <- c(squares, i^2)
+}
+squares
+```
+
+### while: 条件が満たされる間繰り返す
+
+`while`ループは、条件が`TRUE`である限り処理を繰り返します。繰り返し回数が事前に分からない場合に使います。
+
+```{r}
+# 2を繰り返し掛けて、100を超えるまで繰り返す
+x <- 1
+count <- 0
+while (x <= 100) {
+  x <- x * 2
+  count <- count + 1
+}
+x
+count
+```
+
+`while`ループは無限ループに注意が必要です。条件が`FALSE`になるように必ず更新処理を入れましょう。
+
+### 例: FizzBuzz
+
+FizzBuzzは古典的なプログラミング問題です。1から順に数を出力し、3の倍数なら"Fizz"、5の倍数なら"Buzz"、15の倍数なら"FizzBuzz"を出力します。
+
+```{r}
+fizzbuzz <- function(n) {
+  result <- character(n)
+  for (i in 1:n) {
+    if (i %% 15 == 0) {
+      result[i] <- "FizzBuzz"
+    } else if (i %% 3 == 0) {
+      result[i] <- "Fizz"
+    } else if (i %% 5 == 0) {
+      result[i] <- "Buzz"
+    } else {
+      result[i] <- as.character(i)
+    }
+  }
+  result
+}
+
+fizzbuzz(20)
+```
+
+### 例: フィボナッチ数列
+
+フィボナッチ数列は、最初の2つが1で、以降は直前の2つの和で定義される数列です。
+
+```{r}
+fibonacci <- function(n) {
+  if (n <= 0) return(integer(0))
+  if (n == 1) return(1)
+  fib <- integer(n)
+  fib[1] <- 1
+  fib[2] <- 1
+  for (i in seq_len(n - 2) + 2) {
+    fib[i] <- fib[i - 1] + fib[i - 2]
+  }
+  fib
+}
+
+fibonacci(10)
+```
+
+---
+
+## 事前知識: apply族
+
+### forループの問題点
+
+Rでは`for`ループを書くことができますが、ベクトルや行列に対して同じ処理を繰り返す場合、`apply`族の関数を使った方が簡潔で高速です。
+
+### apply(): 行列の行/列ごとに関数適用
+
+`apply(X, MARGIN, FUN)`は行列`X`に対して、`MARGIN = 1`なら行ごと、`MARGIN = 2`なら列ごとに関数`FUN`を適用します。
+
+```{r}
+mat <- matrix(1:12, nrow = 3, ncol = 4)
+mat
+
+# 各行の合計
+apply(mat, 1, sum)
+
+# 各列の平均
+apply(mat, 2, mean)
+```
+
+### lapply(): リストの各要素に関数適用
+
+`lapply(X, FUN)`はリスト（またはベクトル）`X`の各要素に関数`FUN`を適用し、結果をリストで返します。
+
+```{r}
+# 文字列のリストに対して文字数を数える
+words <- list("apple", "banana", "cherry")
+lapply(words, nchar)
+```
+
+### sapply(): lapplyの簡略版
+
+`sapply(X, FUN)`は`lapply()`と同じですが、結果を可能であればベクトルや行列に簡略化して返します。
+
+```{r}
+# irisの数値列それぞれの平均を計算
+sapply(iris[, 1:4], mean)
+```
+
+`sapply()`は便利ですが、入力データによって返り値の型が変わることがあるため、プログラム中では`lapply()`や`vapply()`の方が安全です。
+
+---
+
+## 事前知識: purrr::map()
+
+### map(): tidyverse版のlapply
+
+`purrr::map(.x, .f)`は`lapply()`のtidyverse版です。同じくリストの各要素に関数を適用しますが、ラムダ式（`~`による無名関数）が使えるなど、記法が洗練されています。
+
+### 型指定版: map_dbl(), map_chr(), map_df()
+
+| 関数 | 返り値の型 |
+|------|-----------|
+| `map()` | リスト |
+| `map_dbl()` | 数値ベクトル |
+| `map_chr()` | 文字列ベクトル |
+| `map_int()` | 整数ベクトル |
+| `map_lgl()` | 論理値ベクトル |
+| `map_df()` | データフレーム（行結合） |
+
+型指定版を使うと、結果の型が保証されるため、予期しないエラーを防げます。
+
+### 例: irisをSpeciesごとに回帰分析
+
+```{r}
+iris %>%
+  dplyr::group_split(Species) %>%
+  purrr::map(~ lm(Petal.Length ~ Sepal.Length, data = .x)) %>%
+  purrr::map(summary) %>%
+  purrr::map_dbl(~ .x$r.squared)
+```
+
+このコードは以下の手順で処理しています：
+
+1. `group_split(Species)`: Speciesごとにデータを3つのデータフレームに分割
+2. `map(~ lm(...))`: 各データフレームに対して回帰分析を実行
+3. `map(summary)`: 各結果のsummaryを取得
+4. `map_dbl(~ .x$r.squared)`: 各summaryからR二乗値を数値として抽出
+
+`~`はラムダ式（無名関数）の書き方で、`.x`は各要素が入るプレイスホルダーです。
+
+---
+
+## 事前知識: forループ vs apply/map
+
+### ベクトル化の利点
+
+Rはベクトル演算に最適化されているため、forループよりもapply/mapの方が一般的に高速で、コードも簡潔になります。
+
+```{r}
+# forループ版: 各列の平均
+means_loop <- c()
+for (i in 1:4) {
+  means_loop <- c(means_loop, mean(iris[[i]]))
+}
+names(means_loop) <- names(iris)[1:4]
+means_loop
+
+# sapply版: 1行で同じ結果
+sapply(iris[, 1:4], mean)
+```
+
+### いつforループを使うべきか
+
+- 前の反復の結果に依存する処理（例: フィボナッチ数列）
+- 副作用（ファイル出力、プロット描画など）が目的の場合
+- 処理の流れを明示的に追いたいとき
+
+### いつapply/mapを使うべきか
+
+- 各要素に対して独立に同じ処理を適用する場合
+- 結果をベクトルやリストとしてまとめたい場合
+- コードを簡潔に書きたい場合
+
+---
+
+## ランクC: 基礎知識を確認しよう
+
+### 23-C-1
+
+Rで自作関数を定義するとき、使うキーワードはどれですか？
+
+`r mcq(c("def", "func", answer = "function", "lambda"))`
+
+`r hide("解説")`
+Rでは`function`キーワードを使って関数を定義します。Pythonでは`def`、JavaScriptでは`function`を使いますが、Rでも`function`です。
+
+```r
+my_func <- function(x) {
+  x + 1
+}
+```
+`r unhide()`
+
+---
+
+### 23-C-2
+
+関数の中で`return()`を省略した場合、何が返されますか？
+
+`r mcq(c("NULL", "エラーになる", answer = "最後に評価された式の値", "NA"))`
+
+`r hide("解説")`
+Rの関数では、`return()`を省略すると、関数本体の最後に評価された式の値が自動的に返されます。
+
+```r
+add_one <- function(x) {
+  x + 1  # この値が自動的に返される
+}
+add_one(5)  # 結果: 6
+```
+
+ただし、途中で処理を打ち切って値を返したい場合は、明示的に`return()`を使う必要があります。
+`r unhide()`
+
+---
+
+### 23-C-3
+
+関数の中で作成された変数は、関数の外からアクセスできる。
+
+`r torf(FALSE)`
+
+`r hide("解説")`
+関数内で作られた変数は**ローカル変数**であり、関数の外からはアクセスできません。これを**スコープ**（変数の有効範囲）と呼びます。
+
+```r
+my_func <- function() {
+  local_var <- 42
+}
+my_func()
+# local_var  # エラー: オブジェクト 'local_var' がありません
+```
+
+この仕組みにより、関数内部の変数が外部と干渉することを防いでいます。
+`r unhide()`
+
+---
+
+### 23-C-4
+
+`for`ループと`while`ループの主な違いは何ですか？
+
+`r mcq(c("forは数値のみ、whileは文字列も使える", answer = "forは反復回数が決まっている、whileは条件で制御する", "forの方が常に高速", "違いはない"))`
+
+`r hide("解説")`
+- **`for`ループ**: ベクトルの各要素に対して処理を繰り返します。反復回数はベクトルの長さで決まります。
+- **`while`ループ**: 条件が`TRUE`である間、処理を繰り返します。反復回数は事前に分からないことがあります。
+
+```r
+# for: 1から5まで繰り返す（5回）
+for (i in 1:5) { ... }
+
+# while: xが100を超えるまで繰り返す（回数は分からない）
+while (x <= 100) { x <- x * 2 }
+```
+`r unhide()`
+
+---
+
+### 23-C-5
+
+`apply(mat, 1, sum)`の`1`は何を意味しますか？
+
+`r mcq(c("最初の列", answer = "行方向に適用（各行に対してsumを計算）", "1行目だけに適用", "1回だけ適用"))`
+
+`r hide("解説")`
+`apply()`の第2引数`MARGIN`は、関数を適用する方向を指定します。
+
+- `MARGIN = 1`: **行方向**（各行に関数を適用）
+- `MARGIN = 2`: **列方向**（各列に関数を適用）
+
+```r
+mat <- matrix(1:6, nrow = 2)
+apply(mat, 1, sum)  # 各行の合計
+apply(mat, 2, sum)  # 各列の合計
+```
+
+覚え方: 行列は「行→列」の順で添字を指定するので、1が行、2が列です。
+`r unhide()`
+
+---
+
+### 23-C-6
+
+`purrr::map()`と`lapply()`の主な違いは何ですか？
+
+`r mcq(c("mapはベクトルを返し、lapplyはリストを返す", "mapの方が常に高速", answer = "mapはラムダ式（~記法）が使え、型指定版（map_dbl等）がある", "違いはない"))`
+
+`r hide("解説")`
+`map()`と`lapply()`は基本的に同じ動作をしますが、`purrr::map()`には以下の利点があります：
+
+- **ラムダ式（`~`記法）**: `~ .x + 1`のように簡潔に無名関数を書ける
+- **型指定版**: `map_dbl()`、`map_chr()`、`map_df()`などで返り値の型を保証できる
+- **エラーハンドリング**: `possibly()`、`safely()`などとの連携が容易
+
+```r
+# lapply: 無名関数の書き方が冗長
+lapply(1:5, function(x) x^2)
+
+# map: ラムダ式で簡潔
+purrr::map(1:5, ~ .x^2)
+
+# map_dbl: 数値ベクトルで返す
+purrr::map_dbl(1:5, ~ .x^2)
+```
+`r unhide()`
+
+---
+
+### 23-C-7
+
+Rのラムダ式（無名関数）`~ .x + 1`はどのように書き換えられますか？
+
+`r mcq(c("lambda x: x + 1", answer = "function(x) x + 1", "def(x) x + 1", "x => x + 1"))`
+
+`r hide("解説")`
+purrr の`~`記法は、`function(.x, .y, ...) { ... }`の省略形です。
+
+```r
+# ラムダ式
+purrr::map_dbl(1:5, ~ .x^2)
+
+# 無名関数（同じ意味）
+purrr::map_dbl(1:5, function(x) x^2)
+```
+
+`~`の後に`.x`で第1引数、`.y`で第2引数を表します。`map()`では引数が1つなので`.x`のみを使います。
+`r unhide()`
+
+---
+
+### 23-C-8
+
+関数定義で`function(x, na.rm = TRUE)`と書いたとき、`na.rm = TRUE`は何を意味しますか？
+
+`r mcq(c("na.rmという名前の変数を常にTRUEにする", answer = "na.rmのデフォルト値をTRUEに設定する（呼び出し時に省略可能）", "na.rmをTRUEに固定して変更不可にする", "NAを自動的に除去する組み込み機能を有効にする"))`
+
+`r hide("解説")`
+`na.rm = TRUE`はデフォルト引数です。関数を呼び出すときにこの引数を省略すると、デフォルト値の`TRUE`が使われます。
+
+```r
+my_mean <- function(x, na.rm = TRUE) {
+  mean(x, na.rm = na.rm)
+}
+
+my_mean(c(1, 2, NA))           # na.rm = TRUE（デフォルト）→ 1.5
+my_mean(c(1, 2, NA), na.rm = FALSE)  # na.rm = FALSE を明示 → NA
+```
+`r unhide()`
+
+---
+
+## ランクB: 実践スキルを磨こう
+
+### 23-B-1
+
+平均値、中央値、標準偏差を同時に計算して返す関数`desc_stats()`を作成してください。引数には数値ベクトルを取り、結果は名前付きリストで返してください。
+
+`r hide("ヒント")`
+`mean()`、`median()`、`sd()`を使い、`list()`でまとめて返します。欠損値対策として`na.rm`引数も付けると親切です。
+`r unhide()`
+
+`r hide("模範解答")`
+```{r, eval=FALSE}
+desc_stats <- function(x, na.rm = TRUE) {
+  list(
+    mean = mean(x, na.rm = na.rm),
+    median = median(x, na.rm = na.rm),
+    sd = sd(x, na.rm = na.rm)
+  )
+}
+
+# テスト
+desc_stats(iris$Sepal.Length)
+desc_stats(c(10, 20, NA, 40, 50))
+```
+
+返り値をリストにすることで、複数の異なる型の情報をまとめて返すことができます。データフレームの1行として返す方法（`data.frame()`を使う）もあります。
+`r unhide()`
+
+---
+
+### 23-B-2
+
+FizzBuzz問題をforループで解いてください。1から30までの数について、15の倍数なら"FizzBuzz"、3の倍数なら"Fizz"、5の倍数なら"Buzz"、それ以外はその数字を文字列として格納する関数を作成してください。
+
+`r hide("ヒント")`
+`%%`は剰余演算子で、`i %% 3 == 0`は「iが3で割り切れる」を意味します。判定の順序に注意してください。15の倍数は3の倍数でもあり5の倍数でもあるので、15の判定を最初に行う必要があります。
+`r unhide()`
+
+`r hide("模範解答")`
+```{r, eval=FALSE}
+fizzbuzz <- function(n) {
+  result <- character(n)
+  for (i in 1:n) {
+    if (i %% 15 == 0) {
+      result[i] <- "FizzBuzz"
+    } else if (i %% 3 == 0) {
+      result[i] <- "Fizz"
+    } else if (i %% 5 == 0) {
+      result[i] <- "Buzz"
+    } else {
+      result[i] <- as.character(i)
+    }
+  }
+  result
+}
+
+fizzbuzz(30)
+```
+
+ポイント: `result <- character(n)`で事前にベクトルのサイズを確保しています。forループ内で`c()`を繰り返して結合するよりも、事前にサイズを確保する方がメモリ効率が良く高速です。
+`r unhide()`
+
+---
+
+### 23-B-3
+
+`iris`の数値列（1列目から4列目まで）について、`sapply()`を使って各列の平均値を求めてください。
+
+`r hide("ヒント")`
+`iris[, 1:4]`で数値列だけを取り出し、`sapply()`に`mean`関数を渡します。
+`r unhide()`
+
+`r hide("模範解答")`
+```{r, eval=FALSE}
+sapply(iris[, 1:4], mean)
+```
+
+`sapply()`はリストやデータフレームの各要素（列）に対して関数を適用し、結果をベクトルに簡略化して返します。forループで書くと4行以上必要になる処理が、1行で完結します。
+`r unhide()`
+
+---
+
+### 23-B-4
+
+カレントディレクトリにある複数のCSVファイルのパスがベクトル`file_paths`に格納されているとします。`lapply()`を使って、これらのファイルをすべて読み込み、リストとして保持するコードを書いてください。
+
+`r hide("ヒント")`
+`lapply(file_paths, readr::read_csv)`で各ファイルを読み込めます。実際に実行する場合はファイルが存在する必要があります。
+`r unhide()`
+
+`r hide("模範解答")`
+```{r, eval=FALSE}
+# ファイルパスのベクトル（例）
+file_paths <- c("../data/BaseballDecade.csv")
+
+# lapplyで一括読み込み
+data_list <- lapply(file_paths, readr::read_csv)
+
+# 各要素にアクセス
+data_list[[1]]
+```
+
+複数のCSVファイルを一括で読み込む場面は実務でよくあります。`lapply()`を使えば、ファイル数がいくつであっても同じコードで対応できます。
+`r unhide()`
+
+---
+
+### 23-B-5
+
+入力が数値ベクトルでない場合にエラーメッセージを返す関数`safe_mean()`を作成してください。`is.numeric()`で入力をチェックし、数値でなければ`stop()`でエラーを発生させてください。
+
+`r hide("ヒント")`
+`stop("メッセージ")`でエラーを発生させます。関数の先頭で入力チェックを行うのが一般的なパターンです。
+`r unhide()`
+
+`r hide("模範解答")`
+```{r, eval=FALSE}
+safe_mean <- function(x) {
+  if (!is.numeric(x)) {
+    stop("入力は数値ベクトルでなければなりません")
+  }
+  mean(x, na.rm = TRUE)
+}
+
+# 正常な呼び出し
+safe_mean(c(1, 2, 3, NA, 5))
+
+# エラーになる呼び出し
+# safe_mean(c("a", "b", "c"))
+```
+
+関数の先頭で入力を検証する（ガード節）パターンは、予期しないエラーの原因を特定しやすくするために重要です。`stopifnot(is.numeric(x))`という書き方もあります。
+`r unhide()`
+
+---
+
+### 23-B-6
+
+次のforループを`purrr::map_dbl()`を使って書き換えてください。
+
+```r
+# forループ版
+results <- c()
+for (i in 1:4) {
+  results <- c(results, sd(iris[[i]]))
+}
+names(results) <- names(iris)[1:4]
+```
+
+`r hide("ヒント")`
+`map_dbl()`に列番号のベクトルと、各列の標準偏差を計算するラムダ式を渡します。あるいは、データフレームを直接渡すこともできます。
+`r unhide()`
+
+`r hide("模範解答")`
+```{r, eval=FALSE}
+# map_dbl版（方法1: データフレームを直接渡す）
+purrr::map_dbl(iris[, 1:4], sd)
+
+# map_dbl版（方法2: 列番号で指定）
+purrr::map_dbl(1:4, ~ sd(iris[[.x]])) %>%
+  purrr::set_names(names(iris)[1:4])
+```
+
+forループ版では5行かかった処理が、`map_dbl()`では1行で書けます。返り値が数値ベクトルであることも型指定により保証されています。
+`r unhide()`
+
+---
+
+### 23-B-7
+
+`BaseballDecade.csv`を読み込み、球団（team）ごとに年俸（salary）を目的変数、身長（height）を説明変数とする回帰分析を実行してください。`purrr::map_df()`を使って、各球団の回帰係数（切片と傾き）をデータフレームにまとめてください。
+
+`r hide("ヒント")`
+`dplyr::group_split()`でデータを球団ごとに分割し、`map_df()`で各グループに対して`lm()`を実行します。結果を`broom::tidy()`でデータフレームに変換すると便利です。`broom`パッケージがない場合は`coef()`で係数を取り出して手動で`data.frame()`を作ります。
+`r unhide()`
+
+`r hide("模範解答")`
+```{r, eval=FALSE}
+df <- readr::read_csv("../data/BaseballDecade.csv")
+
+# 球団ごとに回帰分析を実行し、係数をデータフレームにまとめる
+df %>%
+  dplyr::group_split(team) %>%
+  purrr::map_df(function(d) {
+    model <- lm(salary ~ height, data = d)
+    coefs <- coef(model)
+    data.frame(
+      team = unique(d$team),
+      intercept = coefs[1],
+      slope = coefs[2]
+    )
+  })
+```
+
+`group_split()`は`group_by()`と違い、データフレームのリストを返します。これを`map_df()`に渡すことで、各グループに対して同じ処理を適用し、結果を1つのデータフレームに結合できます。
+`r unhide()`
+
+---
+
+### 23-B-8
+
+クロージャ（関数を返す関数）を使って、べき乗関数を生成する関数`make_power()`を作成してください。`make_power(2)`は2乗する関数を、`make_power(3)`は3乗する関数を返すようにしてください。
+
+`r hide("ヒント")`
+関数の中で別の関数を定義して`return()`で返します。外側の関数の引数は、内側の関数から参照できます（レキシカルスコープ）。
+`r unhide()`
+
+`r hide("模範解答")`
+```{r, eval=FALSE}
+make_power <- function(n) {
+  function(x) {
+    x^n
+  }
+}
+
+# 2乗する関数を生成
+square <- make_power(2)
+square(5)   # 25
+
+# 3乗する関数を生成
+cube <- make_power(3)
+cube(5)     # 125
+
+# 直接呼び出しも可能
+make_power(4)(2)  # 16
+```
+
+これは**クロージャ**と呼ばれるパターンです。`make_power(2)`を呼び出すと、`n = 2`という環境を記憶した新しい関数が生成されます。関数型プログラミングの重要な概念で、パラメータ化された処理を柔軟に生成できます。
+`r unhide()`
+
+---
+
+### 23-B-9
+
+3行4列の行列を作成し、`apply()`を使って行ごとの合計と列ごとの平均を計算してください。
+
+`r hide("ヒント")`
+`matrix()`で行列を作り、`apply(mat, 1, sum)`で行合計、`apply(mat, 2, mean)`で列平均を計算します。
+`r unhide()`
+
+`r hide("模範解答")`
+```{r, eval=FALSE}
+# 行列の作成
+mat <- matrix(1:12, nrow = 3, ncol = 4)
+mat
+
+# 行ごとの合計（MARGIN = 1）
+apply(mat, 1, sum)
+
+# 列ごとの平均（MARGIN = 2）
+apply(mat, 2, mean)
+```
+
+`MARGIN = 1`で行方向、`MARGIN = 2`で列方向に関数を適用します。行列データに対する集計で頻繁に使うパターンです。なお、行合計や列合計については`rowSums()`、`colSums()`、`rowMeans()`、`colMeans()`という専用関数もあり、こちらの方が高速です。
+`r unhide()`
+
+---
+
+### 23-B-10
+
+forループ、`sapply()`、`purrr::map_dbl()`の3つの方法で、`iris`の数値列（1〜4列）の標準偏差を計算し、`system.time()`で実行時間を比較してください。
+
+`r hide("ヒント")`
+正確な比較をするためには、十分な回数（例えば10000回）繰り返すと差が見えやすくなります。`replicate()`を使うと便利です。
+`r unhide()`
+
+`r hide("模範解答")`
+```{r, eval=FALSE}
+n_rep <- 10000
+
+# forループ版
+system.time(replicate(n_rep, {
+  result <- c()
+  for (i in 1:4) {
+    result <- c(result, sd(iris[[i]]))
+  }
+  result
+}))
+
+# sapply版
+system.time(replicate(n_rep, {
+  sapply(iris[, 1:4], sd)
+}))
+
+# map_dbl版
+system.time(replicate(n_rep, {
+  purrr::map_dbl(iris[, 1:4], sd)
+}))
+```
+
+この程度の小さなデータでは大きな差は出ませんが、データが大きくなるにつれて`sapply()`や`map_dbl()`の方がforループより効率的になる傾向があります。ただし、Rのパフォーマンスで最も重要なのは**ベクトル化された関数を使うこと**であり、forループかmap系かの差は実用上は小さいことが多いです。
+`r unhide()`
+
+---
+
+## ランクA: AI協働に挑戦しよう
+
+### 23-A-1
+
+**課題**: 以下のforループを使ったコードを、AIに相談しながら`purrr::map()`系の関数を使ってリファクタリング（書き直し）してください。
+
+```r
+# BaseballDecade.csvを読み込み、年度ごとの要約統計量を計算する
+df <- readr::read_csv("../data/BaseballDecade.csv")
+years <- unique(df$Year)
+results <- list()
+for (i in seq_along(years)) {
+  sub_df <- df[df$Year == years[i], ]
+  results[[i]] <- data.frame(
+    Year = years[i],
+    n = nrow(sub_df),
+    mean_salary = mean(sub_df$salary, na.rm = TRUE),
+    sd_salary = sd(sub_df$salary, na.rm = TRUE),
+    max_salary = max(sub_df$salary, na.rm = TRUE)
+  )
+}
+final <- do.call(rbind, results)
+```
+
+AIとの対話を通じて：
+
+1. このコードが何をしているかをAIに説明してもらう
+2. `map_df()`や`group_by() + summarise()`で書き換える方法を検討する
+3. どちらの方法がより読みやすいか、保守しやすいかを議論する
+
+**提出物**: AIとの対話ログ、リファクタリング後のコード、考察。
+
+---
+
+### 23-A-2
+
+**課題**: `BaseballDecade.csv`を分析するための「カスタム分析パイプライン関数」を、AIと協力して設計・実装してください。
+
+この関数は以下の仕様を満たしてください：
+
+- 引数: データフレーム、グループ変数名（文字列）、分析対象の数値変数名（文字列）
+- 処理: 指定したグループ変数でグループ化し、指定した数値変数について記述統計（平均、標準偏差、中央値、最小値、最大値、ケース数）を計算
+- 返り値: 整然データ形式のデータフレーム
+- エラーチェック: 指定した変数名がデータに存在しない場合は適切なエラーメッセージを出す
+
+AIに相談しながら：
+
+1. 関数の設計（引数、返り値の形式）を決める
+2. エラーチェックのパターンを検討する
+3. 実装し、`BaseballDecade.csv`でテストする
+4. 必要に応じて機能を拡張する（例: 複数のグループ変数、可視化オプションなど）
+
+**提出物**: AIとの対話の記録、完成した関数のコード、テスト結果、設計上の工夫点。
+
+---
+
+## まとめ
+
+このユニットでは、Rのプログラミング基礎概念を学びました：
+
+- **関数定義**: `function()`で自作関数を作り、処理を再利用できる。デフォルト引数やスコープを理解することで、堅牢な関数が書ける
+- **制御構造**: `if`/`else`で条件分岐、`for`/`while`で繰り返し処理ができる
+- **apply族**: `apply()`、`lapply()`、`sapply()`でループを簡潔に書き換えられる
+- **purrr::map()**: tidyverse流の関数型プログラミングで、型安全かつ可読性の高いコードが書ける
+
+コード自体はAIに書いてもらえる時代ですが、「どういう関数を作るべきか」「どのように問題を分解するか」というアルゴリズム的思考は、AIに的確な指示を出すためにも不可欠です。
+
+---
+
+進捗: あなたは今 **23-C-8** まで完了しました！（と仮定）次は **23-B-1** に進みましょう。

@@ -1,0 +1,1429 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>U8. tidyr: ワイド⇔ロング変換 – Kosugi Labo</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-a25750924116104412f7a457768fb952.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "一致なし",
+    "search-matching-documents-text": "一致した文書",
+    "search-copy-link-title": "検索へのリンクをコピー",
+    "search-hide-matches-text": "追加の検索結果を非表示",
+    "search-more-match-text": "追加の検索結果",
+    "search-more-matches-text": "追加の検索結果",
+    "search-clear-button-title": "消去",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "検索",
+    "search-label": "サーチ"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../include/webex.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Kosugi Labo</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="サーチ"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="ナビゲーションを切り替える" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">ホーム</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">ゼミガイド</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-">    
+        <li>
+    <a class="dropdown-item" href="../zemi-policy.html">
+ <span class="dropdown-text">ゼミの運営方針</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../research-guide.html">
+ <span class="dropdown-text">研究の進め方</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../writing-guide.html">
+ <span class="dropdown-text">文章の読み書き</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../anti-harassment.html">
+ <span class="dropdown-text">アンチハラスメントポリシー</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu--1" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">技術ガイド</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu--1">    
+        <li>
+    <a class="dropdown-item" href="../tech-guide/github-setup.html">
+ <span class="dropdown-text">GitHub</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tech-guide/vscode-setup.html">
+ <span class="dropdown-text">VSCode</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tech-guide/latex-setup.html">
+ <span class="dropdown-text">LaTeX</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tech-guide/ssh-remote.html">
+ <span class="dropdown-text">SSH接続</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tech-guide/tailscale.html">
+ <span class="dropdown-text">Tailscale</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-rチュートリアル" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Rチュートリアル</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-rチュートリアル">    
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/index.html">
+ <span class="dropdown-text">はじめに</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/r-basics.html">
+ <span class="dropdown-text">Rの基礎</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/data-handling.html">
+ <span class="dropdown-text">データの読み込み</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/tidyverse.html">
+ <span class="dropdown-text">tidyverse入門</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/visualization.html">
+ <span class="dropdown-text">可視化ギャラリー</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U2-data-types.html">
+ <span class="dropdown-text">U2. データ型とオブジェクト</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U7-dplyr.html">
+ <span class="dropdown-text">U7. dplyr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U8-tidyr.html">
+ <span class="dropdown-text">U8. tidyr</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../members.html"> 
+<span class="menu-text">メンバー</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../server-status.html"> 
+<span class="menu-text">サーバー状況</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../feedback.html"> 
+<span class="menu-text">フィードバック</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">目次</h2>
+   
+  <ul>
+  <li><a href="#ユニット概要" id="toc-ユニット概要" class="nav-link active" data-scroll-target="#ユニット概要">ユニット概要</a></li>
+  <li><a href="#事前知識-整然データtidy-dataとは" id="toc-事前知識-整然データtidy-dataとは" class="nav-link" data-scroll-target="#事前知識-整然データtidy-dataとは">事前知識: 整然データ（Tidy Data）とは</a>
+  <ul class="collapse">
+  <li><a href="#データ分析におけるデータの持ち方の重要性" id="toc-データ分析におけるデータの持ち方の重要性" class="nav-link" data-scroll-target="#データ分析におけるデータの持ち方の重要性">データ分析における「データの持ち方」の重要性</a></li>
+  <li><a href="#機械判読可能なデータの原則" id="toc-機械判読可能なデータの原則" class="nav-link" data-scroll-target="#機械判読可能なデータの原則">機械判読可能なデータの原則</a></li>
+  <li><a href="#整然データtidy-dataの4原則" id="toc-整然データtidy-dataの4原則" class="nav-link" data-scroll-target="#整然データtidy-dataの4原則">整然データ（Tidy Data）の4原則</a></li>
+  <li><a href="#ロング型とワイド型の使い分け" id="toc-ロング型とワイド型の使い分け" class="nav-link" data-scroll-target="#ロング型とワイド型の使い分け">ロング型とワイド型の使い分け</a></li>
+  <li><a href="#ワイド型とロング型" id="toc-ワイド型とロング型" class="nav-link" data-scroll-target="#ワイド型とロング型">ワイド型とロング型</a></li>
+  <li><a href="#ロング型データの利点" id="toc-ロング型データの利点" class="nav-link" data-scroll-target="#ロング型データの利点">ロング型データの利点</a></li>
+  </ul></li>
+  <li><a href="#ランクc-基礎知識を確認しよう" id="toc-ランクc-基礎知識を確認しよう" class="nav-link" data-scroll-target="#ランクc-基礎知識を確認しよう">ランクC: 基礎知識を確認しよう</a>
+  <ul class="collapse">
+  <li><a href="#c-1" id="toc-c-1" class="nav-link" data-scroll-target="#c-1">8-C-1</a></li>
+  <li><a href="#c-2" id="toc-c-2" class="nav-link" data-scroll-target="#c-2">8-C-2</a></li>
+  <li><a href="#c-3" id="toc-c-3" class="nav-link" data-scroll-target="#c-3">8-C-3</a></li>
+  <li><a href="#c-4" id="toc-c-4" class="nav-link" data-scroll-target="#c-4">8-C-4</a></li>
+  <li><a href="#c-5" id="toc-c-5" class="nav-link" data-scroll-target="#c-5">8-C-5</a></li>
+  <li><a href="#c-6" id="toc-c-6" class="nav-link" data-scroll-target="#c-6">8-C-6</a></li>
+  <li><a href="#c-7" id="toc-c-7" class="nav-link" data-scroll-target="#c-7">8-C-7</a></li>
+  <li><a href="#c-8" id="toc-c-8" class="nav-link" data-scroll-target="#c-8">8-C-8</a></li>
+  </ul></li>
+  <li><a href="#ランクb-実践スキルを磨こう" id="toc-ランクb-実践スキルを磨こう" class="nav-link" data-scroll-target="#ランクb-実践スキルを磨こう">ランクB: 実践スキルを磨こう</a>
+  <ul class="collapse">
+  <li><a href="#b-1" id="toc-b-1" class="nav-link" data-scroll-target="#b-1">8-B-1</a></li>
+  <li><a href="#b-2" id="toc-b-2" class="nav-link" data-scroll-target="#b-2">8-B-2</a></li>
+  <li><a href="#b-3" id="toc-b-3" class="nav-link" data-scroll-target="#b-3">8-B-3</a></li>
+  <li><a href="#b-4" id="toc-b-4" class="nav-link" data-scroll-target="#b-4">8-B-4</a></li>
+  <li><a href="#b-5" id="toc-b-5" class="nav-link" data-scroll-target="#b-5">8-B-5</a></li>
+  <li><a href="#b-6" id="toc-b-6" class="nav-link" data-scroll-target="#b-6">8-B-6</a></li>
+  </ul></li>
+  <li><a href="#ランクa-ai協働に挑戦しよう" id="toc-ランクa-ai協働に挑戦しよう" class="nav-link" data-scroll-target="#ランクa-ai協働に挑戦しよう">ランクA: AI協働に挑戦しよう</a>
+  <ul class="collapse">
+  <li><a href="#a-1" id="toc-a-1" class="nav-link" data-scroll-target="#a-1">8-A-1</a></li>
+  <li><a href="#a-2" id="toc-a-2" class="nav-link" data-scroll-target="#a-2">8-A-2</a></li>
+  <li><a href="#a-3" id="toc-a-3" class="nav-link" data-scroll-target="#a-3">8-A-3</a></li>
+  </ul></li>
+  <li><a href="#まとめ" id="toc-まとめ" class="nav-link" data-scroll-target="#まとめ">まとめ</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">U8. tidyr: ワイド⇔ロング変換</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="ユニット概要" class="level2">
+<h2 class="anchored" data-anchor-id="ユニット概要">ユニット概要</h2>
+<p><strong>分類</strong>: 幹（全員必須）</p>
+<p><strong>依存関係</strong>: U0 → U1 → U2 → U4 → U5 → U6 → U7 → <strong>U8</strong></p>
+<p><strong>学習目標</strong>:</p>
+<ul>
+<li>整然データ（Tidy Data）の概念を理解する</li>
+<li>ワイド型とロング型の違いを理解し、使い分けられる</li>
+<li><code>pivot_longer()</code>でワイド型をロング型に変換できる</li>
+<li><code>pivot_wider()</code>でロング型をワイド型に変換できる</li>
+<li>データの形状を自由に変えることで、可視化や分析を柔軟に行える</li>
+</ul>
+<hr>
+</section>
+<section id="事前知識-整然データtidy-dataとは" class="level2">
+<h2 class="anchored" data-anchor-id="事前知識-整然データtidy-dataとは">事前知識: 整然データ（Tidy Data）とは</h2>
+<section id="データ分析におけるデータの持ち方の重要性" class="level3">
+<h3 class="anchored" data-anchor-id="データ分析におけるデータの持ち方の重要性">データ分析における「データの持ち方」の重要性</h3>
+<p>ここまでみてきたデータは行列の2次元に、ケース×変数の形で格納されていました。この形式は、人間が見て管理するときにわかりやすい形式をしていますが、<strong>計算機にとっては必ずしもそうではありません</strong>。</p>
+<p>たとえば「神エクセル」と揶揄されることがあるように、稀に表計算ソフトを方眼紙ソフトあるいは原稿用紙ソフトと勘違いしたかのような使い方がなされる場合があります。人間にとってはわかりやすい（見て把握しやすい）かもしれませんが、計算機にとって構造が把握できないため、データ解析に不向きです。巷には、こうした分析しにくい電子データがまだまだたくさん存在します。</p>
+</section>
+<section id="機械判読可能なデータの原則" class="level3">
+<h3 class="anchored" data-anchor-id="機械判読可能なデータの原則">機械判読可能なデータの原則</h3>
+<p>これをうけて2020年12月、総務省により機械判読可能なデータの表記方法の統一ルールが策定されました。それには次のようなチェック項目が含まれています：</p>
+<ul>
+<li>ファイル形式はExcelかCSVとなっているか</li>
+<li>1セル1データとなっているか</li>
+<li>数値データは数値属性とし、文字列を含まないこと</li>
+<li>セルの結合をしていないか</li>
+<li>スペースや改行等で体裁を整えていないか</li>
+<li>項目名を省略していないか</li>
+<li>数式を使用している場合は、数値データに修正しているか</li>
+<li>オブジェクトを使用していないか</li>
+<li>データの単位を記載しているか</li>
+<li>機種依存文字を使用していないか</li>
+<li>データが分断されていないか</li>
+<li>1シートに複数の表が掲載されていないか</li>
+</ul>
+<p><strong>データの入力の基本は、1行に1ケースの情報が入っている、過不足のない1つのデータセットを作ること</strong>といえるでしょう。</p>
+</section>
+<section id="整然データtidy-dataの4原則" class="level3">
+<h3 class="anchored" data-anchor-id="整然データtidy-dataの4原則">整然データ（Tidy Data）の4原則</h3>
+<p>同様に、計算機にとって分析しやすいデータの形について、Hadley Wickhamが提唱したのが<strong>整然データ（Tidy Data）</strong>という考え方です。整然データとは、次の4つの特徴を持ったデータ形式のことを指します：</p>
+<ol type="1">
+<li><strong>個々の変数（variable）が1つの列（column）をなす</strong></li>
+<li><strong>個々の観測（observation）が1つの行（row）をなす</strong></li>
+<li><strong>個々の観測の構成単位の類型（type of observational unit）が1つの表（table）をなす</strong></li>
+<li><strong>個々の値（value）が1つのセル（cell）をなす</strong></li>
+</ol>
+<p>この形式のデータであれば、計算機が変数と値の対応構造を把握しやすく、分析しやすいデータになります。<strong>データハンドリングの目的は、混乱している雑多なデータを、利用しやすい整然データの形に整えることであると言っても過言ではありません</strong>。</p>
+</section>
+<section id="ロング型とワイド型の使い分け" class="level3">
+<h3 class="anchored" data-anchor-id="ロング型とワイド型の使い分け">ロング型とワイド型の使い分け</h3>
+<p>さて、ここでよく考えてみると、<strong>変数名も一つの変数だ</strong>と考えることに気づきます。</p>
+</section>
+<section id="ワイド型とロング型" class="level3">
+<h3 class="anchored" data-anchor-id="ワイド型とロング型">ワイド型とロング型</h3>
+<p>同じ情報でも、データの「持ち方」によって扱いやすさが変わります。</p>
+<p><strong>ワイド型（横持ち）</strong>:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th>午前</th>
+<th>午後</th>
+<th>夕方</th>
+<th>深夜</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>東京</td>
+<td>晴</td>
+<td>晴</td>
+<td>雨</td>
+<td>雨</td>
+</tr>
+<tr class="even">
+<td>大阪</td>
+<td>晴</td>
+<td>曇</td>
+<td>晴</td>
+<td>晴</td>
+</tr>
+<tr class="odd">
+<td>福岡</td>
+<td>晴</td>
+<td>曇</td>
+<td>曇</td>
+<td>雨</td>
+</tr>
+</tbody>
+</table>
+<p>人間が見やすい形式ですが、「大阪・夕方の天気」を参照するには行と列の両方のラベルが必要です。</p>
+<p><strong>ロング型（縦持ち）</strong>:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>地域</th>
+<th>時間帯</th>
+<th>天候</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>東京</td>
+<td>午前</td>
+<td>晴</td>
+</tr>
+<tr class="even">
+<td>東京</td>
+<td>午後</td>
+<td>晴</td>
+</tr>
+<tr class="odd">
+<td>東京</td>
+<td>夕方</td>
+<td>雨</td>
+</tr>
+<tr class="even">
+<td>大阪</td>
+<td>午前</td>
+<td>晴</td>
+</tr>
+<tr class="odd">
+<td>大阪</td>
+<td>午後</td>
+<td>曇</td>
+</tr>
+<tr class="even">
+<td>大阪</td>
+<td>夕方</td>
+<td>晴</td>
+</tr>
+<tr class="odd">
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+</tbody>
+</table>
+<p>このデータが表す情報は同じですが、<strong>大阪・夕方の条件を絞り込むことは行選択だけでよく、計算機にとって使いやすい</strong>のです。この形式をロング型データ、あるいは「縦持ち」データといいます。これに対して前者の形式をワイド型データ、あるいは「横持ち」データといいます。</p>
+</section>
+<section id="ロング型データの利点" class="level3">
+<h3 class="anchored" data-anchor-id="ロング型データの利点">ロング型データの利点</h3>
+<p>ロング型データにする利点のひとつは、<strong>欠測値の扱い</strong>です。ワイド型データで欠測値が含まれる場合、その行あるいは列全体を削除するのは無駄が多く、かと言って行・列両方を特定するのは技術的にも面倒です。これに対しロング型データの場合は、当該行を絞り込んで削除するだけで良いのです。</p>
+<p>また、<strong>ggplot2で色分けやfacet分割をする際はロング型が便利</strong>です。<code>aes(color = 変数名)</code>のように、色分けの基準となる変数を1つの列として持つ必要があるため、ロング型の方が扱いやすくなります。</p>
+<p>tidyverse（正確にはtidyr）には、このようなロング型データ、ワイド型データの変換関数（<code>pivot_longer()</code>と<code>pivot_wider()</code>）が用意されています。</p>
+<hr>
+</section>
+</section>
+<section id="ランクc-基礎知識を確認しよう" class="level2">
+<h2 class="anchored" data-anchor-id="ランクc-基礎知識を確認しよう">ランクC: 基礎知識を確認しよう</h2>
+<section id="c-1" class="level3">
+<h3 class="anchored" data-anchor-id="c-1">8-C-1</h3>
+<p>整然データ（Tidy Data）では、1つの変数が1つの列に対応する。</p>
+<p><select class="webex-select"><option value="blank"></option><option value="answer">TRUE</option><option value="">FALSE</option></select></p>
+<div class="webex-solution">
+<button>
+解説
+</button>
+<p>これは整然データの第1の特徴です。変数が複数の列に分散していると、分析が困難になります。</p>
+</div>
+<hr>
+</section>
+<section id="c-2" class="level3">
+<h3 class="anchored" data-anchor-id="c-2">8-C-2</h3>
+<p>ロング型データはワイド型データより常に優れている。</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">TRUE</option><option value="answer">FALSE</option></select></p>
+<div class="webex-solution">
+<button>
+解説
+</button>
+<p>どちらが優れているかは<strong>用途によります</strong>。人間が見て理解する場合や、クロス集計表を作る場合はワイド型が便利です。一方、プログラムで処理する場合や、ggplot2で可視化する場合はロング型が扱いやすいです。</p>
+</div>
+<hr>
+</section>
+<section id="c-3" class="level3">
+<h3 class="anchored" data-anchor-id="c-3">8-C-3</h3>
+<p>次のワイド型データを見てください。これは整然データ（Tidy Data）の条件を満たしていますか？</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th>午前</th>
+<th>午後</th>
+<th>夕方</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>東京</td>
+<td>晴</td>
+<td>晴</td>
+<td>雨</td>
+</tr>
+<tr class="even">
+<td>大阪</td>
+<td>晴</td>
+<td>曇</td>
+<td>晴</td>
+</tr>
+</tbody>
+</table>
+<p><select class="webex-select"><option value="blank"></option><option value="">はい、満たしている</option><option value="answer">いいえ、満たしていない</option></select></p>
+<div class="webex-solution">
+<button>
+解説
+</button>
+<p>このデータは整然データの条件を満たしていません。なぜなら、「時間帯」という変数が複数の列（午前・午後・夕方）に分散しているからです。各観測（例：東京・午前・晴）が1行になっていないため、整然データではありません。</p>
+</div>
+<hr>
+</section>
+<section id="c-4" class="level3">
+<h3 class="anchored" data-anchor-id="c-4">8-C-4</h3>
+<p>ワイド型データをロング型に変換するtidyr関数は次のうちどれですか？</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">pivot_wider</option><option value="answer">pivot_longer</option><option value="">spread</option><option value="">gather</option></select></p>
+<div class="webex-solution">
+<button>
+解説
+</button>
+<p><code>pivot_longer()</code>は、複数の列を「name（変数名）」と「value（値）」の2列に集約する関数です。<code>spread()</code>と<code>gather()</code>は古い関数で、現在は<code>pivot_wider()</code>と<code>pivot_longer()</code>の使用が推奨されています。</p>
+</div>
+<hr>
+</section>
+<section id="c-5" class="level3">
+<h3 class="anchored" data-anchor-id="c-5">8-C-5</h3>
+<p>次のコードを見てください。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">%&gt;%</span> <span class="fu">pivot_longer</span>(<span class="sc">-</span>Species)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<p>ここで<code>-Species</code>は何を意味していますか？</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">Speciesだけをロング化する</option><option value="answer">Species以外の列をロング化する</option><option value="">Speciesを削除する</option><option value="">Speciesを数値にする</option></select></p>
+<div class="webex-solution">
+<button>
+解説
+</button>
+<p><code>select()</code>関数と同様、<code>-</code>（マイナス）は「除外」を意味します。つまりSpecies列は軸として残し、それ以外の列（Sepal.Length, Sepal.Width, Petal.Length, Petal.Width）をロング化します。</p>
+</div>
+<hr>
+</section>
+<section id="c-6" class="level3">
+<h3 class="anchored" data-anchor-id="c-6">8-C-6</h3>
+<p><code>pivot_wider()</code>で、元の変数名がどの列に入っているかを指定するパラメータは次のうちどれですか？</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">id_cols</option><option value="answer">names_from</option><option value="">values_from</option><option value="">key</option></select></p>
+<div class="webex-solution">
+<button>
+解説
+</button>
+<p><code>pivot_wider(names_from = 列名, values_from = 列名)</code>という形で使います。<code>names_from</code>で指定した列の値が新しい列名になり、<code>values_from</code>で指定した列の値がセルの中身になります。</p>
+</div>
+<hr>
+</section>
+<section id="c-7" class="level3">
+<h3 class="anchored" data-anchor-id="c-7">8-C-7</h3>
+<p>ggplot2で、種別ごとに色を変えた散布図を描きたい場合、データはワイド型とロング型のどちらが扱いやすいですか？</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">ワイド型</option><option value="answer">ロング型</option><option value="">どちらでも同じ</option></select></p>
+<div class="webex-solution">
+<button>
+解説
+</button>
+<p>ggplot2では<code>aes(color = 変数名)</code>のように、色分けの基準となる変数を1つの列として持つ必要があります。したがってロング型の方が扱いやすいです。ワイド型の場合、複数の列を指定することになり、コードが複雑になります。</p>
+</div>
+<hr>
+</section>
+<section id="c-8" class="level3">
+<h3 class="anchored" data-anchor-id="c-8">8-C-8</h3>
+<p>次のデータを見てください。</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 4
+     ID  国語  数学  英語
+  &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1     1    80    75    90
+2     2    70    85    80
+3     3    90    65    70</code></pre>
+</div>
+</div>
+<p>このデータを<code>pivot_longer(-ID)</code>でロング化すると、結果は何行になりますか？</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">3行</option><option value="">6行</option><option value="answer">9行</option><option value="">12行</option></select></p>
+<div class="webex-solution">
+<button>
+解説
+</button>
+<p>元のデータは3行です。ID列を軸として、3つの科目列（国語・数学・英語）をロング化するので、3行 × 3科目 = 9行になります。</p>
+</div>
+<hr>
+</section>
+</section>
+<section id="ランクb-実践スキルを磨こう" class="level2">
+<h2 class="anchored" data-anchor-id="ランクb-実践スキルを磨こう">ランクB: 実践スキルを磨こう</h2>
+<section id="b-1" class="level3">
+<h3 class="anchored" data-anchor-id="b-1">8-B-1</h3>
+<p><code>iris</code>データセットをロング型に変換してください。<code>Species</code>列を軸として、それ以外の列（4つの測定値）を<code>name</code>と<code>value</code>の2列にまとめてください。</p>
+<div class="webex-solution">
+<button>
+ヒント
+</button>
+<p><code>pivot_longer()</code>関数を使います。第一引数は「ロング化したい列」を指定しますが、<code>-Species</code>とすれば「Species以外」を意味します。</p>
+</div>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">%&gt;%</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>Species)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>結果は600行（150個体 × 4測定値）のロング型データになります。<code>name</code>列に測定値の名前（Sepal.Length等）、<code>value</code>列に実測値が入ります。</p>
+</div>
+<hr>
+</section>
+<section id="b-2" class="level3">
+<h3 class="anchored" data-anchor-id="b-2">8-B-2</h3>
+<p>8-B-1で作ったロング型データを、元のワイド型に戻してください。ただし、IDがないため正しく戻らない場合があることに注意してください。</p>
+<div class="webex-solution">
+<button>
+ヒント
+</button>
+<p><code>pivot_wider()</code>を使います。<code>names_from</code>と<code>values_from</code>のパラメータが必要です。また、個体を識別するIDがない場合、同じSpeciesの個体が混ざってしまう可能性があります。</p>
+</div>
+<div class="webex-solution">
+<button>
+注意点
+</button>
+<p>元のirisデータには個体IDがありません。そのため、pivot_longerでロング化した後にpivot_widerで戻すと、Speciesごとに値が集約されてしまいます。これを防ぐには、最初に<code>rowid_to_column("ID")</code>で行番号を追加する必要があります。</p>
+</div>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<p><strong>正しい方法（IDを付与する）:</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowid_to_column</span>(<span class="st">"ID"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span><span class="fu">c</span>(ID, Species)) <span class="sc">%&gt;%</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> <span class="fu">c</span>(ID, Species), <span class="at">names_from =</span> name, <span class="at">values_from =</span> value)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>失敗する方法（参考）:</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># これだとSpeciesごとに集約されてしまう</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">%&gt;%</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>Species) <span class="sc">%&gt;%</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> name, <span class="at">values_from =</span> value)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>個体を識別するIDがないと、<code>pivot_wider()</code>は同じSpeciesの値をまとめてしまいます。この問題から、ワイド⇔ロング変換には<strong>個体IDが必要</strong>であることを学んでください。</p>
+</div>
+<hr>
+</section>
+<section id="b-3" class="level3">
+<h3 class="anchored" data-anchor-id="b-3">8-B-3</h3>
+<p><code>BaseballDecade.csv</code>を読み込み、年度（Year）と球団（team）ごとの平均年俸（salary）を集計して、ワイド型の表を作成してください。行が年度、列が球団名になるようにしてください。</p>
+<div class="webex-solution">
+<button>
+ヒント
+</button>
+<p>手順： 1. <code>read_csv()</code>でデータを読み込む 2. <code>group_by(Year, team)</code>でグループ化 3. <code>summarise(mean_salary = mean(salary, na.rm = TRUE))</code>で平均を計算 4. <code>pivot_wider(names_from = team, values_from = mean_salary)</code>でワイド化</p>
+</div>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"../data/BaseballDecade.csv"</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>df_wide <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Year, team) <span class="sc">%&gt;%</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_salary =</span> <span class="fu">mean</span>(salary, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> team, <span class="at">values_from =</span> mean_salary)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>df_wide</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>結果は年度が行、球団名が列のワイド型の表になります。この形式は人間が見やすいですが、ggplot2で可視化する場合はロング型の方が便利です。</p>
+</div>
+<hr>
+</section>
+<section id="b-4" class="level3">
+<h3 class="anchored" data-anchor-id="b-4">8-B-4</h3>
+<p>8-B-3で作成したワイド型の表を、再びロング型に戻してください。年度（Year）を軸として、球団名と平均年俸の2列にしてください。</p>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>df_long <span class="ot">&lt;-</span> df_wide <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>Year, <span class="at">names_to =</span> <span class="st">"team"</span>, <span class="at">values_to =</span> <span class="st">"mean_salary"</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>df_long</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><code>pivot_longer()</code>の<code>names_to</code>で新しい列名（球団名）を、<code>values_to</code>で値の列名（平均年俸）を指定できます。デフォルトでは<code>name</code>と<code>value</code>ですが、明示的に指定することで意味が分かりやすくなります。</p>
+</div>
+<hr>
+</section>
+<section id="b-5" class="level3">
+<h3 class="anchored" data-anchor-id="b-5">8-B-5</h3>
+<p><code>iris</code>データをロング型にし、<code>name</code>列（測定値の種類）ごとに分けた箱ひげ図を描いてください。<code>facet_wrap(~name)</code>を使って、4つの測定値を別々のパネルに表示してください。</p>
+<div class="webex-solution">
+<button>
+ヒント
+</button>
+<p>ロング型にすることで、<code>name</code>列（測定値の種類）でfacet分割できます。<code>scales = "free_y"</code>を指定すると、各パネルのY軸スケールが独立します。</p>
+</div>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>Species) <span class="sc">%&gt;%</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Species, <span class="at">y =</span> value, <span class="at">fill =</span> Species)) <span class="sc">+</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>name, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"アヤメ3種の測定値比較"</span>, <span class="at">y =</span> <span class="st">"測定値 (cm)"</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>ロング型にすることで、複数の測定値を一度にfacet表示できます。ワイド型のままだと、各測定値ごとに個別のggplotコードを書く必要があり、非効率です。これがロング型の威力です。</p>
+</div>
+<hr>
+</section>
+<section id="b-6" class="level3">
+<h3 class="anchored" data-anchor-id="b-6">8-B-6</h3>
+<p><code>BaseballDecade.csv</code>から、年度（Year）と球団（team）ごとに、平均年俸（mean）と標準偏差（sd）の両方を計算し、ワイド型の表にまとめてください。列名は「球団名_mean」「球団名_sd」のようになるはずです。</p>
+<div class="webex-solution">
+<button>
+ヒント
+</button>
+<p><code>summarise()</code>で複数の統計量を計算した後、<code>pivot_longer()</code>で一旦ロング化し、<code>names_sep</code>や<code>names_to</code>オプションを使って整形してから<code>pivot_wider()</code>でワイド化する方法があります。または<code>pivot_wider()</code>の<code>names_glue</code>オプションを活用します。</p>
+</div>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"../data/BaseballDecade.csv"</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 方法1: pivot_wider()のnames_gluを使う方法</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>df_wide1 <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Year, team) <span class="sc">%&gt;%</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_salary =</span> <span class="fu">mean</span>(salary, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd_salary =</span> <span class="fu">sd</span>(salary, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span><span class="fu">c</span>(Year, team), <span class="at">names_to =</span> <span class="st">"stat"</span>, <span class="at">values_to =</span> <span class="st">"value"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">id_cols =</span> Year,</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> <span class="fu">c</span>(team, stat),</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_from =</span> value,</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_sep =</span> <span class="st">"_"</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>df_wide1</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>この問題は少し複雑です。一旦ロング化してから、<code>team</code>と<code>stat</code>（mean/sd）の組み合わせで列名を作ります。<code>names_sep = "_"</code>で「Giants_mean_salary」のような列名になります。</p>
+<p>複数の統計量をワイド型にまとめる操作は、集計表を作る際によく使われます。</p>
+</div>
+<hr>
+</section>
+</section>
+<section id="ランクa-ai協働に挑戦しよう" class="level2">
+<h2 class="anchored" data-anchor-id="ランクa-ai協働に挑戦しよう">ランクA: AI協働に挑戦しよう</h2>
+<section id="a-1" class="level3">
+<h3 class="anchored" data-anchor-id="a-1">8-A-1</h3>
+<p><strong>課題</strong>: <code>BaseballDecade.csv</code>に含まれるワイド型データ（年度×球団の平均年俸）を使って、球団ごとの年俸推移を折れ線グラフで可視化したいと考えています。</p>
+<p>あなたがAI（ChatGPT、Claude、GitHub Copilotなど）に指示を出して、この可視化を実現してください。AIとの対話を通じて：</p>
+<ol type="1">
+<li>どのようなデータ変換が必要か（ワイド→ロングなど）</li>
+<li>どのようなggplot2のコードが適切か</li>
+</ol>
+<p>を明確にし、実際に動作するコードを完成させてください。</p>
+<p><strong>提出物</strong>: AIとの対話のスクリーンショット、または完成したコードとグラフをゼミで共有してください。</p>
+<hr>
+</section>
+<section id="a-2" class="level3">
+<h3 class="anchored" data-anchor-id="a-2">8-A-2</h3>
+<p><strong>課題</strong>: <code>iris</code>データセットには、3種のアヤメについて4つの測定値（Sepal.Length, Sepal.Width, Petal.Length, Petal.Width）が記録されています。</p>
+<p>種ごとに測定値の分布を比較できる図を描きたいと思います。どのような図が適切か考え、AIに相談しながら実現してください。</p>
+<p><strong>提出物</strong>: AIとの対話ログ、完成した図、どのような意図でその図を選んだかの説明をゼミで共有してください。</p>
+<hr>
+</section>
+<section id="a-3" class="level3">
+<h3 class="anchored" data-anchor-id="a-3">8-A-3</h3>
+<p><strong>課題</strong>: <code>BaseballDecade.csv</code>から、年度×球団ごとの複数統計量（平均年俸・標準偏差・最大値・最小値）をワイド型の表にまとめたいと思います。その後、年度ごとの球団間ばらつき（標準偏差など）を可視化したいと考えています。</p>
+<p>AIに相談しながらこれを実現してください。データ整形の手順が複雑になるため、どのように問題を分解してAIに伝えるかが重要です。</p>
+<p><strong>提出物</strong>: - AIとの対話の記録（どのように問題を分解して伝えたか） - 完成したワイド型の表（一部でOK） - 可視化した図 - うまくいかなかった点、学んだ点</p>
+<p>をゼミで共有してください。</p>
+<hr>
+</section>
+</section>
+<section id="まとめ" class="level2">
+<h2 class="anchored" data-anchor-id="まとめ">まとめ</h2>
+<p>このユニットでは、ワイド型とロング型の変換を学びました。データの「持ち方」を自由に変えられるようになると：</p>
+<ul>
+<li>可視化の自由度が上がる</li>
+<li>集計やフィルタリングが簡単になる</li>
+<li>欠測値の扱いが楽になる</li>
+</ul>
+<p>といったメリットがあります。tidyrの<code>pivot_longer()</code>と<code>pivot_wider()</code>は、データ分析の基礎スキルです。繰り返し練習して、自分の手に馴染ませましょう。</p>
+<p>次のユニット: <strong>U9. 変数の型の変換と統一</strong>では、カテゴリ変数のワンホットエンコーディングや標準化について学びます。</p>
+<hr>
+<p>進捗: あなたは今 <strong>8-C-8</strong> まで完了しました！（と仮定）次は <strong>8-B-1</strong> に進みましょう。</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  var t = document.getElementsByClassName("webex-total_correct");
+  for (var i = 0; i < t.length; i++) {
+    p = t[i].parentElement;
+    var correct = p.getElementsByClassName("webex-correct").length;
+    var solvemes = p.getElementsByClassName("webex-solveme").length;
+    var radiogroups = p.getElementsByClassName("webex-radiogroup").length;
+    var selects = p.getElementsByClassName("webex-select").length;
+
+    t[i].innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* check answers */
+check_func = function() {
+  console.log("webex: check answers");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('unchecked')) {
+    cl.remove("unchecked");
+    this.innerHTML = "Hide Answers";
+  } else {
+    cl.add("unchecked");
+    this.innerHTML = "Show Answers";
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+
+  var cl = this.classList
+
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("webex onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  var check_sections = document.getElementsByClassName("webex-check");
+  console.log("check:", check_sections.length);
+  for (var i = 0; i < check_sections.length; i++) {
+    check_sections[i].classList.add("unchecked");
+
+    let btn = document.createElement("button");
+    btn.innerHTML = "Show Answers";
+    btn.classList.add("webex-check-button");
+    btn.onclick = check_func;
+    check_sections[i].appendChild(btn);
+
+    let spn = document.createElement("span");
+    spn.classList.add("webex-total_correct");
+    check_sections[i].appendChild(spn);
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+
+    solveme[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+    selects[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  update_total_correct();
+}
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "コピーしました");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "コピーしました");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

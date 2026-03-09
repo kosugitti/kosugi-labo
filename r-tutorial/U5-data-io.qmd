@@ -1,0 +1,363 @@
+---
+title: "U5. データの読み込みと書き出し"
+format:
+  html:
+    css: ../include/webex.css
+    include-after-body: ../include/webex.js
+---
+
+```{r setup, include=FALSE}
+pacman::p_load(webexercises)
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+## ユニット概要
+
+**分類**: 幹（全員必須）
+
+**依存関係**: U0 → U1 → U2 → U4 → **U5**
+
+**学習目標**:
+
+- `read.csv()` / `readr::read_csv()`でCSVファイルを読み込める
+- `readxl::read_excel()`でExcelファイルを読み込める
+- 文字コード（UTF-8, Shift-JIS）の違いと対処法を理解する
+- 欠測値の指定（`na`引数）ができる
+- `write.csv()` / `readr::write_csv()`でデータを書き出せる
+- `saveRDS()` / `readRDS()`でRオブジェクトを保存・復元できる
+
+---
+
+## 事前知識: ファイルの読み書き
+
+### なぜファイルの読み書きが重要か
+
+データ分析では、データを手入力することはほとんどありません。調査データやダウンロードしたデータはCSVやExcelファイルとして保存されており、それをRに読み込んで分析します。また、分析結果や加工したデータをファイルに書き出すこともあります。
+
+### CSV形式とは
+
+**CSV（Comma-Separated Values）**は、値をカンマで区切ったテキストファイルです。
+
+```
+Name,height,weight,team
+田中,180,82,Giants
+鈴木,175,78,Tigers
+```
+
+特定のソフトに依存しないプレーンなテキストなので、どの環境でも読み書きできます。拡張子は`.csv`です。
+
+### 読み込み関数の選択
+
+| 関数 | パッケージ | 特徴 |
+|------|-----------|------|
+| `read.csv()` | base R | 追加パッケージ不要。結果は`data.frame` |
+| `readr::read_csv()` | tidyverse | 高速。結果は`tibble`。型推測が賢い |
+| `readxl::read_excel()` | readxl | Excelファイル（.xlsx, .xls）を読み込み |
+
+本ゼミでは`readr::read_csv()`を基本とします。tidyverseを読み込んでいれば使えます。
+
+### 文字コードの問題
+
+日本語を含むファイルでは**文字コード**に注意が必要です。
+
+- **UTF-8**: 世界標準。Mac、Linux、最近のWindows
+- **Shift-JIS（CP932）**: 古いWindowsのデフォルト
+
+UTF-8のファイルをShift-JISで読むと（またはその逆）、日本語が文字化けします。`read_csv()`はUTF-8を前提としていますが、Shift-JISのファイルを読むときは`locale`引数で指定します。
+
+```r
+# Shift-JISファイルの読み込み
+readr::read_csv("data.csv", locale = readr::locale(encoding = "CP932"))
+```
+
+**注意**: WindowsでExcelからCSVを保存すると、デフォルトでShift-JISになることがあります。「名前を付けて保存」でUTF-8（BOM付き）を選ぶか、読み込み時にエンコーディングを指定してください。
+
+### 作業フォルダとファイルパス
+
+ファイルを読み込むとき、Rは**作業フォルダ**を起点としてファイルを探します。プロジェクトを使っていれば、プロジェクトフォルダが作業フォルダです。
+
+```r
+# 作業フォルダ直下にあるファイル
+readr::read_csv("data.csv")
+
+# サブフォルダ内のファイル
+readr::read_csv("data/Baseball.csv")
+
+# 作業フォルダの確認
+getwd()
+```
+
+---
+
+## ランクC: 基礎知識を確認しよう
+
+### 5-C-1
+
+CSV形式のファイルでは、値は何で区切られていますか？
+
+`r mcq(c("タブ", "スペース", answer = "カンマ", "セミコロン"))`
+
+`r hide("解説")`
+CSV = Comma-Separated Values（カンマ区切り値）です。ただし、ヨーロッパの一部ではセミコロン区切りが使われることもあり、その場合は`read.csv2()`や`read_csv2()`を使います。
+`r unhide()`
+
+---
+
+### 5-C-2
+
+`readr::read_csv()`と`read.csv()`の違いとして正しいものはどれですか？
+
+`r mcq(c("read_csv()の方が遅い", answer = "read_csv()はtibbleを返し、read.csv()はdata.frameを返す", "read.csv()はCSVを読めない", "違いはない"))`
+
+`r hide("解説")`
+`readr::read_csv()`はtidyverseの関数で、結果をtibble（data.frameの改良版）で返します。型推測がより賢く、大きなファイルの読み込みも高速です。`read.csv()`はbase Rの関数で、追加パッケージ不要ですがtibbleではなくdata.frameを返します。
+`r unhide()`
+
+---
+
+### 5-C-3
+
+日本語を含むCSVファイルが文字化けする主な原因は何ですか？
+
+`r mcq(c("ファイルが壊れている", answer = "文字コード（エンコーディング）の不一致", "Rのバージョンが古い", "CSVの形式が間違っている"))`
+
+`r hide("解説")`
+文字化けの多くは、ファイルの文字コードとRが想定する文字コードが一致していないために起こります。特にWindowsのExcelで作成したCSVはShift-JIS（CP932）になりがちで、UTF-8を期待する`read_csv()`で文字化けします。
+`r unhide()`
+
+---
+
+### 5-C-4
+
+CSVファイルの欠測値が`999`で記録されている場合、`read_csv()`でどう対処しますか？
+
+`r mcq(c("読み込み後に手動で修正する", answer = "na引数に\"999\"を指定する", "エンコーディングを変更する", "対処法はない"))`
+
+`r hide("解説")`
+```r
+readr::read_csv("data.csv", na = "999")
+```
+
+`na`引数に欠測値を表す文字列を指定すると、読み込み時に自動的に`NA`に変換されます。デフォルトでは`""`（空文字）と`"NA"`が欠測値として扱われます。複数指定も可能です：`na = c("999", "NA", "")`
+`r unhide()`
+
+---
+
+### 5-C-5
+
+`getwd()`関数は何を返しますか？
+
+`r mcq(c("ファイルの一覧", answer = "現在の作業フォルダのパス", "パッケージの一覧", "Rのバージョン"))`
+
+`r hide("解説")`
+`getwd()`はget working directoryの略で、現在の作業フォルダ（ワーキングディレクトリ）のパスを返します。プロジェクトを使っていれば、プロジェクトフォルダのパスが表示されます。
+`r unhide()`
+
+---
+
+### 5-C-6
+
+`saveRDS()`で保存したファイルの利点は何ですか？
+
+`r mcq(c("Excelで開ける", "ファイルサイズが常にゼロになる", answer = "Rオブジェクトの型や構造がそのまま保存される", "他のプログラミング言語でも読める"))`
+
+`r hide("解説")`
+`saveRDS()`はRのオブジェクトをそのままバイナリ形式で保存します。Factor型やリスト構造など、CSVでは失われる情報もそのまま保持されます。ただしR専用の形式なので、他の言語やソフトでは読めません。
+
+```r
+saveRDS(df, "mydata.rds")       # 保存
+df <- readRDS("mydata.rds")     # 読み込み
+```
+`r unhide()`
+
+---
+
+### 5-C-7
+
+`readxl::read_excel()`でExcelファイルを読み込むとき、特定のシートを指定するにはどうしますか？
+
+`r mcq(c("file引数にシート名を含める", answer = "sheet引数にシート名または番号を指定する", "別の関数を使う必要がある", "シートの指定はできない"))`
+
+`r hide("解説")`
+```r
+readxl::read_excel("data.xlsx", sheet = "Sheet2")
+readxl::read_excel("data.xlsx", sheet = 2)  # 2番目のシート
+```
+
+シート名（文字列）でも番号（整数）でも指定できます。シート名の一覧は`readxl::excel_sheets("data.xlsx")`で確認できます。
+`r unhide()`
+
+---
+
+### 5-C-8
+
+`write_csv()`で書き出したCSVファイルの文字コードは何ですか？
+
+`r mcq(c("Shift-JIS", answer = "UTF-8", "ASCII", "EUC-JP"))`
+
+`r hide("解説")`
+`readr::write_csv()`はUTF-8で書き出します。これは世界標準の文字コードで、多くの環境で問題なく読めます。ただし古いWindowsのExcelで開くと日本語が文字化けすることがあります。その場合はBOM付きUTF-8で書き出す`readr::write_excel_csv()`を使うと解決します。
+`r unhide()`
+
+---
+
+## ランクB: 実践スキルを磨こう
+
+### 5-B-1
+
+`BaseballDecade.csv`を`readr::read_csv()`で読み込み、先頭6行と`str()`の結果を確認してください。
+
+`r hide("模範解答")`
+```{r, eval=FALSE}
+pacman::p_load(tidyverse)
+
+df <- readr::read_csv("../data/BaseballDecade.csv")
+
+# 先頭6行
+head(df)
+
+# 構造の確認
+str(df)
+```
+
+`read_csv()`は列の型を自動推測します。数値列はdbl（数値）、文字列列はchr（文字）として認識されます。tibble形式なので、表示時にデータ型も一緒に表示されます。
+`r unhide()`
+
+---
+
+### 5-B-2
+
+次のような内容のCSVファイル（`sample.csv`）があると仮定します。欠測値が`-99`で記録されています。適切に読み込んでください。
+
+```
+id,score,grade
+1,85,A
+2,-99,B
+3,72,C
+4,91,-99
+```
+
+`r hide("ヒント")`
+`na`引数に欠測値を表す文字列を指定します。
+`r unhide()`
+
+`r hide("模範解答")`
+```{r, eval=FALSE}
+df <- readr::read_csv("sample.csv", na = "-99")
+
+df
+# id score grade
+#  1    85 A
+#  2    NA B
+#  3    72 C
+#  4    91 NA
+```
+
+`-99`が`NA`に変換されます。デフォルトの`""`と`"NA"`も引き続き欠測値として扱いたい場合は`na = c("", "NA", "-99")`とします。
+`r unhide()`
+
+---
+
+### 5-B-3
+
+`iris`データセットをCSVファイルとして書き出してください。ファイル名は`iris_export.csv`とします。
+
+`r hide("模範解答")`
+```{r, eval=FALSE}
+readr::write_csv(iris, "iris_export.csv")
+
+# ファイルが作成されたか確認
+file.exists("iris_export.csv")
+```
+
+`write_csv()`は行名（row.names）を書き出しません。base Rの`write.csv()`を使う場合は`row.names = FALSE`を指定しないと行番号が余分に書き出されます。
+`r unhide()`
+
+---
+
+### 5-B-4
+
+5-B-3で書き出した`iris_export.csv`を読み込み直して、元の`iris`データと同じ内容か確認してください。
+
+`r hide("ヒント")`
+`nrow()`と`str()`で行数と構造を比較します。Species列の型に注意してください。
+`r unhide()`
+
+`r hide("模範解答")`
+```{r, eval=FALSE}
+iris2 <- readr::read_csv("iris_export.csv")
+
+nrow(iris)   # 150
+nrow(iris2)  # 150
+
+str(iris)    # Species: Factor
+str(iris2)   # Species: chr（文字型）
+```
+
+行数は同じですが、**Species列の型が異なります**。元の`iris`ではFactor型ですが、CSVに書き出して読み込むと文字型（chr）になります。CSVにはRのFactor情報は保存されないためです。型を維持したい場合は`saveRDS()`を使います。
+`r unhide()`
+
+---
+
+### 5-B-5
+
+`iris`データセットをRDS形式で保存し、読み込み直してください。Species列の型がFactor型のまま保持されることを確認してください。
+
+`r hide("模範解答")`
+```{r, eval=FALSE}
+# RDS形式で保存
+saveRDS(iris, "iris_backup.rds")
+
+# 読み込み
+iris3 <- readRDS("iris_backup.rds")
+
+# Factorのまま保持されている
+str(iris3)
+class(iris3$Species)  # "factor"
+```
+
+CSVと違い、RDS形式ではFactor型やリスト構造などRオブジェクトの情報がそのまま保存されます。分析の中間結果を保存しておくときに便利です。
+`r unhide()`
+
+---
+
+## ランクA: AI協働に挑戦しよう
+
+### 4-A-1
+
+**課題**: 公開データをダウンロードしてRに読み込んでみてください。
+
+例えば[e-Stat（政府統計の総合窓口）](https://www.e-stat.go.jp/)や、[Kaggle](https://www.kaggle.com/datasets)からCSVファイルを取得し、`read_csv()`で読み込んでください。
+
+読み込みで問題が起きた場合（文字化け、列の型が想定と違う、ヘッダがずれている等）、AIに相談しながら解決してください。
+
+**提出物**: 使用したデータの出典、読み込みコード、遭遇した問題と解決方法。
+
+---
+
+### 5-A-2
+
+**課題**: `BaseballDecade.csv`を読み込んで加工（年度の絞り込み、変数の選択、新変数の作成など）し、加工後のデータをCSVとRDSの両方で保存してください。
+
+その後、両方を読み込み直して、型の違い（特にFactor型の扱い）を確認・比較してください。AIに「CSVとRDSの使い分け」について相談してみてください。
+
+**提出物**: AIとの対話内容、コード、CSVとRDSの比較結果。
+
+---
+
+## まとめ
+
+このユニットでは、データの読み込みと書き出しを学びました：
+
+- **CSV読み込み**: `readr::read_csv()`が基本。`na`引数で欠測値指定
+- **Excel読み込み**: `readxl::read_excel()`。`sheet`引数でシート指定
+- **文字コード**: UTF-8が基本。Shift-JISファイルは`locale`で指定
+- **CSV書き出し**: `readr::write_csv()`（UTF-8）。Excelで開くなら`write_excel_csv()`
+- **RDS形式**: `saveRDS()` / `readRDS()`で型情報を保持したまま保存
+- **作業フォルダ**: `getwd()`で確認。プロジェクトを使えば自動設定
+
+次のユニット: **U6. データの確認と探索**では、読み込んだデータの中身を確認し、分析に入る前の探索的な操作を学びます。
+
+---
+
+進捗: あなたは今 **5-C-8** まで完了しました！（と仮定）次は **5-B-1** に進みましょう。

@@ -1,0 +1,2097 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>U17. ベイズ統計の基礎 – Kosugi Labo</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-a25750924116104412f7a457768fb952.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "一致なし",
+    "search-matching-documents-text": "一致した文書",
+    "search-copy-link-title": "検索へのリンクをコピー",
+    "search-hide-matches-text": "追加の検索結果を非表示",
+    "search-more-match-text": "追加の検索結果",
+    "search-more-matches-text": "追加の検索結果",
+    "search-clear-button-title": "消去",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "検索",
+    "search-label": "サーチ"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../include/webex.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Kosugi Labo</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="サーチ"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="ナビゲーションを切り替える" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">ホーム</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">ゼミガイド</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-">    
+        <li>
+    <a class="dropdown-item" href="../zemi-policy.html">
+ <span class="dropdown-text">ゼミの運営方針</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../research-guide.html">
+ <span class="dropdown-text">研究の進め方</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../writing-guide.html">
+ <span class="dropdown-text">文章の読み書き</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../anti-harassment.html">
+ <span class="dropdown-text">アンチハラスメントポリシー</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu--1" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">技術ガイド</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu--1">    
+        <li>
+    <a class="dropdown-item" href="../tech-guide/github-setup.html">
+ <span class="dropdown-text">GitHub</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tech-guide/vscode-setup.html">
+ <span class="dropdown-text">VSCode</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tech-guide/latex-setup.html">
+ <span class="dropdown-text">LaTeX</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tech-guide/ssh-remote.html">
+ <span class="dropdown-text">SSH接続</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tech-guide/tailscale.html">
+ <span class="dropdown-text">Tailscale</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-rチュートリアル" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Rチュートリアル</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-rチュートリアル">    
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/index.html">
+ <span class="dropdown-text">はじめに</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/r-basics.html">
+ <span class="dropdown-text">Rの基礎</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/data-handling.html">
+ <span class="dropdown-text">データの読み込み</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/tidyverse.html">
+ <span class="dropdown-text">tidyverse入門</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/visualization.html">
+ <span class="dropdown-text">可視化ギャラリー</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U0-computer-basics.html">
+ <span class="dropdown-text">U0. コンピュータ基礎</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U1-r-basics.html">
+ <span class="dropdown-text">U1. Rの基礎</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U2-data-types.html">
+ <span class="dropdown-text">U2. データ型とオブジェクト</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U3-matrix-basics.html">
+ <span class="dropdown-text">U3. 数学・行列の基礎</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U4-basic-operations.html">
+ <span class="dropdown-text">U4. 基本的なデータ操作</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U5-data-io.html">
+ <span class="dropdown-text">U5. データの読み書き</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U6-data-explore.html">
+ <span class="dropdown-text">U6. データの確認と探索</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U7-dplyr.html">
+ <span class="dropdown-text">U7. dplyr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U8-tidyr.html">
+ <span class="dropdown-text">U8. tidyr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U9-type-conversion.html">
+ <span class="dropdown-text">U9. 変数の型の変換と統一</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U10-ggplot2.html">
+ <span class="dropdown-text">U10. ggplot2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U11-descriptive-stats.html">
+ <span class="dropdown-text">U11. 記述統計</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U12-statistical-inference.html">
+ <span class="dropdown-text">U12. 統計的推測の基礎</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U13-regression.html">
+ <span class="dropdown-text">U13. 回帰モデル</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U14-multivariate-row.html">
+ <span class="dropdown-text">U14. 多変量解析・行方向</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U15-multivariate-col.html">
+ <span class="dropdown-text">U15. 多変量解析・列方向</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U16-multivariate-both.html">
+ <span class="dropdown-text">U16. 行と列をまたぐ分析</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U17-bayesian-basics.html">
+ <span class="dropdown-text">U17. ベイズ統計の基礎</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U18-mcmc.html">
+ <span class="dropdown-text">U18. MCMCの原理と実践</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U19-stan.html">
+ <span class="dropdown-text">U19. Stan / cmdstanr</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U21-latex.html">
+ <span class="dropdown-text">U21. LaTeX</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U22-git.html">
+ <span class="dropdown-text">U22. Git / GitHub</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U23-programming.html">
+ <span class="dropdown-text">U23. プログラミング基礎概念</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U24-ai-collaboration.html">
+ <span class="dropdown-text">U24. 生成AIとの協働</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../members.html"> 
+<span class="menu-text">メンバー</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../server-status.html"> 
+<span class="menu-text">サーバー状況</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../feedback.html"> 
+<span class="menu-text">フィードバック</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">目次</h2>
+   
+  <ul>
+  <li><a href="#ユニット概要" id="toc-ユニット概要" class="nav-link active" data-scroll-target="#ユニット概要">ユニット概要</a></li>
+  <li><a href="#事前知識" id="toc-事前知識" class="nav-link" data-scroll-target="#事前知識">事前知識</a>
+  <ul class="collapse">
+  <li><a href="#頻度主義とベイズの考え方" id="toc-頻度主義とベイズの考え方" class="nav-link" data-scroll-target="#頻度主義とベイズの考え方">頻度主義とベイズの考え方</a></li>
+  <li><a href="#ベイズの定理" id="toc-ベイズの定理" class="nav-link" data-scroll-target="#ベイズの定理">ベイズの定理</a></li>
+  <li><a href="#ベイズの定理の直感的理解-疫病検査の例" id="toc-ベイズの定理の直感的理解-疫病検査の例" class="nav-link" data-scroll-target="#ベイズの定理の直感的理解-疫病検査の例">ベイズの定理の直感的理解: 疫病検査の例</a></li>
+  <li><a href="#事前分布と事後分布-beta-二項共役モデル" id="toc-事前分布と事後分布-beta-二項共役モデル" class="nav-link" data-scroll-target="#事前分布と事後分布-beta-二項共役モデル">事前分布と事後分布: Beta-二項共役モデル</a></li>
+  <li><a href="#事前分布の選択" id="toc-事前分布の選択" class="nav-link" data-scroll-target="#事前分布の選択">事前分布の選択</a></li>
+  <li><a href="#確信区間credible-interval" id="toc-確信区間credible-interval" class="nav-link" data-scroll-target="#確信区間credible-interval">確信区間（Credible Interval）</a></li>
+  <li><a href="#map推定とeap推定" id="toc-map推定とeap推定" class="nav-link" data-scroll-target="#map推定とeap推定">MAP推定とEAP推定</a></li>
+  <li><a href="#逐次更新-ベイズの学習過程" id="toc-逐次更新-ベイズの学習過程" class="nav-link" data-scroll-target="#逐次更新-ベイズの学習過程">逐次更新: ベイズの学習過程</a></li>
+  <li><a href="#正規分布の場合-正規-正規共役モデル" id="toc-正規分布の場合-正規-正規共役モデル" class="nav-link" data-scroll-target="#正規分布の場合-正規-正規共役モデル">正規分布の場合: 正規-正規共役モデル</a></li>
+  <li><a href="#ベイズファクター" id="toc-ベイズファクター" class="nav-link" data-scroll-target="#ベイズファクター">ベイズファクター</a></li>
+  </ul></li>
+  <li><a href="#ランクc-基礎知識" id="toc-ランクc-基礎知識" class="nav-link" data-scroll-target="#ランクc-基礎知識">ランクC: 基礎知識</a>
+  <ul class="collapse">
+  <li><a href="#c-1" id="toc-c-1" class="nav-link" data-scroll-target="#c-1">17-C-1</a></li>
+  <li><a href="#c-2" id="toc-c-2" class="nav-link" data-scroll-target="#c-2">17-C-2</a></li>
+  <li><a href="#c-3" id="toc-c-3" class="nav-link" data-scroll-target="#c-3">17-C-3</a></li>
+  <li><a href="#c-4" id="toc-c-4" class="nav-link" data-scroll-target="#c-4">17-C-4</a></li>
+  <li><a href="#c-5" id="toc-c-5" class="nav-link" data-scroll-target="#c-5">17-C-5</a></li>
+  <li><a href="#c-6" id="toc-c-6" class="nav-link" data-scroll-target="#c-6">17-C-6</a></li>
+  <li><a href="#c-7" id="toc-c-7" class="nav-link" data-scroll-target="#c-7">17-C-7</a></li>
+  <li><a href="#c-8" id="toc-c-8" class="nav-link" data-scroll-target="#c-8">17-C-8</a></li>
+  <li><a href="#c-9" id="toc-c-9" class="nav-link" data-scroll-target="#c-9">17-C-9</a></li>
+  <li><a href="#c-10" id="toc-c-10" class="nav-link" data-scroll-target="#c-10">17-C-10</a></li>
+  </ul></li>
+  <li><a href="#ランクb-実践スキル" id="toc-ランクb-実践スキル" class="nav-link" data-scroll-target="#ランクb-実践スキル">ランクB: 実践スキル</a>
+  <ul class="collapse">
+  <li><a href="#b-1" id="toc-b-1" class="nav-link" data-scroll-target="#b-1">17-B-1</a></li>
+  <li><a href="#b-2" id="toc-b-2" class="nav-link" data-scroll-target="#b-2">17-B-2</a></li>
+  <li><a href="#b-3" id="toc-b-3" class="nav-link" data-scroll-target="#b-3">17-B-3</a></li>
+  <li><a href="#b-4" id="toc-b-4" class="nav-link" data-scroll-target="#b-4">17-B-4</a></li>
+  <li><a href="#b-5" id="toc-b-5" class="nav-link" data-scroll-target="#b-5">17-B-5</a></li>
+  <li><a href="#b-6" id="toc-b-6" class="nav-link" data-scroll-target="#b-6">17-B-6</a></li>
+  <li><a href="#b-7" id="toc-b-7" class="nav-link" data-scroll-target="#b-7">17-B-7</a></li>
+  <li><a href="#b-8" id="toc-b-8" class="nav-link" data-scroll-target="#b-8">17-B-8</a></li>
+  </ul></li>
+  <li><a href="#ランクa-ai協働" id="toc-ランクa-ai協働" class="nav-link" data-scroll-target="#ランクa-ai協働">ランクA: AI協働</a>
+  <ul class="collapse">
+  <li><a href="#a-1" id="toc-a-1" class="nav-link" data-scroll-target="#a-1">17-A-1</a></li>
+  <li><a href="#a-2" id="toc-a-2" class="nav-link" data-scroll-target="#a-2">17-A-2</a></li>
+  </ul></li>
+  <li><a href="#まとめ" id="toc-まとめ" class="nav-link" data-scroll-target="#まとめ">まとめ</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">U17. ベイズ統計の基礎</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="ユニット概要" class="level2">
+<h2 class="anchored" data-anchor-id="ユニット概要">ユニット概要</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>項目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>分類</td>
+<td>枝（選択）</td>
+</tr>
+<tr class="even">
+<td>前提</td>
+<td>U12（統計的推測の基礎）</td>
+</tr>
+<tr class="odd">
+<td>次のユニット</td>
+<td>U18（MCMCの原理と実践）</td>
+</tr>
+<tr class="even">
+<td>使用データ</td>
+<td>シミュレーションデータ</td>
+</tr>
+<tr class="odd">
+<td>学習目標</td>
+<td>ベイズの定理を理解し、数式と直感の両面で説明できる / 事前分布・尤度・事後分布の関係を理解する / Beta-二項共役モデルをRで計算・可視化できる / 信用区間と確信区間の違いを説明できる / 事前分布の選択が事後分布に与える影響を理解する</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="事前知識" class="level2">
+<h2 class="anchored" data-anchor-id="事前知識">事前知識</h2>
+<section id="頻度主義とベイズの考え方" class="level3">
+<h3 class="anchored" data-anchor-id="頻度主義とベイズの考え方">頻度主義とベイズの考え方</h3>
+<p>U12で学んだ統計的推測は <strong>頻度主義（frequentist）</strong> と呼ばれるアプローチでした。ここでは「同じ実験を無限に繰り返したら」という仮想的な繰り返しの中で確率を考えます。95%信頼区間は「同じ方法で100回作ると約95回が真の値を含む」という意味であり、「真の値が95%の確率でこの区間にある」とは言えません。</p>
+<p>これに対して <strong>ベイズ法（Bayesian method）</strong> は、確率を <strong>確信の度合い</strong> として解釈します。データを得る前の信念（事前分布）を、データから得られる情報（尤度）で更新し、データを踏まえた新しい信念（事後分布）を得ます。この枠組みでは「パラメータが95%の確率でこの区間にある」と素直に言うことができます。</p>
+</section>
+<section id="ベイズの定理" class="level3">
+<h3 class="anchored" data-anchor-id="ベイズの定理">ベイズの定理</h3>
+<p>ベイズの定理は、条件付き確率を「ひっくり返す」公式です。</p>
+<p><span class="math display">\[
+P(\theta \mid D) = \frac{P(D \mid \theta) \, P(\theta)}{P(D)}
+\]</span></p>
+<p>各項の意味は以下のとおりです。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>記号</th>
+<th>名称</th>
+<th>意味</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(P(\theta \mid D)\)</span></td>
+<td><strong>事後分布</strong>（posterior）</td>
+<td>データ <span class="math inline">\(D\)</span> を観測した後のパラメータ <span class="math inline">\(\theta\)</span> の確率分布</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(P(D \mid \theta)\)</span></td>
+<td><strong>尤度</strong>（likelihood）</td>
+<td>パラメータ <span class="math inline">\(\theta\)</span> のもとでデータ <span class="math inline">\(D\)</span> が得られる確率</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(P(\theta)\)</span></td>
+<td><strong>事前分布</strong>（prior）</td>
+<td>データを見る前のパラメータ <span class="math inline">\(\theta\)</span> についての信念</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(P(D)\)</span></td>
+<td><strong>周辺尤度</strong>（marginal likelihood）</td>
+<td>あらゆる <span class="math inline">\(\theta\)</span> の可能性を合わせたデータの出現確率（正規化定数）</td>
+</tr>
+</tbody>
+</table>
+<p>分母 <span class="math inline">\(P(D)\)</span> はパラメータ <span class="math inline">\(\theta\)</span> を含まない定数なので、事後分布の形を考える際には無視できます。そのため、次のような比例関係で書くことが多いです。</p>
+<p><span class="math display">\[
+P(\theta \mid D) \propto P(D \mid \theta) \times P(\theta)
+\]</span></p>
+<p>つまり、<strong>事後分布は尤度と事前分布の積に比例する</strong> ということです。</p>
+</section>
+<section id="ベイズの定理の直感的理解-疫病検査の例" class="level3">
+<h3 class="anchored" data-anchor-id="ベイズの定理の直感的理解-疫病検査の例">ベイズの定理の直感的理解: 疫病検査の例</h3>
+<p>ベイズの定理がどのように「直感に反する結果」を正しく導くかを、検査の例で見てみましょう。</p>
+<p>ある疾病は人口の0.05%が罹患しています。この病気の検査では、罹患している人が陽性になる確率は70%、罹患していない人が陽性になる確率は0.1%です。検査で陽性と判定された人が、実際に罹患している確率はどれくらいでしょうか。</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 疫病検査のベイズ計算 ---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 100万人の世界で考える</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>population <span class="ot">&lt;-</span> <span class="dv">1000000</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>infected <span class="ot">&lt;-</span> population <span class="sc">*</span> <span class="fl">0.0005</span>    <span class="co"># 罹患者: 500人</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>healthy <span class="ot">&lt;-</span> population <span class="sc">-</span> infected   <span class="co"># 健康な人: 999,500人</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 陽性になる人の内訳</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>true_positive <span class="ot">&lt;-</span> infected <span class="sc">*</span> <span class="fl">0.70</span>   <span class="co"># 罹患していて陽性: 350人</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>false_positive <span class="ot">&lt;-</span> healthy <span class="sc">*</span> <span class="fl">0.001</span>  <span class="co"># 健康だが陽性: 999.5人</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 陽性の人のうち、本当に罹患している確率</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>prob_infected_given_positive <span class="ot">&lt;-</span> true_positive <span class="sc">/</span> (true_positive <span class="sc">+</span> false_positive)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>答えは約25.9%です。検査で陽性でも、実際に罹患している確率は約26%にすぎません。これは罹患率（事前確率）が非常に低いため、偽陽性の人数が真陽性を上回ってしまうからです。事前確率が重要であることを示す好例です。</p>
+</section>
+<section id="事前分布と事後分布-beta-二項共役モデル" class="level3">
+<h3 class="anchored" data-anchor-id="事前分布と事後分布-beta-二項共役モデル">事前分布と事後分布: Beta-二項共役モデル</h3>
+<p>ベイズの定理を具体的に計算するには、事前分布と尤度を掛け合わせて事後分布を求めます。事前分布と事後分布が同じ種類の確率分布になるとき、その事前分布を <strong>共役事前分布（conjugate prior）</strong> と呼びます。共役事前分布を使うと、事後分布の形が解析的にわかるため、計算が容易になります。</p>
+<p>最も基本的な共役の組み合わせが <strong>Beta-二項モデル</strong> です。</p>
+<ul>
+<li><strong>データ</strong>: コインを <span class="math inline">\(n\)</span> 回投げて <span class="math inline">\(k\)</span> 回表が出た（二項分布）</li>
+<li><strong>事前分布</strong>: <span class="math inline">\(\theta \sim \text{Beta}(\alpha, \beta)\)</span></li>
+<li><strong>事後分布</strong>: <span class="math inline">\(\theta \mid k \sim \text{Beta}(\alpha + k, \beta + n - k)\)</span></li>
+</ul>
+<p>事前分布のパラメータ <span class="math inline">\(\alpha, \beta\)</span> は、「事前に <span class="math inline">\(\alpha - 1\)</span> 回表、<span class="math inline">\(\beta - 1\)</span> 回裏を見た」ような情報量に対応します。</p>
+<p>具体例として、コインを100回投げて60回表が出た場合を考えます。</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Beta-二項共役モデル ---</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># データ: 100回中60回表</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">60</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 事前分布: Beta(1, 1) = 一様分布（無情報事前分布）</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>alpha_prior <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>beta_prior <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 事後分布: Beta(1 + 60, 1 + 40) = Beta(61, 41)</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>alpha_post <span class="ot">&lt;-</span> alpha_prior <span class="sc">+</span> k</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>beta_post <span class="ot">&lt;-</span> beta_prior <span class="sc">+</span> (n <span class="sc">-</span> k)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 確率密度の計算</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">length.out =</span> <span class="dv">1000</span>)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>prior <span class="ot">&lt;-</span> <span class="fu">dbeta</span>(x, alpha_prior, beta_prior)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>likelihood <span class="ot">&lt;-</span> <span class="fu">dbinom</span>(k, n, x)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>posterior <span class="ot">&lt;-</span> <span class="fu">dbeta</span>(x, alpha_post, beta_post)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 尤度をプロット用にスケーリング（最大値を事後分布の最大値に合わせる）</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>likelihood_scaled <span class="ot">&lt;-</span> likelihood <span class="sc">/</span> <span class="fu">max</span>(likelihood) <span class="sc">*</span> <span class="fu">max</span>(posterior)</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="co"># 可視化</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">theta =</span> <span class="fu">rep</span>(x, <span class="dv">3</span>),</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">density =</span> <span class="fu">c</span>(prior, likelihood_scaled, posterior),</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"事前分布 Beta(1,1)"</span>, <span class="st">"尤度（スケール済み）"</span>, <span class="st">"事後分布 Beta(61,41)"</span>),</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>             <span class="at">each =</span> <span class="fu">length</span>(x))</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">type =</span> <span class="fu">factor</span>(type, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"事前分布 Beta(1,1)"</span>,</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>                                                <span class="st">"尤度（スケール済み）"</span>,</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>                                                <span class="st">"事後分布 Beta(61,41)"</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> theta, <span class="at">y =</span> density, <span class="at">color =</span> type, <span class="at">linetype =</span> type)) <span class="sc">+</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"steelblue"</span>, <span class="st">"darkgreen"</span>, <span class="st">"red"</span>)) <span class="sc">+</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_linetype_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"dashed"</span>, <span class="st">"dotted"</span>, <span class="st">"solid"</span>)) <span class="sc">+</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Beta-二項共役モデル: 100回中60回表"</span>,</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="fu">expression</span>(theta), <span class="at">y =</span> <span class="st">"密度"</span>,</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">""</span>, <span class="at">linetype =</span> <span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="U17-bayesian-basics_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>事前分布が一様分布（Beta(1,1)）の場合、事後分布の形は尤度関数と同じになります。データの情報がそのまま結果に反映されるということです。</p>
+</section>
+<section id="事前分布の選択" class="level3">
+<h3 class="anchored" data-anchor-id="事前分布の選択">事前分布の選択</h3>
+<p>事前分布の選び方には大きく3つの方針があります。</p>
+<ul>
+<li><strong>無情報事前分布（uninformative prior）</strong>: 特定の値に偏らない。例: Beta(1, 1) = 一様分布</li>
+<li><strong>弱情報事前分布（weakly informative prior）</strong>: 極端な値を除外する程度の緩い情報。例: Beta(2, 2)</li>
+<li><strong>強情報事前分布（informative prior）</strong>: 先行研究などに基づく強い事前知識。例: Beta(50, 50)</li>
+</ul>
+<p>同じデータ（100回中60回表）に対して、異なる事前分布がどのように事後分布を変えるか見てみましょう。</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 事前分布の感度分析 ---</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>priors <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> <span class="fu">c</span>(<span class="st">"無情報 Beta(1,1)"</span>, <span class="st">"弱情報 Beta(2,2)"</span>, <span class="st">"強情報 Beta(50,50)"</span>),</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">alpha =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">50</span>),</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">beta =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">50</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 各事前分布に対する事後分布を計算</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">length.out =</span> <span class="dv">1000</span>)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>plot_data <span class="ot">&lt;-</span> priors <span class="sc">%&gt;%</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rowwise</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> <span class="fu">list</span>(<span class="fu">tibble</span>(</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">theta =</span> x,</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>      <span class="at">prior =</span> <span class="fu">dbeta</span>(x, alpha, beta),</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>      <span class="at">posterior =</span> <span class="fu">dbeta</span>(x, alpha <span class="sc">+</span> <span class="dv">60</span>, beta <span class="sc">+</span> <span class="dv">40</span>)</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    ))</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">unnest</span>(data)</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co"># 事後分布の比較</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>plot_data <span class="sc">%&gt;%</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> theta, <span class="at">y =</span> posterior, <span class="at">color =</span> name)) <span class="sc">+</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"事前分布の違いによる事後分布の変化"</span>,</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"データ: 100回中60回表"</span>,</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="fu">expression</span>(theta), <span class="at">y =</span> <span class="st">"事後密度"</span>,</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"事前分布"</span>) <span class="sc">+</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="U17-bayesian-basics_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>無情報事前分布と弱情報事前分布では事後分布にほとんど差がありません。しかし、強情報事前分布 Beta(50,50) では事後分布が0.5方向に引っ張られています。これは「公平なコインだ」という強い事前信念がデータと拮抗しているためです。</p>
+<p>データ量が十分に多ければ、事前分布の影響は小さくなり、どの事前分布を使っても事後分布はほぼ同じになります。この性質を <strong>事前分布に対するロバスト性</strong> と呼びます。</p>
+</section>
+<section id="確信区間credible-interval" class="level3">
+<h3 class="anchored" data-anchor-id="確信区間credible-interval">確信区間（Credible Interval）</h3>
+<p>事後分布から、パラメータがどの範囲にありそうかを示す区間を <strong>確信区間（credible interval）</strong> と呼びます。</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 95%確信区間の計算 ---</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>ci_lower <span class="ot">&lt;-</span> <span class="fu">qbeta</span>(<span class="fl">0.025</span>, <span class="dv">61</span>, <span class="dv">41</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>ci_upper <span class="ot">&lt;-</span> <span class="fu">qbeta</span>(<span class="fl">0.975</span>, <span class="dv">61</span>, <span class="dv">41</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Beta(61, 41) の95%確信区間は [0.5017, 0.6907] です。</p>
+<p>これは「<span class="math inline">\(\theta\)</span> が95%の確率でこの区間にある」という意味です。頻度主義の信頼区間（confidence interval）とは解釈が根本的に異なります。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>頻度主義の信頼区間</th>
+<th>ベイズの確信区間</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>解釈</td>
+<td>同じ方法で繰り返し区間を作ると、約95%が真の値を含む</td>
+<td>パラメータが95%の確率でこの区間にある</td>
+</tr>
+<tr class="even">
+<td>真の値の扱い</td>
+<td>固定された未知の定数</td>
+<td>確率分布に従う確率変数</td>
+</tr>
+<tr class="odd">
+<td>直感性</td>
+<td>やや難解（「95%の確率でこの区間にある」とは言えない）</td>
+<td>直感的（そのまま確率として解釈できる）</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="map推定とeap推定" class="level3">
+<h3 class="anchored" data-anchor-id="map推定とeap推定">MAP推定とEAP推定</h3>
+<p>事後分布を1つの値で代表させる方法が2つあります。</p>
+<ul>
+<li><strong>MAP推定値（Maximum A Posteriori）</strong>: 事後分布の最頻値（モード）。「最も確率が高い値」</li>
+<li><strong>EAP推定値（Expected A Posteriori）</strong>: 事後分布の期待値（平均）。「確率で重みづけした平均値」</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- MAP推定値とEAP推定値 ---</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Beta(alpha, beta) の最頻値: (alpha - 1) / (alpha + beta - 2)</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Beta(alpha, beta) の期待値: alpha / (alpha + beta)</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>map_estimate <span class="ot">&lt;-</span> (alpha_post <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">/</span> (alpha_post <span class="sc">+</span> beta_post <span class="sc">-</span> <span class="dv">2</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>eap_estimate <span class="ot">&lt;-</span> alpha_post <span class="sc">/</span> (alpha_post <span class="sc">+</span> beta_post)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 可視化</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fl">0.3</span>, <span class="fl">0.85</span>, <span class="at">length.out =</span> <span class="dv">1000</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>posterior_density <span class="ot">&lt;-</span> <span class="fu">dbeta</span>(x, alpha_post, beta_post)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">theta =</span> x, <span class="at">density =</span> posterior_density) <span class="sc">%&gt;%</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> theta, <span class="at">y =</span> density)) <span class="sc">+</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> map_estimate, <span class="at">color =</span> <span class="st">"red"</span>,</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>             <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> eap_estimate, <span class="at">color =</span> <span class="st">"blue"</span>,</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>             <span class="at">linetype =</span> <span class="st">"dotted"</span>, <span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> map_estimate <span class="sc">+</span> <span class="fl">0.02</span>, <span class="at">y =</span> <span class="fu">max</span>(posterior_density) <span class="sc">*</span> <span class="fl">0.9</span>,</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="fu">sprintf</span>(<span class="st">"MAP = %.3f"</span>, map_estimate), <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">hjust =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> eap_estimate <span class="sc">+</span> <span class="fl">0.02</span>, <span class="at">y =</span> <span class="fu">max</span>(posterior_density) <span class="sc">*</span> <span class="fl">0.8</span>,</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="fu">sprintf</span>(<span class="st">"EAP = %.3f"</span>, eap_estimate), <span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">hjust =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"事後分布 Beta(61, 41) の代表値"</span>,</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="fu">expression</span>(theta), <span class="at">y =</span> <span class="st">"密度"</span>) <span class="sc">+</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="U17-bayesian-basics_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Beta(61, 41) の場合、MAPは0.600、EAPは0.598 で、ほぼ同じです。事後分布が左右対称に近い場合はMAPとEAPの差は小さくなりますが、歪んだ分布では差が生じます。</p>
+</section>
+<section id="逐次更新-ベイズの学習過程" class="level3">
+<h3 class="anchored" data-anchor-id="逐次更新-ベイズの学習過程">逐次更新: ベイズの学習過程</h3>
+<p>ベイズ法の大きな特徴は、データが増えるにつれて事後分布が更新されていく点です。また、ある時点の事後分布を次の分析の事前分布として使うことができます。10回、50回、100回とデータが蓄積されていく過程を可視化してみましょう。</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- ベイズの逐次更新 ---</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 真のパラメータ: theta = 0.6 のコイン</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>true_theta <span class="ot">&lt;-</span> <span class="fl">0.6</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>all_flips <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="dv">100</span>, <span class="dv">1</span>, true_theta)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 各段階での累積データ</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>stages <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">50</span>, <span class="dv">100</span>)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">length.out =</span> <span class="dv">1000</span>)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>update_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>()</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (s <span class="cf">in</span> stages) {</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  flips <span class="ot">&lt;-</span> all_flips[<span class="dv">1</span><span class="sc">:</span>s]</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  k_cum <span class="ot">&lt;-</span> <span class="fu">sum</span>(flips)</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  n_cum <span class="ot">&lt;-</span> s</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 事前分布は常に Beta(1,1) からスタート</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>  post_density <span class="ot">&lt;-</span> <span class="fu">dbeta</span>(x, <span class="dv">1</span> <span class="sc">+</span> k_cum, <span class="dv">1</span> <span class="sc">+</span> n_cum <span class="sc">-</span> k_cum)</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  update_data <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">bind_rows</span>(</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    update_data,</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tibble</span>(<span class="at">theta =</span> x, <span class="at">density =</span> post_density,</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>           <span class="at">stage =</span> <span class="fu">sprintf</span>(<span class="st">"n=%d (k=%d)"</span>, s, k_cum))</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>update_data <span class="sc">%&gt;%</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">stage =</span> <span class="fu">factor</span>(stage, <span class="at">levels =</span> <span class="fu">sprintf</span>(<span class="st">"n=%d (k=%d)"</span>,</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>    stages, <span class="fu">sapply</span>(stages, <span class="cf">function</span>(s) <span class="fu">sum</span>(all_flips[<span class="dv">1</span><span class="sc">:</span>s]))))) <span class="sc">%&gt;%</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> theta, <span class="at">y =</span> density, <span class="at">color =</span> stage)) <span class="sc">+</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> true_theta, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"gray40"</span>) <span class="sc">+</span></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> true_theta <span class="sc">+</span> <span class="fl">0.02</span>, <span class="at">y =</span> <span class="fl">0.5</span>,</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="fu">expression</span>(theta <span class="sc">==</span> <span class="fl">0.6</span>), <span class="at">color =</span> <span class="st">"gray40"</span>, <span class="at">hjust =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"データの蓄積による事後分布の更新"</span>,</span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"事前分布: Beta(1,1)、破線が真の値"</span>,</span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="fu">expression</span>(theta), <span class="at">y =</span> <span class="st">"密度"</span>, <span class="at">color =</span> <span class="st">"データ量"</span>) <span class="sc">+</span></span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="U17-bayesian-basics_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>データが増えるにつれて、事後分布はどんどん尖って真の値の周辺に集中していきます。これが「ベイズ的な学習」です。</p>
+</section>
+<section id="正規分布の場合-正規-正規共役モデル" class="level3">
+<h3 class="anchored" data-anchor-id="正規分布の場合-正規-正規共役モデル">正規分布の場合: 正規-正規共役モデル</h3>
+<p>正規分布のパラメータを推定する場合にも共役が成り立ちます。母分散 <span class="math inline">\(\sigma^2\)</span> が既知で、母平均 <span class="math inline">\(\mu\)</span> に正規分布の事前分布を置く場合を考えます。</p>
+<ul>
+<li><strong>データ</strong>: <span class="math inline">\(x_1, \ldots, x_n \sim N(\mu, \sigma^2)\)</span>（<span class="math inline">\(\sigma^2\)</span> は既知）</li>
+<li><strong>事前分布</strong>: <span class="math inline">\(\mu \sim N(\mu_0, \sigma_0^2)\)</span></li>
+<li><strong>事後分布</strong>: <span class="math inline">\(\mu \mid \boldsymbol{x} \sim N(\mu_n, \sigma_n^2)\)</span></li>
+</ul>
+<p>ここで事後分布のパラメータは次のように計算されます。</p>
+<p><span class="math display">\[
+\mu_n = \frac{\frac{\mu_0}{\sigma_0^2} + \frac{n \bar{x}}{\sigma^2}}{\frac{1}{\sigma_0^2} + \frac{n}{\sigma^2}}, \quad
+\sigma_n^2 = \frac{1}{\frac{1}{\sigma_0^2} + \frac{n}{\sigma^2}}
+\]</span></p>
+<p>事後分布の平均 <span class="math inline">\(\mu_n\)</span> は、事前分布の平均 <span class="math inline">\(\mu_0\)</span> とデータの平均 <span class="math inline">\(\bar{x}\)</span> の <strong>精度で重みづけした加重平均</strong> になっています。精度とは分散の逆数 <span class="math inline">\(1/\sigma^2\)</span> のことです。</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 正規-正規共役モデルの例 ---</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># データ: 10人の身長を測定（母分散は既知で sigma^2 = 25 とする）</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>heights <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">170</span>, <span class="at">sd =</span> <span class="dv">5</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>x_bar <span class="ot">&lt;-</span> <span class="fu">mean</span>(heights)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(heights)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>sigma2 <span class="ot">&lt;-</span> <span class="dv">25</span>  <span class="co"># 既知の母分散</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 事前分布: mu ~ N(165, 100)（あまり確信がない事前知識）</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>mu0 <span class="ot">&lt;-</span> <span class="dv">165</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>sigma0_sq <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 事後分布の計算</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>precision_prior <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> sigma0_sq</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>precision_data <span class="ot">&lt;-</span> n <span class="sc">/</span> sigma2</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>sigma_n_sq <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> (precision_prior <span class="sc">+</span> precision_data)</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>mu_n <span class="ot">&lt;-</span> sigma_n_sq <span class="sc">*</span> (mu0 <span class="sc">/</span> sigma0_sq <span class="sc">+</span> n <span class="sc">*</span> x_bar <span class="sc">/</span> sigma2)</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co"># 可視化</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>x_range <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">155</span>, <span class="dv">180</span>, <span class="at">length.out =</span> <span class="dv">1000</span>)</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>prior_density <span class="ot">&lt;-</span> <span class="fu">dnorm</span>(x_range, mu0, <span class="fu">sqrt</span>(sigma0_sq))</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>posterior_density <span class="ot">&lt;-</span> <span class="fu">dnorm</span>(x_range, mu_n, <span class="fu">sqrt</span>(sigma_n_sq))</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>likelihood_val <span class="ot">&lt;-</span> <span class="fu">dnorm</span>(x_range, x_bar, <span class="fu">sqrt</span>(sigma2 <span class="sc">/</span> n))</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>likelihood_scaled <span class="ot">&lt;-</span> likelihood_val <span class="sc">/</span> <span class="fu">max</span>(likelihood_val) <span class="sc">*</span> <span class="fu">max</span>(posterior_density)</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">mu =</span> <span class="fu">rep</span>(x_range, <span class="dv">3</span>),</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">density =</span> <span class="fu">c</span>(prior_density, likelihood_scaled, posterior_density),</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="fu">rep</span>(<span class="fu">c</span>(</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sprintf</span>(<span class="st">"事前分布 N(%.0f, %.0f)"</span>, mu0, sigma0_sq),</span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>    <span class="st">"尤度（スケール済み）"</span>,</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sprintf</span>(<span class="st">"事後分布 N(%.2f, %.2f)"</span>, mu_n, sigma_n_sq)</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>  ), <span class="at">each =</span> <span class="fu">length</span>(x_range))</span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">type =</span> <span class="fu">factor</span>(type, <span class="at">levels =</span> <span class="fu">unique</span>(type))) <span class="sc">%&gt;%</span></span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> mu, <span class="at">y =</span> density, <span class="at">color =</span> type, <span class="at">linetype =</span> type)) <span class="sc">+</span></span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"steelblue"</span>, <span class="st">"darkgreen"</span>, <span class="st">"red"</span>)) <span class="sc">+</span></span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_linetype_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"dashed"</span>, <span class="st">"dotted"</span>, <span class="st">"solid"</span>)) <span class="sc">+</span></span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"正規-正規共役モデル: 身長データの推定"</span>,</span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="fu">expression</span>(mu), <span class="at">y =</span> <span class="st">"密度"</span>,</span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">""</span>, <span class="at">linetype =</span> <span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="U17-bayesian-basics_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>事後分布の平均（170.24）は、事前分布の平均（165）とデータの平均（170.37）の間にあり、データの情報量が多い方に引き寄せられていることがわかります。</p>
+</section>
+<section id="ベイズファクター" class="level3">
+<h3 class="anchored" data-anchor-id="ベイズファクター">ベイズファクター</h3>
+<p><strong>ベイズファクター（Bayes Factor; BF）</strong> は、2つのモデル（仮説）を比較するためのベイズ的指標です。</p>
+<p><span class="math display">\[
+BF_{12} = \frac{P(D \mid \mathcal{M}_1)}{P(D \mid \mathcal{M}_2)}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(BF_{12} &gt; 1\)</span>: モデル1がモデル2よりデータに支持されている</li>
+<li><span class="math inline">\(BF_{12} &lt; 1\)</span>: モデル2がモデル1よりデータに支持されている</li>
+<li><span class="math inline">\(BF_{12} = 1\)</span>: どちらも同程度に支持されている</li>
+</ul>
+<p>例えば <span class="math inline">\(BF_{10} = 8\)</span> であれば、対立仮説は帰無仮説の8倍データに支持されているということです。逆に <span class="math inline">\(BF_{10} = 0.2\)</span> であれば、帰無仮説のほうが5倍支持されていることになります。</p>
+<p>頻度主義の検定では「帰無仮説が正しい」とは言えませんでしたが、ベイズファクターを使えば帰無仮説を積極的に支持する証拠を示すこともできます。ただし、ベイズファクターの値に対して機械的な基準（例: 3以上なら支持）を設けると、p値と同じ問題を招く可能性があるため、注意が必要です。</p>
+<hr>
+</section>
+</section>
+<section id="ランクc-基礎知識" class="level2">
+<h2 class="anchored" data-anchor-id="ランクc-基礎知識">ランクC: 基礎知識</h2>
+<section id="c-1" class="level3">
+<h3 class="anchored" data-anchor-id="c-1">17-C-1</h3>
+<p>ベイズの定理において、データを観測した後のパラメータの確率分布を何と呼ぶか。</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">事前分布</option><option value="answer">事後分布</option><option value="">尤度</option><option value="">周辺尤度</option></select></p>
+</section>
+<section id="c-2" class="level3">
+<h3 class="anchored" data-anchor-id="c-2">17-C-2</h3>
+<p>ベイズの定理の式 <span class="math inline">\(P(\theta \mid D) \propto P(D \mid \theta) \times P(\theta)\)</span> において、<span class="math inline">\(P(D \mid \theta)\)</span> は何を表すか。</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">事前分布</option><option value="">事後分布</option><option value="answer">尤度</option><option value="">確信区間</option></select></p>
+</section>
+<section id="c-3" class="level3">
+<h3 class="anchored" data-anchor-id="c-3">17-C-3</h3>
+<p>事前分布と事後分布が同じ種類の確率分布になるとき、その事前分布を何と呼ぶか。</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">無情報事前分布</option><option value="">弱情報事前分布</option><option value="answer">共役事前分布</option><option value="">一様分布</option></select></p>
+</section>
+<section id="c-4" class="level3">
+<h3 class="anchored" data-anchor-id="c-4">17-C-4</h3>
+<p>二項分布の尤度に対する共役事前分布はどの分布か。</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">正規分布</option><option value="answer">ベータ分布</option><option value="">ガンマ分布</option><option value="">ポアソン分布</option></select></p>
+</section>
+<section id="c-5" class="level3">
+<h3 class="anchored" data-anchor-id="c-5">17-C-5</h3>
+<p>ベイズの確信区間（credible interval）について、正しい解釈はどれか。</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">同じ方法で繰り返すと95%が真の値を含む</option><option value="answer">パラメータが95%の確率でこの区間にある</option><option value="">データの95%がこの区間に含まれる</option><option value="">帰無仮説が棄却される確率が95%</option></select></p>
+</section>
+<section id="c-6" class="level3">
+<h3 class="anchored" data-anchor-id="c-6">17-C-6</h3>
+<p>事後分布の最頻値をもとにした推定値を何と呼ぶか。</p>
+<p><select class="webex-select"><option value="blank"></option><option value="answer">MAP推定値</option><option value="">EAP推定値</option><option value="">MLE推定値</option><option value="">MED推定値</option></select></p>
+</section>
+<section id="c-7" class="level3">
+<h3 class="anchored" data-anchor-id="c-7">17-C-7</h3>
+<p>事後分布の期待値をもとにした推定値を何と呼ぶか。</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">MAP推定値</option><option value="answer">EAP推定値</option><option value="">MLE推定値</option><option value="">MED推定値</option></select></p>
+</section>
+<section id="c-8" class="level3">
+<h3 class="anchored" data-anchor-id="c-8">17-C-8</h3>
+<p>無情報事前分布として Beta(1, 1) を使った場合、コインを10回投げて7回表が出たとき、事後分布は何になるか。</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">Beta(7, 3)</option><option value="answer">Beta(8, 4)</option><option value="">Beta(1, 1)</option><option value="">Beta(10, 7)</option></select></p>
+</section>
+<section id="c-9" class="level3">
+<h3 class="anchored" data-anchor-id="c-9">17-C-9</h3>
+<p>データの量が十分に多い場合、事前分布の影響はどうなるか。</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">事前分布の影響がより大きくなる</option><option value="answer">事前分布の影響は小さくなり事後分布はデータに支配される</option><option value="">事前分布と事後分布が完全に一致する</option><option value="">事前分布によって結果が全く異なる</option></select></p>
+</section>
+<section id="c-10" class="level3">
+<h3 class="anchored" data-anchor-id="c-10">17-C-10</h3>
+<p>ベイズファクター <span class="math inline">\(BF_{10} = 5\)</span> は何を意味するか。</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">帰無仮説が正しい確率が5%</option><option value="">対立仮説が正しい確率が5倍</option><option value="answer">対立仮説が帰無仮説の5倍データに支持されている</option><option value="">有意水準が5%</option></select></p>
+<hr>
+</section>
+</section>
+<section id="ランクb-実践スキル" class="level2">
+<h2 class="anchored" data-anchor-id="ランクb-実践スキル">ランクB: 実践スキル</h2>
+<section id="b-1" class="level3">
+<h3 class="anchored" data-anchor-id="b-1">17-B-1</h3>
+<p>事前分布 Beta(1, 1) と事後分布 Beta(61, 41) を1つのグラフに描きなさい。事後分布の95%確信区間を塗りつぶしで示すこと。</p>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">length.out =</span> <span class="dv">1000</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>prior <span class="ot">&lt;-</span> <span class="fu">dbeta</span>(x, <span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>posterior <span class="ot">&lt;-</span> <span class="fu">dbeta</span>(x, <span class="dv">61</span>, <span class="dv">41</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 95%確信区間</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>ci_lower <span class="ot">&lt;-</span> <span class="fu">qbeta</span>(<span class="fl">0.025</span>, <span class="dv">61</span>, <span class="dv">41</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>ci_upper <span class="ot">&lt;-</span> <span class="fu">qbeta</span>(<span class="fl">0.975</span>, <span class="dv">61</span>, <span class="dv">41</span>)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 確信区間内のデータを抽出</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>ci_region <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">theta =</span> x, <span class="at">density =</span> posterior) <span class="sc">%&gt;%</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(theta <span class="sc">&gt;=</span> ci_lower <span class="sc">&amp;</span> theta <span class="sc">&lt;=</span> ci_upper)</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">theta =</span> <span class="fu">rep</span>(x, <span class="dv">2</span>),</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">density =</span> <span class="fu">c</span>(prior, posterior),</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">type =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"事前分布 Beta(1,1)"</span>, <span class="st">"事後分布 Beta(61,41)"</span>), <span class="at">each =</span> <span class="fu">length</span>(x))) <span class="sc">%&gt;%</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> theta, <span class="at">y =</span> density, <span class="at">color =</span> type)) <span class="sc">+</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">data =</span> ci_region, <span class="fu">aes</span>(<span class="at">x =</span> theta, <span class="at">y =</span> density),</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>            <span class="at">fill =</span> <span class="st">"red"</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>, <span class="at">inherit.aes =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"steelblue"</span>, <span class="st">"red"</span>)) <span class="sc">+</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"事前分布と事後分布"</span>,</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="fu">sprintf</span>(<span class="st">"95%%確信区間: [%.3f, %.3f]"</span>, ci_lower, ci_upper),</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="fu">expression</span>(theta), <span class="at">y =</span> <span class="st">"密度"</span>, <span class="at">color =</span> <span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="U17-bayesian-basics_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="b-2" class="level3">
+<h3 class="anchored" data-anchor-id="b-2">17-B-2</h3>
+<p>事前分布を Beta(50, 50)（「公平なコインだ」という強い信念）に変えて、100回中60回表のデータで事後分布を計算しなさい。Beta(1,1) を事前分布とした場合の事後分布と比較するグラフを作成し、事後分布の平均と95%確信区間を報告すること。</p>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">length.out =</span> <span class="dv">1000</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 弱い事前分布</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>post_weak <span class="ot">&lt;-</span> <span class="fu">dbeta</span>(x, <span class="dv">1</span> <span class="sc">+</span> <span class="dv">60</span>, <span class="dv">1</span> <span class="sc">+</span> <span class="dv">40</span>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>eap_weak <span class="ot">&lt;-</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="dv">60</span>) <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="dv">60</span> <span class="sc">+</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">40</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>ci_weak <span class="ot">&lt;-</span> <span class="fu">qbeta</span>(<span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>), <span class="dv">61</span>, <span class="dv">41</span>)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 強い事前分布</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>post_strong <span class="ot">&lt;-</span> <span class="fu">dbeta</span>(x, <span class="dv">50</span> <span class="sc">+</span> <span class="dv">60</span>, <span class="dv">50</span> <span class="sc">+</span> <span class="dv">40</span>)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>eap_strong <span class="ot">&lt;-</span> (<span class="dv">50</span> <span class="sc">+</span> <span class="dv">60</span>) <span class="sc">/</span> (<span class="dv">50</span> <span class="sc">+</span> <span class="dv">60</span> <span class="sc">+</span> <span class="dv">50</span> <span class="sc">+</span> <span class="dv">40</span>)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>ci_strong <span class="ot">&lt;-</span> <span class="fu">qbeta</span>(<span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>), <span class="dv">110</span>, <span class="dv">90</span>)</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">theta =</span> <span class="fu">rep</span>(x, <span class="dv">2</span>),</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">density =</span> <span class="fu">c</span>(post_weak, post_strong),</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"事前: Beta(1,1) -&gt; 事後: Beta(61,41)"</span>,</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>               <span class="st">"事前: Beta(50,50) -&gt; 事後: Beta(110,90)"</span>), <span class="at">each =</span> <span class="fu">length</span>(x))</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> theta, <span class="at">y =</span> density, <span class="at">color =</span> type)) <span class="sc">+</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"事前分布の強さによる事後分布の違い"</span>,</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="fu">expression</span>(theta), <span class="at">y =</span> <span class="st">"密度"</span>, <span class="at">color =</span> <span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="U17-bayesian-basics_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 数値の比較</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>comparison <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  事前分布 <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Beta(1,1)"</span>, <span class="st">"Beta(50,50)"</span>),</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">EAP =</span> <span class="fu">c</span>(eap_weak, eap_strong),</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  CI下限 <span class="ot">=</span> <span class="fu">c</span>(ci_weak[<span class="dv">1</span>], ci_strong[<span class="dv">1</span>]),</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  CI上限 <span class="ot">=</span> <span class="fu">c</span>(ci_weak[<span class="dv">2</span>], ci_strong[<span class="dv">2</span>])</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(comparison, <span class="at">digits =</span> <span class="dv">4</span>,</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">caption =</span> <span class="st">"事前分布による事後分布の比較"</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>事前分布による事後分布の比較</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">事前分布</th>
+<th style="text-align: right;">EAP</th>
+<th style="text-align: right;">CI下限</th>
+<th style="text-align: right;">CI上限</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Beta(1,1)</td>
+<td style="text-align: right;">0.598</td>
+<td style="text-align: right;">0.5017</td>
+<td style="text-align: right;">0.6907</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Beta(50,50)</td>
+<td style="text-align: right;">0.550</td>
+<td style="text-align: right;">0.4808</td>
+<td style="text-align: right;">0.6182</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>強い事前分布を使うと、事後分布がデータ（60%）と事前の信念（50%）の間に位置し、確信区間も狭くなっています。</p>
+</div>
+</section>
+<section id="b-3" class="level3">
+<h3 class="anchored" data-anchor-id="b-3">17-B-3</h3>
+<p><code>qbeta()</code> を使って、Beta(61, 41) の95%確信区間、90%確信区間、99%確信区間をそれぞれ計算しなさい。結果を表にまとめること。</p>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>ci_levels <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.90</span>, <span class="fl">0.95</span>, <span class="fl">0.99</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>ci_table <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  信頼水準 <span class="ot">=</span> <span class="fu">sprintf</span>(<span class="st">"%.0f%%"</span>, ci_levels <span class="sc">*</span> <span class="dv">100</span>),</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  下限 <span class="ot">=</span> <span class="fu">qbeta</span>((<span class="dv">1</span> <span class="sc">-</span> ci_levels) <span class="sc">/</span> <span class="dv">2</span>, <span class="dv">61</span>, <span class="dv">41</span>),</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  上限 <span class="ot">=</span> <span class="fu">qbeta</span>(<span class="dv">1</span> <span class="sc">-</span> (<span class="dv">1</span> <span class="sc">-</span> ci_levels) <span class="sc">/</span> <span class="dv">2</span>, <span class="dv">61</span>, <span class="dv">41</span>),</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  幅 <span class="ot">=</span> 上限 <span class="sc">-</span> 下限</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(ci_table, <span class="at">digits =</span> <span class="dv">4</span>,</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>             <span class="at">caption =</span> <span class="st">"Beta(61, 41) の各水準の確信区間"</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Beta(61, 41) の各水準の確信区間</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">信頼水準</th>
+<th style="text-align: right;">下限</th>
+<th style="text-align: right;">上限</th>
+<th style="text-align: right;">幅</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">90%</td>
+<td style="text-align: right;">0.5174</td>
+<td style="text-align: right;">0.6764</td>
+<td style="text-align: right;">0.1590</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">95%</td>
+<td style="text-align: right;">0.5017</td>
+<td style="text-align: right;">0.6907</td>
+<td style="text-align: right;">0.1889</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">99%</td>
+<td style="text-align: right;">0.4711</td>
+<td style="text-align: right;">0.7178</td>
+<td style="text-align: right;">0.2467</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>確信水準を高くするほど区間は広くなります。「より確信を持ちたいなら、より広い範囲を許容しなければならない」ということです。</p>
+</div>
+</section>
+<section id="b-4" class="level3">
+<h3 class="anchored" data-anchor-id="b-4">17-B-4</h3>
+<p>正規-正規共役モデルを使って、以下のデータから母平均を推定しなさい。母分散は <span class="math inline">\(\sigma^2 = 16\)</span>（既知）とする。事前分布は <span class="math inline">\(\mu \sim N(50, 100)\)</span> とする。事後分布のパラメータ（平均と分散）を計算し、事前分布・尤度・事後分布を1つのグラフに描くこと。</p>
+<p>データ: <code>x &lt;- c(55, 58, 52, 57, 54, 56, 53, 59, 55, 57)</code></p>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>x_data <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">55</span>, <span class="dv">58</span>, <span class="dv">52</span>, <span class="dv">57</span>, <span class="dv">54</span>, <span class="dv">56</span>, <span class="dv">53</span>, <span class="dv">59</span>, <span class="dv">55</span>, <span class="dv">57</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(x_data)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>x_bar <span class="ot">&lt;-</span> <span class="fu">mean</span>(x_data)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>sigma2 <span class="ot">&lt;-</span> <span class="dv">16</span>  <span class="co"># 既知の母分散</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 事前分布</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>mu0 <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>sigma0_sq <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 事後分布の計算</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>precision_prior <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> sigma0_sq</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>precision_data <span class="ot">&lt;-</span> n <span class="sc">/</span> sigma2</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>sigma_n_sq <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> (precision_prior <span class="sc">+</span> precision_data)</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>mu_n <span class="ot">&lt;-</span> sigma_n_sq <span class="sc">*</span> (mu0 <span class="sc">/</span> sigma0_sq <span class="sc">+</span> n <span class="sc">*</span> x_bar <span class="sc">/</span> sigma2)</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 可視化</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>x_range <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">40</span>, <span class="dv">65</span>, <span class="at">length.out =</span> <span class="dv">1000</span>)</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>prior_d <span class="ot">&lt;-</span> <span class="fu">dnorm</span>(x_range, mu0, <span class="fu">sqrt</span>(sigma0_sq))</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>lik_d <span class="ot">&lt;-</span> <span class="fu">dnorm</span>(x_range, x_bar, <span class="fu">sqrt</span>(sigma2 <span class="sc">/</span> n))</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>post_d <span class="ot">&lt;-</span> <span class="fu">dnorm</span>(x_range, mu_n, <span class="fu">sqrt</span>(sigma_n_sq))</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>lik_scaled <span class="ot">&lt;-</span> lik_d <span class="sc">/</span> <span class="fu">max</span>(lik_d) <span class="sc">*</span> <span class="fu">max</span>(post_d)</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">mu =</span> <span class="fu">rep</span>(x_range, <span class="dv">3</span>),</span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">density =</span> <span class="fu">c</span>(prior_d, lik_scaled, post_d),</span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"事前分布"</span>, <span class="st">"尤度（スケール済み）"</span>, <span class="st">"事後分布"</span>), <span class="at">each =</span> <span class="fu">length</span>(x_range))</span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">type =</span> <span class="fu">factor</span>(type, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"事前分布"</span>, <span class="st">"尤度（スケール済み）"</span>, <span class="st">"事後分布"</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> mu, <span class="at">y =</span> density, <span class="at">color =</span> type)) <span class="sc">+</span></span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"steelblue"</span>, <span class="st">"darkgreen"</span>, <span class="st">"red"</span>)) <span class="sc">+</span></span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"正規-正規共役モデルによる母平均の推定"</span>,</span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="fu">sprintf</span>(<span class="st">"事後分布: N(%.2f, %.4f)"</span>, mu_n, sigma_n_sq),</span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="fu">expression</span>(mu), <span class="at">y =</span> <span class="st">"密度"</span>, <span class="at">color =</span> <span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="U17-bayesian-basics_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 95%確信区間</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>ci_normal <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>), mu_n, <span class="fu">sqrt</span>(sigma_n_sq))</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>事後分布の平均は55.51、95%確信区間は [53.05, 57.97] です。</p>
+</div>
+</section>
+<section id="b-5" class="level3">
+<h3 class="anchored" data-anchor-id="b-5">17-B-5</h3>
+<p>コイン投げのデータ（100回中60回表）に対して、3種類の事前分布（Beta(1,1), Beta(5,5), Beta(30,30)）を使い、それぞれの事後分布の MAP推定値、EAP推定値、95%確信区間を比較する表を作成しなさい。</p>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 事前分布の感度分析</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">60</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>priors <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">prior_name =</span> <span class="fu">c</span>(<span class="st">"Beta(1,1)"</span>, <span class="st">"Beta(5,5)"</span>, <span class="st">"Beta(30,30)"</span>),</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">a_prior =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">30</span>),</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">b_prior =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">30</span>)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>sensitivity <span class="ot">&lt;-</span> priors <span class="sc">%&gt;%</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">a_post =</span> a_prior <span class="sc">+</span> k,</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">b_post =</span> b_prior <span class="sc">+</span> (n <span class="sc">-</span> k),</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">MAP =</span> (a_post <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">/</span> (a_post <span class="sc">+</span> b_post <span class="sc">-</span> <span class="dv">2</span>),</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">EAP =</span> a_post <span class="sc">/</span> (a_post <span class="sc">+</span> b_post),</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">CI_lower =</span> <span class="fu">qbeta</span>(<span class="fl">0.025</span>, a_post, b_post),</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">CI_upper =</span> <span class="fu">qbeta</span>(<span class="fl">0.975</span>, a_post, b_post)</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(事前分布 <span class="ot">=</span> prior_name, 事後分布 <span class="ot">=</span> a_post,</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>                MAP, EAP, CI下限 <span class="ot">=</span> CI_lower, CI上限 <span class="ot">=</span> CI_upper)</span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a><span class="co"># 事後分布の列名を修正</span></span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>sensitivity <span class="ot">&lt;-</span> priors <span class="sc">%&gt;%</span></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(</span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">a_post =</span> a_prior <span class="sc">+</span> k,</span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">b_post =</span> b_prior <span class="sc">+</span> (n <span class="sc">-</span> k),</span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">post_name =</span> <span class="fu">sprintf</span>(<span class="st">"Beta(%d,%d)"</span>, a_post, b_post),</span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">MAP =</span> (a_post <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">/</span> (a_post <span class="sc">+</span> b_post <span class="sc">-</span> <span class="dv">2</span>),</span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">EAP =</span> a_post <span class="sc">/</span> (a_post <span class="sc">+</span> b_post),</span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">CI_lower =</span> <span class="fu">qbeta</span>(<span class="fl">0.025</span>, a_post, b_post),</span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">CI_upper =</span> <span class="fu">qbeta</span>(<span class="fl">0.975</span>, a_post, b_post)</span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(事前分布 <span class="ot">=</span> prior_name, 事後分布 <span class="ot">=</span> post_name,</span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>                MAP, EAP, CI下限 <span class="ot">=</span> CI_lower, CI上限 <span class="ot">=</span> CI_upper)</span>
+<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(sensitivity, <span class="at">digits =</span> <span class="dv">4</span>,</span>
+<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a>             <span class="at">caption =</span> <span class="st">"事前分布の感度分析"</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>事前分布の感度分析</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">事前分布</th>
+<th style="text-align: left;">事後分布</th>
+<th style="text-align: right;">MAP</th>
+<th style="text-align: right;">EAP</th>
+<th style="text-align: right;">CI下限</th>
+<th style="text-align: right;">CI上限</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Beta(1,1)</td>
+<td style="text-align: left;">Beta(61,41)</td>
+<td style="text-align: right;">0.6000</td>
+<td style="text-align: right;">0.5980</td>
+<td style="text-align: right;">0.5017</td>
+<td style="text-align: right;">0.6907</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Beta(5,5)</td>
+<td style="text-align: left;">Beta(65,45)</td>
+<td style="text-align: right;">0.5926</td>
+<td style="text-align: right;">0.5909</td>
+<td style="text-align: right;">0.4981</td>
+<td style="text-align: right;">0.6806</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Beta(30,30)</td>
+<td style="text-align: left;">Beta(90,70)</td>
+<td style="text-align: right;">0.5633</td>
+<td style="text-align: right;">0.5625</td>
+<td style="text-align: right;">0.4852</td>
+<td style="text-align: right;">0.6383</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>事前分布が強くなるほど、推定値が0.5に引き寄せられ、確信区間も狭くなります。</p>
+</div>
+</section>
+<section id="b-6" class="level3">
+<h3 class="anchored" data-anchor-id="b-6">17-B-6</h3>
+<p>事後予測分布の概念を理解するために、以下のシミュレーションを行いなさい。Beta(61, 41) の事後分布から <span class="math inline">\(\theta\)</span> を1000回サンプリングし、各 <span class="math inline">\(\theta\)</span> でコインを100回投げたときの表の回数の分布（事後予測分布）をヒストグラムで描きなさい。</p>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 事後分布からthetaをサンプリング</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>theta_samples <span class="ot">&lt;-</span> <span class="fu">rbeta</span>(<span class="dv">1000</span>, <span class="dv">61</span>, <span class="dv">41</span>)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 各thetaでコインを100回投げる</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>predicted_heads <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="dv">1000</span>, <span class="at">size =</span> <span class="dv">100</span>, <span class="at">prob =</span> theta_samples)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">heads =</span> predicted_heads) <span class="sc">%&gt;%</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> heads)) <span class="sc">+</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>, <span class="at">fill =</span> <span class="st">"steelblue"</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">60</span>, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">62</span>, <span class="at">y =</span> <span class="dv">50</span>, <span class="at">label =</span> <span class="st">"観測値 = 60"</span>,</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>           <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">hjust =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"事後予測分布: 次に100回投げたときの表の回数"</span>,</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"事後分布 Beta(61,41) から生成"</span>,</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"表の回数"</span>, <span class="at">y =</span> <span class="st">"頻度"</span>) <span class="sc">+</span></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="U17-bayesian-basics_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>事後予測分布は「このモデルが正しいなら、次のデータはどのような値を取りうるか」を示します。観測値（60回）がこの分布の中心付近にあるかを確認することで、モデルの妥当性を評価できます（事後予測チェック）。</p>
+</div>
+</section>
+<section id="b-7" class="level3">
+<h3 class="anchored" data-anchor-id="b-7">17-B-7</h3>
+<p>同じデータ（コイン100回中60回表）に対して、頻度主義の95%信頼区間とベイズの95%確信区間を比較しなさい。それぞれの区間と解釈の違いを確認すること。</p>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># データ</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">60</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>p_hat <span class="ot">&lt;-</span> k <span class="sc">/</span> n</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 頻度主義: Wald信頼区間 ---</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>se <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(p_hat <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p_hat) <span class="sc">/</span> n)</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>z_crit <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>)</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>freq_ci <span class="ot">&lt;-</span> <span class="fu">c</span>(p_hat <span class="sc">-</span> z_crit <span class="sc">*</span> se, p_hat <span class="sc">+</span> z_crit <span class="sc">*</span> se)</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 頻度主義: 正確な二項検定の信頼区間 ---</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>exact_test <span class="ot">&lt;-</span> <span class="fu">binom.test</span>(k, n)</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>exact_ci <span class="ot">&lt;-</span> exact_test<span class="sc">$</span>conf.int</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="co"># --- ベイズ: Beta(61, 41) の95%確信区間 ---</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>bayes_ci <span class="ot">&lt;-</span> <span class="fu">qbeta</span>(<span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>), <span class="dv">61</span>, <span class="dv">41</span>)</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 結果の比較</span></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>ci_comparison <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>  方法 <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Wald信頼区間"</span>, <span class="st">"正確な二項信頼区間"</span>, <span class="st">"ベイズ確信区間"</span>),</span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>  点推定 <span class="ot">=</span> <span class="fu">c</span>(p_hat, p_hat, <span class="dv">61</span> <span class="sc">/</span> <span class="dv">102</span>),</span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>  下限 <span class="ot">=</span> <span class="fu">c</span>(freq_ci[<span class="dv">1</span>], exact_ci[<span class="dv">1</span>], bayes_ci[<span class="dv">1</span>]),</span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>  上限 <span class="ot">=</span> <span class="fu">c</span>(freq_ci[<span class="dv">2</span>], exact_ci[<span class="dv">2</span>], bayes_ci[<span class="dv">2</span>]),</span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>  幅 <span class="ot">=</span> 上限 <span class="sc">-</span> 下限</span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(ci_comparison, <span class="at">digits =</span> <span class="dv">4</span>,</span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a>             <span class="at">caption =</span> <span class="st">"頻度主義とベイズの区間推定の比較"</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>頻度主義とベイズの区間推定の比較</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">方法</th>
+<th style="text-align: right;">点推定</th>
+<th style="text-align: right;">下限</th>
+<th style="text-align: right;">上限</th>
+<th style="text-align: right;">幅</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Wald信頼区間</td>
+<td style="text-align: right;">0.600</td>
+<td style="text-align: right;">0.5040</td>
+<td style="text-align: right;">0.6960</td>
+<td style="text-align: right;">0.1920</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">正確な二項信頼区間</td>
+<td style="text-align: right;">0.600</td>
+<td style="text-align: right;">0.4972</td>
+<td style="text-align: right;">0.6967</td>
+<td style="text-align: right;">0.1995</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ベイズ確信区間</td>
+<td style="text-align: right;">0.598</td>
+<td style="text-align: right;">0.5017</td>
+<td style="text-align: right;">0.6907</td>
+<td style="text-align: right;">0.1889</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>数値的にはほぼ同じ結果ですが、解釈が異なります。頻度主義の信頼区間は「この方法で繰り返し区間を作ると、約95%が真の値を含む」であるのに対し、ベイズの確信区間は「パラメータが95%の確率でこの区間にある」と直接解釈できます。</p>
+</div>
+</section>
+<section id="b-8" class="level3">
+<h3 class="anchored" data-anchor-id="b-8">17-B-8</h3>
+<p>ベイズの逐次更新を可視化しなさい。真のパラメータ <span class="math inline">\(\theta = 0.3\)</span> のコインを使い、事前分布 Beta(1,1) から始めて、10回、30回、50回、100回データが増えるたびに事後分布がどう変化するかを1つのグラフに重ねて描くこと。</p>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2024</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>true_theta <span class="ot">&lt;-</span> <span class="fl">0.3</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>all_flips <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="dv">100</span>, <span class="dv">1</span>, true_theta)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>stages <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">30</span>, <span class="dv">50</span>, <span class="dv">100</span>)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">length.out =</span> <span class="dv">1000</span>)</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>update_plot <span class="ot">&lt;-</span> <span class="fu">tibble</span>()</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (s <span class="cf">in</span> stages) {</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  k_cum <span class="ot">&lt;-</span> <span class="fu">sum</span>(all_flips[<span class="dv">1</span><span class="sc">:</span>s])</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>  post_d <span class="ot">&lt;-</span> <span class="fu">dbeta</span>(x, <span class="dv">1</span> <span class="sc">+</span> k_cum, <span class="dv">1</span> <span class="sc">+</span> s <span class="sc">-</span> k_cum)</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>  update_plot <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">bind_rows</span>(</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>    update_plot,</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tibble</span>(<span class="at">theta =</span> x, <span class="at">density =</span> post_d,</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>           <span class="at">stage =</span> <span class="fu">sprintf</span>(<span class="st">"n=%d (表=%d回)"</span>, s, k_cum))</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a><span class="co"># 事前分布も追加</span></span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>update_plot <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">bind_rows</span>(</span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">theta =</span> x, <span class="at">density =</span> <span class="fu">dbeta</span>(x, <span class="dv">1</span>, <span class="dv">1</span>), <span class="at">stage =</span> <span class="st">"事前分布 Beta(1,1)"</span>),</span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>  update_plot</span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>stage_levels <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"事前分布 Beta(1,1)"</span>,</span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">sprintf</span>(<span class="st">"n=%d (表=%d回)"</span>, stages,</span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">sapply</span>(stages, <span class="cf">function</span>(s) <span class="fu">sum</span>(all_flips[<span class="dv">1</span><span class="sc">:</span>s]))))</span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a>update_plot <span class="sc">%&gt;%</span></span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">stage =</span> <span class="fu">factor</span>(stage, <span class="at">levels =</span> stage_levels)) <span class="sc">%&gt;%</span></span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> theta, <span class="at">y =</span> density, <span class="at">color =</span> stage)) <span class="sc">+</span></span>
+<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> true_theta, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"gray40"</span>) <span class="sc">+</span></span>
+<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> true_theta <span class="sc">+</span> <span class="fl">0.03</span>, <span class="at">y =</span> <span class="fl">0.3</span>,</span>
+<span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="fu">expression</span>(theta <span class="sc">==</span> <span class="fl">0.3</span>), <span class="at">color =</span> <span class="st">"gray40"</span>) <span class="sc">+</span></span>
+<span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"ベイズの逐次更新過程"</span>,</span>
+<span id="cb17-37"><a href="#cb17-37" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="fu">expression</span>(theta), <span class="at">y =</span> <span class="st">"密度"</span>, <span class="at">color =</span> <span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb17-38"><a href="#cb17-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb17-39"><a href="#cb17-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>) <span class="sc">+</span></span>
+<span id="cb17-40"><a href="#cb17-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">color =</span> <span class="fu">guide_legend</span>(<span class="at">nrow =</span> <span class="dv">2</span>))</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="U17-bayesian-basics_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>データが増えるにつれて事後分布が真の値 0.3 の周辺に集中していく様子がわかります。最初の事前分布 Beta(1,1) は平らですが、データの蓄積とともに情報が更新されていきます。</p>
+</div>
+<hr>
+</section>
+</section>
+<section id="ランクa-ai協働" class="level2">
+<h2 class="anchored" data-anchor-id="ランクa-ai協働">ランクA: AI協働</h2>
+<section id="a-1" class="level3">
+<h3 class="anchored" data-anchor-id="a-1">17-A-1</h3>
+<p>あなたが卒業研究で質問紙調査を行い、ある尺度の得点について「集団の平均が理論的中間点と異なるか」を検討するとします。生成AIに以下を相談してください。</p>
+<ol type="1">
+<li>このリサーチクエスチョンに対して、頻度主義的アプローチ（1標本t検定）とベイズ的アプローチ（正規-正規共役モデル）の両方でどのように分析するかを聞く</li>
+<li>「事前分布をどう設定すべきか」についてAIに相談し、無情報事前分布と先行研究に基づく情報事前分布の2パターンを検討する</li>
+<li>AIが提案したRコードを実行し、両アプローチの結果を比較する</li>
+<li>結果の解釈の違い（「差がないとは言えない」vs「95%の確信度で差がある」）について、自分の言葉でまとめる</li>
+</ol>
+<p>AIの回答を鵜呑みにせず、事前知識セクションの内容と照らし合わせて検証すること。</p>
+</section>
+<section id="a-2" class="level3">
+<h3 class="anchored" data-anchor-id="a-2">17-A-2</h3>
+<p>「頻度主義 vs ベイズ」の論争は統計学の歴史の中で長く続いてきました。生成AIに以下を質問し、自分の考えをまとめてください。</p>
+<ol type="1">
+<li>頻度主義とベイズ主義それぞれの長所・短所を聞く</li>
+<li>「事前分布は主観的だから科学的でない」というフィッシャーの批判に対して、ベイズ側はどのように反論するか</li>
+<li>心理学の研究実践において、どちらのアプローチが適しているか（または使い分けるべきか）についてAIの意見を聞く</li>
+<li>上記を踏まえて、自分が卒業研究でどちらのアプローチを採用するか（または併用するか）について、500字程度で自分の考えを述べる</li>
+</ol>
+<hr>
+</section>
+</section>
+<section id="まとめ" class="level2">
+<h2 class="anchored" data-anchor-id="まとめ">まとめ</h2>
+<p>このユニットで学んだこと:</p>
+<ul>
+<li><strong>ベイズの定理</strong>: <span class="math inline">\(P(\theta \mid D) \propto P(D \mid \theta) \times P(\theta)\)</span>。事後分布は尤度と事前分布の積に比例する</li>
+<li><strong>事前分布の選択</strong>: 無情報・弱情報・強情報の3種類があり、データが多ければ事前分布の影響は小さくなる</li>
+<li><strong>共役事前分布</strong>: Beta-二項、正規-正規など、事後分布の形が解析的にわかる組み合わせ</li>
+<li><strong>確信区間</strong>: 「パラメータが95%の確率でこの区間にある」と解釈できる（頻度主義の信頼区間とは異なる）</li>
+<li><strong>MAP推定とEAP推定</strong>: 事後分布の最頻値と期待値。それぞれ異なる代表値を与える</li>
+<li><strong>逐次更新</strong>: データが蓄積されるにつれ、事後分布は真の値に収束していく</li>
+<li><strong>ベイズファクター</strong>: 2つのモデルの相対的な支持度を示す指標</li>
+</ul>
+<p>次のU18（MCMCの原理と実践）では、解析的に計算できない複雑なモデルに対して、マルコフ連鎖モンテカルロ法で事後分布を近似する方法を学びます。</p>
+<!-- 進捗: C10/B8/A2 -->
+
+
+</section>
+
+</main> <!-- /main -->
+<script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  var t = document.getElementsByClassName("webex-total_correct");
+  for (var i = 0; i < t.length; i++) {
+    p = t[i].parentElement;
+    var correct = p.getElementsByClassName("webex-correct").length;
+    var solvemes = p.getElementsByClassName("webex-solveme").length;
+    var radiogroups = p.getElementsByClassName("webex-radiogroup").length;
+    var selects = p.getElementsByClassName("webex-select").length;
+
+    t[i].innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* check answers */
+check_func = function() {
+  console.log("webex: check answers");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('unchecked')) {
+    cl.remove("unchecked");
+    this.innerHTML = "Hide Answers";
+  } else {
+    cl.add("unchecked");
+    this.innerHTML = "Show Answers";
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+
+  var cl = this.classList
+
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("webex onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  var check_sections = document.getElementsByClassName("webex-check");
+  console.log("check:", check_sections.length);
+  for (var i = 0; i < check_sections.length; i++) {
+    check_sections[i].classList.add("unchecked");
+
+    let btn = document.createElement("button");
+    btn.innerHTML = "Show Answers";
+    btn.classList.add("webex-check-button");
+    btn.onclick = check_func;
+    check_sections[i].appendChild(btn);
+
+    let spn = document.createElement("span");
+    spn.classList.add("webex-total_correct");
+    check_sections[i].appendChild(spn);
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+
+    solveme[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+    selects[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  update_total_correct();
+}
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "コピーしました");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "コピーしました");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

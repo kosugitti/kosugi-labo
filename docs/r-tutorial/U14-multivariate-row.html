@@ -1,0 +1,1999 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>U14. 多変量解析・行方向 – Kosugi Labo</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-a25750924116104412f7a457768fb952.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "一致なし",
+    "search-matching-documents-text": "一致した文書",
+    "search-copy-link-title": "検索へのリンクをコピー",
+    "search-hide-matches-text": "追加の検索結果を非表示",
+    "search-more-match-text": "追加の検索結果",
+    "search-more-matches-text": "追加の検索結果",
+    "search-clear-button-title": "消去",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "検索",
+    "search-label": "サーチ"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../include/webex.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Kosugi Labo</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="サーチ"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="ナビゲーションを切り替える" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">ホーム</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">ゼミガイド</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-">    
+        <li>
+    <a class="dropdown-item" href="../zemi-policy.html">
+ <span class="dropdown-text">ゼミの運営方針</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../research-guide.html">
+ <span class="dropdown-text">研究の進め方</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../writing-guide.html">
+ <span class="dropdown-text">文章の読み書き</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../anti-harassment.html">
+ <span class="dropdown-text">アンチハラスメントポリシー</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu--1" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">技術ガイド</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu--1">    
+        <li>
+    <a class="dropdown-item" href="../tech-guide/github-setup.html">
+ <span class="dropdown-text">GitHub</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tech-guide/vscode-setup.html">
+ <span class="dropdown-text">VSCode</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tech-guide/latex-setup.html">
+ <span class="dropdown-text">LaTeX</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tech-guide/ssh-remote.html">
+ <span class="dropdown-text">SSH接続</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tech-guide/tailscale.html">
+ <span class="dropdown-text">Tailscale</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-rチュートリアル" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Rチュートリアル</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-rチュートリアル">    
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/index.html">
+ <span class="dropdown-text">はじめに</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/r-basics.html">
+ <span class="dropdown-text">Rの基礎</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/data-handling.html">
+ <span class="dropdown-text">データの読み込み</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/tidyverse.html">
+ <span class="dropdown-text">tidyverse入門</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/visualization.html">
+ <span class="dropdown-text">可視化ギャラリー</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U0-computer-basics.html">
+ <span class="dropdown-text">U0. コンピュータ基礎</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U1-r-basics.html">
+ <span class="dropdown-text">U1. Rの基礎</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U2-data-types.html">
+ <span class="dropdown-text">U2. データ型とオブジェクト</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U3-matrix-basics.html">
+ <span class="dropdown-text">U3. 数学・行列の基礎</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U4-basic-operations.html">
+ <span class="dropdown-text">U4. 基本的なデータ操作</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U5-data-io.html">
+ <span class="dropdown-text">U5. データの読み書き</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U6-data-explore.html">
+ <span class="dropdown-text">U6. データの確認と探索</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U7-dplyr.html">
+ <span class="dropdown-text">U7. dplyr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U8-tidyr.html">
+ <span class="dropdown-text">U8. tidyr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U9-type-conversion.html">
+ <span class="dropdown-text">U9. 変数の型の変換と統一</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U10-ggplot2.html">
+ <span class="dropdown-text">U10. ggplot2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U11-descriptive-stats.html">
+ <span class="dropdown-text">U11. 記述統計</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U12-statistical-inference.html">
+ <span class="dropdown-text">U12. 統計的推測の基礎</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U13-regression.html">
+ <span class="dropdown-text">U13. 回帰モデル</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../members.html"> 
+<span class="menu-text">メンバー</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../server-status.html"> 
+<span class="menu-text">サーバー状況</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../feedback.html"> 
+<span class="menu-text">フィードバック</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">目次</h2>
+   
+  <ul>
+  <li><a href="#ユニット概要" id="toc-ユニット概要" class="nav-link active" data-scroll-target="#ユニット概要">ユニット概要</a></li>
+  <li><a href="#事前知識" id="toc-事前知識" class="nav-link" data-scroll-target="#事前知識">事前知識</a>
+  <ul class="collapse">
+  <li><a href="#pcaと因子分析の違い" id="toc-pcaと因子分析の違い" class="nav-link" data-scroll-target="#pcaと因子分析の違い">PCAと因子分析の違い</a></li>
+  <li><a href="#主成分分析pca" id="toc-主成分分析pca" class="nav-link" data-scroll-target="#主成分分析pca">主成分分析（PCA）</a></li>
+  <li><a href="#因子分析" id="toc-因子分析" class="nav-link" data-scroll-target="#因子分析">因子分析</a></li>
+  <li><a href="#構造方程式モデリングsemの概要" id="toc-構造方程式モデリングsemの概要" class="nav-link" data-scroll-target="#構造方程式モデリングsemの概要">構造方程式モデリング（SEM）の概要</a></li>
+  </ul></li>
+  <li><a href="#ランクc-基礎知識" id="toc-ランクc-基礎知識" class="nav-link" data-scroll-target="#ランクc-基礎知識">ランクC: 基礎知識</a>
+  <ul class="collapse">
+  <li><a href="#c-1" id="toc-c-1" class="nav-link" data-scroll-target="#c-1">14-C-1</a></li>
+  <li><a href="#c-2" id="toc-c-2" class="nav-link" data-scroll-target="#c-2">14-C-2</a></li>
+  <li><a href="#c-3" id="toc-c-3" class="nav-link" data-scroll-target="#c-3">14-C-3</a></li>
+  <li><a href="#c-4" id="toc-c-4" class="nav-link" data-scroll-target="#c-4">14-C-4</a></li>
+  <li><a href="#c-5" id="toc-c-5" class="nav-link" data-scroll-target="#c-5">14-C-5</a></li>
+  <li><a href="#c-6" id="toc-c-6" class="nav-link" data-scroll-target="#c-6">14-C-6</a></li>
+  <li><a href="#c-7" id="toc-c-7" class="nav-link" data-scroll-target="#c-7">14-C-7</a></li>
+  <li><a href="#c-8" id="toc-c-8" class="nav-link" data-scroll-target="#c-8">14-C-8</a></li>
+  </ul></li>
+  <li><a href="#ランクb-実践スキル" id="toc-ランクb-実践スキル" class="nav-link" data-scroll-target="#ランクb-実践スキル">ランクB: 実践スキル</a>
+  <ul class="collapse">
+  <li><a href="#b-1" id="toc-b-1" class="nav-link" data-scroll-target="#b-1">14-B-1</a></li>
+  <li><a href="#b-2" id="toc-b-2" class="nav-link" data-scroll-target="#b-2">14-B-2</a></li>
+  <li><a href="#b-3" id="toc-b-3" class="nav-link" data-scroll-target="#b-3">14-B-3</a></li>
+  <li><a href="#b-4" id="toc-b-4" class="nav-link" data-scroll-target="#b-4">14-B-4</a></li>
+  <li><a href="#b-5" id="toc-b-5" class="nav-link" data-scroll-target="#b-5">14-B-5</a></li>
+  <li><a href="#b-6" id="toc-b-6" class="nav-link" data-scroll-target="#b-6">14-B-6</a></li>
+  <li><a href="#b-7" id="toc-b-7" class="nav-link" data-scroll-target="#b-7">14-B-7</a></li>
+  <li><a href="#b-8" id="toc-b-8" class="nav-link" data-scroll-target="#b-8">14-B-8</a></li>
+  </ul></li>
+  <li><a href="#ランクa-ai協働" id="toc-ランクa-ai協働" class="nav-link" data-scroll-target="#ランクa-ai協働">ランクA: AI協働</a>
+  <ul class="collapse">
+  <li><a href="#a-1" id="toc-a-1" class="nav-link" data-scroll-target="#a-1">14-A-1</a></li>
+  <li><a href="#a-2" id="toc-a-2" class="nav-link" data-scroll-target="#a-2">14-A-2</a></li>
+  </ul></li>
+  <li><a href="#まとめ" id="toc-まとめ" class="nav-link" data-scroll-target="#まとめ">まとめ</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">U14. 多変量解析・行方向</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="ユニット概要" class="level2">
+<h2 class="anchored" data-anchor-id="ユニット概要">ユニット概要</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>項目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>分類</td>
+<td>枝（選択）</td>
+</tr>
+<tr class="even">
+<td>前提</td>
+<td>U3（数学・行列の基礎）</td>
+</tr>
+<tr class="odd">
+<td>次のユニット</td>
+<td>U16（行と列をまたぐ分析）</td>
+</tr>
+<tr class="even">
+<td>使用データ</td>
+<td>iris, psych::bfi</td>
+</tr>
+<tr class="odd">
+<td>学習目標</td>
+<td>PCAと因子分析の違いを理解する / Rで主成分分析・因子分析を実行し結果を解釈できる / SEMの基本概念（確認的因子分析）を理解し実行できる</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="事前知識" class="level2">
+<h2 class="anchored" data-anchor-id="事前知識">事前知識</h2>
+<section id="pcaと因子分析の違い" class="level3">
+<h3 class="anchored" data-anchor-id="pcaと因子分析の違い">PCAと因子分析の違い</h3>
+<p>多変量データから少数の要約変数を得る手法として、<strong>主成分分析（PCA: Principal Component Analysis）</strong> と <strong>因子分析（FA: Factor Analysis）</strong> があります。両者は似たような結果を返すことが多いですが、考え方が根本的に異なります。</p>
+<p><strong>主成分分析（PCA）</strong> は <strong>次元削減</strong> の手法です。観測変数の線形結合として主成分を構成し、データの分散を最大限保持しながら次元を減らします。主成分は観測変数から計算される合成変数であり、モデルの仮定はありません。</p>
+<p><span class="math display">\[
+z_1 = a_{11} x_1 + a_{12} x_2 + \cdots + a_{1p} x_p
+\]</span></p>
+<p><strong>因子分析（FA）</strong> は <strong>潜在変数モデル</strong> です。直接観測できない潜在因子（共通因子）が観測変数の背後にあると仮定し、その因子を推定します。因子分析では観測変数は因子の結果（原因→結果の方向）であり、独自分散（uniqueness）の存在を認めます。</p>
+<p><span class="math display">\[
+x_j = \lambda_{j1} f_1 + \lambda_{j2} f_2 + \cdots + \lambda_{jm} f_m + u_j
+\]</span></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th>PCA</th>
+<th>因子分析</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>目的</td>
+<td>次元削減・要約</td>
+<td>潜在構造の発見</td>
+</tr>
+<tr class="even">
+<td>方向</td>
+<td>観測 → 主成分</td>
+<td>因子 → 観測</td>
+</tr>
+<tr class="odd">
+<td>分散</td>
+<td>全分散を説明</td>
+<td>共通分散のみ説明</td>
+</tr>
+<tr class="even">
+<td>独自性</td>
+<td>なし</td>
+<td>あり</td>
+</tr>
+<tr class="odd">
+<td>Rの関数</td>
+<td><code>prcomp()</code></td>
+<td><code>psych::fa()</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="主成分分析pca" class="level3">
+<h3 class="anchored" data-anchor-id="主成分分析pca">主成分分析（PCA）</h3>
+<section id="prcompによる実行" class="level4">
+<h4 class="anchored" data-anchor-id="prcompによる実行">prcomp()による実行</h4>
+<p><code>prcomp()</code> は主成分分析を行うbase Rの関数です。引数 <code>scale. = TRUE</code> を指定すると、変数を標準化してから分析します（単位の異なる変数を扱う場合に推奨）。</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># irisの数値列で主成分分析</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>pca_result <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(iris[, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="at">scale. =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pca_result)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Importance of components:
+                          PC1    PC2     PC3     PC4
+Standard deviation     1.7084 0.9560 0.38309 0.14393
+Proportion of Variance 0.7296 0.2285 0.03669 0.00518
+Cumulative Proportion  0.7296 0.9581 0.99482 1.00000</code></pre>
+</div>
+</div>
+<p>出力の読み方:</p>
+<ul>
+<li><code>Standard deviation</code>: 各主成分の標準偏差（固有値の平方根）</li>
+<li><code>Proportion of Variance</code>: 各主成分が説明する分散の割合（寄与率）</li>
+<li><code>Cumulative Proportion</code>: 累積寄与率（第2主成分まで約96%を説明）</li>
+</ul>
+</section>
+<section id="スクリープロット" class="level4">
+<h4 class="anchored" data-anchor-id="スクリープロット">スクリープロット</h4>
+<p>固有値（各主成分の分散）を大きい順にプロットしたものを <strong>スクリープロット（scree plot）</strong> と呼びます。固有値が急激に減少する「肘（elbow）」の位置で主成分数を決定します。</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># スクリープロット</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>eigenvalues <span class="ot">&lt;-</span> pca_result<span class="sc">$</span>sdev<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">PC =</span> <span class="fu">paste0</span>(<span class="st">"PC"</span>, <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(eigenvalues)),</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Eigenvalue =</span> eigenvalues</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">PC =</span> forcats<span class="sc">::</span><span class="fu">fct_inorder</span>(PC)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> PC, <span class="at">y =</span> Eigenvalue)) <span class="sc">+</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> <span class="dv">1</span>), <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">1</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"スクリープロット（iris）"</span>,</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"主成分"</span>, <span class="at">y =</span> <span class="st">"固有値"</span>) <span class="sc">+</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="U14-multivariate-row_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>赤い破線は固有値 = 1 の基準線です（カイザー基準: 固有値が1以上の主成分を採用する目安）。</p>
+</section>
+<section id="バイプロット" class="level4">
+<h4 class="anchored" data-anchor-id="バイプロット">バイプロット</h4>
+<p><strong>バイプロット（biplot）</strong> は、個体の主成分得点と変数の負荷量を同時にプロットした図です。</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># バイプロット</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot</span>(pca_result, <span class="at">scale =</span> <span class="dv">0</span>,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">main =</span> <span class="st">"バイプロット（iris）"</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">xlab =</span> <span class="st">"PC1"</span>, <span class="at">ylab =</span> <span class="st">"PC2"</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="U14-multivariate-row_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>矢印が長い変数ほど主成分との関連が強く、矢印同士が近い方向を向く変数は互いに相関が高いことを示します。</p>
+</section>
+</section>
+<section id="因子分析" class="level3">
+<h3 class="anchored" data-anchor-id="因子分析">因子分析</h3>
+<section id="psychfaによる実行" class="level4">
+<h4 class="anchored" data-anchor-id="psychfaによる実行">psych::fa()による実行</h4>
+<p><code>psych::fa()</code> は因子分析を行う関数です。因子数 <code>nfactors</code>、回転法 <code>rotate</code>、推定法 <code>fm</code> を指定します。</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(psych)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># bfiデータの準備（欠損値を除去し、25項目を選択）</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>bfi_data <span class="ot">&lt;-</span> psych<span class="sc">::</span>bfi[<span class="fu">complete.cases</span>(psych<span class="sc">::</span>bfi), <span class="dv">1</span><span class="sc">:</span><span class="dv">25</span>]</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="因子数の決定-平行分析" class="level4">
+<h4 class="anchored" data-anchor-id="因子数の決定-平行分析">因子数の決定: 平行分析</h4>
+<p>因子数の決定には <strong>平行分析（parallel analysis）</strong> が推奨されます。ランダムデータから得られる固有値と実データの固有値を比較し、実データの固有値がランダムデータを上回る因子数を採用します。</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 平行分析による因子数の決定</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">fa.parallel</span>(bfi_data, <span class="at">fa =</span> <span class="st">"fa"</span>, <span class="at">main =</span> <span class="st">"平行分析（bfi）"</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="U14-multivariate-row_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Parallel analysis suggests that the number of factors =  6  and the number of components =  NA </code></pre>
+</div>
+</div>
+</section>
+<section id="因子分析の実行" class="level4">
+<h4 class="anchored" data-anchor-id="因子分析の実行">因子分析の実行</h4>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 5因子・promax回転で因子分析</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>fa_result <span class="ot">&lt;-</span> psych<span class="sc">::</span><span class="fu">fa</span>(bfi_data, <span class="at">nfactors =</span> <span class="dv">5</span>, <span class="at">rotate =</span> <span class="st">"promax"</span>, <span class="at">fm =</span> <span class="st">"ml"</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>fa_result</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Factor Analysis using method =  ml
+Call: psych::fa(r = bfi_data, nfactors = 5, rotate = "promax", fm = "ml")
+Standardized loadings (pattern matrix) based upon correlation matrix
+     ML2   ML1   ML3   ML5   ML4   h2   u2 com
+A1  0.14  0.11  0.05 -0.41 -0.05 0.16 0.84 1.5
+A2  0.05  0.12  0.08  0.56 -0.02 0.40 0.60 1.2
+A3  0.04  0.21  0.03  0.62 -0.01 0.52 0.48 1.3
+A4 -0.02  0.09  0.19  0.43 -0.19 0.31 0.69 1.9
+A5 -0.10  0.28 -0.03  0.54  0.01 0.48 0.52 1.6
+C1  0.07 -0.05  0.55  0.00  0.17 0.33 0.67 1.2
+C2  0.14 -0.13  0.66  0.09  0.06 0.42 0.58 1.2
+C3  0.03 -0.09  0.59  0.08 -0.05 0.33 0.67 1.1
+C4  0.14  0.03 -0.67  0.06 -0.03 0.48 0.52 1.1
+C5  0.18 -0.09 -0.57  0.03  0.09 0.44 0.56 1.3
+E1 -0.06 -0.64  0.16 -0.03 -0.04 0.36 0.64 1.2
+E2  0.11 -0.71  0.05 -0.02 -0.02 0.55 0.45 1.1
+E3  0.08  0.51 -0.06  0.22  0.26 0.46 0.54 2.0
+E4 -0.03  0.61 -0.05  0.29 -0.10 0.54 0.46 1.5
+E5  0.16  0.50  0.23  0.00  0.17 0.42 0.58 1.9
+N1  0.88  0.23  0.03 -0.26 -0.10 0.72 0.28 1.4
+N2  0.84  0.17  0.05 -0.25 -0.03 0.66 0.34 1.3
+N3  0.72 -0.01  0.00 -0.01 -0.01 0.53 0.47 1.0
+N4  0.49 -0.34 -0.10  0.07  0.09 0.50 0.50 2.0
+N5  0.50 -0.16  0.01  0.15 -0.16 0.34 0.66 1.6
+O1  0.00  0.16  0.04  0.01  0.51 0.32 0.68 1.2
+O2  0.18  0.02 -0.08  0.15 -0.48 0.28 0.72 1.6
+O3  0.04  0.27 -0.05  0.07  0.60 0.48 0.52 1.4
+O4  0.15 -0.25 -0.03  0.16  0.37 0.24 0.76 2.6
+O5  0.09  0.02 -0.03  0.04 -0.53 0.29 0.71 1.1
+
+                       ML2  ML1  ML3  ML5  ML4
+SS loadings           2.67 2.47 1.99 1.86 1.55
+Proportion Var        0.11 0.10 0.08 0.07 0.06
+Cumulative Var        0.11 0.21 0.28 0.36 0.42
+Proportion Explained  0.25 0.23 0.19 0.18 0.15
+Cumulative Proportion 0.25 0.49 0.68 0.85 1.00
+
+ With factor correlations of 
+      ML2   ML1   ML3  ML5  ML4
+ML2  1.00 -0.28 -0.23 0.03 0.04
+ML1 -0.28  1.00  0.40 0.33 0.12
+ML3 -0.23  0.40  1.00 0.21 0.18
+ML5  0.03  0.33  0.21 1.00 0.15
+ML4  0.04  0.12  0.18 0.15 1.00
+
+Mean item complexity =  1.4
+Test of the hypothesis that 5 factors are sufficient.
+
+df null model =  300  with the objective function =  7.41 with Chi Square =  16484.78
+df of  the model are 185  and the objective function was  0.61 
+
+The root mean square of the residuals (RMSR) is  0.03 
+The df corrected root mean square of the residuals is  0.04 
+
+The harmonic n.obs is  2236 with the empirical chi square  552.71  with prob &lt;  2.7e-38 
+The total n.obs was  2236  with Likelihood Chi Square =  1357.5  with prob &lt;  1.9e-177 
+
+Tucker Lewis Index of factoring reliability =  0.882
+RMSEA index =  0.053  and the 90 % confidence intervals are  0.051 0.056
+BIC =  -69.3
+Fit based upon off diagonal values = 0.98
+Measures of factor score adequacy             
+                                                   ML2  ML1  ML3  ML5  ML4
+Correlation of (regression) scores with factors   0.95 0.83 0.83 0.81 0.82
+Multiple R square of scores with factors          0.91 0.70 0.70 0.66 0.67
+Minimum correlation of possible factor scores     0.81 0.39 0.39 0.32 0.34</code></pre>
+</div>
+</div>
+<p>出力の読み方:</p>
+<ul>
+<li><code>Standardized loadings</code>: 因子負荷量。各項目がどの因子にどの程度関連しているか</li>
+<li><code>h2</code>: 共通性（communality）。因子によって説明される分散の割合</li>
+<li><code>u2</code>: 独自性（uniqueness）。因子では説明されない分散の割合（<span class="math inline">\(u2 = 1 - h2\)</span>）</li>
+<li><code>SS loadings</code>: 各因子が説明する分散の合計</li>
+<li><code>Proportion Var</code>: 各因子の寄与率</li>
+</ul>
+</section>
+<section id="因子負荷量の可視化" class="level4">
+<h4 class="anchored" data-anchor-id="因子負荷量の可視化">因子負荷量の可視化</h4>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 因子負荷量の可視化</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">fa.diagram</span>(fa_result, <span class="at">main =</span> <span class="st">"因子負荷量の構造図"</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="U14-multivariate-row_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="回転の種類" class="level4">
+<h4 class="anchored" data-anchor-id="回転の種類">回転の種類</h4>
+<ul>
+<li><strong>varimax回転（直交回転）</strong>: 因子間の相関をゼロに保つ。解釈しやすいが現実にはやや制約が強い</li>
+<li><strong>promax回転（斜交回転）</strong>: 因子間の相関を許容する。心理学では因子間に相関があることが多いため、promaxが好まれる</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># varimax回転との比較</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>fa_varimax <span class="ot">&lt;-</span> psych<span class="sc">::</span><span class="fu">fa</span>(bfi_data, <span class="at">nfactors =</span> <span class="dv">5</span>, <span class="at">rotate =</span> <span class="st">"varimax"</span>, <span class="at">fm =</span> <span class="st">"ml"</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 因子間相関の比較</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co"># promax: 因子間相関あり</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>fa_result<span class="sc">$</span>Phi</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            ML2        ML1        ML3        ML5        ML4
+ML2  1.00000000 -0.2810985 -0.2310369 0.02968499 0.04022075
+ML1 -0.28109853  1.0000000  0.4016202 0.32843121 0.12463988
+ML3 -0.23103688  0.4016202  1.0000000 0.21305038 0.17836221
+ML5  0.02968499  0.3284312  0.2130504 1.00000000 0.15452583
+ML4  0.04022075  0.1246399  0.1783622 0.15452583 1.00000000</code></pre>
+</div>
+</div>
+<p>promax回転では因子間相関行列 <code>$Phi</code> が得られます。varimax回転では因子間相関はゼロ（単位行列）です。</p>
+</section>
+</section>
+<section id="構造方程式モデリングsemの概要" class="level3">
+<h3 class="anchored" data-anchor-id="構造方程式モデリングsemの概要">構造方程式モデリング（SEM）の概要</h3>
+<p><strong>構造方程式モデリング（SEM: Structural Equation Modeling）</strong> は、潜在変数と観測変数の関係を柔軟にモデル化する枠組みです。因子分析の拡張として、<strong>確認的因子分析（CFA: Confirmatory Factor Analysis）</strong> がSEMの基本形です。</p>
+<p>探索的因子分析（EFA）がデータ主導で因子構造を探索するのに対し、CFAは<strong>事前に仮定した因子構造が妥当かどうかを検証</strong>します。</p>
+<section id="lavaancfaによる実行" class="level4">
+<h4 class="anchored" data-anchor-id="lavaancfaによる実行">lavaan::cfa()による実行</h4>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(lavaan)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># CFAモデルの指定: Agreeableness因子にA1~A5が負荷</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="st">'A =~ A1 + A2 + A3 + A4 + A5'</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co"># CFAの実行</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>cfa_result <span class="ot">&lt;-</span> lavaan<span class="sc">::</span><span class="fu">cfa</span>(model, <span class="at">data =</span> bfi_data)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cfa_result, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">standardized =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>lavaan 0.6-21 ended normally after 32 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                        10
+
+  Number of observations                          2236
+
+Model Test User Model:
+                                                      
+  Test statistic                                73.043
+  Degrees of freedom                                 5
+  P-value (Chi-square)                           0.000
+
+Model Test Baseline Model:
+
+  Test statistic                              2101.436
+  Degrees of freedom                                10
+  P-value                                        0.000
+
+User Model versus Baseline Model:
+
+  Comparative Fit Index (CFI)                    0.967
+  Tucker-Lewis Index (TLI)                       0.935
+
+Loglikelihood and Information Criteria:
+
+  Loglikelihood user model (H0)             -17817.725
+  Loglikelihood unrestricted model (H1)     -17781.204
+                                                      
+  Akaike (AIC)                               35655.451
+  Bayesian (BIC)                             35712.575
+  Sample-size adjusted Bayesian (SABIC)      35680.804
+
+Root Mean Square Error of Approximation:
+
+  RMSEA                                          0.078
+  90 Percent confidence interval - lower         0.063
+  90 Percent confidence interval - upper         0.094
+  P-value H_0: RMSEA &lt;= 0.050                    0.002
+  P-value H_0: RMSEA &gt;= 0.080                    0.441
+
+Standardized Root Mean Square Residual:
+
+  SRMR                                           0.032
+
+Parameter Estimates:
+
+  Standard errors                             Standard
+  Information                                 Expected
+  Information saturated (h1) model          Structured
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  A =~                                                                  
+    A1                1.000                               0.517    0.371
+    A2               -1.464    0.100  -14.622    0.000   -0.756   -0.654
+    A3               -1.904    0.127  -14.986    0.000   -0.983   -0.763
+    A4               -1.395    0.105  -13.335    0.000   -0.721   -0.498
+    A5               -1.519    0.105  -14.445    0.000   -0.785   -0.625
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .A1                1.670    0.053   31.778    0.000    1.670    0.862
+   .A2                0.766    0.030   25.148    0.000    0.766    0.572
+   .A3                0.695    0.038   18.396    0.000    0.695    0.418
+   .A4                1.576    0.053   29.959    0.000    1.576    0.752
+   .A5                0.961    0.036   26.420    0.000    0.961    0.609
+    A                 0.267    0.034    7.946    0.000    1.000    1.000</code></pre>
+</div>
+</div>
+<p>出力の読み方:</p>
+<ul>
+<li><code>Latent Variables</code>: 潜在変数から観測変数への因子負荷量（<code>Estimate</code>）</li>
+<li><code>Std.all</code>: 標準化された因子負荷量（0.4以上が望ましい）</li>
+<li><strong>適合度指標</strong>: モデルがデータにどの程度適合しているか</li>
+</ul>
+</section>
+<section id="主要な適合度指標" class="level4">
+<h4 class="anchored" data-anchor-id="主要な適合度指標">主要な適合度指標</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 26%">
+<col style="width: 47%">
+<col style="width: 26%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>指標</th>
+<th>良好な基準</th>
+<th>意味</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>CFI（比較適合度指標）</td>
+<td>0.95以上</td>
+<td>独立モデルと比較したモデルの改善度</td>
+</tr>
+<tr class="even">
+<td>RMSEA（近似誤差二乗平均平方根）</td>
+<td>0.06以下</td>
+<td>モデルの近似の悪さの指標</td>
+</tr>
+<tr class="odd">
+<td>SRMR（標準化残差二乗平均平方根）</td>
+<td>0.08以下</td>
+<td>観測相関と再現相関のずれ</td>
+</tr>
+</tbody>
+</table>
+<p>これらの基準は目安であり、絶対的なものではありません。複数の指標を総合的に判断することが重要です。</p>
+<hr>
+</section>
+</section>
+</section>
+<section id="ランクc-基礎知識" class="level2">
+<h2 class="anchored" data-anchor-id="ランクc-基礎知識">ランクC: 基礎知識</h2>
+<section id="c-1" class="level3">
+<h3 class="anchored" data-anchor-id="c-1">14-C-1</h3>
+<p>主成分分析（PCA）は、観測変数の背後に潜在因子を仮定するモデルである。</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">TRUE</option><option value="answer">FALSE</option></select></p>
+</section>
+<section id="c-2" class="level3">
+<h3 class="anchored" data-anchor-id="c-2">14-C-2</h3>
+<p>主成分分析で固有値が大きい主成分ほど、データの分散を多く説明している。</p>
+<p><select class="webex-select"><option value="blank"></option><option value="answer">TRUE</option><option value="">FALSE</option></select></p>
+</section>
+<section id="c-3" class="level3">
+<h3 class="anchored" data-anchor-id="c-3">14-C-3</h3>
+<p>因子分析における回転の目的は何か。</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">因子数を決定するため</option><option value="answer">因子負荷量のパターンを解釈しやすくするため</option><option value="">因子得点を計算するため</option><option value="">共通性を最大化するため</option></select></p>
+</section>
+<section id="c-4" class="level3">
+<h3 class="anchored" data-anchor-id="c-4">14-C-4</h3>
+<p>因子負荷量が0.7のとき、その項目の共通性（<span class="math inline">\(h^2\)</span>）はおよそいくらか（1因子の場合）。</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">0.30</option><option value="answer">0.49</option><option value="">0.70</option><option value="">1.00</option></select></p>
+</section>
+<section id="c-5" class="level3">
+<h3 class="anchored" data-anchor-id="c-5">14-C-5</h3>
+<p>CFI（比較適合度指標）が良好とされる一般的な基準はどれか。</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">0.80以上</option><option value="">0.90以上</option><option value="answer">0.95以上</option><option value="">0.99以上</option></select></p>
+</section>
+<section id="c-6" class="level3">
+<h3 class="anchored" data-anchor-id="c-6">14-C-6</h3>
+<p>スクリープロットで主成分数を決める際、固有値のグラフのどこに注目するか。</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">固有値が最大の点</option><option value="answer">固有値が急に減少する肘（elbow）の位置</option><option value="">固有値がゼロになる点</option><option value="">グラフの右端</option></select></p>
+</section>
+<section id="c-7" class="level3">
+<h3 class="anchored" data-anchor-id="c-7">14-C-7</h3>
+<p>因子分析における共通性（communality）とは何か。</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">因子間の相関係数</option><option value="answer">共通因子によって説明される分散の割合</option><option value="">すべての因子負荷量の合計</option><option value="">独自因子の分散</option></select></p>
+</section>
+<section id="c-8" class="level3">
+<h3 class="anchored" data-anchor-id="c-8">14-C-8</h3>
+<p>RMSEAが低い値であるほど、モデルの適合が良いことを示す。</p>
+<p><select class="webex-select"><option value="blank"></option><option value="answer">TRUE</option><option value="">FALSE</option></select></p>
+<hr>
+</section>
+</section>
+<section id="ランクb-実践スキル" class="level2">
+<h2 class="anchored" data-anchor-id="ランクb-実践スキル">ランクB: 実践スキル</h2>
+<section id="b-1" class="level3">
+<h3 class="anchored" data-anchor-id="b-1">14-B-1</h3>
+<p><code>iris</code> データの数値4変数に対して <code>prcomp(scale. = TRUE)</code> で主成分分析を行い、<code>summary()</code> で結果を確認しなさい。第1主成分と第2主成分の累積寄与率を読み取ること。</p>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>pca_iris <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(iris[, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="at">scale. =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pca_iris)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Importance of components:
+                          PC1    PC2     PC3     PC4
+Standard deviation     1.7084 0.9560 0.38309 0.14393
+Proportion of Variance 0.7296 0.2285 0.03669 0.00518
+Cumulative Proportion  0.7296 0.9581 0.99482 1.00000</code></pre>
+</div>
+</div>
+<ul>
+<li>第1主成分の寄与率: 約73%</li>
+<li>第1・第2主成分の累積寄与率: 約96%</li>
+<li>2つの主成分でデータの分散のほとんどを説明できることがわかります</li>
+</ul>
+<p>第1主成分の負荷量（回転行列）を確認すると:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>pca_iris<span class="sc">$</span>rotation</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                    PC1         PC2        PC3        PC4
+Sepal.Length  0.5210659 -0.37741762  0.7195664  0.2612863
+Sepal.Width  -0.2693474 -0.92329566 -0.2443818 -0.1235096
+Petal.Length  0.5804131 -0.02449161 -0.1421264 -0.8014492
+Petal.Width   0.5648565 -0.06694199 -0.6342727  0.5235971</code></pre>
+</div>
+</div>
+<p>PC1は Petal.Length と Petal.Width に大きな正の負荷を持ち、花の「大きさ」を表す総合指標と解釈できます。</p>
+</div>
+</section>
+<section id="b-2" class="level3">
+<h3 class="anchored" data-anchor-id="b-2">14-B-2</h3>
+<p>14-B-1の結果を使って、ggplot2でスクリープロットを作成しなさい。固有値 = 1 の基準線も描くこと。</p>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>eigenvalues <span class="ot">&lt;-</span> pca_iris<span class="sc">$</span>sdev<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">PC =</span> <span class="fu">paste0</span>(<span class="st">"PC"</span>, <span class="fu">seq_along</span>(eigenvalues)),</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Eigenvalue =</span> eigenvalues</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">PC =</span> forcats<span class="sc">::</span><span class="fu">fct_inorder</span>(PC)) <span class="sc">%&gt;%</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> PC, <span class="at">y =</span> Eigenvalue)) <span class="sc">+</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"steelblue"</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> <span class="dv">1</span>), <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">1</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"スクリープロット（iris）"</span>,</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"主成分"</span>, <span class="at">y =</span> <span class="st">"固有値"</span>) <span class="sc">+</span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="U14-multivariate-row_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>カイザー基準（固有値 &gt; 1）では第1主成分のみが採用されますが、スクリープロットの肘の位置からは2主成分が妥当とも判断できます。</p>
+</div>
+</section>
+<section id="b-3" class="level3">
+<h3 class="anchored" data-anchor-id="b-3">14-B-3</h3>
+<p><code>psych::bfi</code> データ（欠損値除去後の25項目）に対して <code>psych::fa.parallel()</code> を実行し、推奨される因子数を確認しなさい。</p>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>bfi_data <span class="ot">&lt;-</span> psych<span class="sc">::</span>bfi[<span class="fu">complete.cases</span>(psych<span class="sc">::</span>bfi), <span class="dv">1</span><span class="sc">:</span><span class="dv">25</span>]</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">fa.parallel</span>(bfi_data, <span class="at">fa =</span> <span class="st">"fa"</span>,</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">main =</span> <span class="st">"平行分析による因子数の決定（bfi）"</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="U14-multivariate-row_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Parallel analysis suggests that the number of factors =  6  and the number of components =  NA </code></pre>
+</div>
+</div>
+<p>平行分析の結果、5因子または6因子が示唆されます。bfiデータはBig Five（外向性、協調性、誠実性、神経症傾向、開放性）の5因子を想定して設計されているため、5因子が理論的にも妥当です。</p>
+</div>
+</section>
+<section id="b-4" class="level3">
+<h3 class="anchored" data-anchor-id="b-4">14-B-4</h3>
+<p>bfiデータに対して5因子のvarimax回転とpromax回転をそれぞれ実行し、因子負荷量のパターンを比較しなさい。</p>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># varimax回転</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>fa_varimax <span class="ot">&lt;-</span> psych<span class="sc">::</span><span class="fu">fa</span>(bfi_data, <span class="at">nfactors =</span> <span class="dv">5</span>, <span class="at">rotate =</span> <span class="st">"varimax"</span>, <span class="at">fm =</span> <span class="st">"ml"</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># promax回転</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>fa_promax <span class="ot">&lt;-</span> psych<span class="sc">::</span><span class="fu">fa</span>(bfi_data, <span class="at">nfactors =</span> <span class="dv">5</span>, <span class="at">rotate =</span> <span class="st">"promax"</span>, <span class="at">fm =</span> <span class="st">"ml"</span>)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="co"># varimax回転の因子負荷量（上位の負荷量のみ表示）</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">print.psych</span>(fa_varimax, <span class="at">cut =</span> <span class="fl">0.3</span>, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Factor Analysis using method =  ml
+Call: psych::fa(r = bfi_data, nfactors = 5, rotate = "varimax", fm = "ml")
+Standardized loadings (pattern matrix) based upon correlation matrix
+   item   ML2   ML1   ML3   ML5   ML4   h2   u2 com
+N1   16  0.81                         0.72 0.28 1.2
+N2   17  0.78                         0.66 0.34 1.1
+N3   18  0.72                         0.53 0.47 1.0
+N4   19  0.56 -0.37                   0.50 0.50 2.0
+N5   20  0.52                         0.34 0.66 1.6
+E2   12       -0.67                   0.55 0.45 1.4
+E4   14        0.60        0.39       0.54 0.46 1.9
+E1   11       -0.58                   0.36 0.64 1.2
+E3   13        0.50        0.33  0.31 0.46 0.54 2.5
+E5   15        0.50  0.31             0.42 0.58 2.3
+C4    9             -0.65             0.48 0.52 1.3
+C2    7              0.62             0.42 0.58 1.2
+C5   10             -0.57             0.44 0.56 1.7
+C3    8              0.56             0.33 0.67 1.1
+C1    6              0.53             0.33 0.67 1.4
+A3    3                    0.65       0.52 0.48 1.4
+A5    5        0.34        0.58       0.48 0.52 1.8
+A2    2                    0.58       0.40 0.60 1.4
+A4    4                    0.45       0.31 0.69 2.0
+A1    1                   -0.37       0.16 0.84 1.2
+O3   23                          0.62 0.48 0.52 1.5
+O5   25                         -0.52 0.29 0.71 1.1
+O1   21                          0.52 0.32 0.68 1.4
+O2   22                         -0.47 0.28 0.72 1.6
+O4   24                          0.36 0.24 0.76 2.7
+
+                       ML2  ML1  ML3  ML5  ML4
+SS loadings           2.68 2.30 2.01 1.95 1.57
+Proportion Var        0.11 0.09 0.08 0.08 0.06
+Cumulative Var        0.11 0.20 0.28 0.36 0.42
+Proportion Explained  0.26 0.22 0.19 0.19 0.15
+Cumulative Proportion 0.26 0.47 0.67 0.85 1.00
+
+Mean item complexity =  1.6
+Test of the hypothesis that 5 factors are sufficient.
+
+df null model =  300  with the objective function =  7.41 with Chi Square =  16484.78
+df of  the model are 185  and the objective function was  0.61 
+
+The root mean square of the residuals (RMSR) is  0.03 
+The df corrected root mean square of the residuals is  0.04 
+
+The harmonic n.obs is  2236 with the empirical chi square  552.71  with prob &lt;  2.7e-38 
+The total n.obs was  2236  with Likelihood Chi Square =  1357.5  with prob &lt;  1.9e-177 
+
+Tucker Lewis Index of factoring reliability =  0.882
+RMSEA index =  0.053  and the 90 % confidence intervals are  0.051 0.056
+BIC =  -69.3
+Fit based upon off diagonal values = 0.98
+Measures of factor score adequacy             
+                                                   ML2  ML1  ML3  ML5  ML4
+Correlation of (regression) scores with factors   0.93 0.87 0.86 0.85 0.83
+Multiple R square of scores with factors          0.86 0.75 0.74 0.72 0.69
+Minimum correlation of possible factor scores     0.73 0.51 0.48 0.43 0.39</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># promax回転の因子負荷量</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">print.psych</span>(fa_promax, <span class="at">cut =</span> <span class="fl">0.3</span>, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Factor Analysis using method =  ml
+Call: psych::fa(r = bfi_data, nfactors = 5, rotate = "promax", fm = "ml")
+Standardized loadings (pattern matrix) based upon correlation matrix
+   item   ML2   ML1   ML3   ML5   ML4   h2   u2 com
+N1   16  0.88                         0.72 0.28 1.4
+N2   17  0.84                         0.66 0.34 1.3
+N3   18  0.72                         0.53 0.47 1.0
+N5   20  0.50                         0.34 0.66 1.6
+N4   19  0.49 -0.34                   0.50 0.50 2.0
+E2   12       -0.71                   0.55 0.45 1.1
+E1   11       -0.64                   0.36 0.64 1.2
+E4   14        0.61                   0.54 0.46 1.5
+E3   13        0.51                   0.46 0.54 2.0
+E5   15        0.50                   0.42 0.58 1.9
+C4    9             -0.67             0.48 0.52 1.1
+C2    7              0.66             0.42 0.58 1.2
+C3    8              0.59             0.33 0.67 1.1
+C5   10             -0.57             0.44 0.56 1.3
+C1    6              0.55             0.33 0.67 1.2
+A3    3                    0.62       0.52 0.48 1.3
+A2    2                    0.56       0.40 0.60 1.2
+A5    5                    0.54       0.48 0.52 1.6
+A4    4                    0.43       0.31 0.69 1.9
+A1    1                   -0.41       0.16 0.84 1.5
+O3   23                          0.60 0.48 0.52 1.4
+O5   25                         -0.53 0.29 0.71 1.1
+O1   21                          0.51 0.32 0.68 1.2
+O2   22                         -0.48 0.28 0.72 1.6
+O4   24                          0.37 0.24 0.76 2.6
+
+                       ML2  ML1  ML3  ML5  ML4
+SS loadings           2.67 2.47 1.99 1.86 1.55
+Proportion Var        0.11 0.10 0.08 0.07 0.06
+Cumulative Var        0.11 0.21 0.28 0.36 0.42
+Proportion Explained  0.25 0.23 0.19 0.18 0.15
+Cumulative Proportion 0.25 0.49 0.68 0.85 1.00
+
+ With factor correlations of 
+      ML2   ML1   ML3  ML5  ML4
+ML2  1.00 -0.28 -0.23 0.03 0.04
+ML1 -0.28  1.00  0.40 0.33 0.12
+ML3 -0.23  0.40  1.00 0.21 0.18
+ML5  0.03  0.33  0.21 1.00 0.15
+ML4  0.04  0.12  0.18 0.15 1.00
+
+Mean item complexity =  1.4
+Test of the hypothesis that 5 factors are sufficient.
+
+df null model =  300  with the objective function =  7.41 with Chi Square =  16484.78
+df of  the model are 185  and the objective function was  0.61 
+
+The root mean square of the residuals (RMSR) is  0.03 
+The df corrected root mean square of the residuals is  0.04 
+
+The harmonic n.obs is  2236 with the empirical chi square  552.71  with prob &lt;  2.7e-38 
+The total n.obs was  2236  with Likelihood Chi Square =  1357.5  with prob &lt;  1.9e-177 
+
+Tucker Lewis Index of factoring reliability =  0.882
+RMSEA index =  0.053  and the 90 % confidence intervals are  0.051 0.056
+BIC =  -69.3
+Fit based upon off diagonal values = 0.98
+Measures of factor score adequacy             
+                                                   ML2  ML1  ML3  ML5  ML4
+Correlation of (regression) scores with factors   0.95 0.83 0.83 0.81 0.82
+Multiple R square of scores with factors          0.91 0.70 0.70 0.66 0.67
+Minimum correlation of possible factor scores     0.81 0.39 0.39 0.32 0.34</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># promax回転の因子間相関</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>fa_promax<span class="sc">$</span>Phi</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            ML2        ML1        ML3        ML5        ML4
+ML2  1.00000000 -0.2810985 -0.2310369 0.02968499 0.04022075
+ML1 -0.28109853  1.0000000  0.4016202 0.32843121 0.12463988
+ML3 -0.23103688  0.4016202  1.0000000 0.21305038 0.17836221
+ML5  0.02968499  0.3284312  0.2130504 1.00000000 0.15452583
+ML4  0.04022075  0.1246399  0.1783622 0.15452583 1.00000000</code></pre>
+</div>
+</div>
+<p>promax回転では因子間に相関が認められます。varimax回転は因子間の独立性を仮定するため、心理学データでは非現実的な場合があります。</p>
+</div>
+</section>
+<section id="b-5" class="level3">
+<h3 class="anchored" data-anchor-id="b-5">14-B-5</h3>
+<p>promax回転の因子分析結果から、因子得点（factor scores）を抽出し、最初の6行を表示しなさい。</p>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>fa_promax <span class="ot">&lt;-</span> psych<span class="sc">::</span><span class="fu">fa</span>(bfi_data, <span class="at">nfactors =</span> <span class="dv">5</span>, <span class="at">rotate =</span> <span class="st">"promax"</span>,</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">fm =</span> <span class="st">"ml"</span>, <span class="at">scores =</span> <span class="st">"regression"</span>)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 因子得点の抽出</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>factor_scores <span class="ot">&lt;-</span> fa_promax<span class="sc">$</span>scores</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 最初の6行を表示</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(factor_scores)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>              ML2         ML1        ML3         ML5        ML4
+61623  0.08862003  1.21884758  1.4035023  0.23747261  0.4542889
+61629  0.56229860 -1.68813980 -1.2059063 -2.24941004 -0.6991252
+61634 -0.15784382  0.25785108 -0.1693194 -0.08601393 -0.3591560
+61640 -0.56483391 -0.01613539  0.5229984 -1.66407270 -0.2351623
+61661 -0.83221381  0.22651913 -1.3085976  0.53781613  0.2517961
+61664  1.11474343  0.22973095 -0.2390623  1.05440620  0.8927368</code></pre>
+</div>
+</div>
+<p>因子得点は各個体の各因子上での位置を表します。これを後続の分析（クラスタ分析、回帰分析の説明変数など）に利用できます。</p>
+</div>
+</section>
+<section id="b-6" class="level3">
+<h3 class="anchored" data-anchor-id="b-6">14-B-6</h3>
+<p>lavaan パッケージを使って、bfiデータの Agreeableness 項目（A1〜A5）に対する確認的因子分析を実行し、適合度指標を確認しなさい。</p>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(lavaan)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="co"># CFAモデルの指定</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="st">'A =~ A1 + A2 + A3 + A4 + A5'</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="co"># CFAの実行</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>cfa_result <span class="ot">&lt;-</span> lavaan<span class="sc">::</span><span class="fu">cfa</span>(model, <span class="at">data =</span> bfi_data)</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 結果の要約（適合度指標と標準化推定値を含む）</span></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cfa_result, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">standardized =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>lavaan 0.6-21 ended normally after 32 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                        10
+
+  Number of observations                          2236
+
+Model Test User Model:
+                                                      
+  Test statistic                                73.043
+  Degrees of freedom                                 5
+  P-value (Chi-square)                           0.000
+
+Model Test Baseline Model:
+
+  Test statistic                              2101.436
+  Degrees of freedom                                10
+  P-value                                        0.000
+
+User Model versus Baseline Model:
+
+  Comparative Fit Index (CFI)                    0.967
+  Tucker-Lewis Index (TLI)                       0.935
+
+Loglikelihood and Information Criteria:
+
+  Loglikelihood user model (H0)             -17817.725
+  Loglikelihood unrestricted model (H1)     -17781.204
+                                                      
+  Akaike (AIC)                               35655.451
+  Bayesian (BIC)                             35712.575
+  Sample-size adjusted Bayesian (SABIC)      35680.804
+
+Root Mean Square Error of Approximation:
+
+  RMSEA                                          0.078
+  90 Percent confidence interval - lower         0.063
+  90 Percent confidence interval - upper         0.094
+  P-value H_0: RMSEA &lt;= 0.050                    0.002
+  P-value H_0: RMSEA &gt;= 0.080                    0.441
+
+Standardized Root Mean Square Residual:
+
+  SRMR                                           0.032
+
+Parameter Estimates:
+
+  Standard errors                             Standard
+  Information                                 Expected
+  Information saturated (h1) model          Structured
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  A =~                                                                  
+    A1                1.000                               0.517    0.371
+    A2               -1.464    0.100  -14.622    0.000   -0.756   -0.654
+    A3               -1.904    0.127  -14.986    0.000   -0.983   -0.763
+    A4               -1.395    0.105  -13.335    0.000   -0.721   -0.498
+    A5               -1.519    0.105  -14.445    0.000   -0.785   -0.625
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .A1                1.670    0.053   31.778    0.000    1.670    0.862
+   .A2                0.766    0.030   25.148    0.000    0.766    0.572
+   .A3                0.695    0.038   18.396    0.000    0.695    0.418
+   .A4                1.576    0.053   29.959    0.000    1.576    0.752
+   .A5                0.961    0.036   26.420    0.000    0.961    0.609
+    A                 0.267    0.034    7.946    0.000    1.000    1.000</code></pre>
+</div>
+</div>
+<p>適合度指標の解釈:</p>
+<ul>
+<li>CFI: 0.95以上なら良好</li>
+<li>RMSEA: 0.06以下なら良好、信頼区間も確認</li>
+<li>SRMR: 0.08以下なら良好</li>
+</ul>
+<p>5項目1因子モデルの適合度を総合的に判断してください。</p>
+</div>
+</section>
+<section id="b-7" class="level3">
+<h3 class="anchored" data-anchor-id="b-7">14-B-7</h3>
+<p>14-B-6のCFAの結果をパス図で可視化しなさい。<code>semPlot::semPaths()</code> を使うこと（未インストールの場合は <code>install.packages("semPlot")</code> で導入）。</p>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(semPlot)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="co"># パス図の描画</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>semPlot<span class="sc">::</span><span class="fu">semPaths</span>(cfa_result,</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">what =</span> <span class="st">"std"</span>,          <span class="co"># 標準化推定値を表示</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">layout =</span> <span class="st">"tree"</span>,       <span class="co"># ツリー型レイアウト</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">edge.label.cex =</span> <span class="fl">1.2</span>,  <span class="co"># パス係数のフォントサイズ</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>                  <span class="at">sizeMan =</span> <span class="dv">8</span>,           <span class="co"># 観測変数ノードのサイズ</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>                  <span class="at">sizeLat =</span> <span class="dv">10</span>,          <span class="co"># 潜在変数ノードのサイズ</span></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>                  <span class="at">style =</span> <span class="st">"lisrel"</span>,      <span class="co"># LISRELスタイル</span></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>                  <span class="at">nCharNodes =</span> <span class="dv">3</span>,        <span class="co"># ノードラベルの文字数</span></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>                  <span class="at">title =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">"CFA: Agreeableness 1因子モデル"</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>パス図では、楕円が潜在変数（因子）、四角が観測変数、矢印の上の数値が標準化された因子負荷量を表します。<code>semPlot</code> パッケージがインストールされていない場合は、上記コードを実行する前に <code>install.packages("semPlot")</code> を実行してください。</p>
+</div>
+</section>
+<section id="b-8" class="level3">
+<h3 class="anchored" data-anchor-id="b-8">14-B-8</h3>
+<p>irisの数値4変数に対してPCAと因子分析（1因子）の結果を比較しなさい。PCAの第1主成分の負荷量と、因子分析の因子負荷量の値を並べて確認すること。</p>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># PCA</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>pca_iris <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(iris[, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="at">scale. =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 因子分析（1因子）</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>fa_iris <span class="ot">&lt;-</span> psych<span class="sc">::</span><span class="fu">fa</span>(iris[, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="at">nfactors =</span> <span class="dv">1</span>, <span class="at">rotate =</span> <span class="st">"none"</span>, <span class="at">fm =</span> <span class="st">"ml"</span>)</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 比較表の作成</span></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>comparison <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">Variable =</span> <span class="fu">colnames</span>(iris[, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]),</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">PCA_PC1 =</span> pca_iris<span class="sc">$</span>rotation[, <span class="dv">1</span>],</span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">FA_F1 =</span> <span class="fu">as.numeric</span>(fa_iris<span class="sc">$</span>loadings[, <span class="dv">1</span>])</span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>comparison</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 3
+  Variable     PCA_PC1  FA_F1
+  &lt;chr&gt;          &lt;dbl&gt;  &lt;dbl&gt;
+1 Sepal.Length   0.521  0.872
+2 Sepal.Width   -0.269 -0.422
+3 Petal.Length   0.580  0.998
+4 Petal.Width    0.565  0.965</code></pre>
+</div>
+</div>
+<p>PCAの負荷量と因子分析の因子負荷量は似た傾向を示しますが、値は異なります。PCAは全分散を対象にし、因子分析は共通分散のみを対象にするためです。特に共通性（communality）の低い変数では差が大きくなります。</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 共通性の確認</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Variable =</span> <span class="fu">colnames</span>(iris[, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]),</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Communality =</span> <span class="fu">as.numeric</span>(fa_iris<span class="sc">$</span>communalities),</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Uniqueness =</span> <span class="fu">as.numeric</span>(fa_iris<span class="sc">$</span>uniquenesses)</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 3
+  Variable     Communality Uniqueness
+  &lt;chr&gt;              &lt;dbl&gt;      &lt;dbl&gt;
+1 Sepal.Length       0.760    0.240  
+2 Sepal.Width        0.178    0.822  
+3 Petal.Length       0.995    0.00490
+4 Petal.Width        0.931    0.0693 </code></pre>
+</div>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="ランクa-ai協働" class="level2">
+<h2 class="anchored" data-anchor-id="ランクa-ai協働">ランクA: AI協働</h2>
+<section id="a-1" class="level3">
+<h3 class="anchored" data-anchor-id="a-1">14-A-1</h3>
+<p><code>psych::bfi</code> データ（または自分が興味のあるデータ）を使い、生成AIと協力して以下の因子分析の全工程を設計・実行してください。</p>
+<ol type="1">
+<li>AIに「このデータに適切な因子数は何か」を相談し、平行分析の結果と合わせて判断する</li>
+<li>因子分析を実行し、AIに因子負荷量の解釈を手伝ってもらう（どの項目がどの因子に負荷しているか、因子に名前を付ける）</li>
+<li>回転法の選択理由をAIに説明してもらう</li>
+<li>因子得点を算出し、因子間の散布図を描く</li>
+<li>AIの解釈に対して、自分の知識と照らし合わせて批判的に検討する</li>
+</ol>
+<p>AIの提案を <strong>必ず自分で実行して確認</strong> すること。AIが提案した因子名が心理学的に妥当か、自分でも考えてみましょう。</p>
+</section>
+<section id="a-2" class="level3">
+<h3 class="anchored" data-anchor-id="a-2">14-A-2</h3>
+<p>bfiデータの5因子モデルについて、生成AIと協力して測定モデルの評価を行ってください。</p>
+<ol type="1">
+<li>lavaanで5因子CFAモデルを指定する（A1-A5, C1-C5, E1-E5, N1-N5, O1-O5の各5項目が対応する因子に負荷）</li>
+<li>モデルを推定し、適合度指標を確認する</li>
+<li>適合度が不十分な場合、AIに「どう改善すべきか」を相談する（例: 修正指標の活用、項目の削除、相関誤差の追加）</li>
+<li>改善前後のモデルを比較し、結果を報告する</li>
+</ol>
+<p>注意: AIの提案をすべて受け入れるのではなく、理論的に正当化できるかどうかを自分で判断してください。</p>
+<hr>
+</section>
+</section>
+<section id="まとめ" class="level2">
+<h2 class="anchored" data-anchor-id="まとめ">まとめ</h2>
+<p>このユニットで学んだこと:</p>
+<ul>
+<li><strong>PCAと因子分析の違い</strong>: PCAは次元削減（データ要約）、因子分析は潜在変数モデル（構造の発見）。目的に応じて使い分ける</li>
+<li><strong>主成分分析</strong>: <code>prcomp()</code> で実行。スクリープロットで主成分数を判断し、バイプロットで解釈する</li>
+<li><strong>因子分析</strong>: <code>psych::fa()</code> で実行。平行分析で因子数を決定し、回転後の因子負荷量で構造を解釈する</li>
+<li><strong>回転法</strong>: varimax（直交）は因子間独立を仮定、promax（斜交）は因子間相関を許容。心理学データではpromaxが一般的</li>
+<li><strong>確認的因子分析（CFA）</strong>: <code>lavaan::cfa()</code> で実行。事前に仮定した構造が妥当かを適合度指標（CFI, RMSEA, SRMR）で評価する</li>
+<li><strong>共通性と独自性</strong>: 因子分析特有の概念。PCAにはない</li>
+</ul>
+<p>次のステップとして、U15（多変量解析・列方向: クラスタリング、MDS等）やU16（行と列をまたぐ分析: バイプロット、対応分析等）に進んでみましょう。</p>
+<!-- 進捗: C8/B8/A2 -->
+
+
+</section>
+
+</main> <!-- /main -->
+<script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  var t = document.getElementsByClassName("webex-total_correct");
+  for (var i = 0; i < t.length; i++) {
+    p = t[i].parentElement;
+    var correct = p.getElementsByClassName("webex-correct").length;
+    var solvemes = p.getElementsByClassName("webex-solveme").length;
+    var radiogroups = p.getElementsByClassName("webex-radiogroup").length;
+    var selects = p.getElementsByClassName("webex-select").length;
+
+    t[i].innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* check answers */
+check_func = function() {
+  console.log("webex: check answers");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('unchecked')) {
+    cl.remove("unchecked");
+    this.innerHTML = "Hide Answers";
+  } else {
+    cl.add("unchecked");
+    this.innerHTML = "Show Answers";
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+
+  var cl = this.classList
+
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("webex onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  var check_sections = document.getElementsByClassName("webex-check");
+  console.log("check:", check_sections.length);
+  for (var i = 0; i < check_sections.length; i++) {
+    check_sections[i].classList.add("unchecked");
+
+    let btn = document.createElement("button");
+    btn.innerHTML = "Show Answers";
+    btn.classList.add("webex-check-button");
+    btn.onclick = check_func;
+    check_sections[i].appendChild(btn);
+
+    let spn = document.createElement("span");
+    spn.classList.add("webex-total_correct");
+    check_sections[i].appendChild(spn);
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+
+    solveme[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+    selects[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  update_total_correct();
+}
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "コピーしました");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "コピーしました");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

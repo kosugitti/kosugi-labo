@@ -1,0 +1,1755 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>U13. 回帰モデル – Kosugi Labo</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-a25750924116104412f7a457768fb952.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "一致なし",
+    "search-matching-documents-text": "一致した文書",
+    "search-copy-link-title": "検索へのリンクをコピー",
+    "search-hide-matches-text": "追加の検索結果を非表示",
+    "search-more-match-text": "追加の検索結果",
+    "search-more-matches-text": "追加の検索結果",
+    "search-clear-button-title": "消去",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "検索",
+    "search-label": "サーチ"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../include/webex.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Kosugi Labo</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="サーチ"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="ナビゲーションを切り替える" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">ホーム</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">ゼミガイド</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-">    
+        <li>
+    <a class="dropdown-item" href="../zemi-policy.html">
+ <span class="dropdown-text">ゼミの運営方針</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../research-guide.html">
+ <span class="dropdown-text">研究の進め方</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../writing-guide.html">
+ <span class="dropdown-text">文章の読み書き</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../anti-harassment.html">
+ <span class="dropdown-text">アンチハラスメントポリシー</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu--1" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">技術ガイド</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu--1">    
+        <li>
+    <a class="dropdown-item" href="../tech-guide/github-setup.html">
+ <span class="dropdown-text">GitHub</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tech-guide/vscode-setup.html">
+ <span class="dropdown-text">VSCode</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tech-guide/latex-setup.html">
+ <span class="dropdown-text">LaTeX</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tech-guide/ssh-remote.html">
+ <span class="dropdown-text">SSH接続</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tech-guide/tailscale.html">
+ <span class="dropdown-text">Tailscale</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-rチュートリアル" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Rチュートリアル</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-rチュートリアル">    
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/index.html">
+ <span class="dropdown-text">はじめに</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/r-basics.html">
+ <span class="dropdown-text">Rの基礎</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/data-handling.html">
+ <span class="dropdown-text">データの読み込み</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/tidyverse.html">
+ <span class="dropdown-text">tidyverse入門</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/visualization.html">
+ <span class="dropdown-text">可視化ギャラリー</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U1-r-basics.html">
+ <span class="dropdown-text">U1. Rの基礎</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U2-data-types.html">
+ <span class="dropdown-text">U2. データ型とオブジェクト</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U3-matrix-basics.html">
+ <span class="dropdown-text">U3. 数学・行列の基礎</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U4-basic-operations.html">
+ <span class="dropdown-text">U4. 基本的なデータ操作</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U5-data-io.html">
+ <span class="dropdown-text">U5. データの読み書き</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U6-data-explore.html">
+ <span class="dropdown-text">U6. データの確認と探索</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U7-dplyr.html">
+ <span class="dropdown-text">U7. dplyr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U8-tidyr.html">
+ <span class="dropdown-text">U8. tidyr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U9-type-conversion.html">
+ <span class="dropdown-text">U9. 変数の型の変換と統一</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U10-ggplot2.html">
+ <span class="dropdown-text">U10. ggplot2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U11-descriptive-stats.html">
+ <span class="dropdown-text">U11. 記述統計</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U12-statistical-inference.html">
+ <span class="dropdown-text">U12. 統計的推測の基礎</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U13-regression.html">
+ <span class="dropdown-text">U13. 回帰モデル</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../members.html"> 
+<span class="menu-text">メンバー</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../server-status.html"> 
+<span class="menu-text">サーバー状況</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../feedback.html"> 
+<span class="menu-text">フィードバック</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">目次</h2>
+   
+  <ul>
+  <li><a href="#ユニット概要" id="toc-ユニット概要" class="nav-link active" data-scroll-target="#ユニット概要">ユニット概要</a></li>
+  <li><a href="#事前知識" id="toc-事前知識" class="nav-link" data-scroll-target="#事前知識">事前知識</a>
+  <ul class="collapse">
+  <li><a href="#回帰分析とは" id="toc-回帰分析とは" class="nav-link" data-scroll-target="#回帰分析とは">回帰分析とは</a></li>
+  <li><a href="#単回帰モデル" id="toc-単回帰モデル" class="nav-link" data-scroll-target="#単回帰モデル">単回帰モデル</a></li>
+  <li><a href="#最小二乗法" id="toc-最小二乗法" class="nav-link" data-scroll-target="#最小二乗法">最小二乗法</a></li>
+  <li><a href="#重回帰モデル" id="toc-重回帰モデル" class="nav-link" data-scroll-target="#重回帰モデル">重回帰モデル</a></li>
+  <li><a href="#決定係数-r2-と自由度調整済み-r2" id="toc-決定係数-r2-と自由度調整済み-r2" class="nav-link" data-scroll-target="#決定係数-r2-と自由度調整済み-r2">決定係数 <span class="math inline">\(R^2\)</span> と自由度調整済み <span class="math inline">\(R^2\)</span></a></li>
+  <li><a href="#モデルの診断" id="toc-モデルの診断" class="nav-link" data-scroll-target="#モデルの診断">モデルの診断</a></li>
+  <li><a href="#モデル選択-aic-と-bic" id="toc-モデル選択-aic-と-bic" class="nav-link" data-scroll-target="#モデル選択-aic-と-bic">モデル選択: AIC と BIC</a></li>
+  <li><a href="#一般線型モデルとしての統一" id="toc-一般線型モデルとしての統一" class="nav-link" data-scroll-target="#一般線型モデルとしての統一">一般線型モデルとしての統一</a></li>
+  </ul></li>
+  <li><a href="#ランクc-基礎知識" id="toc-ランクc-基礎知識" class="nav-link" data-scroll-target="#ランクc-基礎知識">ランクC: 基礎知識</a>
+  <ul class="collapse">
+  <li><a href="#c-1" id="toc-c-1" class="nav-link" data-scroll-target="#c-1">13-C-1</a></li>
+  <li><a href="#c-2" id="toc-c-2" class="nav-link" data-scroll-target="#c-2">13-C-2</a></li>
+  <li><a href="#c-3" id="toc-c-3" class="nav-link" data-scroll-target="#c-3">13-C-3</a></li>
+  <li><a href="#c-4" id="toc-c-4" class="nav-link" data-scroll-target="#c-4">13-C-4</a></li>
+  <li><a href="#c-5" id="toc-c-5" class="nav-link" data-scroll-target="#c-5">13-C-5</a></li>
+  <li><a href="#c-6" id="toc-c-6" class="nav-link" data-scroll-target="#c-6">13-C-6</a></li>
+  <li><a href="#c-7" id="toc-c-7" class="nav-link" data-scroll-target="#c-7">13-C-7</a></li>
+  <li><a href="#c-8" id="toc-c-8" class="nav-link" data-scroll-target="#c-8">13-C-8</a></li>
+  <li><a href="#c-9" id="toc-c-9" class="nav-link" data-scroll-target="#c-9">13-C-9</a></li>
+  <li><a href="#c-10" id="toc-c-10" class="nav-link" data-scroll-target="#c-10">13-C-10</a></li>
+  </ul></li>
+  <li><a href="#ランクb-実践スキル" id="toc-ランクb-実践スキル" class="nav-link" data-scroll-target="#ランクb-実践スキル">ランクB: 実践スキル</a>
+  <ul class="collapse">
+  <li><a href="#b-1" id="toc-b-1" class="nav-link" data-scroll-target="#b-1">13-B-1</a></li>
+  <li><a href="#b-2" id="toc-b-2" class="nav-link" data-scroll-target="#b-2">13-B-2</a></li>
+  <li><a href="#b-3" id="toc-b-3" class="nav-link" data-scroll-target="#b-3">13-B-3</a></li>
+  <li><a href="#b-4" id="toc-b-4" class="nav-link" data-scroll-target="#b-4">13-B-4</a></li>
+  <li><a href="#b-5" id="toc-b-5" class="nav-link" data-scroll-target="#b-5">13-B-5</a></li>
+  <li><a href="#b-6" id="toc-b-6" class="nav-link" data-scroll-target="#b-6">13-B-6</a></li>
+  <li><a href="#b-7" id="toc-b-7" class="nav-link" data-scroll-target="#b-7">13-B-7</a></li>
+  <li><a href="#b-8" id="toc-b-8" class="nav-link" data-scroll-target="#b-8">13-B-8</a></li>
+  <li><a href="#b-9" id="toc-b-9" class="nav-link" data-scroll-target="#b-9">13-B-9</a></li>
+  <li><a href="#b-10" id="toc-b-10" class="nav-link" data-scroll-target="#b-10">13-B-10</a></li>
+  </ul></li>
+  <li><a href="#ランクa-ai協働" id="toc-ランクa-ai協働" class="nav-link" data-scroll-target="#ランクa-ai協働">ランクA: AI協働</a>
+  <ul class="collapse">
+  <li><a href="#a-1" id="toc-a-1" class="nav-link" data-scroll-target="#a-1">13-A-1</a></li>
+  <li><a href="#a-2" id="toc-a-2" class="nav-link" data-scroll-target="#a-2">13-A-2</a></li>
+  </ul></li>
+  <li><a href="#まとめ" id="toc-まとめ" class="nav-link" data-scroll-target="#まとめ">まとめ</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">U13. 回帰モデル</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="ユニット概要" class="level2">
+<h2 class="anchored" data-anchor-id="ユニット概要">ユニット概要</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>項目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>分類</td>
+<td>幹（全員必須）</td>
+</tr>
+<tr class="even">
+<td>前提</td>
+<td>U12（統計的推測の基礎）</td>
+</tr>
+<tr class="odd">
+<td>次のユニット</td>
+<td>なし（幹ユニットの終点）</td>
+</tr>
+<tr class="even">
+<td>使用データ</td>
+<td>BaseballDecade.csv, iris</td>
+</tr>
+<tr class="odd">
+<td>学習目標</td>
+<td>回帰分析の考え方と最小二乗法を理解する / 単回帰・重回帰をRで実行し結果を解釈できる / モデルの診断と仮定の確認ができる / モデル選択の基準（AIC等）を理解する</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="事前知識" class="level2">
+<h2 class="anchored" data-anchor-id="事前知識">事前知識</h2>
+<section id="回帰分析とは" class="level3">
+<h3 class="anchored" data-anchor-id="回帰分析とは">回帰分析とは</h3>
+<p><strong>回帰分析（regression analysis）</strong> は、ある変数（<strong>目的変数</strong> / 従属変数）を他の変数（<strong>説明変数</strong> / 独立変数）で予測・説明するための統計手法です。</p>
+<p>例えば、「身長から体重を予測できるか？」「練習時間とテストの点数に関係はあるか？」といった問いに答えるために使います。</p>
+</section>
+<section id="単回帰モデル" class="level3">
+<h3 class="anchored" data-anchor-id="単回帰モデル">単回帰モデル</h3>
+<p>説明変数が1つの場合を <strong>単回帰（simple regression）</strong> と呼びます。</p>
+<p><span class="math display">\[
+y_i = \beta_0 + \beta_1 x_i + e_i
+\]</span></p>
+<ul>
+<li><span class="math inline">\(y_i\)</span>: 目的変数（<span class="math inline">\(i\)</span> 番目の観測値）</li>
+<li><span class="math inline">\(x_i\)</span>: 説明変数</li>
+<li><span class="math inline">\(\beta_0\)</span>: 切片（intercept）。<span class="math inline">\(x = 0\)</span> のときの <span class="math inline">\(y\)</span> の期待値</li>
+<li><span class="math inline">\(\beta_1\)</span>: 傾き（slope）。<span class="math inline">\(x\)</span> が1単位増えたとき <span class="math inline">\(y\)</span> がどれだけ変化するか</li>
+<li><span class="math inline">\(e_i\)</span>: 残差（誤差項）。モデルで説明できないばらつき</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 単回帰の例: irisのSepal.LengthからPetal.Lengthを予測</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>model_simple <span class="ot">&lt;-</span> <span class="fu">lm</span>(Petal.Length <span class="sc">~</span> Sepal.Length, <span class="at">data =</span> iris)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_simple)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Petal.Length ~ Sepal.Length, data = iris)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-2.47747 -0.59072 -0.00668  0.60484  2.49512 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  -7.10144    0.50666  -14.02   &lt;2e-16 ***
+Sepal.Length  1.85843    0.08586   21.65   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.8678 on 148 degrees of freedom
+Multiple R-squared:   0.76, Adjusted R-squared:  0.7583 
+F-statistic: 468.6 on 1 and 148 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>出力の読み方:</p>
+<ul>
+<li><code>Coefficients</code>: 回帰係数の推定値、標準誤差、t値、p値</li>
+<li><code>(Intercept)</code>: 切片 <span class="math inline">\(\hat{\beta}_0\)</span></li>
+<li><code>Sepal.Length</code>: 傾き <span class="math inline">\(\hat{\beta}_1\)</span>（萼片長が1cm増えると花弁長が約1.86cm増える）</li>
+<li><code>Multiple R-squared</code>: 決定係数 <span class="math inline">\(R^2\)</span>（モデルがデータの変動をどれだけ説明しているか）</li>
+<li><code>F-statistic</code>: モデル全体の有意性検定</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 回帰直線の可視化</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">%&gt;%</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Petal.Length)) <span class="sc">+</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">TRUE</span>, <span class="at">color =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"単回帰: 萼片長から花弁長を予測"</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Sepal.Length (cm)"</span>, <span class="at">y =</span> <span class="st">"Petal.Length (cm)"</span>) <span class="sc">+</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="U13-regression_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="最小二乗法" class="level3">
+<h3 class="anchored" data-anchor-id="最小二乗法">最小二乗法</h3>
+<p>回帰係数は <strong>最小二乗法（OLS: Ordinary Least Squares）</strong> で推定されます。残差の二乗和を最小にする <span class="math inline">\(\beta_0, \beta_1\)</span> を見つけます。</p>
+<p><span class="math display">\[
+\min_{\beta_0, \beta_1} \sum_{i=1}^{n} (y_i - \beta_0 - \beta_1 x_i)^2
+\]</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 残差の可視化</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>iris_pred <span class="ot">&lt;-</span> iris <span class="sc">%&gt;%</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">predicted =</span> <span class="fu">predict</span>(model_simple),</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">residual =</span> Petal.Length <span class="sc">-</span> predicted</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>iris_pred <span class="sc">%&gt;%</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Petal.Length)) <span class="sc">+</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">xend =</span> Sepal.Length, <span class="at">yend =</span> predicted),</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>               <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> predicted), <span class="at">color =</span> <span class="st">"steelblue"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"残差（赤い線）= 観測値とモデル予測値のずれ"</span>,</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Sepal.Length (cm)"</span>, <span class="at">y =</span> <span class="st">"Petal.Length (cm)"</span>) <span class="sc">+</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="U13-regression_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="重回帰モデル" class="level3">
+<h3 class="anchored" data-anchor-id="重回帰モデル">重回帰モデル</h3>
+<p>説明変数が複数の場合を <strong>重回帰（multiple regression）</strong> と呼びます。</p>
+<p><span class="math display">\[
+y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \cdots + \beta_p x_{ip} + e_i
+\]</span></p>
+<p>重回帰の係数は <strong>偏回帰係数（partial regression coefficient）</strong> と呼ばれ、「他の説明変数を一定にしたとき」の効果を表します。</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 重回帰の例</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>model_multi <span class="ot">&lt;-</span> <span class="fu">lm</span>(Petal.Length <span class="sc">~</span> Sepal.Length <span class="sc">+</span> Sepal.Width, <span class="at">data =</span> iris)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_multi)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Petal.Length ~ Sepal.Length + Sepal.Width, data = iris)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-1.25582 -0.46922 -0.05741  0.45530  1.75599 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  -2.52476    0.56344  -4.481 1.48e-05 ***
+Sepal.Length  1.77559    0.06441  27.569  &lt; 2e-16 ***
+Sepal.Width  -1.33862    0.12236 -10.940  &lt; 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.6465 on 147 degrees of freedom
+Multiple R-squared:  0.8677,    Adjusted R-squared:  0.8659 
+F-statistic:   482 on 2 and 147 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+</section>
+<section id="決定係数-r2-と自由度調整済み-r2" class="level3">
+<h3 class="anchored" data-anchor-id="決定係数-r2-と自由度調整済み-r2">決定係数 <span class="math inline">\(R^2\)</span> と自由度調整済み <span class="math inline">\(R^2\)</span></h3>
+<ul>
+<li><strong><span class="math inline">\(R^2\)</span>（決定係数）</strong>: モデルが目的変数の変動をどれだけ説明しているか（0〜1）</li>
+<li><strong>調整済み <span class="math inline">\(R^2\)</span></strong>: 説明変数を増やすだけで <span class="math inline">\(R^2\)</span> が上がる問題を補正したもの</li>
+</ul>
+<p><span class="math display">\[
+R^2 = 1 - \frac{\sum(y_i - \hat{y}_i)^2}{\sum(y_i - \bar{y})^2}
+\]</span></p>
+<p>説明変数を増やせば <span class="math inline">\(R^2\)</span> は必ず上がりますが、それがモデルの改善かどうかは別問題です。調整済み <span class="math inline">\(R^2\)</span> やAIC/BICで判断します。</p>
+</section>
+<section id="モデルの診断" class="level3">
+<h3 class="anchored" data-anchor-id="モデルの診断">モデルの診断</h3>
+<p>回帰分析にはいくつかの <strong>仮定</strong> があります。結果を信頼するには、これらを確認する必要があります。</p>
+<ol type="1">
+<li><strong>残差の正規性</strong>: 残差が正規分布に従う</li>
+<li><strong>等分散性</strong>: 残差の分散が一定（予測値に依存しない）</li>
+<li><strong>独立性</strong>: 残差同士が独立</li>
+<li><strong>多重共線性がない</strong>: 説明変数間の相関が強すぎない</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 診断プロット（4枚）</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model_simple)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="U13-regression_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li><strong>左上（Residuals vs Fitted）</strong>: 残差と予測値の関係。パターンがなければOK</li>
+<li><strong>右上（Q-Q plot）</strong>: 残差の正規性。点が直線に乗っていればOK</li>
+<li><strong>左下（Scale-Location）</strong>: 等分散性の確認。水平な帯状ならOK</li>
+<li><strong>右下（Residuals vs Leverage）</strong>: 影響力の大きい外れ値の検出</li>
+</ul>
+</section>
+<section id="モデル選択-aic-と-bic" class="level3">
+<h3 class="anchored" data-anchor-id="モデル選択-aic-と-bic">モデル選択: AIC と BIC</h3>
+<p>複数のモデルを比較するとき、<strong>AIC（赤池情報量規準）</strong> や <strong>BIC（ベイズ情報量規準）</strong> を使います。</p>
+<ul>
+<li><strong>AIC</strong>: <span class="math inline">\(-2 \ln L + 2k\)</span>（<span class="math inline">\(L\)</span>: 尤度、<span class="math inline">\(k\)</span>: パラメータ数）</li>
+<li><strong>BIC</strong>: <span class="math inline">\(-2 \ln L + k \ln n\)</span>（BICはAICよりパラメータ数へのペナルティが大きい）</li>
+</ul>
+<p>いずれも <strong>値が小さいほど良いモデル</strong> です。</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2つのモデルのAIC比較</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Petal.Length <span class="sc">~</span> Sepal.Length, <span class="at">data =</span> iris)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Petal.Length <span class="sc">~</span> Sepal.Length <span class="sc">+</span> Sepal.Width, <span class="at">data =</span> iris)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>model3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Petal.Length <span class="sc">~</span> Sepal.Length <span class="sc">+</span> Sepal.Width <span class="sc">+</span> Species, <span class="at">data =</span> iris)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(model1, model2, model3)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       df       AIC
+model1  3 387.13500
+model2  4 299.78749
+model3  6  54.21552</code></pre>
+</div>
+</div>
+</section>
+<section id="一般線型モデルとしての統一" class="level3">
+<h3 class="anchored" data-anchor-id="一般線型モデルとしての統一">一般線型モデルとしての統一</h3>
+<p>実は、U12で学んだt検定や分散分析も <strong>回帰分析の特殊なケース</strong> です。</p>
+<ul>
+<li><strong>1標本t検定</strong>: <span class="math inline">\(y_i = \beta_0 + e_i\)</span>（切片のみモデル）で <span class="math inline">\(\beta_0 = \mu_0\)</span> を検定</li>
+<li><strong>対応のないt検定</strong>: <span class="math inline">\(y_i = \beta_0 + \beta_1 x_i + e_i\)</span> で <span class="math inline">\(x\)</span> はグループを示すダミー変数</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># t検定と回帰分析は同じ結果を返す</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>iris_sub <span class="ot">&lt;-</span> iris <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(Species <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"setosa"</span>, <span class="st">"versicolor"</span>))</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># t検定</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>t_result <span class="ot">&lt;-</span> <span class="fu">t.test</span>(Petal.Length <span class="sc">~</span> Species, <span class="at">data =</span> iris_sub, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 回帰分析</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>lm_result <span class="ot">&lt;-</span> <span class="fu">lm</span>(Petal.Length <span class="sc">~</span> Species, <span class="at">data =</span> iris_sub)</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">"t検定のt値: %.4f</span><span class="sc">\n</span><span class="st">"</span>, t_result<span class="sc">$</span>statistic))</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>t検定のt値: -39.4927</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">"回帰分析のt値: %.4f</span><span class="sc">\n</span><span class="st">"</span>, <span class="fu">summary</span>(lm_result)<span class="sc">$</span>coefficients[<span class="dv">2</span>, <span class="dv">3</span>]))</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>回帰分析のt値: 39.4927</code></pre>
+</div>
+</div>
+<p>t値の絶対値が一致することを確認してください（符号は群の順序で反転する場合があります）。</p>
+<hr>
+</section>
+</section>
+<section id="ランクc-基礎知識" class="level2">
+<h2 class="anchored" data-anchor-id="ランクc-基礎知識">ランクC: 基礎知識</h2>
+<section id="c-1" class="level3">
+<h3 class="anchored" data-anchor-id="c-1">13-C-1</h3>
+<p>回帰分析において、<span class="math inline">\(y = \beta_0 + \beta_1 x + e\)</span> の <span class="math inline">\(e\)</span> は何を表すか。</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">説明変数</option><option value="">目的変数</option><option value="answer">残差（誤差項）</option><option value="">切片</option></select></p>
+</section>
+<section id="c-2" class="level3">
+<h3 class="anchored" data-anchor-id="c-2">13-C-2</h3>
+<p>単回帰で傾き <span class="math inline">\(\beta_1 = 2.5\)</span> のとき、<span class="math inline">\(x\)</span> が1単位増えると <span class="math inline">\(y\)</span> はどうなるか。</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">2.5倍になる</option><option value="answer">2.5増える</option><option value="">2.5%増える</option><option value="">変わらない</option></select></p>
+</section>
+<section id="c-3" class="level3">
+<h3 class="anchored" data-anchor-id="c-3">13-C-3</h3>
+<p>Rで回帰分析を行う関数は <code>lm()</code> である。</p>
+<p><select class="webex-select"><option value="blank"></option><option value="answer">TRUE</option><option value="">FALSE</option></select></p>
+</section>
+<section id="c-4" class="level3">
+<h3 class="anchored" data-anchor-id="c-4">13-C-4</h3>
+<p>決定係数 <span class="math inline">\(R^2 = 0.75\)</span> のとき、モデルは目的変数の変動の75%を説明している。</p>
+<p><select class="webex-select"><option value="blank"></option><option value="answer">TRUE</option><option value="">FALSE</option></select></p>
+</section>
+<section id="c-5" class="level3">
+<h3 class="anchored" data-anchor-id="c-5">13-C-5</h3>
+<p>重回帰分析の偏回帰係数は、「他の説明変数を一定にしたとき」の効果を表す。</p>
+<p><select class="webex-select"><option value="blank"></option><option value="answer">TRUE</option><option value="">FALSE</option></select></p>
+</section>
+<section id="c-6" class="level3">
+<h3 class="anchored" data-anchor-id="c-6">13-C-6</h3>
+<p>説明変数を増やすと <span class="math inline">\(R^2\)</span> はどうなるか。</p>
+<p><select class="webex-select"><option value="blank"></option><option value="answer">必ず同じか大きくなる</option><option value="">必ず小さくなる</option><option value="">増えることも減ることもある</option><option value="">変わらない</option></select></p>
+</section>
+<section id="c-7" class="level3">
+<h3 class="anchored" data-anchor-id="c-7">13-C-7</h3>
+<p>AICによるモデル選択では、AICの値がどちらのモデルを選ぶべきか。</p>
+<p><select class="webex-select"><option value="blank"></option><option value="answer">小さい方</option><option value="">大きい方</option><option value="">0に近い方</option><option value="">1に近い方</option></select></p>
+</section>
+<section id="c-8" class="level3">
+<h3 class="anchored" data-anchor-id="c-8">13-C-8</h3>
+<p><code>summary(lm_result)</code> の出力に含まれる <code>Pr(&gt;|t|)</code> は何を表すか。</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">決定係数</option><option value="">標準誤差</option><option value="answer">各係数がゼロであるという帰無仮説のp値</option><option value="">AIC</option></select></p>
+</section>
+<section id="c-9" class="level3">
+<h3 class="anchored" data-anchor-id="c-9">13-C-9</h3>
+<p>回帰分析の仮定として「残差の正規性」がある。これを確認するのに適したプロットはどれか。</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">散布図</option><option value="">棒グラフ</option><option value="answer">Q-Qプロット</option><option value="">ヒストグラム（の目的変数）</option></select></p>
+</section>
+<section id="c-10" class="level3">
+<h3 class="anchored" data-anchor-id="c-10">13-C-10</h3>
+<p>t検定は回帰分析の特殊なケースとみなすことができる。</p>
+<p><select class="webex-select"><option value="blank"></option><option value="answer">TRUE</option><option value="">FALSE</option></select></p>
+<hr>
+</section>
+</section>
+<section id="ランクb-実践スキル" class="level2">
+<h2 class="anchored" data-anchor-id="ランクb-実践スキル">ランクB: 実践スキル</h2>
+<section id="b-1" class="level3">
+<h3 class="anchored" data-anchor-id="b-1">13-B-1</h3>
+<p>irisデータで、<code>Sepal.Length</code> を説明変数、<code>Petal.Length</code> を目的変数とする単回帰分析を行い、<code>summary()</code> で結果を確認しなさい。傾きの推定値とp値を読み取ること。</p>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Petal.Length <span class="sc">~</span> Sepal.Length, <span class="at">data =</span> iris)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Petal.Length ~ Sepal.Length, data = iris)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-2.47747 -0.59072 -0.00668  0.60484  2.49512 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  -7.10144    0.50666  -14.02   &lt;2e-16 ***
+Sepal.Length  1.85843    0.08586   21.65   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.8678 on 148 degrees of freedom
+Multiple R-squared:   0.76, Adjusted R-squared:  0.7583 
+F-statistic: 468.6 on 1 and 148 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<ul>
+<li>傾き（Sepal.Length）: 約1.86（p &lt; .001）</li>
+<li>萼片長が1cm長いと、花弁長は約1.86cm長い</li>
+<li><span class="math inline">\(R^2\)</span> = 0.76: モデルは変動の約76%を説明</li>
+</ul>
+</div>
+</section>
+<section id="b-2" class="level3">
+<h3 class="anchored" data-anchor-id="b-2">13-B-2</h3>
+<p>上の単回帰モデルの結果を散布図と回帰直線で可視化しなさい。<code>geom_smooth(method = "lm")</code> を使うこと。</p>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">%&gt;%</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Petal.Length)) <span class="sc">+</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Sepal.Length (cm)"</span>, <span class="at">y =</span> <span class="st">"Petal.Length (cm)"</span>,</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"単回帰: 萼片長 → 花弁長"</span>) <span class="sc">+</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="U13-regression_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="b-3" class="level3">
+<h3 class="anchored" data-anchor-id="b-3">13-B-3</h3>
+<p>irisデータで、<code>Sepal.Length</code>、<code>Sepal.Width</code>、<code>Petal.Width</code> の3変数を説明変数、<code>Petal.Length</code> を目的変数とする重回帰分析を行いなさい。どの変数が有意か確認すること。</p>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>model_multi <span class="ot">&lt;-</span> <span class="fu">lm</span>(Petal.Length <span class="sc">~</span> Sepal.Length <span class="sc">+</span> Sepal.Width <span class="sc">+</span> Petal.Width,</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">data =</span> iris)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_multi)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Petal.Length ~ Sepal.Length + Sepal.Width + Petal.Width, 
+    data = iris)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.99333 -0.17656 -0.01004  0.18558  1.06909 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  -0.26271    0.29741  -0.883    0.379    
+Sepal.Length  0.72914    0.05832  12.502   &lt;2e-16 ***
+Sepal.Width  -0.64601    0.06850  -9.431   &lt;2e-16 ***
+Petal.Width   1.44679    0.06761  21.399   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.319 on 146 degrees of freedom
+Multiple R-squared:  0.968, Adjusted R-squared:  0.9674 
+F-statistic:  1473 on 3 and 146 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>3変数すべてが有意（p &lt; .05）であり、調整済み <span class="math inline">\(R^2\)</span> は約0.97と非常に高いことがわかります。</p>
+</div>
+</section>
+<section id="b-4" class="level3">
+<h3 class="anchored" data-anchor-id="b-4">13-B-4</h3>
+<p>BaseballDecade.csvを読み込み、野手（AtBats &gt; 0）のデータで <code>salary</code>（年俸）を目的変数、<code>Hit</code>（安打数）を説明変数とする単回帰分析を行いなさい。</p>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>bb <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"../data/BaseballDecade.csv"</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>bb_bat <span class="ot">&lt;-</span> bb <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(AtBats <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>model_bb <span class="ot">&lt;-</span> <span class="fu">lm</span>(salary <span class="sc">~</span> Hit, <span class="at">data =</span> bb_bat)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_bb)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = salary ~ Hit, data = bb_bat)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-16800  -2651   -993    456  52105 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 1549.487    165.136   9.383   &lt;2e-16 ***
+Hit           90.418      2.536  35.659   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 7031 on 3250 degrees of freedom
+Multiple R-squared:  0.2812,    Adjusted R-squared:  0.281 
+F-statistic:  1272 on 1 and 3250 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>bb_bat <span class="sc">%&gt;%</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Hit, <span class="at">y =</span> salary)) <span class="sc">+</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">TRUE</span>, <span class="at">color =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"安打数と年俸の関係"</span>,</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"安打数"</span>, <span class="at">y =</span> <span class="st">"年俸（万円）"</span>) <span class="sc">+</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="U13-regression_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="b-5" class="level3">
+<h3 class="anchored" data-anchor-id="b-5">13-B-5</h3>
+<p>BaseballDecade.csvの野手データで、<code>salary</code> を目的変数に、<code>Hit</code>、<code>HR</code>、<code>Games</code> を説明変数とする重回帰モデルを作成し、<code>plot()</code> で4枚の診断プロットを描きなさい。残差の正規性や等分散性について気づいたことを述べること。</p>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>bb_bat <span class="ot">&lt;-</span> bb <span class="sc">%&gt;%</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(AtBats <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">drop_na</span>(Hit, HR, Games, salary)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>model_bb2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(salary <span class="sc">~</span> Hit <span class="sc">+</span> HR <span class="sc">+</span> Games, <span class="at">data =</span> bb_bat)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model_bb2)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="U13-regression_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li>Residuals vs Fitted: 右に行くほど残差が広がる傾向（等分散性の仮定が怪しい）</li>
+<li>Q-Qプロット: 右端が直線から外れている（右裾が重い＝高年俸の外れ値）</li>
+<li>年俸データは正の歪みが強いため、対数変換 <code>log(salary)</code> の使用を検討すべきです</li>
+</ul>
+</div>
+</section>
+<section id="b-6" class="level3">
+<h3 class="anchored" data-anchor-id="b-6">13-B-6</h3>
+<p>13-B-5の問題点を踏まえて、目的変数を <code>log(salary)</code> に変換した重回帰モデルを作成し、診断プロットが改善されるか確認しなさい。</p>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>model_log <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(salary) <span class="sc">~</span> Hit <span class="sc">+</span> HR <span class="sc">+</span> Games, <span class="at">data =</span> bb_bat)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_log)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = log(salary) ~ Hit + HR + Games, data = bb_bat)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.2153 -0.6330 -0.1252  0.5653  3.3598 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 7.0290265  0.0292642 240.192  &lt; 2e-16 ***
+Hit         0.0057678  0.0008598   6.708 2.32e-11 ***
+HR          0.0331324  0.0031632  10.474  &lt; 2e-16 ***
+Games       0.0069757  0.0008233   8.473  &lt; 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.8946 on 3248 degrees of freedom
+Multiple R-squared:  0.4217,    Adjusted R-squared:  0.4211 
+F-statistic: 789.3 on 3 and 3248 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model_log)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="U13-regression_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>対数変換により残差の分布が改善されます。年俸のような右に裾が長い変数では、対数変換が有効な場合が多いです。</p>
+</div>
+</section>
+<section id="b-7" class="level3">
+<h3 class="anchored" data-anchor-id="b-7">13-B-7</h3>
+<p>irisデータで以下の3つのモデルを作成し、<code>AIC()</code> で比較しなさい。どのモデルが最も良いか。</p>
+<ul>
+<li>モデル1: <code>Petal.Length ~ Sepal.Length</code></li>
+<li>モデル2: <code>Petal.Length ~ Sepal.Length + Sepal.Width</code></li>
+<li>モデル3: <code>Petal.Length ~ Sepal.Length + Sepal.Width + Petal.Width</code></li>
+</ul>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Petal.Length <span class="sc">~</span> Sepal.Length, <span class="at">data =</span> iris)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Petal.Length <span class="sc">~</span> Sepal.Length <span class="sc">+</span> Sepal.Width, <span class="at">data =</span> iris)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>m3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Petal.Length <span class="sc">~</span> Sepal.Length <span class="sc">+</span> Sepal.Width <span class="sc">+</span> Petal.Width, <span class="at">data =</span> iris)</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(m1, m2, m3)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   df       AIC
+m1  3 387.13500
+m2  4 299.78749
+m3  5  88.81602</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">BIC</span>(m1, m2, m3)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   df      BIC
+m1  3 396.1669
+m2  4 311.8300
+m3  5 103.8692</code></pre>
+</div>
+</div>
+<p>AIC・BICともにモデル3が最小であり、3変数モデルが最も良いと判断できます。</p>
+</div>
+</section>
+<section id="b-8" class="level3">
+<h3 class="anchored" data-anchor-id="b-8">13-B-8</h3>
+<p><code>step()</code> 関数を使って、irisデータの <code>Petal.Length</code> を目的変数とするモデルの変数選択を自動で行いなさい。フルモデル（全変数）から出発して後退法（backward）で選択すること。</p>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>full_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Petal.Length <span class="sc">~</span> Sepal.Length <span class="sc">+</span> Sepal.Width <span class="sc">+</span> Petal.Width,</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> iris)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>best_model <span class="ot">&lt;-</span> <span class="fu">step</span>(full_model, <span class="at">direction =</span> <span class="st">"backward"</span>, <span class="at">trace =</span> <span class="dv">1</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Start:  AIC=-338.87
+Petal.Length ~ Sepal.Length + Sepal.Width + Petal.Width
+
+               Df Sum of Sq    RSS     AIC
+&lt;none&gt;                      14.853 -338.87
+- Sepal.Width   1     9.049 23.902 -269.50
+- Sepal.Length  1    15.902 30.755 -231.69
+- Petal.Width   1    46.584 61.437 -127.89</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(best_model)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Petal.Length ~ Sepal.Length + Sepal.Width + Petal.Width, 
+    data = iris)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.99333 -0.17656 -0.01004  0.18558  1.06909 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  -0.26271    0.29741  -0.883    0.379    
+Sepal.Length  0.72914    0.05832  12.502   &lt;2e-16 ***
+Sepal.Width  -0.64601    0.06850  -9.431   &lt;2e-16 ***
+Petal.Width   1.44679    0.06761  21.399   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.319 on 146 degrees of freedom
+Multiple R-squared:  0.968, Adjusted R-squared:  0.9674 
+F-statistic:  1473 on 3 and 146 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p><code>step()</code> はAICを基準にして変数を1つずつ除外し、AICが最小になるモデルを選択します。<code>trace = 1</code> で選択過程が表示されます。</p>
+</div>
+</section>
+<section id="b-9" class="level3">
+<h3 class="anchored" data-anchor-id="b-9">13-B-9</h3>
+<p>回帰モデルで予測を行いなさい。irisの単回帰モデル（<code>Petal.Length ~ Sepal.Length</code>）を使い、<code>Sepal.Length</code> が 5.0, 6.0, 7.0 のときの <code>Petal.Length</code> の予測値と95%予測区間を求めること。</p>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Petal.Length <span class="sc">~</span> Sepal.Length, <span class="at">data =</span> iris)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>new_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">Sepal.Length =</span> <span class="fu">c</span>(<span class="fl">5.0</span>, <span class="fl">6.0</span>, <span class="fl">7.0</span>))</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(model, <span class="at">newdata =</span> new_data, <span class="at">interval =</span> <span class="st">"prediction"</span>)</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(new_data, predictions)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Sepal.Length      fit       lwr      upr
+1            5 2.190722 0.4641676 3.917275
+2            6 4.049154 2.3283341 5.769975
+3            7 5.907587 4.1758176 7.639357</code></pre>
+</div>
+</div>
+<ul>
+<li><code>fit</code>: 予測値（点推定）</li>
+<li><code>lwr</code>, <code>upr</code>: 95%予測区間（個々の新しい観測値がこの範囲に入ると期待される）</li>
+</ul>
+</div>
+</section>
+<section id="b-10" class="level3">
+<h3 class="anchored" data-anchor-id="b-10">13-B-10</h3>
+<p>irisの <code>setosa</code> と <code>versicolor</code> について、<code>Petal.Length</code> の群間比較を回帰分析で行い、<code>t.test(var.equal = TRUE)</code> の結果と比較しなさい。t値が一致する（符号が逆の場合もある）ことを確認すること。</p>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>iris_sub <span class="ot">&lt;-</span> iris <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(Species <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"setosa"</span>, <span class="st">"versicolor"</span>))</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="co"># t検定</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>t_result <span class="ot">&lt;-</span> <span class="fu">t.test</span>(Petal.Length <span class="sc">~</span> Species, <span class="at">data =</span> iris_sub, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 回帰分析</span></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>lm_result <span class="ot">&lt;-</span> <span class="fu">lm</span>(Petal.Length <span class="sc">~</span> Species, <span class="at">data =</span> iris_sub)</span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"--- t検定 ---</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>--- t検定 ---</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">"t値: %.4f, p値: %.6f</span><span class="sc">\n</span><span class="st">"</span>, t_result<span class="sc">$</span>statistic, t_result<span class="sc">$</span>p.value))</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>t値: -39.4927, p値: 0.000000</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">--- 回帰分析 ---</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+--- 回帰分析 ---</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">"t値: %.4f, p値: %.6f</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>            <span class="fu">summary</span>(lm_result)<span class="sc">$</span>coefficients[<span class="dv">2</span>, <span class="dv">3</span>],</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>            <span class="fu">summary</span>(lm_result)<span class="sc">$</span>coefficients[<span class="dv">2</span>, <span class="dv">4</span>]))</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>t値: 39.4927, p値: 0.000000</code></pre>
+</div>
+</div>
+<p>t検定と回帰分析が本質的に同じ分析であることが確認できます。</p>
+</div>
+<hr>
+</section>
+</section>
+<section id="ランクa-ai協働" class="level2">
+<h2 class="anchored" data-anchor-id="ランクa-ai協働">ランクA: AI協働</h2>
+<section id="a-1" class="level3">
+<h3 class="anchored" data-anchor-id="a-1">13-A-1</h3>
+<p>BaseballDecade.csvの野手データを使い、生成AIと協力して「年俸を予測する最良のモデル」を構築してください。</p>
+<p>以下の手順で進めること:</p>
+<ol type="1">
+<li>どの変数を説明変数の候補にすべきかAIに相談する</li>
+<li>モデルを複数作成し、AIC/BICで比較する</li>
+<li>診断プロットを見せてAIに「このモデルの問題点は何か」を聞く</li>
+<li>問題があれば変数変換や交互作用項の追加などの改善策をAIに提案してもらう</li>
+<li>最終的なモデルの結果を解釈し、「安打数が10本増えると年俸はどの程度変わるか」のような具体的な予測を行う</li>
+</ol>
+<p>AIの提案を <strong>必ず自分で実行して確認</strong> すること。</p>
+</section>
+<section id="a-2" class="level3">
+<h3 class="anchored" data-anchor-id="a-2">13-A-2</h3>
+<p>生成AIに「回帰分析の仮定が満たされないとき、どのような代替手法があるか」を聞いてください。以下の状況それぞれについて、AIの提案する手法をRで実際に試してみましょう:</p>
+<ol type="1">
+<li>目的変数と説明変数の関係が直線ではない場合</li>
+<li>目的変数が0/1の二値変数の場合（ロジスティック回帰）</li>
+<li>外れ値の影響が大きい場合</li>
+</ol>
+<p>AIとの対話で学んだことを、3つの場面ごとに要約してください。</p>
+<hr>
+</section>
+</section>
+<section id="まとめ" class="level2">
+<h2 class="anchored" data-anchor-id="まとめ">まとめ</h2>
+<p>このユニットで学んだこと:</p>
+<ul>
+<li><strong>回帰分析の基本</strong>: <span class="math inline">\(y = \beta_0 + \beta_1 x + e\)</span> で変数間の関係をモデル化する</li>
+<li><strong>最小二乗法</strong>: 残差の二乗和を最小化して係数を推定する</li>
+<li><strong>重回帰</strong>: 複数の説明変数を使い、偏回帰係数で各変数の「独自の効果」を評価する</li>
+<li><strong>決定係数 <span class="math inline">\(R^2\)</span></strong>: モデルの説明力の指標。ただし変数を増やせば必ず上がるため、調整済み <span class="math inline">\(R^2\)</span> やAICで判断する</li>
+<li><strong>モデル診断</strong>: 残差の正規性、等分散性、多重共線性を確認する</li>
+<li><strong>モデル選択</strong>: AIC/BICや <code>step()</code> で最適なモデルを選ぶ</li>
+<li><strong>一般線型モデル</strong>: t検定や分散分析は回帰分析の特殊なケース</li>
+</ul>
+<p>これで幹ユニット（U1〜U13）は完了です。ここまでの知識があれば、データの読み込みから分析・可視化・推測まで一通りの流れを自力で行えるはずです。枝ユニット（U3, U14〜U19, U21〜U23）に進んで、さらに専門的なスキルを身につけましょう。</p>
+<!-- 進捗: C10/B10/A2 -->
+
+
+</section>
+
+</main> <!-- /main -->
+<script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  var t = document.getElementsByClassName("webex-total_correct");
+  for (var i = 0; i < t.length; i++) {
+    p = t[i].parentElement;
+    var correct = p.getElementsByClassName("webex-correct").length;
+    var solvemes = p.getElementsByClassName("webex-solveme").length;
+    var radiogroups = p.getElementsByClassName("webex-radiogroup").length;
+    var selects = p.getElementsByClassName("webex-select").length;
+
+    t[i].innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* check answers */
+check_func = function() {
+  console.log("webex: check answers");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('unchecked')) {
+    cl.remove("unchecked");
+    this.innerHTML = "Hide Answers";
+  } else {
+    cl.add("unchecked");
+    this.innerHTML = "Show Answers";
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+
+  var cl = this.classList
+
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("webex onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  var check_sections = document.getElementsByClassName("webex-check");
+  console.log("check:", check_sections.length);
+  for (var i = 0; i < check_sections.length; i++) {
+    check_sections[i].classList.add("unchecked");
+
+    let btn = document.createElement("button");
+    btn.innerHTML = "Show Answers";
+    btn.classList.add("webex-check-button");
+    btn.onclick = check_func;
+    check_sections[i].appendChild(btn);
+
+    let spn = document.createElement("span");
+    spn.classList.add("webex-total_correct");
+    check_sections[i].appendChild(spn);
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+
+    solveme[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+    selects[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  update_total_correct();
+}
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "コピーしました");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "コピーしました");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

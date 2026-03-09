@@ -1,0 +1,887 @@
+---
+title: "U19. Stan / cmdstanr"
+format:
+  html:
+    css: ../include/webex.css
+    include-after-body: ../include/webex.js
+---
+
+```{r setup, include=FALSE}
+pacman::p_load(webexercises, tidyverse, ragg)
+knitr::opts_chunk$set(
+  echo = TRUE, message = FALSE, warning = FALSE,
+  dev = "ragg_png"
+)
+```
+
+## ユニット概要
+
+**分類**: 枝（選択）
+
+**依存関係**: U18（MCMCの原理と実践） → **U19**
+
+**使用データ**: シミュレーションデータ（コード内で生成）
+
+**学習目標**:
+
+- 確率的プログラミング言語Stanの基本構造（6つのブロック）を理解する
+- Stanの型宣言やセミコロンなどの文法ルールを把握する
+- cmdstanrパッケージを用いたワークフロー（コンパイル → サンプリング → 結果取得）を理解する
+- 簡単な正規分布モデルをStanで記述できる
+- bayesplotによるMCMC結果の可視化方法を知る
+- generated quantitiesブロックの役割を理解する
+
+**注意**: このユニットではcmdstanrパッケージとCmdStanのインストールが必要です。環境構築が済んでいない場合は、コードの実行はできませんが、Stanの文法やワークフローの概念は学べます。本ユニットのコードは全て`eval=FALSE`としており、各自の環境で実行してください。
+
+---
+
+## 事前知識: 確率的プログラミング言語Stan
+
+### Stanとは
+
+Stanは**確率的プログラミング言語**です。確率モデルをコードとして記述するだけで、MCMCサンプリングによるベイズ推定を自動で行ってくれます。名前は、モンテカルロ法の考案者の一人であるStanislaw Ulamに因んでいます。
+
+Stanを使う最大の利点は、**確率モデルさえ書ければ推定結果が得られる**ことです。U18で学んだMCMCの仕組みを理解していれば、あとはモデルの記述に集中できます。研究者は推定アルゴリズムの実装を気にせず、自分のデータに合ったモデルを自由に設計できるのです。
+
+### コンパイル型とインタプリタ型
+
+Rはインタプリタ型言語です。コマンドを入力すると即座に結果が返ってきます。一問一答のやりとりです。
+
+これに対してStanはコンパイル型です。命令文全体をまず書き、その文書（`.stan`ファイル）全体を機械語に翻訳してから実行します。この翻訳作業を**コンパイル**といいます。コンパイルされたプログラムは機械語で動くため、計算速度が速いという利点があります。
+
+コンパイル型であるStanでは、次のような手順でモデルを実行します。
+
+1. Stanの言語でモデルを書き、`.stan`ファイルとして保存する
+2. R側から「このStanファイルをコンパイルせよ」と指示する
+3. コンパイルされたオブジェクトに対し「MCMCサンプリングせよ」と指示する
+4. 結果はRのオブジェクトとして返ってくるので、Rで分析・可視化する
+
+エラーが出た場合は、コンパイル時のエラー（文法ミス）と実行時のエラー（データの不整合など）の2種類があります。エラーメッセージは解決のためのヒントですので、生成AIに質問しながら対処しましょう。
+
+### 型宣言
+
+Stanでは、変数を使う前にその変数が**どの型のデータか**を宣言しなければなりません。これを**型宣言**といいます。Rでは`x <- 1`と書くだけで変数が使えましたが、Stanでは`real x;`のように「`x`は実数型である」と事前に宣言する必要があります。
+
+Stanの主な型は以下の通りです。
+
+| 型 | 意味 | 例 |
+|---|---|---|
+| `int` | 整数 | `int N;` |
+| `real` | 実数 | `real mu;` |
+| `vector[N]` | 長さNのベクトル | `vector[10] x;` |
+| `matrix[M,N]` | M行N列の行列 | `matrix[3,3] Sigma;` |
+| `array[N] real` | 長さNの実数配列 | `array[N] real y;` |
+
+型宣言には**制約**をつけることもできます。例えば`real<lower=0> sigma;`と書くと、`sigma`は0以上の値しか取らないことを宣言しています。標準偏差は負にならないので、こうした制約を入れることでサンプリングの効率が上がります。
+
+### Stanの6つのブロック
+
+Stanのコードは最大6つの**ブロック**で構成されます。各ブロックは`{ }`で囲まれ、それぞれ異なる役割を持ちます。
+
+```stan
+data {
+  // 1. 外部（R）から受け取るデータを宣言する
+}
+transformed data {
+  // 2. データの前処理・変換を行う
+}
+parameters {
+  // 3. 推定したいパラメータを宣言する
+}
+transformed parameters {
+  // 4. パラメータの変換を行う（例: 予測値の計算）
+}
+model {
+  // 5. 尤度と事前分布を記述する（確率モデルの本体）
+}
+generated quantities {
+  // 6. サンプリング後の計算（事後予測分布の生成など）
+}
+```
+
+全てのブロックを毎回使う必要はありません。最もよく使う3つは次の通りです。
+
+- **dataブロック**: Rから渡すデータの型と変数名を宣言します。ここで宣言した変数名と同じ名前で、R側からデータを渡す必要があります
+- **parametersブロック**: 推定対象のパラメータを宣言します。ここで宣言されたパラメータについて、StanがMCMCサンプリングを行います
+- **modelブロック**: 確率モデルを記述します。尤度（データがどの確率分布に従うか）と事前分布を書きます
+
+残りのブロックの役割は次の通りです。
+
+- **transformed dataブロック**: dataブロックで受け取ったデータを加工します。例えば対数変換や中心化など、モデルに入れる前の前処理です
+- **transformed parametersブロック**: parametersブロックのパラメータを組み合わせて新しい量を作ります。例えば回帰分析の予測値$\hat{y}_i = \beta_0 + \beta_1 x_i$を計算するのに使います
+- **generated quantitiesブロック**: サンプリングが終わった後に、事後分布から派生する量を計算します。事後予測分布の生成などに使います
+
+### 最も簡単なStanモデル
+
+正規分布の平均と標準偏差を推定する、最も基本的なStanモデルを見てみましょう。
+
+```stan
+data {
+  int<lower=1> N;      // データの個数
+  array[N] real y;     // 観測データ（実数の配列）
+}
+parameters {
+  real mu;             // 平均（推定対象）
+  real<lower=0> sigma; // 標準偏差（推定対象、正の値）
+}
+model {
+  y ~ normal(mu, sigma);  // yは正規分布に従う
+}
+```
+
+`y ~ normal(mu, sigma);`は「データ`y`が平均`mu`、標準偏差`sigma`の正規分布に従う」という意味です。`~`演算子は確率分布への従属を表す記号で、数式の$y \sim N(\mu, \sigma)$に対応しています。
+
+ポイントをまとめます。
+
+- 各行の末尾に**セミコロン（`;`）が必要**です。Rでは不要ですが、Stanでは文の区切りとして必須です
+- コメントは`//`で書きます（Rの`#`に相当）
+- 配列は`array[N] real y;`のように宣言します
+- `<lower=0>`のような制約を変数に付けられます
+
+### cmdstanrによるワークフロー
+
+RからStanを使うには`cmdstanr`パッケージを用います。基本的なワークフローは次の4ステップです。
+
+```{r, eval=FALSE}
+# 1. パッケージの読み込み
+pacman::p_load(cmdstanr)
+
+# 2. Stanファイルをコンパイル
+model <- cmdstanr::cmdstan_model("model.stan")
+
+# 3. データを渡してMCMCサンプリング
+fit <- model$sample(
+  data = dataSet,        # リスト形式でデータを渡す
+  chains = 4,            # MCMCチェイン数
+  parallel_chains = 4,   # 並列実行するチェイン数
+  iter_warmup = 2000,    # ウォームアップ期間
+  iter_sampling = 5000,  # サンプリング数
+  refresh = 0            # 途中経過の表示頻度（0で非表示）
+)
+
+# 4. 結果の確認
+fit                          # 要約統計量の表示
+fit$draws()                  # MCMCサンプルの取得
+fit$draws("mu")              # 特定パラメータのサンプル取得
+```
+
+ステップ3で渡す`data`はリスト型です。リストの要素名は、Stanファイルの`data`ブロックで宣言した変数名と一致させる必要があります。
+
+### bayesplotによる可視化
+
+`bayesplot`パッケージはMCMCの結果を可視化するための専用パッケージです。主な関数を紹介します。
+
+```{r, eval=FALSE}
+pacman::p_load(bayesplot)
+
+# MCMCサンプルの取得
+draws <- fit$draws()
+
+# 事後分布の密度プロット（各パラメータの分布の形を確認）
+bayesplot::mcmc_areas(draws, pars = "mu")
+
+# トレースプロット（チェインの収束を確認）
+bayesplot::mcmc_trace(draws, pars = "mu")
+
+# 事後予測分布の重ね書き（モデルの当てはまりを確認）
+# y_pred は generated quantities で生成した予測値
+bayesplot::ppc_dens_overlay(y, fit$draws("y_pred", format = "matrix")[1:50, ])
+```
+
+- `mcmc_areas()`: 事後分布の密度をプロットし、信用区間を影で表示します
+- `mcmc_trace()`: 各チェインの推移をプロットします。チェインが重なっていれば収束の証拠です
+- `ppc_dens_overlay()`: 実データの分布とモデルからの予測分布を重ねて比較します（ppc = posterior predictive check）
+
+### 牛丼の例: 個人ごとに分散が異なるモデル
+
+Stanの力を感じるために、少し面白い例を紹介します。
+
+ある牛丼チェーン店では、並盛り一人前につき150gの肉を載せて提供するという決まりがあります。ある店舗で社員による抜き打ち検査があり、提供係10名に牛丼を作らせ、肉の量を計測しました。10名のうち2名はまだ日の浅いアルバイトです。
+
+```{r, eval=FALSE}
+y <- c(151, 149, 152, 150, 151, 148, 151, 150, 221, 245)
+```
+
+最後の2人の値が明らかに大きく外れています。ここで「全員平均は同じだが、誤差（ブレ）が個人ごとに異なる」というモデルを考えます。
+
+$$y_i \sim N(\mu, \sigma_i)$$
+
+添字$i$に注目してください。平均$\mu$には添字がなく（全員共通）、標準偏差$\sigma_i$には添字$i$がついています（個人ごとに異なる）。
+
+このモデルのStanコードは次の通りです。`gyudon10.stan`として保存します。
+
+```stan
+data {
+  int<lower=1> N;
+  array[N] real Y;
+}
+parameters {
+  real mu;
+  array[N] real<lower=0> sigma;
+}
+model {
+  mu ~ uniform(0, 200);
+  sigma ~ cauchy(0, 1);
+  for (i in 1:N) {
+    Y[i] ~ normal(mu, sigma[i]);
+  }
+}
+```
+
+このモデルには3つのブロックがあります。
+
+- **dataブロック**: データの個数`N`とデータ`Y`を受け取ります
+- **parametersブロック**: 共通の平均`mu`と、個人ごとの標準偏差`sigma`（配列）を推定対象とします。`<lower=0>`の制約により標準偏差が負にならないようにしています
+- **modelブロック**: 事前分布として`mu`に0から200の一様分布、`sigma`にコーシー分布を置き、尤度として$Y_i \sim N(\mu, \sigma_i)$を記述しています
+
+Rからこのモデルを実行するコードは次の通りです。
+
+```{r, eval=FALSE}
+pacman::p_load(cmdstanr)
+
+# データの準備
+y <- c(151, 149, 152, 150, 151, 148, 151, 150, 221, 245)
+
+# コンパイル
+model <- cmdstanr::cmdstan_model("gyudon10.stan")
+
+# データをリスト形式で用意（変数名はStanのdataブロックと一致させる）
+dataSet <- list(N = length(y), Y = y)
+
+# MCMCサンプリング
+fit <- model$sample(
+  data = dataSet,
+  chains = 4,
+  parallel_chains = 4,
+  iter_warmup = 2000,
+  iter_sampling = 5000,
+  refresh = 0
+)
+
+# 結果の表示
+fit
+```
+
+結果を見ると、$\mu$は150程度で店舗マニュアル通りです。注目すべきは個人ごとの$\sigma_i$です。
+
+```{r, eval=FALSE}
+# sigmaの事後分布を可視化
+bayesplot::mcmc_areas(fit$draws(), regex_pars = "sigma")
+```
+
+可視化すると、最後の2人の$\sigma$が明らかに大きいことがわかります。すなわち、未熟なアルバイトであることがデータから読み取れるのです。
+
+```{r, eval=FALSE}
+# 数値でも確認
+pacman::p_load(bayestestR)
+sigma_draws <- fit$draws()[, , grepl("sigma", dimnames(fit$draws())$variable)]
+bayestestR::describe_posterior(
+  sigma_draws,
+  centrality = c("mean", "median", "MAP"),
+  ci = 0.95, ci_method = "hdi", test = NULL
+)
+```
+
+このように、通常の分析では「平均値」ばかりに注目しがちですが、Stanを使えば「分散（ブレ）」も推定対象にできます。
+
+### generated quantitiesブロック: 事後予測分布
+
+6つ目のブロックである`generated quantities`は、サンプリング終了後に追加の計算を行うブロックです。代表的な使い方は**事後予測分布**（posterior predictive distribution）の生成です。
+
+事後予測分布とは、推定されたパラメータを使って「このモデルから新しいデータを生成したらどうなるか」をシミュレーションしたものです。実際のデータと事後予測分布を比較することで、モデルの当てはまりを確認できます。
+
+例えば、先ほどの正規分布モデルに事後予測分布を追加する場合、次のように書きます。
+
+```stan
+data {
+  int<lower=1> N;
+  array[N] real y;
+}
+parameters {
+  real mu;
+  real<lower=0> sigma;
+}
+model {
+  y ~ normal(mu, sigma);
+}
+generated quantities {
+  array[N] real y_pred;       // 予測データの配列
+  for (i in 1:N) {
+    y_pred[i] = normal_rng(mu, sigma);  // 正規乱数を生成
+  }
+}
+```
+
+`normal_rng(mu, sigma)`は、推定された`mu`と`sigma`を使って正規乱数を1つ生成する関数です。`_rng`は乱数生成（random number generation）を意味し、`generated quantities`ブロック内でのみ使用できます。
+
+こうして生成された`y_pred`をR側で取り出し、`bayesplot::ppc_dens_overlay()`で実データと比較します。
+
+---
+
+## ランクC: 基礎知識を確認しよう
+
+### 19-C-1
+
+Stanのコードは最大6つのブロックで構成されます。次のうち、**推定したいパラメータを宣言する**ブロックはどれですか？
+
+`r mcq(c("data", answer = "parameters", "model", "generated quantities"))`
+
+`r hide("解説")`
+`parameters`ブロックは推定対象のパラメータを宣言する場所です。ここで宣言されたパラメータについて、StanがMCMCサンプリングを行い、事後分布を得ます。
+`r unhide()`
+
+---
+
+### 19-C-2
+
+Stanでは変数を使う前に型を宣言する必要があります。標準偏差のように**正の実数値**を取る変数の宣言として正しいのは？
+
+`r mcq(c("int sigma;", "real sigma;", answer = "real<lower=0> sigma;", "positive sigma;"))`
+
+`r hide("解説")`
+`real<lower=0> sigma;`は「`sigma`は0以上の実数である」という宣言です。`<lower=0>`は変数への制約で、標準偏差のように負にならないパラメータに使います。制約をつけることでサンプリングの効率が向上します。
+`r unhide()`
+
+---
+
+### 19-C-3
+
+Stanのmodelブロックで`y ~ normal(mu, sigma);`と書いたとき、`~`（チルダ）は何を意味しますか？
+
+`r mcq(c("代入（yにmu + sigmaを代入する）", answer = "yが正規分布に従うことを表す", "yの近似値を計算する", "yとmu*sigmaが等しいことを表す"))`
+
+`r hide("解説")`
+`~`演算子は「左辺が右辺の確率分布に従う」ことを表します。数式で書くと$y \sim N(\mu, \sigma)$に対応します。これはSampling記法と呼ばれ、Stanの尤度記述の基本です。代入は`=`を使います。
+`r unhide()`
+
+---
+
+### 19-C-4
+
+cmdstanrでStanモデルを実行する正しい手順を選んでください。
+
+`r mcq(c("sample → cmdstan_model → draws", answer = "cmdstan_model → sample → draws", "draws → sample → cmdstan_model", "sample → draws → cmdstan_model"))`
+
+`r hide("解説")`
+正しい手順は次の通りです。
+
+1. `cmdstan_model("model.stan")` でStanファイルをコンパイルする
+2. `model$sample(data = ...)` でMCMCサンプリングを実行する
+3. `fit$draws()` で事後分布のサンプルを取り出す
+
+コンパイルしてからサンプリングし、最後にサンプルを取得するという順序です。
+`r unhide()`
+
+---
+
+### 19-C-5
+
+Stanのgenerated quantitiesブロックの主な用途は？
+
+`r mcq(c("外部データの読み込み", "事前分布の設定", answer = "事後予測分布の生成など、サンプリング後の追加計算", "パラメータの初期値の設定"))`
+
+`r hide("解説")`
+`generated quantities`ブロックは、MCMCサンプリングが終わった後に追加の計算を行う場所です。代表的な用途は事後予測分布の生成です。推定されたパラメータを使って「モデルから新しいデータを生成したらどうなるか」をシミュレーションし、モデルの当てはまりを確認できます。乱数生成関数（`_rng`）はこのブロック内でのみ使えます。
+`r unhide()`
+
+---
+
+### 19-C-6
+
+Stanのコードで行の末尾に必要な記号は？
+
+`r mcq(c("コロン (:)", "シャープ (#)", answer = "セミコロン (;)", "ピリオド (.)"))`
+
+`r hide("解説")`
+Stanでは各文の末尾にセミコロン（`;`）が必要です。これはC言語やJavaと同じ規則です。Rでは行末にセミコロンは不要なので、忘れやすいポイントです。セミコロンがないとコンパイルエラーになります。
+`r unhide()`
+
+---
+
+### 19-C-7
+
+StanでN個の実数データを受け取る配列の宣言として正しいのはどれですか？
+
+`r mcq(c("real y[N];", answer = "array[N] real y;", "vector y(N);", "list[N] real y;"))`
+
+`r hide("解説")`
+Stan 2.26以降の推奨される配列宣言は`array[N] real y;`です。これは「長さNの実数型配列`y`」を意味します。古い記法`real y[N];`も動作しますが、新しい`array`記法が推奨されています。`vector[N] y;`はベクトル型で、配列とは区別されます。
+`r unhide()`
+
+---
+
+### 19-C-8
+
+Stanで確率モデルの本体（尤度と事前分布）を記述するブロックは？
+
+`r mcq(c("data", "parameters", answer = "model", "transformed parameters"))`
+
+`r hide("解説")`
+`model`ブロックは確率モデルの本体を記述する、最も重要なブロックです。ここに尤度（データがどの確率分布に従うか）と事前分布（パラメータの事前的な信念）を書きます。例えば`y ~ normal(mu, sigma);`が尤度、`mu ~ normal(0, 100);`が事前分布です。
+`r unhide()`
+
+---
+
+## ランクB: 実践スキルを磨こう
+
+### 19-B-1
+
+**課題**: 正規分布の平均$\mu$と標準偏差$\sigma$を推定する最も基本的なStanモデルを、紙に手書きで書いてください。
+
+必要な3つのブロック（data, parameters, model）を含め、以下の仕様で書いてください。
+
+- データはN個の実数値`y`
+- 推定パラメータは平均`mu`と標準偏差`sigma`（正の値に制約）
+- 尤度: `y`は正規分布に従う
+
+`r hide("模範解答")`
+```stan
+data {
+  int<lower=1> N;
+  array[N] real y;
+}
+parameters {
+  real mu;
+  real<lower=0> sigma;
+}
+model {
+  y ~ normal(mu, sigma);
+}
+```
+
+ポイント:
+
+- `int<lower=1> N;` でデータの個数が1以上であることを宣言
+- `array[N] real y;` でN個の実数データの配列を宣言
+- `real<lower=0> sigma;` で標準偏差を正の値に制約
+- `y ~ normal(mu, sigma);` で尤度を記述（配列全体に対して書くとfor文は不要）
+- 各行末にセミコロンを忘れずに
+`r unhide()`
+
+---
+
+### 19-B-2
+
+**課題**: 次のStanコードには**3つの誤り**があります。全て見つけて修正してください。
+
+```stan
+data {
+  int N
+  array[N] real y;
+}
+parameters {
+  real mu;
+  real sigma;
+}
+model {
+  y ~ Normal(mu, sigma);
+}
+```
+
+`r hide("ヒント")`
+次の3点を確認してください。
+
+1. セミコロンは全ての文末に必要か？
+2. 標準偏差に制約は必要ないか？
+3. Stanの確率分布の関数名は大文字/小文字のどちらか？
+`r unhide()`
+
+`r hide("模範解答")`
+**誤り1**: `int N` にセミコロンがない → `int N;` に修正（さらに`<lower=1>`を付けるとなお良い）
+
+**誤り2**: `real sigma;` に制約がない → `real<lower=0> sigma;` に修正。標準偏差は負にならないので、`<lower=0>`の制約が必要です。制約がないとサンプリングが非効率になり、負の値がサンプリングされてエラーになる可能性があります
+
+**誤り3**: `Normal` が大文字 → `normal` に修正。Stanの確率分布名は全て小文字です
+
+修正後のコード:
+```stan
+data {
+  int<lower=1> N;
+  array[N] real y;
+}
+parameters {
+  real mu;
+  real<lower=0> sigma;
+}
+model {
+  y ~ normal(mu, sigma);
+}
+```
+`r unhide()`
+
+---
+
+### 19-B-3
+
+**課題**: 以下のRコードでデータを生成しました。このデータをStanに渡すためのdataブロックを書いてください。
+
+```{r, eval=FALSE}
+set.seed(42)
+N <- 50
+x <- rnorm(N, mean = 0, sd = 1)
+y <- 3.0 + 2.5 * x + rnorm(N, mean = 0, sd = 1.0)
+```
+
+このデータには、個数`N`、説明変数`x`、目的変数`y`が含まれています。
+
+`r hide("模範解答")`
+```stan
+data {
+  int<lower=1> N;       // データの個数
+  array[N] real x;      // 説明変数
+  array[N] real y;      // 目的変数
+}
+```
+
+R側でデータを渡す際は、Stanのdataブロックと同じ変数名のリストを作ります。
+
+```{r, eval=FALSE}
+dataSet <- list(
+  N = N,
+  x = x,
+  y = y
+)
+```
+
+変数名の一致が重要です。Stanで`N`と宣言したのにRで`n`として渡すとエラーになります。
+`r unhide()`
+
+---
+
+### 19-B-4
+
+**課題**: 19-B-1の正規分布モデルに、次の事前分布を追加してください。
+
+- $\mu$の事前分布: 平均0、標準偏差100の正規分布
+- $\sigma$の事前分布: コーシー分布（位置0、スケール5）
+
+`r hide("ヒント")`
+modelブロック内で、パラメータに対して`~`で事前分布を指定します。コーシー分布はStanでは`cauchy()`です。
+`r unhide()`
+
+`r hide("模範解答")`
+```stan
+data {
+  int<lower=1> N;
+  array[N] real y;
+}
+parameters {
+  real mu;
+  real<lower=0> sigma;
+}
+model {
+  // 事前分布
+  mu ~ normal(0, 100);
+  sigma ~ cauchy(0, 5);
+  // 尤度
+  y ~ normal(mu, sigma);
+}
+```
+
+事前分布を明示的に書かない場合、Stanは十分に広い一様分布を自動的に設定します（無情報事前分布）。しかし、分散パラメータには裾の重い分布（コーシー分布、半コーシー分布、指数分布など）を事前分布として置くことが推奨されています。
+`r unhide()`
+
+---
+
+### 19-B-5
+
+**課題**: 以下のRコードの空欄を埋めて、Stanモデルをコンパイル・実行するコードを完成させてください。
+
+```{r, eval=FALSE}
+pacman::p_load(cmdstanr)
+
+# データの準備
+set.seed(123)
+y <- rnorm(100, mean = 50, sd = 10)
+
+# (1) Stanファイルをコンパイル
+model <- cmdstanr::______("normal_model.stan")
+
+# (2) データをリスト形式で準備
+dataSet <- list(
+  ______ = length(y),
+  ______ = y
+)
+
+# (3) MCMCサンプリングの実行
+fit <- model$______(
+  data = dataSet,
+  chains = 4,
+  parallel_chains = 4,
+  iter_warmup = 2000,
+  iter_sampling = 5000,
+  refresh = 0
+)
+
+# (4) 結果の表示
+fit
+
+# (5) MCMCサンプルの取得
+draws <- fit$______()
+```
+
+`r hide("模範解答")`
+```{r, eval=FALSE}
+pacman::p_load(cmdstanr)
+
+# データの準備
+set.seed(123)
+y <- rnorm(100, mean = 50, sd = 10)
+
+# (1) Stanファイルをコンパイル
+model <- cmdstanr::cmdstan_model("normal_model.stan")
+
+# (2) データをリスト形式で準備
+dataSet <- list(
+  N = length(y),
+  y = y
+)
+
+# (3) MCMCサンプリングの実行
+fit <- model$sample(
+  data = dataSet,
+  chains = 4,
+  parallel_chains = 4,
+  iter_warmup = 2000,
+  iter_sampling = 5000,
+  refresh = 0
+)
+
+# (4) 結果の表示
+fit
+
+# (5) MCMCサンプルの取得
+draws <- fit$draws()
+```
+
+ワークフローの順序を覚えましょう: `cmdstan_model()` → `$sample()` → `$draws()`
+`r unhide()`
+
+---
+
+### 19-B-6
+
+**課題**: 以下はStanモデルの推定結果（`fit`を表示した出力）の一部です。この結果を解釈してください。
+
+```
+ variable   mean median   sd  mad    q5   q95 rhat ess_bulk ess_tail
+    mu     50.12  50.12 1.02 1.01 48.43 51.80 1.00     8523     7234
+    sigma  10.18  10.15 0.73 0.72  9.01 11.45 1.00     8312     7456
+```
+
+次の問いに答えてください。
+
+1. $\mu$のEAP推定値（事後分布の平均）はいくつですか？
+2. $\sigma$の95%信用区間はおおよそどの範囲ですか？
+3. `rhat`の値から、サンプリングは収束していると言えますか？
+4. `ess_bulk`は何を表していますか？
+
+`r hide("模範解答")`
+1. $\mu$のEAP推定値は**50.12**です（`mean`列の値）
+
+2. $\sigma$の95%信用区間はおよそ**9.01から11.45**です（`q5`と`q95`の値。これは5パーセンタイルと95パーセンタイルの間の90%区間を表しますが、事後分布の広がりの目安として読めます）
+
+3. `rhat`（$\hat{R}$）は両方のパラメータで**1.00**であり、**収束していると判断できます**。一般に$\hat{R} < 1.01$であれば収束と見なします
+
+4. `ess_bulk`は**有効サンプルサイズ**（Effective Sample Size）です。MCMCサンプル間の自己相関を考慮した、実質的に独立なサンプル数を表します。大きいほど推定の精度が高く、目安として1000以上が推奨されます。ここでは8000以上あるので十分です
+`r unhide()`
+
+---
+
+### 19-B-7
+
+**課題**: 19-B-1の正規分布モデルに`generated quantities`ブロックを追加して、事後予測分布を生成するモデルを書いてください。
+
+推定された`mu`と`sigma`を使って、N個の予測データ`y_pred`を生成してください。
+
+`r hide("ヒント")`
+`generated quantities`ブロック内で、`normal_rng(mu, sigma)`を使ってデータを生成します。`_rng`関数はこのブロック内でのみ使用可能です。
+`r unhide()`
+
+`r hide("模範解答")`
+```stan
+data {
+  int<lower=1> N;
+  array[N] real y;
+}
+parameters {
+  real mu;
+  real<lower=0> sigma;
+}
+model {
+  y ~ normal(mu, sigma);
+}
+generated quantities {
+  array[N] real y_pred;
+  for (i in 1:N) {
+    y_pred[i] = normal_rng(mu, sigma);
+  }
+}
+```
+
+R側で事後予測分布を取り出して可視化するには:
+
+```{r, eval=FALSE}
+pacman::p_load(bayesplot)
+
+# 事後予測分布を行列形式で取得
+y_pred <- fit$draws("y_pred", format = "matrix")
+
+# 実データと事後予測分布を重ねて比較
+bayesplot::ppc_dens_overlay(y, y_pred[1:50, ])
+```
+
+実データの分布と事後予測分布が重なっていれば、モデルがデータをうまく表現できていることがわかります。
+`r unhide()`
+
+---
+
+### 19-B-8
+
+**課題**: 牛丼モデル（gyudon10.stan）では個人ごとに異なる標準偏差$\sigma_i$を推定しました。これを修正して、**全員で共通の標準偏差$\sigma$**を推定するモデルに書き換えてください。
+
+元のモデル（個人ごとの$\sigma_i$）:
+
+```stan
+data {
+  int<lower=1> N;
+  array[N] real Y;
+}
+parameters {
+  real mu;
+  array[N] real<lower=0> sigma;
+}
+model {
+  mu ~ uniform(0, 200);
+  sigma ~ cauchy(0, 1);
+  for (i in 1:N) {
+    Y[i] ~ normal(mu, sigma[i]);
+  }
+}
+```
+
+`r hide("ヒント")`
+変更点は2箇所です。
+
+1. `parameters`ブロック: `sigma`を配列ではなくスカラーにする
+2. `model`ブロック: `sigma[i]`ではなく`sigma`にする（for文自体も省略可能）
+`r unhide()`
+
+`r hide("模範解答")`
+```stan
+data {
+  int<lower=1> N;
+  array[N] real Y;
+}
+parameters {
+  real mu;
+  real<lower=0> sigma;    // 配列ではなくスカラーに変更
+}
+model {
+  mu ~ uniform(0, 200);
+  sigma ~ cauchy(0, 1);
+  Y ~ normal(mu, sigma);  // 配列全体に適用（for文不要）
+}
+```
+
+変更点:
+
+1. `array[N] real<lower=0> sigma;` → `real<lower=0> sigma;` に変更。配列を外してスカラーにしました
+2. for文が不要になりました。Stanでは配列に対して`Y ~ normal(mu, sigma);`と書くと、自動的に全要素に同じ正規分布を適用します
+
+この2つのモデルの違いは、「個人差を認めるかどうか」です。元のモデルは各提供係のブレを個別に推定しますが、共通$\sigma$モデルは全員のブレを一つの値で代表させます。どちらが適切かは、研究の問い次第です。
+`r unhide()`
+
+---
+
+## ランクA: AI協働に挑戦しよう
+
+### 19-A-1
+
+**課題**: 生成AI（ChatGPT、Claude等）に、次の分析モデルをStanコードとして書いてもらってください。
+
+「20人の学生にテスト（100点満点）を受けてもらった。テストの点数は正規分布に従うと仮定し、平均$\mu$と標準偏差$\sigma$を推定したい。ただし、平均の事前分布は$N(60, 15)$、標準偏差の事前分布は半コーシー分布$\text{Cauchy}^+(0, 10)$とする。さらに、事後予測分布も生成したい。」
+
+AIに依頼する際のポイント:
+
+- dataブロック、parametersブロック、modelブロック、generated quantitiesブロックの4つを含むように指定する
+- 対応するR側のコード（データの準備、コンパイル、サンプリング、可視化）も一緒に生成してもらう
+- 生成されたコードの各行の意味を自分で説明できるか確認する
+
+**提出物**: AIとの対話ログ、完成したStanコードとRコード、各ブロックの説明。
+
+---
+
+### 19-A-2
+
+**課題**: 以下のStanコードを実行したところ、コンパイルまたは実行時にエラーが出ました。生成AIの力を借りてデバッグしてください。
+
+```stan
+data {
+  int N;
+  array[N] real y
+  array[N] real x;
+}
+parameters {
+  real beta0;
+  real beta1;
+  real sigma;
+}
+model {
+  for (i in 1:N) {
+    y[i] ~ normal(beta0 + beta1 * x[i], sigma)
+  }
+}
+```
+
+手順:
+
+1. まず自分でエラーの原因を探してみる
+2. 見つからない場合は、コードをAIに貼り付けて「このStanコードのエラーを指摘してください」と質問する
+3. AIの指摘を受けて修正し、全ての修正点を説明できるようにする
+
+**提出物**: 修正前後のコード、各修正点の説明、AIとの対話記録。
+
+---
+
+### 19-A-3
+
+**課題**: Rの`lm()`関数で実行できる単回帰分析を、Stanモデルとして記述してください。
+
+```{r, eval=FALSE}
+# Rの単回帰分析
+set.seed(1)
+x <- rnorm(30)
+y <- 2.0 + 1.5 * x + rnorm(30, sd = 0.8)
+result <- lm(y ~ x)
+summary(result)
+```
+
+このモデルのデータ生成メカニズムは$y_i \sim N(\beta_0 + \beta_1 x_i, \sigma)$です。
+
+AIに相談しながら、以下を完成させてください。
+
+1. Stanコード（data, parameters, model, generated quantitiesの4ブロック）
+2. R側でデータを準備し、コンパイル・実行するコード
+3. `lm()`の結果とStanの結果を比較する方法
+
+**提出物**: 完成したStanコードとRコード、`lm()`とStanの推定値の比較表、考察。
+
+---
+
+## まとめ
+
+このユニットでは、確率的プログラミング言語Stanの基礎を学びました。
+
+- **Stanの特徴**: コンパイル型、型宣言が必要、セミコロン必須
+- **6つのブロック**: data, transformed data, parameters, transformed parameters, model, generated quantities
+- **基本的な文法**: 型宣言（`int`, `real`, `array`）、制約（`<lower=0>`）、確率分布（`~`演算子）
+- **cmdstanrワークフロー**: `cmdstan_model()` → `$sample()` → `$draws()`
+- **bayesplotによる可視化**: `mcmc_areas()`, `mcmc_trace()`, `ppc_dens_overlay()`
+- **事後予測分布**: `generated quantities`ブロックで`_rng`関数を使って生成
+
+Stanを使いこなすための近道は、**既知のモデルをStanで書き直してみること**です。回帰分析、t検定、分散分析など、これまで学んだモデルをStanの言葉で記述することで、データ生成メカニズムへの理解が深まります。そして、その先には既存の分析手法では表現できない、自分だけのオリジナルなモデルを作るという創造的な世界が待っています。
+
+---
+
+進捗: このユニットの問題数は **C8 / B8 / A3** です。まず **19-C-1** から始めましょう。

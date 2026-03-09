@@ -1,0 +1,499 @@
+---
+title: "U9. 変数の型の変換と統一"
+format:
+  html:
+    css: ../include/webex.css
+    include-after-body: ../include/webex.js
+---
+
+```{r setup, include=FALSE}
+pacman::p_load(webexercises, tidyverse)
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+## ユニット概要
+
+**分類**: 幹（全員必須）
+
+**依存関係**: U0 → U1 → U2 → U4 → U5 → U6 → U7 → U8 → **U9** → U10
+
+**学習目標**:
+
+- `as.numeric()`、`as.character()`、`as.factor()`等で変数の型を変換できる
+- `factor()`で水準の順序やラベルを制御できる
+- `ifelse()`や`dplyr::case_when()`で変数を再コーディングできる
+- `cut()`で連続変数をカテゴリ変数に変換できる
+- `scale()`で標準化（z得点化）ができる
+- `model.matrix()`でダミー変数を作成できる
+- `dplyr::across()`で複数変数に同じ変換を一括適用できる
+
+---
+
+## 事前知識: なぜ型変換が必要か
+
+### データの型と分析の関係
+
+Rでは変数の型によって、使える関数や分析手法が変わります。たとえば：
+
+- `mean()` は数値型（`numeric`）にしか使えない
+- `table()` はfactor型や文字型で意味がある
+- `ggplot2` の `fill` や `color` はfactor型で色分けされる
+- 回帰分析でカテゴリ変数を使うにはダミー変数化が必要
+
+データを読み込んだとき、変数の型が想定通りでないことはよくあります。数値のはずが文字型になっている、カテゴリのはずが数値型になっている、といった状況です。分析に入る前に型を正しく整える必要があります。
+
+### Rの主な変数型
+
+| 型 | 説明 | 例 | 確認関数 |
+|----|------|-----|---------|
+| `numeric` / `double` | 実数（小数を含む） | `3.14` | `is.numeric()` |
+| `integer` | 整数 | `1L, 2L` | `is.integer()` |
+| `character` | 文字列 | `"Tokyo"` | `is.character()` |
+| `factor` | カテゴリ（水準をもつ） | `factor("A")` | `is.factor()` |
+| `logical` | 論理値 | `TRUE, FALSE` | `is.logical()` |
+
+### 型変換の基本
+
+`as.型名()` 関数で型を変換します：
+
+```{r}
+x <- "123"
+class(x)          # character
+
+y <- as.numeric(x)
+class(y)          # numeric
+y + 1             # 計算できる
+```
+
+数値に変換できない文字列は `NA` になります：
+
+```{r}
+as.numeric("abc")   # NA（警告が出る）
+```
+
+### factor型の重要性
+
+心理学データでは、性別・条件・群といった**カテゴリ変数**をfactor型にしておくことが重要です。factor型にすると：
+
+- 水準（level）の順序を制御できる
+- 統計モデルで自動的にダミー変数化される
+- グラフの凡例や軸の順序が制御できる
+
+```{r}
+# 文字型のまま
+x <- c("低", "高", "中", "高", "低")
+table(x)  # アルファベット順に並ぶ
+
+# factor型にして順序を指定
+x_f <- factor(x, levels = c("低", "中", "高"))
+table(x_f)  # 指定した順序で並ぶ
+```
+
+### 標準化（z得点）
+
+変数を平均0、標準偏差1に変換する操作を**標準化**（standardization）と呼びます。単位の異なる変数を比較可能にするために使います。
+
+$$z_i = \frac{x_i - \bar{x}}{s_x}$$
+
+```{r}
+x <- c(60, 70, 80, 90, 100)
+scale(x)
+```
+
+### ダミー変数
+
+カテゴリ変数を回帰分析で使うとき、0/1の**ダミー変数**に変換します。$k$ 水準のカテゴリ変数は $k-1$ 個のダミー変数で表現します（1つは参照カテゴリ）。
+
+たとえば「セリーグ」「パリーグ」の2水準なら、ダミー変数は1つ（パリーグ=1, セリーグ=0）です。
+
+---
+
+## ランクC: 基礎知識を確認しよう
+
+### 9-C-1
+
+文字型の `"42"` を数値型に変換する関数は？
+
+`r mcq(c("to.numeric()", "numeric()", answer = "as.numeric()", "convert()"))`
+
+`r hide("解説")`
+`as.型名()` が型変換関数の基本形です。`as.numeric("42")` は数値の `42` を返します。逆に `as.character(42)` は文字列の `"42"` を返します。
+`r unhide()`
+
+---
+
+### 9-C-2
+
+`factor()` 関数の `levels` 引数は何を指定しますか？
+
+`r mcq(c("変数の型", answer = "水準の順序", "欠損値の扱い", "変数名"))`
+
+`r hide("解説")`
+`levels` で水準の順序を指定できます。指定しないとアルファベット順（日本語ならUnicodeの順序）になります。
+
+```{r, eval=FALSE}
+factor(c("B", "A", "C"), levels = c("A", "B", "C"))
+```
+
+グラフの軸やtableの表示順、回帰分析の参照カテゴリに影響します。
+`r unhide()`
+
+---
+
+### 9-C-3
+
+`factor()` 関数の `labels` 引数は何をしますか？
+
+`r mcq(c("水準の順序を変える", answer = "水準の表示名を変更する", "欠損値にラベルをつける", "変数名を変更する"))`
+
+`r hide("解説")`
+`labels` は水準の表示名を変えます。`levels` の順序に対応します。
+
+```{r, eval=FALSE}
+factor(c(1, 2, 1, 2), levels = c(1, 2), labels = c("男性", "女性"))
+```
+
+データ上は `1, 2` でも、表示や分析では `"男性", "女性"` として扱われます。
+`r unhide()`
+
+---
+
+### 9-C-4
+
+`ifelse(条件, 真の値, 偽の値)` の結果として正しいのはどれですか？
+
+`ifelse(5 > 3, "大きい", "小さい")` の結果は？
+
+`r mcq(c("TRUE", "5", answer = "\"大きい\"", "\"小さい\""))`
+
+`r hide("解説")`
+`ifelse()` は条件が `TRUE` のとき第2引数を、`FALSE` のとき第3引数を返します。ベクトルに対しても要素ごとに適用されるので、`mutate()` の中で変数の再コーディングに使えます。
+`r unhide()`
+
+---
+
+### 9-C-5
+
+`scale()` 関数は何をしますか？
+
+`r mcq(c("値を0から1の範囲にする", answer = "平均0、標準偏差1に標準化する", "対数変換する", "順位に変換する"))`
+
+`r hide("解説")`
+`scale(x)` は各値から平均を引き、標準偏差で割ります（z得点化）。`scale(x, center = TRUE, scale = FALSE)` とすると中心化（平均を引くだけ）のみ行います。
+`r unhide()`
+
+---
+
+### 9-C-6
+
+3水準のカテゴリ変数（A, B, C）をダミー変数にすると、ダミー変数はいくつ必要ですか？
+
+`r mcq(c("1つ", answer = "2つ", "3つ", "4つ"))`
+
+`r hide("解説")`
+$k$ 水準のカテゴリ変数は $k-1$ 個のダミー変数で表現します。3水準なら2つです。1つの水準を参照カテゴリ（baseline）として、残りの水準を0/1で表します。
+
+たとえばAを参照カテゴリにすると：
+
+| 元の値 | ダミー1（B） | ダミー2（C） |
+|--------|-------------|-------------|
+| A | 0 | 0 |
+| B | 1 | 0 |
+| C | 0 | 1 |
+`r unhide()`
+
+---
+
+### 9-C-7
+
+`cut()` 関数は何をしますか？
+
+`r mcq(c("文字列を分割する", "データフレームを分割する", answer = "連続変数を区間で区切ってカテゴリに変換する", "ベクトルの一部を取り出す"))`
+
+`r hide("解説")`
+`cut()` は連続変数を指定した境界値で区切り、カテゴリ変数（factor型）に変換します。
+
+```{r, eval=FALSE}
+x <- c(15, 25, 35, 45, 55)
+cut(x, breaks = c(0, 20, 40, 60), labels = c("若年", "中年", "高年"))
+# [1] 若年 中年 中年 高年 高年
+```
+`r unhide()`
+
+---
+
+### 9-C-8
+
+`dplyr::case_when()` は `ifelse()` と比べてどのような利点がありますか？
+
+`r mcq(c("速度が速い", answer = "3つ以上の条件分岐を読みやすく書ける", "数値型しか扱えない", "NAを自動的に除外する"))`
+
+`r hide("解説")`
+`ifelse()` を入れ子にすると読みにくくなりますが、`case_when()` は複数条件を並列に書けます。
+
+```{r, eval=FALSE}
+dplyr::case_when(
+  score >= 80 ~ "A",
+  score >= 60 ~ "B",
+  score >= 40 ~ "C",
+  TRUE ~ "D"   # それ以外
+)
+```
+
+`TRUE ~ "D"` は「上のどの条件にも当てはまらない場合」を意味します。
+`r unhide()`
+
+---
+
+## ランクB: 実践スキルを磨こう
+
+### 9-B-1
+
+`iris` データセットの `Species` 変数の型を確認してください。次に、水準の順序を `"virginica"`, `"versicolor"`, `"setosa"` に変更してください。
+
+`r hide("模範解答")`
+```{r, eval=FALSE}
+# 現在の型と水準
+class(iris$Species)
+levels(iris$Species)
+
+# 水準の順序を変更
+iris2 <- iris %>%
+  dplyr::mutate(Species = factor(Species,
+    levels = c("virginica", "versicolor", "setosa")))
+
+levels(iris2$Species)
+```
+
+`forcats::fct_relevel()` を使う方法もあります：`forcats::fct_relevel(Species, "virginica", "versicolor", "setosa")`
+`r unhide()`
+
+---
+
+### 9-B-2
+
+`BaseballDecade.csv` の `Year` 変数は `"2020年度"` のような文字列です。「年度」を除去して数値型に変換してください。
+
+`r hide("ヒント")`
+`stringr::str_remove()` で「年度」を除去し、`as.numeric()` で変換します。
+`r unhide()`
+
+`r hide("模範解答")`
+```{r, eval=FALSE}
+pacman::p_load(tidyverse)
+df <- readr::read_csv("../data/BaseballDecade.csv")
+
+df2 <- df %>%
+  dplyr::mutate(Year = stringr::str_remove(Year, "年度")) %>%
+  dplyr::mutate(Year = as.numeric(Year))
+
+class(df2$Year)  # numeric
+unique(df2$Year) # 2011, 2012, ...
+```
+
+`readr::parse_number()` を使う方法もあります：`dplyr::mutate(Year = readr::parse_number(Year))`
+`r unhide()`
+
+---
+
+### 9-B-3
+
+`BaseballDecade.csv` のセ・リーグとパ・リーグを区別する `League` 変数（factor型）を作成してください。セリーグは Giants, Carp, Tigers, Swallows, Dragons, DeNA です。
+
+`r hide("ヒント")`
+`ifelse()` または `case_when()` と `%in%` を組み合わせます。
+`r unhide()`
+
+`r hide("模範解答")`
+```{r, eval=FALSE}
+pacman::p_load(tidyverse)
+df <- readr::read_csv("../data/BaseballDecade.csv")
+
+ce_teams <- c("Giants", "Carp", "Tigers", "Swallows", "Dragons", "DeNA")
+
+df2 <- df %>%
+  dplyr::mutate(League = dplyr::if_else(
+    team %in% ce_teams, "セリーグ", "パリーグ")) %>%
+  dplyr::mutate(League = factor(League))
+
+table(df2$League)
+```
+`r unhide()`
+
+---
+
+### 9-B-4
+
+`iris` の `Sepal.Length` を平均値で「高群」「低群」に分ける変数 `SL_group` をfactor型で作成してください。
+
+`r hide("模範解答")`
+```{r, eval=FALSE}
+iris2 <- iris %>%
+  dplyr::mutate(SL_group = dplyr::if_else(
+    Sepal.Length > mean(Sepal.Length), "高群", "低群")) %>%
+  dplyr::mutate(SL_group = factor(SL_group, levels = c("低群", "高群")))
+
+table(iris2$SL_group)
+```
+`r unhide()`
+
+---
+
+### 9-B-5
+
+`BaseballDecade.csv` の `salary`（年俸）を `scale()` で標準化してください。標準化後の平均と標準偏差が0と1になることを確認してください。
+
+`r hide("模範解答")`
+```{r, eval=FALSE}
+pacman::p_load(tidyverse)
+df <- readr::read_csv("../data/BaseballDecade.csv")
+
+df2 <- df %>%
+  dplyr::mutate(salary_z = as.numeric(scale(salary)))
+
+# 確認
+mean(df2$salary_z, na.rm = TRUE)   # ≈ 0
+sd(df2$salary_z, na.rm = TRUE)     # ≈ 1
+```
+
+`scale()` は行列を返すので、`as.numeric()` でベクトルに変換しています。`dplyr::mutate()` の中で使う場合はこの変換が必要です。
+`r unhide()`
+
+---
+
+### 9-B-6
+
+`iris` の `Species` をダミー変数に変換してください。`model.matrix()` を使います。
+
+`r hide("模範解答")`
+```{r, eval=FALSE}
+# model.matrix でダミー変数化
+dummy <- model.matrix(~ Species, data = iris)
+head(dummy)
+```
+
+結果は3列になります：`(Intercept)`（切片、常に1）、`Speciesversicolor`、`Speciesvirginica` の2つのダミー変数です。`setosa` が参照カテゴリ（baseline）になっています。
+
+切片を除くには `model.matrix(~ Species - 1, data = iris)` とします（この場合3つのダミー変数が作られます）。
+`r unhide()`
+
+---
+
+### 9-B-7
+
+`BaseballDecade.csv` の `salary`（年俸）を `cut()` で「1000万未満」「1000万〜5000万」「5000万〜1億」「1億以上」の4段階に分類してください。
+
+`r hide("模範解答")`
+```{r, eval=FALSE}
+pacman::p_load(tidyverse)
+df <- readr::read_csv("../data/BaseballDecade.csv")
+
+df2 <- df %>%
+  dplyr::mutate(salary_cat = cut(salary,
+    breaks = c(0, 1000, 5000, 10000, Inf),
+    labels = c("1000万未満", "1000万〜5000万",
+               "5000万〜1億", "1億以上"),
+    right = FALSE))
+
+table(df2$salary_cat)
+```
+
+`right = FALSE` は区間を `[a, b)` （左閉右開）にします。`Inf` で上限なしを表現しています。
+`r unhide()`
+
+---
+
+### 9-B-8
+
+`iris` の数値変数（1〜4列目）を `dplyr::across()` で一括して標準化してください。
+
+`r hide("模範解答")`
+```{r, eval=FALSE}
+iris_scaled <- iris %>%
+  dplyr::mutate(dplyr::across(1:4, ~ as.numeric(scale(.x))))
+
+# 確認: 各変数の平均が0、SDが1
+iris_scaled %>%
+  dplyr::summarise(dplyr::across(1:4, list(
+    mean = ~ mean(.x),
+    sd = ~ sd(.x)
+  )))
+```
+
+`across()` は複数の列に同じ関数を一括適用します。`where(is.numeric)` で数値型の列だけを対象にすることもできます。
+`r unhide()`
+
+---
+
+### 9-B-9
+
+`BaseballDecade.csv` の `position` 変数を、「投手」と「野手」（投手以外）の2水準のfactor型変数 `position2` に変換してください。`dplyr::case_when()` を使ってください。
+
+`r hide("模範解答")`
+```{r, eval=FALSE}
+pacman::p_load(tidyverse)
+df <- readr::read_csv("../data/BaseballDecade.csv")
+
+df2 <- df %>%
+  dplyr::mutate(position2 = dplyr::case_when(
+    position == "投手" ~ "投手",
+    TRUE ~ "野手"
+  )) %>%
+  dplyr::mutate(position2 = factor(position2))
+
+table(df2$position2)
+```
+
+`case_when()` の `TRUE ~ "野手"` は「上のどの条件にも当てはまらない場合」のデフォルト値です。
+`r unhide()`
+
+---
+
+## ランクA: AI協働に挑戦しよう
+
+### 9-A-1
+
+**課題**: `BaseballDecade.csv` を読み込み、以下の前処理パイプラインを一本で書いてください。AIに相談しながら効率的なコードを組み立てましょう。
+
+1. `Year` を数値型に変換
+2. `team` をfactor型に変換
+3. セ・パリーグを区別する `League` 変数を作成（factor型）
+4. `salary` を標準化した `salary_z` を作成
+5. `salary` を4段階にカテゴリ化した `salary_cat` を作成
+6. `position` を「投手」「野手」に再コードした `position2` を作成（factor型）
+
+**提出物**: AIとの対話ログ、完成したコード。
+
+---
+
+### 9-A-2
+
+**課題**: 「尺度水準（名義・順序・間隔・比率）」とRの変数型の対応関係について、AIに質問しながら整理してください。
+
+- 各尺度水準にはどのR型が適切か
+- 順序尺度は `ordered = TRUE` のfactor型にすべきか
+- `ordered` factorにすると統計モデルの振る舞いがどう変わるか
+
+**提出物**: AIとの対話ログ、対応表と考察。
+
+---
+
+## まとめ
+
+このユニットでは、分析前のデータ整備に不可欠な型変換と再コーディングを学びました：
+
+- **型変換**: `as.numeric()`, `as.character()`, `as.factor()`, `as.logical()`
+- **factor型の制御**: `factor(levels = ..., labels = ...)`, `forcats::fct_relevel()`
+- **再コーディング**: `ifelse()`, `dplyr::if_else()`, `dplyr::case_when()`
+- **連続→カテゴリ**: `cut(breaks = ..., labels = ...)`
+- **標準化**: `scale()`（z得点化）
+- **ダミー変数**: `model.matrix()`
+- **一括変換**: `dplyr::across()`で複数変数に同じ処理
+
+型の整備は「分析前の地味な作業」ですが、ここを怠ると分析結果が間違ったものになります。データを読み込んだら、`str()` で型を確認し、必要に応じて変換する習慣をつけてください。
+
+次のユニット: **U10. ggplot2**では、整形したデータを可視化する方法を学びます。
+
+---
+
+進捗: あなたは今 **9-C-8** まで完了しました！（と仮定）次は **9-B-1** に進みましょう。

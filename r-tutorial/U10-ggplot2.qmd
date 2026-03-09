@@ -1,0 +1,482 @@
+---
+title: "U10. ggplot2: データの可視化"
+format:
+  html:
+    css: ../include/webex.css
+    include-after-body: ../include/webex.js
+---
+
+```{r setup, include=FALSE}
+pacman::p_load(tidyverse, webexercises)
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+## ユニット概要
+
+**分類**: 幹（全員必須）
+
+**依存関係**: U6 → **U10**、U9 → **U10**
+
+**学習目標**:
+
+- ggplot2の「レイヤの重ね合わせ」という設計思想を理解する
+- `aes()`でデータと見た目の対応を指定できる
+- 目的に応じた`geom_xxx()`を選択できる
+- `facet_wrap()`でグループ別パネルを作成できる
+- `labs()`と`theme_xxx()`で図を仕上げられる
+- `ggsave()`で図をファイルに保存できる
+
+---
+
+## 事前知識: データはまず可視化するもの
+
+### なぜ可視化が重要か
+
+統計といえば「分析」に注目されがちですが、データ分析で最も重要なステップの1つが**可視化**です。数値の羅列や統計量だけでは見えない情報が、グラフにすると一目でわかることがあります。取得したデータは**まず可視化するもの**と心がけてください。
+
+### ggplot2とは
+
+`ggplot2`は`tidyverse`に含まれる描画パッケージです。`gg`は **Grammar of Graphics**（描画の文法）の略で、図を「文法」に従って組み立てるという発想で設計されています。
+
+ggplot2の基本的な考え方は、**レイヤの積み重ね**です：
+
+1. **キャンバス**を用意する（`ggplot()`）
+2. **データと軸の対応**を決める（`aes()`）
+3. **図の種類**を重ねる（`geom_xxx()`）
+4. **ラベルやテーマ**で仕上げる（`labs()`, `theme_xxx()`）
+
+```r
+ggplot(data, aes(x = 変数1, y = 変数2)) +
+  geom_point() +
+  labs(title = "タイトル") +
+  theme_classic()
+```
+
+レイヤを`+`で繋いでいく点がポイントです。パイプ演算子（`%>%`）でデータを整形してから`ggplot()`に渡すこともできます。
+
+### aes()（エステティック・マッピング）
+
+`aes()`は、データの変数と図の「見た目」を対応づける関数です。
+
+| パラメータ | 意味 | 例 |
+|-----------|------|-----|
+| `x` | X軸 | `aes(x = height)` |
+| `y` | Y軸 | `aes(y = weight)` |
+| `color` | 点や線の色 | `aes(color = Species)` |
+| `fill` | 塗りつぶしの色 | `aes(fill = team)` |
+| `shape` | 点の形 | `aes(shape = group)` |
+| `size` | 点のサイズ | `aes(size = salary)` |
+
+`aes()`の中に指定すると、データの値に応じて自動的に色や形が変わります。
+
+### 主なgeom一覧
+
+| geom | 用途 | 適するデータ |
+|------|------|-------------|
+| `geom_point()` | 散布図 | 連続×連続 |
+| `geom_line()` | 折れ線グラフ | 時系列・順序データ |
+| `geom_histogram()` | ヒストグラム | 連続変数の分布 |
+| `geom_density()` | 密度プロット | 連続変数の分布（滑らか） |
+| `geom_bar()` | 棒グラフ（度数） | カテゴリ変数 |
+| `geom_col()` | 棒グラフ（値指定） | 集計済みデータ |
+| `geom_boxplot()` | 箱ひげ図 | グループ間の分布比較 |
+| `geom_violin()` | バイオリンプロット | 分布の形状比較 |
+| `geom_smooth()` | 回帰線・平滑化曲線 | トレンドの可視化 |
+
+---
+
+## ランクC: 基礎知識を確認しよう
+
+### 10-C-1
+
+ggplot2でレイヤを重ねるときに使う演算子はどれですか？
+
+`r mcq(c("%>%", answer = "+", "|>", "&"))`
+
+`r hide("解説")`
+ggplot2ではレイヤを`+`で重ねます。パイプ演算子（`%>%`）はデータをggplotに渡すときに使いますが、レイヤの追加には使えません。
+
+```r
+# パイプでデータを渡し、+でレイヤを重ねる
+iris %>%
+  ggplot(aes(x = Sepal.Length, y = Sepal.Width)) +
+  geom_point()
+```
+`r unhide()`
+
+---
+
+### 10-C-2
+
+`aes()`関数の役割は何ですか？
+
+`r mcq(c("図のテーマを設定する", "データを読み込む", answer = "データの変数と図の見た目を対応づける", "図をファイルに保存する"))`
+
+`r hide("解説")`
+`aes()`はaesthetic mappings（エステティック・マッピング）の略で、データの変数をx軸、y軸、色、形、サイズなどの見た目に対応づけます。
+`r unhide()`
+
+---
+
+### 10-C-3
+
+散布図を描くためのgeomはどれですか？
+
+`r mcq(c("geom_bar()", "geom_histogram()", answer = "geom_point()", "geom_line()"))`
+
+`r hide("解説")`
+`geom_point()`は2つの連続変数の関係を点で表す散布図を描きます。`geom_bar()`は棒グラフ、`geom_histogram()`はヒストグラム、`geom_line()`は折れ線グラフです。
+`r unhide()`
+
+---
+
+### 10-C-4
+
+`aes(color = Species)`と書くと何が起きますか？
+
+`r mcq(c("全ての点がSpeciesという色になる", answer = "Speciesの水準ごとに自動的に色が変わる", "エラーになる", "色が消える"))`
+
+`r hide("解説")`
+`aes()`の中で`color = Species`と指定すると、Speciesの水準（setosa, versicolor, virginica）ごとに異なる色が自動的に割り当てられ、凡例も表示されます。`aes()`の外で`color = "red"`のように固定値を指定する場合とは意味が異なります。
+`r unhide()`
+
+---
+
+### 10-C-5
+
+`facet_wrap(~Species)`は何をしますか？
+
+`r mcq(c("Speciesで色を変える", "Speciesの度数を数える", answer = "Speciesの水準ごとに別パネルに分割する", "Speciesでデータを並べ替える"))`
+
+`r hide("解説")`
+`facet_wrap()`はデータをグループごとに分割し、それぞれを別の小さなパネル（ファセット）に表示します。1つの図の中でグループ間の比較ができます。
+`r unhide()`
+
+---
+
+### 10-C-6
+
+ggplot2のデフォルトの背景色はグレーである。白い背景にするにはどうすればよいですか？
+
+`r mcq(c("background = 'white' を指定する", answer = "theme_classic() や theme_bw() を追加する", "color = 'white' を指定する", "背景色は変更できない"))`
+
+`r hide("解説")`
+ggplot2のデフォルトテーマは`theme_gray()`で背景がグレーです。白い背景にするには`theme_classic()`や`theme_bw()`を使います。
+
+```r
+ggplot(iris, aes(x = Sepal.Length)) +
+  geom_histogram() +
+  theme_classic()  # 白背景、枠線あり
+```
+
+日本心理学会の投稿規定では白背景が推奨されています。
+`r unhide()`
+
+---
+
+### 10-C-7
+
+`labs(x = "身長", y = "体重", title = "散布図")`は何を設定していますか？
+
+`r mcq(c("データの変数名", "ファイル名", answer = "軸ラベルと図のタイトル", "凡例の位置"))`
+
+`r hide("解説")`
+`labs()`は図のラベル（labels）を設定する関数です。`x`でX軸名、`y`でY軸名、`title`でタイトル、`subtitle`でサブタイトル、`caption`でキャプション、`color`や`fill`で凡例タイトルを指定できます。
+`r unhide()`
+
+---
+
+### 10-C-8
+
+`ggsave()`関数の主な役割は何ですか？
+
+`r mcq(c("データを保存する", "スクリプトを保存する", answer = "ggplotの図をファイルに保存する", "RStudioの設定を保存する"))`
+
+`r hide("解説")`
+`ggsave()`はggplotで作成した図をPNG、PDF、SVGなどの形式でファイルに保存する関数です。
+
+```r
+ggsave("figure.png", width = 6, height = 4, dpi = 300)
+```
+
+引数で解像度（dpi）やサイズ（width, height）を指定できます。
+`r unhide()`
+
+---
+
+## ランクB: 実践スキルを磨こう
+
+### 10-B-1
+
+`iris`データセットを使って、`Sepal.Length`（X軸）と`Sepal.Width`（Y軸）の散布図を描いてください。
+
+`r hide("模範解答")`
+```{r}
+iris %>%
+  ggplot2::ggplot(ggplot2::aes(x = Sepal.Length, y = Sepal.Width)) +
+  ggplot2::geom_point()
+```
+
+`ggplot()`でキャンバスを用意し、`aes()`で軸を指定、`geom_point()`で点を描きます。
+`r unhide()`
+
+---
+
+### 10-B-2
+
+10-B-1の散布図で、Speciesごとに点の色を変えてください。さらに軸ラベルとタイトルをつけてください。
+
+`r hide("ヒント")`
+`aes()`の中に`color = Species`を追加します。`labs()`でラベルを設定します。
+`r unhide()`
+
+`r hide("模範解答")`
+```{r}
+iris %>%
+  ggplot2::ggplot(ggplot2::aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +
+  ggplot2::geom_point() +
+  ggplot2::labs(
+    x = "がく片の長さ (cm)",
+    y = "がく片の幅 (cm)",
+    title = "アヤメ3種のがく片サイズ",
+    color = "種"
+  )
+```
+`r unhide()`
+
+---
+
+### 10-B-3
+
+`iris`データの`Sepal.Length`のヒストグラムを描いてください。ビン幅を0.3に設定し、テーマを`theme_classic()`にしてください。
+
+`r hide("ヒント")`
+`geom_histogram(binwidth = 0.3)`でビン幅を指定します。
+`r unhide()`
+
+`r hide("模範解答")`
+```{r}
+iris %>%
+  ggplot2::ggplot(ggplot2::aes(x = Sepal.Length)) +
+  ggplot2::geom_histogram(binwidth = 0.3, fill = "steelblue", color = "white") +
+  ggplot2::labs(x = "がく片の長さ (cm)", y = "度数") +
+  ggplot2::theme_classic()
+```
+
+`fill`は棒の塗りつぶし色、`color`は棒の枠線の色です。これらは`aes()`の外に書いているので、全ての棒に同じ色が適用されます。
+`r unhide()`
+
+---
+
+### 10-B-4
+
+`iris`データで、Speciesごとの`Petal.Length`の分布を箱ひげ図で比較してください。
+
+`r hide("模範解答")`
+```{r}
+iris %>%
+  ggplot2::ggplot(ggplot2::aes(x = Species, y = Petal.Length, fill = Species)) +
+  ggplot2::geom_boxplot() +
+  ggplot2::labs(x = "種", y = "花弁の長さ (cm)") +
+  ggplot2::theme_bw()
+```
+
+箱ひげ図は中央値、四分位範囲、外れ値を一目で把握できるので、グループ間の比較に便利です。
+`r unhide()`
+
+---
+
+### 10-B-5
+
+`iris`データの散布図（`Sepal.Length` × `Sepal.Width`）をSpeciesごとに別パネルに分割してください。
+
+`r hide("ヒント")`
+`facet_wrap(~Species)`を追加します。
+`r unhide()`
+
+`r hide("模範解答")`
+```{r}
+iris %>%
+  ggplot2::ggplot(ggplot2::aes(x = Sepal.Length, y = Sepal.Width)) +
+  ggplot2::geom_point() +
+  ggplot2::facet_wrap(~Species) +
+  ggplot2::labs(x = "がく片の長さ", y = "がく片の幅") +
+  ggplot2::theme_bw()
+```
+
+`facet_wrap()`でSpeciesの3水準がそれぞれ別パネルに表示されます。全パネルで軸の範囲が揃うので、比較が容易です。
+`r unhide()`
+
+---
+
+### 10-B-6
+
+`iris`データの散布図に回帰直線を追加してください。Speciesごとに色分けし、それぞれに回帰直線を引いてください。
+
+`r hide("ヒント")`
+`geom_smooth(method = "lm")`で回帰直線を追加します。`aes(color = Species)`がggplot全体に設定されていれば、geom_smoothもSpeciesごとに分かれます。
+`r unhide()`
+
+`r hide("模範解答")`
+```{r}
+iris %>%
+  ggplot2::ggplot(ggplot2::aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +
+  ggplot2::geom_point() +
+  ggplot2::geom_smooth(method = "lm", se = FALSE) +
+  ggplot2::labs(x = "がく片の長さ", y = "がく片の幅") +
+  ggplot2::theme_classic()
+```
+
+`se = FALSE`で信頼区間の帯を非表示にしています。`method = "lm"`は線形回帰です。
+`r unhide()`
+
+---
+
+### 10-B-7
+
+`BaseballDecade.csv`を読み込み、球団（team）ごとの選手数を棒グラフで表示してください。横向きにして、選手数が多い順に並べてください。
+
+`r hide("ヒント")`
+`coord_flip()`で横向きにできます。`reorder()`で並べ替えができます。
+`r unhide()`
+
+`r hide("模範解答")`
+```{r}
+readr::read_csv("../data/BaseballDecade.csv") %>%
+  dplyr::filter(Year == "2020年度") %>%
+  ggplot2::ggplot(ggplot2::aes(x = stats::reorder(team, team, length))) +
+  ggplot2::geom_bar(fill = "steelblue") +
+  ggplot2::coord_flip() +
+  ggplot2::labs(x = "球団", y = "選手数") +
+  ggplot2::theme_classic()
+```
+
+`reorder(team, team, length)`は、teamをその出現回数（length）で並べ替えます。`coord_flip()`で軸を反転させると、長い球団名も読みやすくなります。
+`r unhide()`
+
+---
+
+### 10-B-8
+
+`BaseballDecade.csv`から2020年度のデータを使い、身長（height）と体重（weight）の散布図を描いてください。守備位置（position）で色分けし、テーマは`theme_bw()`にしてください。
+
+`r hide("模範解答")`
+```{r}
+readr::read_csv("../data/BaseballDecade.csv") %>%
+  dplyr::filter(Year == "2020年度") %>%
+  ggplot2::ggplot(ggplot2::aes(x = height, y = weight, color = position)) +
+  ggplot2::geom_point(alpha = 0.7) +
+  ggplot2::labs(x = "身長 (cm)", y = "体重 (kg)", color = "守備位置") +
+  ggplot2::theme_bw()
+```
+
+`alpha = 0.7`で点を少し透明にすると、重なった点が見やすくなります。
+`r unhide()`
+
+---
+
+### 10-B-9
+
+`iris`データをロング型に変換し（U8で学んだ`pivot_longer()`を使って）、4つの測定値の分布をSpeciesごとに密度プロットで比較してください。`facet_wrap()`で測定値ごとにパネルを分けてください。
+
+`r hide("ヒント")`
+`pivot_longer(-Species)`でロング化すると、`name`列に測定値名、`value`列に値が入ります。`facet_wrap(~name, scales = "free")`で各パネルの軸範囲を独立させます。
+`r unhide()`
+
+`r hide("模範解答")`
+```{r}
+iris %>%
+  tidyr::pivot_longer(-Species) %>%
+  ggplot2::ggplot(ggplot2::aes(x = value, fill = Species)) +
+  ggplot2::geom_density(alpha = 0.5) +
+  ggplot2::facet_wrap(~name, scales = "free") +
+  ggplot2::labs(x = "値", y = "密度", fill = "種") +
+  ggplot2::theme_bw()
+```
+
+U7（dplyr）→ U8（tidyr）→ U10（ggplot2）の連携です。データの整形と可視化を組み合わせることで、柔軟な分析が可能になります。
+`r unhide()`
+
+---
+
+### 10-B-10
+
+10-B-9で作成した図を`ggsave()`でPNGファイルとして保存するコードを書いてください。解像度300dpi、サイズは幅8インチ×高さ6インチにしてください。
+
+`r hide("模範解答")`
+```{r, eval=FALSE}
+p <- iris %>%
+  tidyr::pivot_longer(-Species) %>%
+  ggplot2::ggplot(ggplot2::aes(x = value, fill = Species)) +
+  ggplot2::geom_density(alpha = 0.5) +
+  ggplot2::facet_wrap(~name, scales = "free") +
+  ggplot2::labs(x = "値", y = "密度", fill = "種") +
+  ggplot2::theme_bw()
+
+ggplot2::ggsave("iris_density.png", plot = p, width = 8, height = 6, dpi = 300)
+```
+
+ggplotオブジェクトを`p`に保存してから`ggsave()`に渡しています。`plot`引数を省略すると、最後に表示した図が保存されます。
+`r unhide()`
+
+---
+
+## ランクA: AI協働に挑戦しよう
+
+### 10-A-1
+
+**課題**: `BaseballDecade.csv`を使って、「球団ごとの年俸分布の年度変化」を可視化してください。
+
+どのようなグラフが適切か（箱ひげ図、バイオリンプロット、リッジプロット等）をAIと相談しながら決め、完成させてください。
+
+考えるポイント：
+
+- 全球団を1つの図に収めるか、facetで分割するか
+- 年俸の分布の偏り（外れ値の多さ）にどう対処するか
+- 見やすい配色やテーマの選択
+
+**提出物**: AIとの対話ログ、完成したコードと図、選んだグラフの理由。
+
+---
+
+### 10-A-2
+
+**課題**: [R Graph Gallery](https://r-graph-gallery.com/) を見て、自分の卒論で使えそうな図を1つ選んでください。
+
+AIに相談しながら、`iris`または`BaseballDecade.csv`のデータでその図を再現してみてください。
+
+**提出物**: 選んだ図のURL、再現コード、元の図との違い・工夫した点。
+
+---
+
+### 10-A-3
+
+**課題**: 以下の4つの図を1枚にまとめた複合図を作成してください。
+
+1. 身長のヒストグラム
+2. 体重のヒストグラム
+3. 身長×体重の散布図（守備位置で色分け）
+4. 球団ごとの平均年俸の棒グラフ
+
+AIに相談しながら、`patchwork`パッケージなどを使ってレイアウトを整えてください。
+
+**提出物**: AIとの対話の記録、完成した複合図のコード。
+
+---
+
+## まとめ
+
+このユニットでは、ggplot2によるデータの可視化を学びました：
+
+- **基本構造**: `ggplot()` + `aes()` + `geom_xxx()` のレイヤ構造
+- **散布図・ヒストグラム・箱ひげ図・棒グラフ・密度プロット** など目的に応じたgeomの使い分け
+- **色分け・形分け**: `aes(color = ...)`, `aes(shape = ...)`
+- **ファセット**: `facet_wrap()`でグループ別パネル表示
+- **仕上げ**: `labs()`でラベル、`theme_xxx()`でテーマ設定
+- **保存**: `ggsave()`でファイル出力
+
+ggplot2はdplyr（U7）やtidyr（U8）と組み合わせることで真価を発揮します。データの整形→可視化の流れをパイプで繋げて書けるようになりましょう。
+
+---
+
+進捗: あなたは今 **10-C-8** まで完了しました！（と仮定）次は **10-B-1** に進みましょう。

@@ -1,61 +1,106 @@
 project:
   type: website
   output-dir: docs
-
 website:
-  title: "Kosugi Labo"
+  title: Kosugi Labo
   navbar:
     left:
-      - href: index.qmd
-        text: ホーム
-      - text: ゼミガイド
-        menu:
-          - href: zemi-policy.qmd
-            text: ゼミの運営方針
-          - href: research-guide.qmd
-            text: 研究の進め方
-          - href: writing-guide.qmd
-            text: 文章の読み書き
-          - href: anti-harassment.qmd
-            text: アンチハラスメントポリシー
-      - text: 技術ガイド
-        menu:
-          - href: tech-guide/github-setup.qmd
-            text: GitHub
-          - href: tech-guide/vscode-setup.qmd
-            text: VSCode
-          - href: tech-guide/latex-setup.qmd
-            text: LaTeX
-          - href: tech-guide/ssh-remote.qmd
-            text: SSH接続
-          - href: tech-guide/tailscale.qmd
-            text: Tailscale
-      - text: Rチュートリアル
-        menu:
-          - href: r-tutorial/index.qmd
-            text: はじめに
-          - href: r-tutorial/r-basics.qmd
-            text: Rの基礎
-          - href: r-tutorial/data-handling.qmd
-            text: データの読み込み
-          - href: r-tutorial/tidyverse.qmd
-            text: tidyverse入門
-          - href: r-tutorial/visualization.qmd
-            text: 可視化ギャラリー
-      - href: members.qmd
-        text: メンバー
-      - href: server-status.qmd
-        text: サーバー状況
-      - href: feedback.qmd
-        text: フィードバック
-
+    - href: index.qmd
+      text: ホーム
+    - text: ゼミガイド
+      menu:
+      - href: zemi-policy.qmd
+        text: ゼミの運営方針
+      - href: research-guide.qmd
+        text: 研究の進め方
+      - href: writing-guide.qmd
+        text: 文章の読み書き
+      - href: anti-harassment.qmd
+        text: アンチハラスメントポリシー
+    - text: 技術ガイド
+      menu:
+      - href: tech-guide/github-setup.qmd
+        text: GitHub
+      - href: tech-guide/vscode-setup.qmd
+        text: VSCode
+      - href: tech-guide/latex-setup.qmd
+        text: LaTeX
+      - href: tech-guide/ssh-remote.qmd
+        text: SSH接続
+      - href: tech-guide/tailscale.qmd
+        text: Tailscale
+    - text: Rドリル
+      menu:
+      - href: r-tutorial/index.qmd
+        text: Rドリルについて
+      - href: r-tutorial/visualization.qmd
+        text: 可視化ギャラリー
+      - text: "---"
+      - href: r-tutorial/U0-computer-basics.qmd
+        text: U0. コンピュータ基礎
+      - href: r-tutorial/U1-r-basics.qmd
+        text: U1. Rの基礎
+      - href: r-tutorial/U2-data-types.qmd
+        text: U2. データ型とオブジェクト
+      - href: r-tutorial/U3-matrix-basics.qmd
+        text: U3. 数学・行列の基礎
+      - href: r-tutorial/U4-basic-operations.qmd
+        text: U4. 基本的なデータ操作
+      - href: r-tutorial/U5-data-io.qmd
+        text: U5. データの読み書き
+      - href: r-tutorial/U6-data-explore.qmd
+        text: U6. データの確認と探索
+      - href: r-tutorial/U7-dplyr.qmd
+        text: U7. dplyr
+      - href: r-tutorial/U8-tidyr.qmd
+        text: U8. tidyr
+      - href: r-tutorial/U9-type-conversion.qmd
+        text: U9. 変数の型の変換と統一
+      - href: r-tutorial/U10-ggplot2.qmd
+        text: U10. ggplot2
+      - href: r-tutorial/U11-descriptive-stats.qmd
+        text: U11. 記述統計
+      - href: r-tutorial/U12-statistical-inference.qmd
+        text: U12. 統計的推測の基礎
+      - href: r-tutorial/U13-regression.qmd
+        text: U13. 回帰モデル
+      - text: "---"
+      - href: r-tutorial/U14-multivariate-row.qmd
+        text: U14. 多変量解析・行方向
+      - href: r-tutorial/U15-multivariate-col.qmd
+        text: U15. 多変量解析・列方向
+      - href: r-tutorial/U16-multivariate-both.qmd
+        text: U16. 行と列をまたぐ分析
+      - href: r-tutorial/U17-bayesian-basics.qmd
+        text: U17. ベイズ統計の基礎
+      - href: r-tutorial/U18-mcmc.qmd
+        text: U18. MCMCの原理と実践
+      - href: r-tutorial/U19-stan.qmd
+        text: U19. Stan / cmdstanr
+      - text: "---"
+      - href: r-tutorial/U21-latex.qmd
+        text: U21. LaTeX
+      - href: r-tutorial/U22-git.qmd
+        text: U22. Git / GitHub
+      - href: r-tutorial/U23-programming.qmd
+        text: U23. プログラミング基礎概念
+      - href: r-tutorial/U24-ai-collaboration.qmd
+        text: U24. 生成AIとの協働
+    - href: members.qmd
+      text: メンバー
+    - href: server-status.qmd
+      text: サーバー状況
+    - href: feedback.qmd
+      text: フィードバック
 format:
   html:
     theme: zephyr
-    css: styles.css
+    css:
+    - styles.css
+    - include/webex.css
     toc: true
     toc-depth: 3
     lang: ja
-
+    include-after-body: include/webex.js
 execute:
   freeze: auto

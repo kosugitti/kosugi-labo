@@ -1,0 +1,1849 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>U0. コンピュータ基礎 – Kosugi Labo</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-a25750924116104412f7a457768fb952.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "一致なし",
+    "search-matching-documents-text": "一致した文書",
+    "search-copy-link-title": "検索へのリンクをコピー",
+    "search-hide-matches-text": "追加の検索結果を非表示",
+    "search-more-match-text": "追加の検索結果",
+    "search-more-matches-text": "追加の検索結果",
+    "search-clear-button-title": "消去",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "検索",
+    "search-label": "サーチ"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../include/webex.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Kosugi Labo</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="サーチ"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="ナビゲーションを切り替える" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">ホーム</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">ゼミガイド</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-">    
+        <li>
+    <a class="dropdown-item" href="../zemi-policy.html">
+ <span class="dropdown-text">ゼミの運営方針</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../research-guide.html">
+ <span class="dropdown-text">研究の進め方</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../writing-guide.html">
+ <span class="dropdown-text">文章の読み書き</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../anti-harassment.html">
+ <span class="dropdown-text">アンチハラスメントポリシー</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu--1" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">技術ガイド</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu--1">    
+        <li>
+    <a class="dropdown-item" href="../tech-guide/github-setup.html">
+ <span class="dropdown-text">GitHub</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tech-guide/vscode-setup.html">
+ <span class="dropdown-text">VSCode</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tech-guide/latex-setup.html">
+ <span class="dropdown-text">LaTeX</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tech-guide/ssh-remote.html">
+ <span class="dropdown-text">SSH接続</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tech-guide/tailscale.html">
+ <span class="dropdown-text">Tailscale</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-rチュートリアル" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Rチュートリアル</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-rチュートリアル">    
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/index.html">
+ <span class="dropdown-text">はじめに</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/r-basics.html">
+ <span class="dropdown-text">Rの基礎</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/data-handling.html">
+ <span class="dropdown-text">データの読み込み</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/tidyverse.html">
+ <span class="dropdown-text">tidyverse入門</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/visualization.html">
+ <span class="dropdown-text">可視化ギャラリー</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U0-computer-basics.html">
+ <span class="dropdown-text">U0. コンピュータ基礎</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U1-r-basics.html">
+ <span class="dropdown-text">U1. Rの基礎</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U2-data-types.html">
+ <span class="dropdown-text">U2. データ型とオブジェクト</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U3-matrix-basics.html">
+ <span class="dropdown-text">U3. 数学・行列の基礎</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U4-basic-operations.html">
+ <span class="dropdown-text">U4. 基本的なデータ操作</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U5-data-io.html">
+ <span class="dropdown-text">U5. データの読み書き</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U6-data-explore.html">
+ <span class="dropdown-text">U6. データの確認と探索</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U7-dplyr.html">
+ <span class="dropdown-text">U7. dplyr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U8-tidyr.html">
+ <span class="dropdown-text">U8. tidyr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U9-type-conversion.html">
+ <span class="dropdown-text">U9. 変数の型の変換と統一</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U10-ggplot2.html">
+ <span class="dropdown-text">U10. ggplot2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U11-descriptive-stats.html">
+ <span class="dropdown-text">U11. 記述統計</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U12-statistical-inference.html">
+ <span class="dropdown-text">U12. 統計的推測の基礎</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U13-regression.html">
+ <span class="dropdown-text">U13. 回帰モデル</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../members.html"> 
+<span class="menu-text">メンバー</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../server-status.html"> 
+<span class="menu-text">サーバー状況</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../feedback.html"> 
+<span class="menu-text">フィードバック</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">目次</h2>
+   
+  <ul>
+  <li><a href="#ユニット概要" id="toc-ユニット概要" class="nav-link active" data-scroll-target="#ユニット概要">ユニット概要</a></li>
+  <li><a href="#事前知識" id="toc-事前知識" class="nav-link" data-scroll-target="#事前知識">事前知識</a>
+  <ul class="collapse">
+  <li><a href="#コンピュータの5つの装置" id="toc-コンピュータの5つの装置" class="nav-link" data-scroll-target="#コンピュータの5つの装置">コンピュータの5つの装置</a></li>
+  <li><a href="#記憶装置-メモリとストレージ" id="toc-記憶装置-メモリとストレージ" class="nav-link" data-scroll-target="#記憶装置-メモリとストレージ">記憶装置: メモリとストレージ</a></li>
+  <li><a href="#情報の単位-ビットとバイト" id="toc-情報の単位-ビットとバイト" class="nav-link" data-scroll-target="#情報の単位-ビットとバイト">情報の単位: ビットとバイト</a></li>
+  <li><a href="#ファイルと拡張子" id="toc-ファイルと拡張子" class="nav-link" data-scroll-target="#ファイルと拡張子">ファイルと拡張子</a></li>
+  <li><a href="#ファイルパス-絶対パスと相対パス" id="toc-ファイルパス-絶対パスと相対パス" class="nav-link" data-scroll-target="#ファイルパス-絶対パスと相対パス">ファイルパス: 絶対パスと相対パス</a></li>
+  <li><a href="#文字コード" id="toc-文字コード" class="nav-link" data-scroll-target="#文字コード">文字コード</a></li>
+  <li><a href="#キーボードの記号" id="toc-キーボードの記号" class="nav-link" data-scroll-target="#キーボードの記号">キーボードの記号</a></li>
+  <li><a href="#コマンドラインターミナルの基礎" id="toc-コマンドラインターミナルの基礎" class="nav-link" data-scroll-target="#コマンドラインターミナルの基礎">コマンドライン（ターミナル）の基礎</a></li>
+  <li><a href="#クラウドストレージとバックアップ" id="toc-クラウドストレージとバックアップ" class="nav-link" data-scroll-target="#クラウドストレージとバックアップ">クラウドストレージとバックアップ</a></li>
+  <li><a href="#バージョン管理の考え方" id="toc-バージョン管理の考え方" class="nav-link" data-scroll-target="#バージョン管理の考え方">バージョン管理の考え方</a></li>
+  </ul></li>
+  <li><a href="#ランクc-基礎知識" id="toc-ランクc-基礎知識" class="nav-link" data-scroll-target="#ランクc-基礎知識">ランクC: 基礎知識</a>
+  <ul class="collapse">
+  <li><a href="#c-1" id="toc-c-1" class="nav-link" data-scroll-target="#c-1">0-C-1</a></li>
+  <li><a href="#c-2" id="toc-c-2" class="nav-link" data-scroll-target="#c-2">0-C-2</a></li>
+  <li><a href="#c-3" id="toc-c-3" class="nav-link" data-scroll-target="#c-3">0-C-3</a></li>
+  <li><a href="#c-4" id="toc-c-4" class="nav-link" data-scroll-target="#c-4">0-C-4</a></li>
+  <li><a href="#c-5" id="toc-c-5" class="nav-link" data-scroll-target="#c-5">0-C-5</a></li>
+  <li><a href="#c-6" id="toc-c-6" class="nav-link" data-scroll-target="#c-6">0-C-6</a></li>
+  <li><a href="#c-7" id="toc-c-7" class="nav-link" data-scroll-target="#c-7">0-C-7</a></li>
+  <li><a href="#c-8" id="toc-c-8" class="nav-link" data-scroll-target="#c-8">0-C-8</a></li>
+  <li><a href="#c-9" id="toc-c-9" class="nav-link" data-scroll-target="#c-9">0-C-9</a></li>
+  <li><a href="#c-10" id="toc-c-10" class="nav-link" data-scroll-target="#c-10">0-C-10</a></li>
+  <li><a href="#c-11" id="toc-c-11" class="nav-link" data-scroll-target="#c-11">0-C-11</a></li>
+  <li><a href="#c-12" id="toc-c-12" class="nav-link" data-scroll-target="#c-12">0-C-12</a></li>
+  </ul></li>
+  <li><a href="#ランクb-実践スキル" id="toc-ランクb-実践スキル" class="nav-link" data-scroll-target="#ランクb-実践スキル">ランクB: 実践スキル</a>
+  <ul class="collapse">
+  <li><a href="#b-1" id="toc-b-1" class="nav-link" data-scroll-target="#b-1">0-B-1</a></li>
+  <li><a href="#b-2" id="toc-b-2" class="nav-link" data-scroll-target="#b-2">0-B-2</a></li>
+  <li><a href="#b-3" id="toc-b-3" class="nav-link" data-scroll-target="#b-3">0-B-3</a></li>
+  <li><a href="#b-4" id="toc-b-4" class="nav-link" data-scroll-target="#b-4">0-B-4</a></li>
+  <li><a href="#b-5" id="toc-b-5" class="nav-link" data-scroll-target="#b-5">0-B-5</a></li>
+  <li><a href="#b-6" id="toc-b-6" class="nav-link" data-scroll-target="#b-6">0-B-6</a></li>
+  </ul></li>
+  <li><a href="#ランクa-ai協働" id="toc-ランクa-ai協働" class="nav-link" data-scroll-target="#ランクa-ai協働">ランクA: AI協働</a>
+  <ul class="collapse">
+  <li><a href="#a-1" id="toc-a-1" class="nav-link" data-scroll-target="#a-1">0-A-1</a></li>
+  <li><a href="#a-2" id="toc-a-2" class="nav-link" data-scroll-target="#a-2">0-A-2</a></li>
+  </ul></li>
+  <li><a href="#まとめ" id="toc-まとめ" class="nav-link" data-scroll-target="#まとめ">まとめ</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">U0. コンピュータ基礎</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="ユニット概要" class="level2">
+<h2 class="anchored" data-anchor-id="ユニット概要">ユニット概要</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>項目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>分類</td>
+<td>根（前提知識）</td>
+</tr>
+<tr class="even">
+<td>前提</td>
+<td>なし</td>
+</tr>
+<tr class="odd">
+<td>次のユニット</td>
+<td>U1（Rの基礎）</td>
+</tr>
+<tr class="even">
+<td>学習目標</td>
+<td>コンピュータの基本構造を理解する / ファイルとパスの概念を理解する / 文字コードの問題を知る / コマンドライン操作の基礎を身につける</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="事前知識" class="level2">
+<h2 class="anchored" data-anchor-id="事前知識">事前知識</h2>
+<section id="コンピュータの5つの装置" class="level3">
+<h3 class="anchored" data-anchor-id="コンピュータの5つの装置">コンピュータの5つの装置</h3>
+<p>コンピュータは大きく分けて5つの装置で構成されています。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 30%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>装置</th>
+<th>役割</th>
+<th>具体例</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>入力装置</strong></td>
+<td>情報をコンピュータに伝える</td>
+<td>キーボード、マウス、マイク</td>
+</tr>
+<tr class="even">
+<td><strong>出力装置</strong></td>
+<td>結果を人間に伝える</td>
+<td>ディスプレイ、スピーカー、プリンタ</td>
+</tr>
+<tr class="odd">
+<td><strong>演算装置</strong></td>
+<td>計算を行う</td>
+<td>CPU（の一部）</td>
+</tr>
+<tr class="even">
+<td><strong>制御装置</strong></td>
+<td>各装置を制御する</td>
+<td>CPU（の一部）</td>
+</tr>
+<tr class="odd">
+<td><strong>記憶装置</strong></td>
+<td>データを保存する</td>
+<td>メモリ（RAM）、SSD/HDD</td>
+</tr>
+</tbody>
+</table>
+<p><strong>CPU</strong>（Central Processing Unit）は演算装置と制御装置を兼ねた、コンピュータの「頭脳」です。</p>
+</section>
+<section id="記憶装置-メモリとストレージ" class="level3">
+<h3 class="anchored" data-anchor-id="記憶装置-メモリとストレージ">記憶装置: メモリとストレージ</h3>
+<p>記憶装置には2種類あり、役割が異なります。</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>種類</th>
+<th>特徴</th>
+<th>速度</th>
+<th>電源OFF</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>一次記憶（RAM）</strong></td>
+<td>作業中のデータを一時保管</td>
+<td>高速</td>
+<td>消える</td>
+</tr>
+<tr class="even">
+<td><strong>二次記憶（SSD/HDD）</strong></td>
+<td>ファイルを永続的に保存</td>
+<td>低速</td>
+<td>残る</td>
+</tr>
+</tbody>
+</table>
+<p>RAMは「作業机」、SSD/HDDは「引き出し」に例えられます。作業中のファイルはRAMに読み込まれ、保存するとSSD/HDDに書き戻されます。<strong>保存しないまま電源が切れるとデータは消えます。</strong></p>
+</section>
+<section id="情報の単位-ビットとバイト" class="level3">
+<h3 class="anchored" data-anchor-id="情報の単位-ビットとバイト">情報の単位: ビットとバイト</h3>
+<p>コンピュータは全ての情報を <strong>0と1の組み合わせ（2進数）</strong> で扱います。</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>単位</th>
+<th>大きさ</th>
+<th>目安</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1 bit</td>
+<td>0か1の1桁</td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td>1 Byte（B）</td>
+<td>8 bit</td>
+<td>半角英数字1文字</td>
+</tr>
+<tr class="odd">
+<td>1 KB</td>
+<td>1,024 B</td>
+<td>短いテキストファイル</td>
+</tr>
+<tr class="even">
+<td>1 MB</td>
+<td>1,024 KB</td>
+<td>写真1枚程度</td>
+</tr>
+<tr class="odd">
+<td>1 GB</td>
+<td>1,024 MB</td>
+<td>動画数十分程度</td>
+</tr>
+<tr class="even">
+<td>1 TB</td>
+<td>1,024 GB</td>
+<td>SSD1台分程度</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ファイルと拡張子" class="level3">
+<h3 class="anchored" data-anchor-id="ファイルと拡張子">ファイルと拡張子</h3>
+<p>ファイルには <strong>拡張子（extension）</strong> がついており、ファイルの種類を示します。</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>拡張子</th>
+<th>種類</th>
+<th>特徴</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>.txt</code></td>
+<td>テキスト</td>
+<td>メモ帳で開ける。最もシンプル</td>
+</tr>
+<tr class="even">
+<td><code>.csv</code></td>
+<td>テキスト</td>
+<td>カンマ区切りのデータファイル。Rでよく使う</td>
+</tr>
+<tr class="odd">
+<td><code>.R</code></td>
+<td>テキスト</td>
+<td>Rスクリプトファイル</td>
+</tr>
+<tr class="even">
+<td><code>.docx</code></td>
+<td>バイナリ</td>
+<td>Word文書。メモ帳では読めない</td>
+</tr>
+<tr class="odd">
+<td><code>.xlsx</code></td>
+<td>バイナリ</td>
+<td>Excelファイル</td>
+</tr>
+<tr class="even">
+<td><code>.pdf</code></td>
+<td>バイナリ</td>
+<td>閲覧用文書</td>
+</tr>
+<tr class="odd">
+<td><code>.png</code>, <code>.jpg</code></td>
+<td>バイナリ</td>
+<td>画像ファイル</td>
+</tr>
+</tbody>
+</table>
+<p><strong>重要</strong>: <code>.csv</code> や <code>.R</code> はテキストファイルなので、どんなテキストエディタでも開けます。一方、<code>.docx</code> や <code>.xlsx</code> はバイナリファイルで、専用のソフトが必要です。</p>
+<p>WindowsやmacOSでは拡張子が非表示になっていることがあります。<strong>拡張子は必ず表示する設定にしてください。</strong> 拡張子が見えないと、ファイルの種類を間違えてエラーの原因になります。</p>
+</section>
+<section id="ファイルパス-絶対パスと相対パス" class="level3">
+<h3 class="anchored" data-anchor-id="ファイルパス-絶対パスと相対パス">ファイルパス: 絶対パスと相対パス</h3>
+<p>コンピュータ上でファイルの位置を指定する方法を <strong>パス（path）</strong> と呼びます。</p>
+<section id="絶対パス" class="level4">
+<h4 class="anchored" data-anchor-id="絶対パス">絶対パス</h4>
+<p>ルート（最上位）からの完全な位置指定です。</p>
+<pre><code># Mac / Linux
+/Users/kosugitti/Documents/data/mydata.csv
+
+# Windows
+C:\Users\kosugitti\Documents\data\mydata.csv</code></pre>
+</section>
+<section id="相対パス" class="level4">
+<h4 class="anchored" data-anchor-id="相対パス">相対パス</h4>
+<p>現在の作業フォルダからの相対的な位置指定です。</p>
+<pre><code># 現在のフォルダにあるファイル
+mydata.csv
+
+# 1つ下の data フォルダ内
+data/mydata.csv
+
+# 1つ上のフォルダ
+../mydata.csv
+
+# 1つ上の sibling フォルダ内
+../other_folder/mydata.csv</code></pre>
+<p><code>..</code> は「1つ上の階層」を意味します。</p>
+<p><strong>パスの区切り文字</strong>: Mac/Linuxではスラッシュ <code>/</code>、Windowsではバックスラッシュ <code>\</code> を使いますが、Rでは <strong>OSに関係なく <code>/</code> が使えます</strong>。</p>
+</section>
+<section id="ファイルが見つからないエラーの3大原因" class="level4">
+<h4 class="anchored" data-anchor-id="ファイルが見つからないエラーの3大原因">ファイルが見つからないエラーの3大原因</h4>
+<p>Rでファイルを読み込むときに最も多いエラーが「ファイルが見つからない」です。原因は3つに絞られます:</p>
+<ol type="1">
+<li><strong>ファイル名の間違い</strong>: スペルミス、大文字/小文字の違い、拡張子の違い</li>
+<li><strong>パスの間違い</strong>: ファイルの場所を正しく指定していない</li>
+<li><strong>作業フォルダの違い</strong>: <code>getwd()</code> で確認。RStudioプロジェクトを使えば安定する</li>
+</ol>
+</section>
+</section>
+<section id="文字コード" class="level3">
+<h3 class="anchored" data-anchor-id="文字コード">文字コード</h3>
+<p>文字をコンピュータで扱うには、「どの数値がどの文字に対応するか」を決めたルール（<strong>文字コード</strong>）が必要です。</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>文字コード</th>
+<th>特徴</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>ASCII</strong></td>
+<td>英数字と記号（128文字）。1文字 = 1バイト</td>
+</tr>
+<tr class="even">
+<td><strong>UTF-8</strong></td>
+<td>世界中の言語に対応。国際標準。<strong>R ではこれを使う</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>Shift-JIS</strong></td>
+<td>日本語Windows で伝統的に使われる。国際標準ではない</td>
+</tr>
+</tbody>
+</table>
+<p><strong>問題が起きるパターン</strong>: WindowsでExcelを使ってCSVを保存すると Shift-JIS になることがある。これをMacやRで開くと <strong>文字化け</strong> する。CSVファイルは必ず <strong>UTF-8</strong> で保存しましょう。</p>
+<p><strong>ファイル名の原則</strong>: ファイル名やフォルダ名には <strong>半角英数字とアンダースコア（<code>_</code>）だけ</strong> を使いましょう。日本語やスペースを含めると、OS間の移動や共有時にトラブルの原因になります。</p>
+</section>
+<section id="キーボードの記号" class="level3">
+<h3 class="anchored" data-anchor-id="キーボードの記号">キーボードの記号</h3>
+<p>プログラミングでは、日常ではあまり使わない記号を頻繁に使います。</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>記号</th>
+<th>名前</th>
+<th>用途の例</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>#</code></td>
+<td>ハッシュ / シャープ</td>
+<td>Rのコメント</td>
+</tr>
+<tr class="even">
+<td><code>$</code></td>
+<td>ドルマーク</td>
+<td>Rでリストやデータフレームの要素アクセス</td>
+</tr>
+<tr class="odd">
+<td><code>%</code></td>
+<td>パーセント</td>
+<td>Rのパイプ <code>%&gt;%</code></td>
+</tr>
+<tr class="even">
+<td><code>&amp;</code></td>
+<td>アンパサンド</td>
+<td>AND条件</td>
+</tr>
+<tr class="odd">
+<td><code>\|</code></td>
+<td>パイプ / 縦棒</td>
+<td>OR条件</td>
+</tr>
+<tr class="even">
+<td><code>~</code></td>
+<td>チルダ</td>
+<td>Rの式（formula）</td>
+</tr>
+<tr class="odd">
+<td><code>`</code></td>
+<td>バッククォート</td>
+<td>変数名の囲み</td>
+</tr>
+<tr class="even">
+<td><code>_</code></td>
+<td>アンダースコア</td>
+<td>変数名の区切り</td>
+</tr>
+<tr class="odd">
+<td><code>{ }</code></td>
+<td>中括弧 / ブレイス</td>
+<td>コードブロック</td>
+</tr>
+<tr class="even">
+<td><code>[ ]</code></td>
+<td>角括弧 / ブラケット</td>
+<td>インデキシング</td>
+</tr>
+<tr class="odd">
+<td><code>( )</code></td>
+<td>丸括弧 / パレンシス</td>
+<td>関数呼び出し</td>
+</tr>
+</tbody>
+</table>
+<p><strong>注意</strong>: ハイフン <code>-</code> とアンダースコア <code>_</code> の見分け、小文字エル <code>l</code> と数字の <code>1</code>、大文字オー <code>O</code> と数字の <code>0</code> は混同しやすいので気をつけましょう。</p>
+</section>
+<section id="コマンドラインターミナルの基礎" class="level3">
+<h3 class="anchored" data-anchor-id="コマンドラインターミナルの基礎">コマンドライン（ターミナル）の基礎</h3>
+<p>GUIのアイコンをクリックする代わりに、テキストでコンピュータに指示を出す方法が <strong>コマンドライン</strong> です。</p>
+<p><strong>ターミナルの開き方</strong>:</p>
+<ul>
+<li><strong>Mac</strong>: 「アプリケーション → ユーティリティ → ターミナル」または Spotlight で “terminal” と検索</li>
+<li><strong>Windows</strong>: スタートメニューから「PowerShell」または「コマンドプロンプト」を検索</li>
+<li><strong>Ubuntu (Linux)</strong>: <code>Ctrl + Alt + T</code></li>
+</ul>
+<p>以下に、基本的なコマンドをOS別に示します。<strong>Mac と Linux（Ubuntu）はほぼ同じコマンド</strong> で操作できます。</p>
+<section id="現在のフォルダを確認する" class="level4">
+<h4 class="anchored" data-anchor-id="現在のフォルダを確認する">現在のフォルダを確認する</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 45%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>OS</th>
+<th>コマンド</th>
+<th>出力例</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Mac / Linux</td>
+<td><code>pwd</code></td>
+<td><code>/Users/kosugitti/Documents</code></td>
+</tr>
+<tr class="even">
+<td>Windows (PowerShell)</td>
+<td><code>pwd</code> または <code>Get-Location</code></td>
+<td><code>C:\Users\kosugitti\Documents</code></td>
+</tr>
+<tr class="odd">
+<td>Windows (cmd)</td>
+<td><code>cd</code>（引数なし）</td>
+<td><code>C:\Users\kosugitti\Documents</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="フォルダ内のファイル一覧" class="level4">
+<h4 class="anchored" data-anchor-id="フォルダ内のファイル一覧">フォルダ内のファイル一覧</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 36%">
+<col style="width: 52%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>OS</th>
+<th>コマンド</th>
+<th>オプション例</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Mac / Linux</td>
+<td><code>ls</code></td>
+<td><code>ls -la</code>（詳細表示 + 隠しファイル）</td>
+</tr>
+<tr class="even">
+<td>Windows (PowerShell)</td>
+<td><code>ls</code> または <code>Get-ChildItem</code></td>
+<td><code>ls -Force</code>（隠しファイルも）</td>
+</tr>
+<tr class="odd">
+<td>Windows (cmd)</td>
+<td><code>dir</code></td>
+<td><code>dir /a</code>（全ファイル表示）</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="フォルダの移動" class="level4">
+<h4 class="anchored" data-anchor-id="フォルダの移動">フォルダの移動</h4>
+<p>全OS共通で <code>cd</code> を使います。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1つ下のフォルダに移動</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> data</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 1つ上のフォルダに戻る</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ..</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># ホームフォルダに戻る</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~          <span class="co"># Mac / Linux</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> %USERPROFILE%  <span class="co"># Windows (cmd)</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~          <span class="co"># Windows (PowerShell)</span></span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="フォルダの作成と削除" class="level4">
+<h4 class="anchored" data-anchor-id="フォルダの作成と削除">フォルダの作成と削除</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>操作</th>
+<th>Mac / Linux</th>
+<th>Windows (PowerShell)</th>
+<th>Windows (cmd)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>フォルダ作成</td>
+<td><code>mkdir mydir</code></td>
+<td><code>mkdir mydir</code></td>
+<td><code>mkdir mydir</code></td>
+</tr>
+<tr class="even">
+<td>フォルダ削除（空）</td>
+<td><code>rmdir mydir</code></td>
+<td><code>rmdir mydir</code></td>
+<td><code>rmdir mydir</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ファイルのコピー移動削除" class="level4">
+<h4 class="anchored" data-anchor-id="ファイルのコピー移動削除">ファイルのコピー・移動・削除</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 22%">
+<col style="width: 38%">
+<col style="width: 27%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>操作</th>
+<th>Mac / Linux</th>
+<th>Windows (PowerShell)</th>
+<th>Windows (cmd)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>コピー</td>
+<td><code>cp file1.txt file2.txt</code></td>
+<td><code>cp file1.txt file2.txt</code></td>
+<td><code>copy file1.txt file2.txt</code></td>
+</tr>
+<tr class="even">
+<td>移動（名前変更にも）</td>
+<td><code>mv old.txt new.txt</code></td>
+<td><code>mv old.txt new.txt</code></td>
+<td><code>move old.txt new.txt</code></td>
+</tr>
+<tr class="odd">
+<td>削除</td>
+<td><code>rm file.txt</code></td>
+<td><code>rm file.txt</code></td>
+<td><code>del file.txt</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>注意</strong>: <code>rm</code>（削除）はゴミ箱を経由しません。一度削除すると元に戻せません。</p>
+</section>
+<section id="ファイルの内容を表示" class="level4">
+<h4 class="anchored" data-anchor-id="ファイルの内容を表示">ファイルの内容を表示</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 50%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>OS</th>
+<th>コマンド</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Mac / Linux</td>
+<td><code>cat file.txt</code></td>
+<td>ファイル全体を表示</td>
+</tr>
+<tr class="even">
+<td>Mac / Linux</td>
+<td><code>head -5 file.txt</code></td>
+<td>先頭5行を表示</td>
+</tr>
+<tr class="odd">
+<td>Mac / Linux</td>
+<td><code>tail -5 file.txt</code></td>
+<td>末尾5行を表示</td>
+</tr>
+<tr class="even">
+<td>Windows (PowerShell)</td>
+<td><code>cat file.txt</code> または <code>Get-Content file.txt</code></td>
+<td>ファイル全体を表示</td>
+</tr>
+<tr class="odd">
+<td>Windows (cmd)</td>
+<td><code>type file.txt</code></td>
+<td>ファイル全体を表示</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ファイルの検索" class="level4">
+<h4 class="anchored" data-anchor-id="ファイルの検索">ファイルの検索</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 60%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>OS</th>
+<th>コマンド</th>
+<th>例</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Mac / Linux</td>
+<td><code>find . -name "*.csv"</code></td>
+<td>カレント以下のCSVファイルを検索</td>
+</tr>
+<tr class="even">
+<td>Windows (PowerShell)</td>
+<td><code>Get-ChildItem -Recurse -Filter "*.csv"</code></td>
+<td>同上</td>
+</tr>
+<tr class="odd">
+<td>Windows (cmd)</td>
+<td><code>dir /s *.csv</code></td>
+<td>同上</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="クラウドストレージとバックアップ" class="level3">
+<h3 class="anchored" data-anchor-id="クラウドストレージとバックアップ">クラウドストレージとバックアップ</h3>
+<ul>
+<li><strong>Dropbox, OneDrive, Google Drive, iCloud</strong> などのクラウドストレージは、ファイルを自動的にサーバーと同期します</li>
+<li>バックアップとして便利ですが、<strong>個人情報を含むデータは注意</strong> が必要です</li>
+<li><strong>Windows の注意</strong>: OneDrive が有効だと、デスクトップが2つ存在する場合があります（ローカルとOneDrive上）。ファイルが見つからないときはこれを疑ってください</li>
+</ul>
+</section>
+<section id="バージョン管理の考え方" class="level3">
+<h3 class="anchored" data-anchor-id="バージョン管理の考え方">バージョン管理の考え方</h3>
+<p>レポートを書くとき、こんなファイル名をつけたことはありませんか？</p>
+<pre><code>report.docx
+report_v2.docx
+report_v2_修正.docx
+report_v2_修正_最終版.docx
+report_v2_修正_最終版_本当の最終.docx</code></pre>
+<p>これは効率が悪く、どれが最新かわからなくなります。<strong>日付を入れる方法</strong>（例: <code>report_20260309.docx</code>）は改善策ですが、限界があります。</p>
+<p>プログラムのコードには <strong>Git</strong> というバージョン管理システムを使います（U22で詳しく学びます）。Gitはファイルの変更履歴を全て記録し、任意の時点に戻ることができます。</p>
+<p><strong>研究データはバージョン管理しない</strong>: データは変更してはいけないもの（研究倫理の観点）。バージョン管理するのは分析スクリプトだけです。</p>
+<hr>
+</section>
+</section>
+<section id="ランクc-基礎知識" class="level2">
+<h2 class="anchored" data-anchor-id="ランクc-基礎知識">ランクC: 基礎知識</h2>
+<section id="c-1" class="level3">
+<h3 class="anchored" data-anchor-id="c-1">0-C-1</h3>
+<p>コンピュータの5つの装置のうち、CPUに含まれるのはどれか。</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">入力装置と出力装置</option><option value="answer">演算装置と制御装置</option><option value="">記憶装置と演算装置</option><option value="">入力装置と制御装置</option></select></p>
+</section>
+<section id="c-2" class="level3">
+<h3 class="anchored" data-anchor-id="c-2">0-C-2</h3>
+<p>RAM（メモリ）はパソコンの電源を切ると中身が消える。</p>
+<p><select class="webex-select"><option value="blank"></option><option value="answer">TRUE</option><option value="">FALSE</option></select></p>
+</section>
+<section id="c-3" class="level3">
+<h3 class="anchored" data-anchor-id="c-3">0-C-3</h3>
+<p>1 GB は何 MB か。</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">100 MB</option><option value="">500 MB</option><option value="answer">1,024 MB</option><option value="">10,000 MB</option></select></p>
+</section>
+<section id="c-4" class="level3">
+<h3 class="anchored" data-anchor-id="c-4">0-C-4</h3>
+<p><code>.csv</code> ファイルはバイナリファイルである。</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">TRUE</option><option value="answer">FALSE</option></select></p>
+</section>
+<section id="c-5" class="level3">
+<h3 class="anchored" data-anchor-id="c-5">0-C-5</h3>
+<p>ファイルパスにおいて <code>..</code> は何を意味するか。</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">現在のフォルダ</option><option value="answer">1つ上の階層</option><option value="">ルートフォルダ</option><option value="">ホームフォルダ</option></select></p>
+</section>
+<section id="c-6" class="level3">
+<h3 class="anchored" data-anchor-id="c-6">0-C-6</h3>
+<p>Rでは、Mac/Linux/Windowsに関係なくパスの区切りにスラッシュ <code>/</code> が使える。</p>
+<p><select class="webex-select"><option value="blank"></option><option value="answer">TRUE</option><option value="">FALSE</option></select></p>
+</section>
+<section id="c-7" class="level3">
+<h3 class="anchored" data-anchor-id="c-7">0-C-7</h3>
+<p>現在の国際標準の文字コードはどれか。</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">ASCII</option><option value="">Shift-JIS</option><option value="answer">UTF-8</option><option value="">EUC-JP</option></select></p>
+</section>
+<section id="c-8" class="level3">
+<h3 class="anchored" data-anchor-id="c-8">0-C-8</h3>
+<p>WindowsのExcelでCSVファイルを保存すると、Shift-JISになることがあり文字化けの原因となる。</p>
+<p><select class="webex-select"><option value="blank"></option><option value="answer">TRUE</option><option value="">FALSE</option></select></p>
+</section>
+<section id="c-9" class="level3">
+<h3 class="anchored" data-anchor-id="c-9">0-C-9</h3>
+<p>Mac / Linux のターミナルで現在のフォルダを確認するコマンドはどれか。</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">ls</option><option value="">cd</option><option value="answer">pwd</option><option value="">dir</option></select></p>
+</section>
+<section id="c-10" class="level3">
+<h3 class="anchored" data-anchor-id="c-10">0-C-10</h3>
+<p><code>rm</code> コマンドで削除したファイルはゴミ箱に移動する。</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">TRUE</option><option value="answer">FALSE</option></select></p>
+</section>
+<section id="c-11" class="level3">
+<h3 class="anchored" data-anchor-id="c-11">0-C-11</h3>
+<p>ファイル名に日本語やスペースを含めても、OS間の移動で問題は起こらない。</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">TRUE</option><option value="answer">FALSE</option></select></p>
+</section>
+<section id="c-12" class="level3">
+<h3 class="anchored" data-anchor-id="c-12">0-C-12</h3>
+<p>研究データをGitでバージョン管理すべきでない理由はどれか。</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">データが大きすぎるから</option><option value="answer">データは変更してはいけないものだから</option><option value="">Gitがデータ形式に対応していないから</option><option value="">クラウドで管理すべきだから</option></select></p>
+<hr>
+</section>
+</section>
+<section id="ランクb-実践スキル" class="level2">
+<h2 class="anchored" data-anchor-id="ランクb-実践スキル">ランクB: 実践スキル</h2>
+<section id="b-1" class="level3">
+<h3 class="anchored" data-anchor-id="b-1">0-B-1</h3>
+<p>あなたのパソコンでターミナル（Mac/Linux）またはPowerShell/コマンドプロンプト（Windows）を開き、以下の操作を順番に行いなさい。</p>
+<ol type="1">
+<li><code>pwd</code>（Mac/Linux）または <code>cd</code>（Windows cmd）で現在のフォルダを確認する</li>
+<li><code>ls</code>（Mac/Linux/PowerShell）または <code>dir</code>（Windows cmd）でファイル一覧を表示する</li>
+<li>デスクトップに移動する（<code>cd ~/Desktop</code> または <code>cd %USERPROFILE%\Desktop</code>）</li>
+<li>再度 <code>pwd</code> / <code>cd</code> で移動先を確認する</li>
+</ol>
+<div class="webex-solution">
+<button>
+ヒント
+</button>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mac / Linux の場合</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/Desktop</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Windows PowerShell の場合</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/Desktop</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Windows コマンドプロンプトの場合</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="fu">dir</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> %USERPROFILE%<span class="dt">\D</span>esktop</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span></span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="b-2" class="level3">
+<h3 class="anchored" data-anchor-id="b-2">0-B-2</h3>
+<p>コマンドラインで以下の操作を行いなさい。</p>
+<ol type="1">
+<li>デスクトップに <code>r_practice</code> というフォルダを作成する</li>
+<li>そのフォルダの中に移動する</li>
+<li>フォルダ内のファイル一覧を表示する（何もないはず）</li>
+<li>1つ上の階層（デスクトップ）に戻る</li>
+<li>作成したフォルダを削除する</li>
+</ol>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mac / Linux の場合</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/Desktop</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> r_practice</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> r_practice</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ..</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="fu">rmdir</span> r_practice</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Windows PowerShell の場合</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/Desktop</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> r_practice</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> r_practice</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ..</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="fu">rmdir</span> r_practice</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="b-3" class="level3">
+<h3 class="anchored" data-anchor-id="b-3">0-B-3</h3>
+<p>Rを起動して、以下のコードを実行しなさい。表示されたパスが何を意味するか、自分のパソコンのフォルダ構造と対応づけて理解すること。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 現在の作業フォルダを確認</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 作業フォルダ内のファイル一覧</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>()</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># CSVファイルだけを表示</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>(<span class="at">pattern =</span> <span class="st">"</span><span class="sc">\\</span><span class="st">.csv$"</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="webex-solution">
+<button>
+解説
+</button>
+<ul>
+<li><code>getwd()</code>: Rが「今いる場所」を返します。ファイルの読み書きはこのフォルダを基準に行われます</li>
+<li><code>list.files()</code>: <code>ls</code> コマンドのR版です</li>
+<li><code>pattern = "\\.csv$"</code>: 正規表現で「<code>.csv</code> で終わるファイル」を指定しています</li>
+</ul>
+<p>RStudioでプロジェクト（<code>.Rproj</code>）を使っていれば、作業フォルダはプロジェクトのフォルダに自動設定されます。</p>
+</div>
+</section>
+<section id="b-4" class="level3">
+<h3 class="anchored" data-anchor-id="b-4">0-B-4</h3>
+<p>以下の状況で、ファイルの相対パスを書きなさい。</p>
+<p>フォルダ構造:</p>
+<pre><code>project/
+├── scripts/
+│   └── analysis.R    ← 今ここで作業中
+├── data/
+│   └── survey.csv
+└── output/
+    └── results.csv</code></pre>
+<p><code>analysis.R</code> から <code>survey.csv</code> を読み込むための相対パスは？</p>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># analysis.R から見た survey.csv の相対パス</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"../data/survey.csv"</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>scripts/</code> から1つ上（<code>../</code>）に行き、そこから <code>data/</code> に入って <code>survey.csv</code> を指定します。</p>
+<p>同様に <code>results.csv</code> に書き出す場合は:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(results, <span class="st">"../output/results.csv"</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="b-5" class="level3">
+<h3 class="anchored" data-anchor-id="b-5">0-B-5</h3>
+<p>テキストエディタ（メモ帳、VSCode、RStudio等）で以下の内容のCSVファイルを <strong>UTF-8</strong> で作成し、<code>test_data.csv</code> という名前でデスクトップに保存しなさい。その後、Rで読み込んで中身を確認しなさい。</p>
+<pre><code>name,score,grade
+田中,85,A
+鈴木,72,B
+佐藤,91,A</code></pre>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># UTF-8 で保存したファイルを読み込む</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"~/Desktop/test_data.csv"</span>, <span class="at">fileEncoding =</span> <span class="st">"UTF-8"</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>df</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># もし文字化けしたら Shift-JIS の可能性がある</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co"># df &lt;- read.csv("~/Desktop/test_data.csv", fileEncoding = "Shift-JIS")</span></span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<p>RStudioで新しいファイルを作成する場合、デフォルトでUTF-8になります。Windowsのメモ帳で保存する場合は、「名前を付けて保存」で文字コードを「UTF-8」に指定してください。</p>
+</div>
+</section>
+<section id="b-6" class="level3">
+<h3 class="anchored" data-anchor-id="b-6">0-B-6</h3>
+<p>コマンドラインで、CSVファイルの中身を確認する操作を練習しなさい。先ほど作成した <code>test_data.csv</code> を使って以下を試すこと。</p>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mac / Linux の場合</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> ~/Desktop/test_data.csv        <span class="co"># 全体を表示</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-2</span> ~/Desktop/test_data.csv    <span class="co"># 先頭2行を表示</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> ~/Desktop/test_data.csv      <span class="co"># 行数を数える</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Windows PowerShell の場合</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> ~/Desktop/test_data.csv</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="ex">Get-Content</span> ~/Desktop/test_data.csv <span class="kw">|</span> <span class="ex">Select-Object</span> <span class="at">-First</span> 2   <span class="co"># 先頭2行</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">Get-Content</span> ~/Desktop/test_data.csv<span class="kw">)</span><span class="ex">.Count</span>                     <span class="co"># 行数</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Windows コマンドプロンプトの場合</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span> %USERPROFILE%<span class="dt">\D</span>esktop<span class="dt">\t</span>est_data.csv</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<p>データ分析では、CSVファイルをRに読み込む前にターミナルで中身を確認する習慣をつけると、文字化けや形式の問題を早期に発見できます。</p>
+</div>
+<hr>
+</section>
+</section>
+<section id="ランクa-ai協働" class="level2">
+<h2 class="anchored" data-anchor-id="ランクa-ai協働">ランクA: AI協働</h2>
+<section id="a-1" class="level3">
+<h3 class="anchored" data-anchor-id="a-1">0-A-1</h3>
+<p>以下のRスクリプトがエラーを出しています。エラーの原因を推理し、生成AIに相談して解決策を見つけてください。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># エラーが出るスクリプト（原因は複数あるかもしれない）</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"C:\Users</span><span class="sc">\t</span><span class="st">anaka\研究データ\2026年度"</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"アンケート結果 (1).csv"</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<p>生成AIに相談する際は、以下を伝えてください:</p>
+<ol type="1">
+<li>エラーメッセージの内容</li>
+<li>自分のOSとRのバージョン</li>
+<li>ファイルが実際にどこにあるか</li>
+</ol>
+<p>AIの回答を踏まえて、<strong>このスクリプトにはいくつの問題があるか</strong> を整理してください（最低3つはあります）。</p>
+</section>
+<section id="a-2" class="level3">
+<h3 class="anchored" data-anchor-id="a-2">0-A-2</h3>
+<p>あなたの卒業研究用のプロジェクトフォルダ構造を設計してください。</p>
+<p>生成AIに「Rで卒業研究を進めるための理想的なフォルダ構成を教えて」と聞き、提案をもらいましょう。そのうえで、以下を実際にコマンドラインで作成してください:</p>
+<ol type="1">
+<li>プロジェクトのルートフォルダ</li>
+<li>データ用、スクリプト用、出力用のサブフォルダ</li>
+<li><code>.Rproj</code> ファイル（RStudioで「New Project」から作成可能）</li>
+<li><code>README.txt</code>（プロジェクトの説明を書く）</li>
+</ol>
+<p>作成したフォルダ構造を <code>ls -R</code>（Mac/Linux）または <code>Get-ChildItem -Recurse</code>（PowerShell）で確認し、結果をゼミで共有してください。</p>
+<hr>
+</section>
+</section>
+<section id="まとめ" class="level2">
+<h2 class="anchored" data-anchor-id="まとめ">まとめ</h2>
+<p>このユニットで学んだこと:</p>
+<ul>
+<li><strong>コンピュータの基本構造</strong>: CPU（演算+制御）、メモリ（一時記憶）、ストレージ（永続記憶）</li>
+<li><strong>ファイルと拡張子</strong>: テキストファイル（<code>.csv</code>, <code>.R</code>）とバイナリファイル（<code>.docx</code>, <code>.xlsx</code>）の違い</li>
+<li><strong>パス</strong>: 絶対パスと相対パス。<code>..</code> は「1つ上」。Rでは <code>/</code> を使う</li>
+<li><strong>文字コード</strong>: UTF-8を使う。Shift-JISは文字化けの原因</li>
+<li><strong>ファイル名</strong>: 半角英数字とアンダースコアだけ。日本語・スペースは避ける</li>
+<li><strong>コマンドライン</strong>: <code>pwd</code>, <code>ls</code>, <code>cd</code>, <code>mkdir</code>, <code>cp</code>, <code>mv</code>, <code>rm</code> などの基本操作</li>
+<li><strong>バージョン管理</strong>: ファイル名連番は非効率。Gitを使う（U22で詳しく学ぶ）</li>
+</ul>
+<p>次のU1（Rの基礎）では、RとRStudioのインストールと基本操作を学びます。</p>
+<!-- 進捗: C12/B6/A2 -->
+
+
+</section>
+
+</main> <!-- /main -->
+<script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  var t = document.getElementsByClassName("webex-total_correct");
+  for (var i = 0; i < t.length; i++) {
+    p = t[i].parentElement;
+    var correct = p.getElementsByClassName("webex-correct").length;
+    var solvemes = p.getElementsByClassName("webex-solveme").length;
+    var radiogroups = p.getElementsByClassName("webex-radiogroup").length;
+    var selects = p.getElementsByClassName("webex-select").length;
+
+    t[i].innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* check answers */
+check_func = function() {
+  console.log("webex: check answers");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('unchecked')) {
+    cl.remove("unchecked");
+    this.innerHTML = "Hide Answers";
+  } else {
+    cl.add("unchecked");
+    this.innerHTML = "Show Answers";
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+
+  var cl = this.classList
+
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("webex onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  var check_sections = document.getElementsByClassName("webex-check");
+  console.log("check:", check_sections.length);
+  for (var i = 0; i < check_sections.length; i++) {
+    check_sections[i].classList.add("unchecked");
+
+    let btn = document.createElement("button");
+    btn.innerHTML = "Show Answers";
+    btn.classList.add("webex-check-button");
+    btn.onclick = check_func;
+    check_sections[i].appendChild(btn);
+
+    let spn = document.createElement("span");
+    spn.classList.add("webex-total_correct");
+    check_sections[i].appendChild(spn);
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+
+    solveme[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+    selects[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  update_total_correct();
+}
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "コピーしました");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "コピーしました");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

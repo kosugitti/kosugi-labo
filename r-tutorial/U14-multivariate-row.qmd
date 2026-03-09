@@ -1,0 +1,566 @@
+---
+title: "U14. 多変量解析・行方向"
+format:
+  html:
+    css:
+      - ../include/webex.css
+    include-after-body: ../include/webex.js
+---
+
+```{r setup, include=FALSE}
+pacman::p_load(webexercises, tidyverse, ragg)
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE,
+                      dev = "ragg_png")
+```
+
+## ユニット概要
+
+| 項目 | 内容 |
+|------|------|
+| 分類 | 枝（選択） |
+| 前提 | U3（数学・行列の基礎） |
+| 次のユニット | U16（行と列をまたぐ分析） |
+| 使用データ | iris, psych::bfi |
+| 学習目標 | PCAと因子分析の違いを理解する / Rで主成分分析・因子分析を実行し結果を解釈できる / SEMの基本概念（確認的因子分析）を理解し実行できる |
+
+---
+
+## 事前知識
+
+### PCAと因子分析の違い
+
+多変量データから少数の要約変数を得る手法として、**主成分分析（PCA: Principal Component Analysis）** と **因子分析（FA: Factor Analysis）** があります。両者は似たような結果を返すことが多いですが、考え方が根本的に異なります。
+
+**主成分分析（PCA）** は **次元削減** の手法です。観測変数の線形結合として主成分を構成し、データの分散を最大限保持しながら次元を減らします。主成分は観測変数から計算される合成変数であり、モデルの仮定はありません。
+
+$$
+z_1 = a_{11} x_1 + a_{12} x_2 + \cdots + a_{1p} x_p
+$$
+
+**因子分析（FA）** は **潜在変数モデル** です。直接観測できない潜在因子（共通因子）が観測変数の背後にあると仮定し、その因子を推定します。因子分析では観測変数は因子の結果（原因→結果の方向）であり、独自分散（uniqueness）の存在を認めます。
+
+$$
+x_j = \lambda_{j1} f_1 + \lambda_{j2} f_2 + \cdots + \lambda_{jm} f_m + u_j
+$$
+
+| | PCA | 因子分析 |
+|---|---|---|
+| 目的 | 次元削減・要約 | 潜在構造の発見 |
+| 方向 | 観測 → 主成分 | 因子 → 観測 |
+| 分散 | 全分散を説明 | 共通分散のみ説明 |
+| 独自性 | なし | あり |
+| Rの関数 | `prcomp()` | `psych::fa()` |
+
+### 主成分分析（PCA）
+
+#### prcomp()による実行
+
+`prcomp()` は主成分分析を行うbase Rの関数です。引数 `scale. = TRUE` を指定すると、変数を標準化してから分析します（単位の異なる変数を扱う場合に推奨）。
+
+```{r}
+#| echo: true
+#| eval: true
+
+# irisの数値列で主成分分析
+pca_result <- prcomp(iris[, 1:4], scale. = TRUE)
+summary(pca_result)
+```
+
+出力の読み方:
+
+- `Standard deviation`: 各主成分の標準偏差（固有値の平方根）
+- `Proportion of Variance`: 各主成分が説明する分散の割合（寄与率）
+- `Cumulative Proportion`: 累積寄与率（第2主成分まで約96%を説明）
+
+#### スクリープロット
+
+固有値（各主成分の分散）を大きい順にプロットしたものを **スクリープロット（scree plot）** と呼びます。固有値が急激に減少する「肘（elbow）」の位置で主成分数を決定します。
+
+```{r}
+#| echo: true
+#| eval: true
+
+# スクリープロット
+eigenvalues <- pca_result$sdev^2
+tibble(
+  PC = paste0("PC", 1:length(eigenvalues)),
+  Eigenvalue = eigenvalues
+) %>%
+  dplyr::mutate(PC = forcats::fct_inorder(PC)) %>%
+  ggplot(aes(x = PC, y = Eigenvalue)) +
+  geom_col(fill = "steelblue") +
+  geom_line(aes(group = 1), linewidth = 1) +
+  geom_point(size = 3) +
+  geom_hline(yintercept = 1, linetype = "dashed", color = "red") +
+  labs(title = "スクリープロット（iris）",
+       x = "主成分", y = "固有値") +
+  theme_minimal()
+```
+
+赤い破線は固有値 = 1 の基準線です（カイザー基準: 固有値が1以上の主成分を採用する目安）。
+
+#### バイプロット
+
+**バイプロット（biplot）** は、個体の主成分得点と変数の負荷量を同時にプロットした図です。
+
+```{r}
+#| echo: true
+#| eval: true
+
+# バイプロット
+biplot(pca_result, scale = 0,
+       main = "バイプロット（iris）",
+       xlab = "PC1", ylab = "PC2")
+```
+
+矢印が長い変数ほど主成分との関連が強く、矢印同士が近い方向を向く変数は互いに相関が高いことを示します。
+
+### 因子分析
+
+#### psych::fa()による実行
+
+`psych::fa()` は因子分析を行う関数です。因子数 `nfactors`、回転法 `rotate`、推定法 `fm` を指定します。
+
+```{r}
+#| echo: true
+#| eval: true
+
+pacman::p_load(psych)
+
+# bfiデータの準備（欠損値を除去し、25項目を選択）
+bfi_data <- psych::bfi[complete.cases(psych::bfi), 1:25]
+```
+
+#### 因子数の決定: 平行分析
+
+因子数の決定には **平行分析（parallel analysis）** が推奨されます。ランダムデータから得られる固有値と実データの固有値を比較し、実データの固有値がランダムデータを上回る因子数を採用します。
+
+```{r}
+#| echo: true
+#| eval: true
+
+# 平行分析による因子数の決定
+psych::fa.parallel(bfi_data, fa = "fa", main = "平行分析（bfi）")
+```
+
+#### 因子分析の実行
+
+```{r}
+#| echo: true
+#| eval: true
+
+# 5因子・promax回転で因子分析
+fa_result <- psych::fa(bfi_data, nfactors = 5, rotate = "promax", fm = "ml")
+fa_result
+```
+
+出力の読み方:
+
+- `Standardized loadings`: 因子負荷量。各項目がどの因子にどの程度関連しているか
+- `h2`: 共通性（communality）。因子によって説明される分散の割合
+- `u2`: 独自性（uniqueness）。因子では説明されない分散の割合（$u2 = 1 - h2$）
+- `SS loadings`: 各因子が説明する分散の合計
+- `Proportion Var`: 各因子の寄与率
+
+#### 因子負荷量の可視化
+
+```{r}
+#| echo: true
+#| eval: true
+
+# 因子負荷量の可視化
+psych::fa.diagram(fa_result, main = "因子負荷量の構造図")
+```
+
+#### 回転の種類
+
+- **varimax回転（直交回転）**: 因子間の相関をゼロに保つ。解釈しやすいが現実にはやや制約が強い
+- **promax回転（斜交回転）**: 因子間の相関を許容する。心理学では因子間に相関があることが多いため、promaxが好まれる
+
+```{r}
+#| echo: true
+#| eval: true
+
+# varimax回転との比較
+fa_varimax <- psych::fa(bfi_data, nfactors = 5, rotate = "varimax", fm = "ml")
+
+# 因子間相関の比較
+# promax: 因子間相関あり
+fa_result$Phi
+```
+
+promax回転では因子間相関行列 `$Phi` が得られます。varimax回転では因子間相関はゼロ（単位行列）です。
+
+### 構造方程式モデリング（SEM）の概要
+
+**構造方程式モデリング（SEM: Structural Equation Modeling）** は、潜在変数と観測変数の関係を柔軟にモデル化する枠組みです。因子分析の拡張として、**確認的因子分析（CFA: Confirmatory Factor Analysis）** がSEMの基本形です。
+
+探索的因子分析（EFA）がデータ主導で因子構造を探索するのに対し、CFAは**事前に仮定した因子構造が妥当かどうかを検証**します。
+
+#### lavaan::cfa()による実行
+
+```{r}
+#| echo: true
+#| eval: true
+
+pacman::p_load(lavaan)
+
+# CFAモデルの指定: Agreeableness因子にA1~A5が負荷
+model <- 'A =~ A1 + A2 + A3 + A4 + A5'
+
+# CFAの実行
+cfa_result <- lavaan::cfa(model, data = bfi_data)
+summary(cfa_result, fit.measures = TRUE, standardized = TRUE)
+```
+
+出力の読み方:
+
+- `Latent Variables`: 潜在変数から観測変数への因子負荷量（`Estimate`）
+- `Std.all`: 標準化された因子負荷量（0.4以上が望ましい）
+- **適合度指標**: モデルがデータにどの程度適合しているか
+
+#### 主要な適合度指標
+
+| 指標 | 良好な基準 | 意味 |
+|------|-----------|------|
+| CFI（比較適合度指標） | 0.95以上 | 独立モデルと比較したモデルの改善度 |
+| RMSEA（近似誤差二乗平均平方根） | 0.06以下 | モデルの近似の悪さの指標 |
+| SRMR（標準化残差二乗平均平方根） | 0.08以下 | 観測相関と再現相関のずれ |
+
+これらの基準は目安であり、絶対的なものではありません。複数の指標を総合的に判断することが重要です。
+
+---
+
+## ランクC: 基礎知識
+
+### 14-C-1
+
+主成分分析（PCA）は、観測変数の背後に潜在因子を仮定するモデルである。
+
+`r torf(FALSE)`
+
+### 14-C-2
+
+主成分分析で固有値が大きい主成分ほど、データの分散を多く説明している。
+
+`r torf(TRUE)`
+
+### 14-C-3
+
+因子分析における回転の目的は何か。
+
+`r mcq(c("因子数を決定するため", answer = "因子負荷量のパターンを解釈しやすくするため", "因子得点を計算するため", "共通性を最大化するため"))`
+
+### 14-C-4
+
+因子負荷量が0.7のとき、その項目の共通性（$h^2$）はおよそいくらか（1因子の場合）。
+
+`r mcq(c("0.30", answer = "0.49", "0.70", "1.00"))`
+
+### 14-C-5
+
+CFI（比較適合度指標）が良好とされる一般的な基準はどれか。
+
+`r mcq(c("0.80以上", "0.90以上", answer = "0.95以上", "0.99以上"))`
+
+### 14-C-6
+
+スクリープロットで主成分数を決める際、固有値のグラフのどこに注目するか。
+
+`r mcq(c("固有値が最大の点", answer = "固有値が急に減少する肘（elbow）の位置", "固有値がゼロになる点", "グラフの右端"))`
+
+### 14-C-7
+
+因子分析における共通性（communality）とは何か。
+
+`r mcq(c("因子間の相関係数", answer = "共通因子によって説明される分散の割合", "すべての因子負荷量の合計", "独自因子の分散"))`
+
+### 14-C-8
+
+RMSEAが低い値であるほど、モデルの適合が良いことを示す。
+
+`r torf(TRUE)`
+
+---
+
+## ランクB: 実践スキル
+
+### 14-B-1
+
+`iris` データの数値4変数に対して `prcomp(scale. = TRUE)` で主成分分析を行い、`summary()` で結果を確認しなさい。第1主成分と第2主成分の累積寄与率を読み取ること。
+
+`r hide("模範解答")`
+
+```{r}
+#| eval: true
+
+pca_iris <- prcomp(iris[, 1:4], scale. = TRUE)
+summary(pca_iris)
+```
+
+- 第1主成分の寄与率: 約73%
+- 第1・第2主成分の累積寄与率: 約96%
+- 2つの主成分でデータの分散のほとんどを説明できることがわかります
+
+第1主成分の負荷量（回転行列）を確認すると:
+
+```{r}
+#| eval: true
+
+pca_iris$rotation
+```
+
+PC1は Petal.Length と Petal.Width に大きな正の負荷を持ち、花の「大きさ」を表す総合指標と解釈できます。
+
+`r unhide()`
+
+### 14-B-2
+
+14-B-1の結果を使って、ggplot2でスクリープロットを作成しなさい。固有値 = 1 の基準線も描くこと。
+
+`r hide("模範解答")`
+
+```{r}
+#| eval: true
+
+eigenvalues <- pca_iris$sdev^2
+
+tibble(
+  PC = paste0("PC", seq_along(eigenvalues)),
+  Eigenvalue = eigenvalues
+) %>%
+  dplyr::mutate(PC = forcats::fct_inorder(PC)) %>%
+  ggplot(aes(x = PC, y = Eigenvalue)) +
+  geom_col(fill = "steelblue", alpha = 0.7) +
+  geom_line(aes(group = 1), linewidth = 1) +
+  geom_point(size = 3) +
+  geom_hline(yintercept = 1, linetype = "dashed", color = "red") +
+  labs(title = "スクリープロット（iris）",
+       x = "主成分", y = "固有値") +
+  theme_minimal()
+```
+
+カイザー基準（固有値 > 1）では第1主成分のみが採用されますが、スクリープロットの肘の位置からは2主成分が妥当とも判断できます。
+
+`r unhide()`
+
+### 14-B-3
+
+`psych::bfi` データ（欠損値除去後の25項目）に対して `psych::fa.parallel()` を実行し、推奨される因子数を確認しなさい。
+
+`r hide("模範解答")`
+
+```{r}
+#| eval: true
+
+bfi_data <- psych::bfi[complete.cases(psych::bfi), 1:25]
+
+psych::fa.parallel(bfi_data, fa = "fa",
+                   main = "平行分析による因子数の決定（bfi）")
+```
+
+平行分析の結果、5因子または6因子が示唆されます。bfiデータはBig Five（外向性、協調性、誠実性、神経症傾向、開放性）の5因子を想定して設計されているため、5因子が理論的にも妥当です。
+
+`r unhide()`
+
+### 14-B-4
+
+bfiデータに対して5因子のvarimax回転とpromax回転をそれぞれ実行し、因子負荷量のパターンを比較しなさい。
+
+`r hide("模範解答")`
+
+```{r}
+#| eval: true
+
+# varimax回転
+fa_varimax <- psych::fa(bfi_data, nfactors = 5, rotate = "varimax", fm = "ml")
+
+# promax回転
+fa_promax <- psych::fa(bfi_data, nfactors = 5, rotate = "promax", fm = "ml")
+
+# varimax回転の因子負荷量（上位の負荷量のみ表示）
+psych::print.psych(fa_varimax, cut = 0.3, sort = TRUE)
+```
+
+```{r}
+#| eval: true
+
+# promax回転の因子負荷量
+psych::print.psych(fa_promax, cut = 0.3, sort = TRUE)
+```
+
+```{r}
+#| eval: true
+
+# promax回転の因子間相関
+fa_promax$Phi
+```
+
+promax回転では因子間に相関が認められます。varimax回転は因子間の独立性を仮定するため、心理学データでは非現実的な場合があります。
+
+`r unhide()`
+
+### 14-B-5
+
+promax回転の因子分析結果から、因子得点（factor scores）を抽出し、最初の6行を表示しなさい。
+
+`r hide("模範解答")`
+
+```{r}
+#| eval: true
+
+fa_promax <- psych::fa(bfi_data, nfactors = 5, rotate = "promax",
+                       fm = "ml", scores = "regression")
+
+# 因子得点の抽出
+factor_scores <- fa_promax$scores
+
+# 最初の6行を表示
+head(factor_scores)
+```
+
+因子得点は各個体の各因子上での位置を表します。これを後続の分析（クラスタ分析、回帰分析の説明変数など）に利用できます。
+
+`r unhide()`
+
+### 14-B-6
+
+lavaan パッケージを使って、bfiデータの Agreeableness 項目（A1〜A5）に対する確認的因子分析を実行し、適合度指標を確認しなさい。
+
+`r hide("模範解答")`
+
+```{r}
+#| eval: true
+
+pacman::p_load(lavaan)
+
+# CFAモデルの指定
+model <- 'A =~ A1 + A2 + A3 + A4 + A5'
+
+# CFAの実行
+cfa_result <- lavaan::cfa(model, data = bfi_data)
+
+# 結果の要約（適合度指標と標準化推定値を含む）
+summary(cfa_result, fit.measures = TRUE, standardized = TRUE)
+```
+
+適合度指標の解釈:
+
+- CFI: 0.95以上なら良好
+- RMSEA: 0.06以下なら良好、信頼区間も確認
+- SRMR: 0.08以下なら良好
+
+5項目1因子モデルの適合度を総合的に判断してください。
+
+`r unhide()`
+
+### 14-B-7
+
+14-B-6のCFAの結果をパス図で可視化しなさい。`semPlot::semPaths()` を使うこと（未インストールの場合は `install.packages("semPlot")` で導入）。
+
+`r hide("模範解答")`
+
+```{r}
+#| eval: false
+
+pacman::p_load(semPlot)
+
+# パス図の描画
+semPlot::semPaths(cfa_result,
+                  what = "std",          # 標準化推定値を表示
+                  layout = "tree",       # ツリー型レイアウト
+                  edge.label.cex = 1.2,  # パス係数のフォントサイズ
+                  sizeMan = 8,           # 観測変数ノードのサイズ
+                  sizeLat = 10,          # 潜在変数ノードのサイズ
+                  style = "lisrel",      # LISRELスタイル
+                  nCharNodes = 3,        # ノードラベルの文字数
+                  title = TRUE)
+title("CFA: Agreeableness 1因子モデル")
+```
+
+パス図では、楕円が潜在変数（因子）、四角が観測変数、矢印の上の数値が標準化された因子負荷量を表します。`semPlot` パッケージがインストールされていない場合は、上記コードを実行する前に `install.packages("semPlot")` を実行してください。
+
+`r unhide()`
+
+### 14-B-8
+
+irisの数値4変数に対してPCAと因子分析（1因子）の結果を比較しなさい。PCAの第1主成分の負荷量と、因子分析の因子負荷量の値を並べて確認すること。
+
+`r hide("模範解答")`
+
+```{r}
+#| eval: true
+
+# PCA
+pca_iris <- prcomp(iris[, 1:4], scale. = TRUE)
+
+# 因子分析（1因子）
+fa_iris <- psych::fa(iris[, 1:4], nfactors = 1, rotate = "none", fm = "ml")
+
+# 比較表の作成
+comparison <- tibble(
+  Variable = colnames(iris[, 1:4]),
+  PCA_PC1 = pca_iris$rotation[, 1],
+  FA_F1 = as.numeric(fa_iris$loadings[, 1])
+)
+comparison
+```
+
+PCAの負荷量と因子分析の因子負荷量は似た傾向を示しますが、値は異なります。PCAは全分散を対象にし、因子分析は共通分散のみを対象にするためです。特に共通性（communality）の低い変数では差が大きくなります。
+
+```{r}
+#| eval: true
+
+# 共通性の確認
+tibble(
+  Variable = colnames(iris[, 1:4]),
+  Communality = as.numeric(fa_iris$communalities),
+  Uniqueness = as.numeric(fa_iris$uniquenesses)
+)
+```
+
+`r unhide()`
+
+---
+
+## ランクA: AI協働
+
+### 14-A-1
+
+`psych::bfi` データ（または自分が興味のあるデータ）を使い、生成AIと協力して以下の因子分析の全工程を設計・実行してください。
+
+1. AIに「このデータに適切な因子数は何か」を相談し、平行分析の結果と合わせて判断する
+2. 因子分析を実行し、AIに因子負荷量の解釈を手伝ってもらう（どの項目がどの因子に負荷しているか、因子に名前を付ける）
+3. 回転法の選択理由をAIに説明してもらう
+4. 因子得点を算出し、因子間の散布図を描く
+5. AIの解釈に対して、自分の知識と照らし合わせて批判的に検討する
+
+AIの提案を **必ず自分で実行して確認** すること。AIが提案した因子名が心理学的に妥当か、自分でも考えてみましょう。
+
+### 14-A-2
+
+bfiデータの5因子モデルについて、生成AIと協力して測定モデルの評価を行ってください。
+
+1. lavaanで5因子CFAモデルを指定する（A1-A5, C1-C5, E1-E5, N1-N5, O1-O5の各5項目が対応する因子に負荷）
+2. モデルを推定し、適合度指標を確認する
+3. 適合度が不十分な場合、AIに「どう改善すべきか」を相談する（例: 修正指標の活用、項目の削除、相関誤差の追加）
+4. 改善前後のモデルを比較し、結果を報告する
+
+注意: AIの提案をすべて受け入れるのではなく、理論的に正当化できるかどうかを自分で判断してください。
+
+---
+
+## まとめ
+
+このユニットで学んだこと:
+
+- **PCAと因子分析の違い**: PCAは次元削減（データ要約）、因子分析は潜在変数モデル（構造の発見）。目的に応じて使い分ける
+- **主成分分析**: `prcomp()` で実行。スクリープロットで主成分数を判断し、バイプロットで解釈する
+- **因子分析**: `psych::fa()` で実行。平行分析で因子数を決定し、回転後の因子負荷量で構造を解釈する
+- **回転法**: varimax（直交）は因子間独立を仮定、promax（斜交）は因子間相関を許容。心理学データではpromaxが一般的
+- **確認的因子分析（CFA）**: `lavaan::cfa()` で実行。事前に仮定した構造が妥当かを適合度指標（CFI, RMSEA, SRMR）で評価する
+- **共通性と独自性**: 因子分析特有の概念。PCAにはない
+
+次のステップとして、U15（多変量解析・列方向: クラスタリング、MDS等）やU16（行と列をまたぐ分析: バイプロット、対応分析等）に進んでみましょう。
+
+<!-- 進捗: C8/B8/A2 -->

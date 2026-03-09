@@ -1,0 +1,1392 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>U1. Rの基礎 – Kosugi Labo</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-a25750924116104412f7a457768fb952.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "一致なし",
+    "search-matching-documents-text": "一致した文書",
+    "search-copy-link-title": "検索へのリンクをコピー",
+    "search-hide-matches-text": "追加の検索結果を非表示",
+    "search-more-match-text": "追加の検索結果",
+    "search-more-matches-text": "追加の検索結果",
+    "search-clear-button-title": "消去",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "検索",
+    "search-label": "サーチ"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../include/webex.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Kosugi Labo</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="サーチ"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="ナビゲーションを切り替える" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">ホーム</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">ゼミガイド</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-">    
+        <li>
+    <a class="dropdown-item" href="../zemi-policy.html">
+ <span class="dropdown-text">ゼミの運営方針</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../research-guide.html">
+ <span class="dropdown-text">研究の進め方</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../writing-guide.html">
+ <span class="dropdown-text">文章の読み書き</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../anti-harassment.html">
+ <span class="dropdown-text">アンチハラスメントポリシー</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu--1" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">技術ガイド</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu--1">    
+        <li>
+    <a class="dropdown-item" href="../tech-guide/github-setup.html">
+ <span class="dropdown-text">GitHub</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tech-guide/vscode-setup.html">
+ <span class="dropdown-text">VSCode</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tech-guide/latex-setup.html">
+ <span class="dropdown-text">LaTeX</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tech-guide/ssh-remote.html">
+ <span class="dropdown-text">SSH接続</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tech-guide/tailscale.html">
+ <span class="dropdown-text">Tailscale</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-rチュートリアル" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Rチュートリアル</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-rチュートリアル">    
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/index.html">
+ <span class="dropdown-text">はじめに</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/r-basics.html">
+ <span class="dropdown-text">Rの基礎</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/data-handling.html">
+ <span class="dropdown-text">データの読み込み</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/tidyverse.html">
+ <span class="dropdown-text">tidyverse入門</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/visualization.html">
+ <span class="dropdown-text">可視化ギャラリー</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U1-r-basics.html">
+ <span class="dropdown-text">U1. Rの基礎</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U2-data-types.html">
+ <span class="dropdown-text">U2. データ型とオブジェクト</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U7-dplyr.html">
+ <span class="dropdown-text">U7. dplyr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U8-tidyr.html">
+ <span class="dropdown-text">U8. tidyr</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../members.html"> 
+<span class="menu-text">メンバー</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../server-status.html"> 
+<span class="menu-text">サーバー状況</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../feedback.html"> 
+<span class="menu-text">フィードバック</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">目次</h2>
+   
+  <ul>
+  <li><a href="#ユニット概要" id="toc-ユニット概要" class="nav-link active" data-scroll-target="#ユニット概要">ユニット概要</a></li>
+  <li><a href="#事前知識-rとrstudio" id="toc-事前知識-rとrstudio" class="nav-link" data-scroll-target="#事前知識-rとrstudio">事前知識: RとRStudio</a>
+  <ul class="collapse">
+  <li><a href="#rとは" id="toc-rとは" class="nav-link" data-scroll-target="#rとは">Rとは</a></li>
+  <li><a href="#rstudioとは" id="toc-rstudioとは" class="nav-link" data-scroll-target="#rstudioとは">RStudioとは</a></li>
+  <li><a href="#rstudioの4つのペイン" id="toc-rstudioの4つのペイン" class="nav-link" data-scroll-target="#rstudioの4つのペイン">RStudioの4つのペイン</a></li>
+  <li><a href="#プロジェクト" id="toc-プロジェクト" class="nav-link" data-scroll-target="#プロジェクト">プロジェクト</a></li>
+  <li><a href="#パッケージ" id="toc-パッケージ" class="nav-link" data-scroll-target="#パッケージ">パッケージ</a></li>
+  <li><a href="#ヘルプの使い方" id="toc-ヘルプの使い方" class="nav-link" data-scroll-target="#ヘルプの使い方">ヘルプの使い方</a></li>
+  </ul></li>
+  <li><a href="#ランクc-基礎知識を確認しよう" id="toc-ランクc-基礎知識を確認しよう" class="nav-link" data-scroll-target="#ランクc-基礎知識を確認しよう">ランクC: 基礎知識を確認しよう</a>
+  <ul class="collapse">
+  <li><a href="#c-1" id="toc-c-1" class="nav-link" data-scroll-target="#c-1">1-C-1</a></li>
+  <li><a href="#c-2" id="toc-c-2" class="nav-link" data-scroll-target="#c-2">1-C-2</a></li>
+  <li><a href="#c-3" id="toc-c-3" class="nav-link" data-scroll-target="#c-3">1-C-3</a></li>
+  <li><a href="#c-4" id="toc-c-4" class="nav-link" data-scroll-target="#c-4">1-C-4</a></li>
+  <li><a href="#c-5" id="toc-c-5" class="nav-link" data-scroll-target="#c-5">1-C-5</a></li>
+  <li><a href="#c-6" id="toc-c-6" class="nav-link" data-scroll-target="#c-6">1-C-6</a></li>
+  <li><a href="#c-7" id="toc-c-7" class="nav-link" data-scroll-target="#c-7">1-C-7</a></li>
+  <li><a href="#c-8" id="toc-c-8" class="nav-link" data-scroll-target="#c-8">1-C-8</a></li>
+  <li><a href="#c-9" id="toc-c-9" class="nav-link" data-scroll-target="#c-9">1-C-9</a></li>
+  <li><a href="#c-10" id="toc-c-10" class="nav-link" data-scroll-target="#c-10">1-C-10</a></li>
+  <li><a href="#c-11" id="toc-c-11" class="nav-link" data-scroll-target="#c-11">1-C-11</a></li>
+  <li><a href="#c-12" id="toc-c-12" class="nav-link" data-scroll-target="#c-12">1-C-12</a></li>
+  </ul></li>
+  <li><a href="#ランクb-実践スキルを磨こう" id="toc-ランクb-実践スキルを磨こう" class="nav-link" data-scroll-target="#ランクb-実践スキルを磨こう">ランクB: 実践スキルを磨こう</a>
+  <ul class="collapse">
+  <li><a href="#b-1" id="toc-b-1" class="nav-link" data-scroll-target="#b-1">1-B-1</a></li>
+  <li><a href="#b-2" id="toc-b-2" class="nav-link" data-scroll-target="#b-2">1-B-2</a></li>
+  <li><a href="#b-3" id="toc-b-3" class="nav-link" data-scroll-target="#b-3">1-B-3</a></li>
+  <li><a href="#b-4" id="toc-b-4" class="nav-link" data-scroll-target="#b-4">1-B-4</a></li>
+  <li><a href="#b-5" id="toc-b-5" class="nav-link" data-scroll-target="#b-5">1-B-5</a></li>
+  </ul></li>
+  <li><a href="#ランクa-ai協働に挑戦しよう" id="toc-ランクa-ai協働に挑戦しよう" class="nav-link" data-scroll-target="#ランクa-ai協働に挑戦しよう">ランクA: AI協働に挑戦しよう</a>
+  <ul class="collapse">
+  <li><a href="#a-1" id="toc-a-1" class="nav-link" data-scroll-target="#a-1">1-A-1</a></li>
+  <li><a href="#a-2" id="toc-a-2" class="nav-link" data-scroll-target="#a-2">1-A-2</a></li>
+  </ul></li>
+  <li><a href="#まとめ" id="toc-まとめ" class="nav-link" data-scroll-target="#まとめ">まとめ</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">U1. Rの基礎</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="ユニット概要" class="level2">
+<h2 class="anchored" data-anchor-id="ユニット概要">ユニット概要</h2>
+<p><strong>分類</strong>: 幹（全員必須）</p>
+<p><strong>依存関係</strong>: U0 → <strong>U1</strong></p>
+<p><strong>学習目標</strong>:</p>
+<ul>
+<li>RStudioの4つのペインの役割を理解する</li>
+<li>プロジェクトを作成し、作業フォルダを管理できる</li>
+<li>パッケージのインストールと読み込みの違いを理解する</li>
+<li>ヘルプを使って関数の使い方を調べられる</li>
+<li>オブジェクトへの代入と基本的な計算ができる</li>
+<li>コメントとセクション区切りを活用できる</li>
+</ul>
+<hr>
+</section>
+<section id="事前知識-rとrstudio" class="level2">
+<h2 class="anchored" data-anchor-id="事前知識-rとrstudio">事前知識: RとRStudio</h2>
+<section id="rとは" class="level3">
+<h3 class="anchored" data-anchor-id="rとは">Rとは</h3>
+<p>Rは統計に特化したプログラミング言語です。フリーソフトウェアであり、誰でも無償で利用できます。心理学をはじめ、統計を使うあらゆる学問領域で広く使われています。</p>
+<p>Rは<a href="https://cran.r-project.org/">CRAN（The Comprehensive R Archive Network）</a>で公開されています。自分のOSに合った最新版をダウンロードしてインストールしてください。</p>
+</section>
+<section id="rstudioとは" class="level3">
+<h3 class="anchored" data-anchor-id="rstudioとは">RStudioとは</h3>
+<p>RStudioは統合開発環境（IDE）です。R単体でも分析は可能ですが、RStudioを使うことでスクリプトの編集、ファイル管理、パッケージ管理、ヘルプの参照などが効率的に行えます。</p>
+<p>料理に喩えるなら、R単体は包丁・まな板・コンロだけで調理するようなもの。RStudioは広い調理スペース、使いやすいシンク、便利な調理器具が揃ったキッチンです。</p>
+<p><a href="https://posit.co/download/rstudio-desktop/">Posit社のサイト</a>からDesktop版をインストールしてください。</p>
+</section>
+<section id="rstudioの4つのペイン" class="level3">
+<h3 class="anchored" data-anchor-id="rstudioの4つのペイン">RStudioの4つのペイン</h3>
+<p>RStudioを起動すると、画面は4つの領域（<strong>ペイン</strong>）に分かれています。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 57%">
+<col style="width: 42%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>ペイン</th>
+<th>役割</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>エディタ（ソース）</strong></td>
+<td>スクリプトや文書を書く場所。Runボタン（またはCtrl/Cmd+Enter）でコンソールに送って実行する</td>
+</tr>
+<tr class="even">
+<td><strong>コンソール</strong></td>
+<td>R本体。コマンドを受け取り、計算結果を返す。プロンプト（<code>&gt;</code>）が入力待ちの印</td>
+</tr>
+<tr class="odd">
+<td><strong>環境（Environment）</strong></td>
+<td>現在メモリ上にあるオブジェクト（変数や関数）の一覧。Historyタブでコマンド履歴も見られる</td>
+</tr>
+<tr class="even">
+<td><strong>ファイル/プロット/ヘルプ</strong></td>
+<td>Filesタブでフォルダ操作、Plotsタブで描画結果、Packagesタブでパッケージ管理、Helpタブでヘルプ参照</td>
+</tr>
+</tbody>
+</table>
+<p>ペインのレイアウトは Tools &gt; Global Options &gt; Pane Layout から変更できます。</p>
+</section>
+<section id="プロジェクト" class="level3">
+<h3 class="anchored" data-anchor-id="プロジェクト">プロジェクト</h3>
+<p>RStudioには<strong>プロジェクト</strong>という仕組みがあり、分析に必要なファイルをフォルダ単位で管理できます。プロジェクトを開くと、<strong>作業フォルダ（Working Directory）</strong>が自動的にそのフォルダに設定されます。</p>
+<p>作業フォルダとは、Rが「今どこで作業しているか」を表す場所です。データファイルを読み込むとき、作業フォルダ内のファイルならファイル名だけで指定できますが、別の場所にあるファイルはパス（場所の指定）が必要になります。</p>
+<p>新しいプロジェクトは File &gt; New Project、既存のプロジェクトは File &gt; Open Project（または<code>.Rproj</code>ファイルのダブルクリック）で開けます。</p>
+</section>
+<section id="パッケージ" class="level3">
+<h3 class="anchored" data-anchor-id="パッケージ">パッケージ</h3>
+<p>R単体でも基本的な分析は可能ですが、より高度な分析には<strong>パッケージ</strong>（関数群）を導入します。CRANで公開されているパッケージだけでも数万件あります。</p>
+<p>パッケージの利用は2ステップです：</p>
+<ol type="1">
+<li><strong>インストール</strong>（ダウンロード）: <code>install.packages("パッケージ名")</code> — 一度だけでOK</li>
+<li><strong>読み込み</strong>（有効化）: <code>library(パッケージ名)</code> — Rを起動するたびに必要</li>
+</ol>
+<p>本ゼミでは<code>pacman</code>パッケージの<code>p_load()</code>関数を使います。これはインストールされていなければ自動でインストールし、読み込みまで一括で行ってくれます。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pacmanだけは先にインストールしておく</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"pacman"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 以降はp_loadで読み込み（未インストールなら自動インストール）</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse, psych)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="ヘルプの使い方" class="level3">
+<h3 class="anchored" data-anchor-id="ヘルプの使い方">ヘルプの使い方</h3>
+<p>関数の使い方がわからないときは、ヘルプを参照します。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">help</span>(<span class="st">"mean"</span>)   <span class="co"># mean関数のヘルプを表示</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>?mean           <span class="co"># 同じ意味の省略形</span></span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<p>ヘルプには以下の情報が記載されています：</p>
+<ul>
+<li><strong>Description</strong>: 関数の概要</li>
+<li><strong>Usage</strong>: 引数の書き方</li>
+<li><strong>Arguments</strong>: 各引数の意味</li>
+<li><strong>Value</strong>: 戻り値（返される結果）</li>
+<li><strong>Examples</strong>: 使用例</li>
+</ul>
+<p>ヘルプの末尾にある「Package」を見ると、その関数がどのパッケージに含まれているかがわかります。</p>
+<hr>
+</section>
+</section>
+<section id="ランクc-基礎知識を確認しよう" class="level2">
+<h2 class="anchored" data-anchor-id="ランクc-基礎知識を確認しよう">ランクC: 基礎知識を確認しよう</h2>
+<section id="c-1" class="level3">
+<h3 class="anchored" data-anchor-id="c-1">1-C-1</h3>
+<p>RStudioの「コンソール」ペインは、スクリプトを書くための場所である。</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">TRUE</option><option value="answer">FALSE</option></select></p>
+<div class="webex-solution">
+<button>
+解説
+</button>
+<p>スクリプトを書くのは<strong>エディタ（ソース）</strong>ペインです。コンソールはR本体であり、コマンドを受け取って結果を返す場所です。エディタに書いたコードをRunボタン（Ctrl/Cmd+Enter）でコンソールに送って実行します。</p>
+</div>
+<hr>
+</section>
+<section id="c-2" class="level3">
+<h3 class="anchored" data-anchor-id="c-2">1-C-2</h3>
+<p>RStudioの「Environment」タブには何が表示されますか？</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">ファイル一覧</option><option value="">コマンド履歴</option><option value="answer">現在メモリ上にあるオブジェクト</option><option value="">パッケージ一覧</option></select></p>
+<div class="webex-solution">
+<button>
+解説
+</button>
+<p>Environmentタブには、Rが現在保持している変数や関数などのオブジェクトが表示されます。ファイル一覧はFilesタブ、コマンド履歴はHistoryタブ、パッケージ一覧はPackagesタブです。</p>
+</div>
+<hr>
+</section>
+<section id="c-3" class="level3">
+<h3 class="anchored" data-anchor-id="c-3">1-C-3</h3>
+<p>Rのパッケージは一度インストールすれば、Rを再起動しても自動的に読み込まれる。</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">TRUE</option><option value="answer">FALSE</option></select></p>
+<div class="webex-solution">
+<button>
+解説
+</button>
+<p>インストールは一度でOKですが、<strong>読み込み（<code>library()</code>）はRを起動するたびに必要</strong>です。インストールはPCにダウンロードする作業、読み込みはRのメモリに展開する作業です。<code>pacman::p_load()</code>を使えば、インストールと読み込みを一括で行えます。</p>
+</div>
+<hr>
+</section>
+<section id="c-4" class="level3">
+<h3 class="anchored" data-anchor-id="c-4">1-C-4</h3>
+<p><code>#</code>で始まる行はどのように扱われますか？</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">エラーになる</option><option value="">特別な関数として実行される</option><option value="answer">コメントとして無視される</option><option value="">見出しとして表示される</option></select></p>
+<div class="webex-solution">
+<button>
+解説
+</button>
+<p><code>#</code>以降はコメントアウトされ、Rは実行しません。スクリプトに「今何をしているか」のメモを書くために使います。複数行を一括でコメントアウトするショートカットは<code>Ctrl+Shift+C</code>（Mac: <code>Cmd+Shift+C</code>）です。</p>
+</div>
+<hr>
+</section>
+<section id="c-5" class="level3">
+<h3 class="anchored" data-anchor-id="c-5">1-C-5</h3>
+<p>Rで代入に使う記号はどれですか？</p>
+<p><select class="webex-select"><option value="blank"></option><option value="answer">&lt;-</option><option value="">=&gt;</option><option value="">:=</option><option value="">&lt;&lt;</option></select></p>
+<div class="webex-solution">
+<button>
+解説
+</button>
+<p><code>&lt;-</code>（小なり + ハイフン）が代入演算子です。左矢印のイメージで、右辺の値を左辺のオブジェクトに代入します。<code>=</code>でも代入できますが、Rの慣習として<code>&lt;-</code>が推奨されます。RStudioでは<code>Alt+-</code>（Mac: <code>Option+-</code>）がショートカットです。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">10</span>   <span class="co"># xに10を代入</span></span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<hr>
+</section>
+<section id="c-6" class="level3">
+<h3 class="anchored" data-anchor-id="c-6">1-C-6</h3>
+<p>RStudioの「プロジェクト」を開くと自動的に設定されるものは何ですか？</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">パッケージの読み込み</option><option value="answer">作業フォルダ（Working Directory）</option><option value="">スクリプトの実行</option><option value="">データの読み込み</option></select></p>
+<div class="webex-solution">
+<button>
+解説
+</button>
+<p>プロジェクトを開くと、そのプロジェクトフォルダが<strong>作業フォルダ（Working Directory）</strong>に設定されます。これにより、フォルダ内のファイルをファイル名だけで参照できます。パッケージの読み込みやスクリプトの実行は自動では行われません。</p>
+</div>
+<hr>
+</section>
+<section id="c-7" class="level3">
+<h3 class="anchored" data-anchor-id="c-7">1-C-7</h3>
+<p><code>help("sqrt")</code>と<code>?sqrt</code>は同じ意味である。</p>
+<p><select class="webex-select"><option value="blank"></option><option value="answer">TRUE</option><option value="">FALSE</option></select></p>
+<div class="webex-solution">
+<button>
+解説
+</button>
+<p>どちらも<code>sqrt</code>関数のヘルプを表示します。<code>?関数名</code>は<code>help("関数名")</code>の省略形です。ヘルプにはDescription（概要）、Usage（使い方）、Arguments（引数）、Value（戻り値）、Examples（使用例）などが記載されています。</p>
+</div>
+<hr>
+</section>
+<section id="c-8" class="level3">
+<h3 class="anchored" data-anchor-id="c-8">1-C-8</h3>
+<p>既にオブジェクトに値が入っている状態で、同じオブジェクトに別の値を代入するとどうなりますか？</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">エラーになる</option><option value="">警告が表示される</option><option value="answer">警告なしに上書きされる</option><option value="">2つ目の値が無視される</option></select></p>
+<div class="webex-solution">
+<button>
+解説
+</button>
+<p>Rでは<strong>警告なしに上書き</strong>されます。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">7</span>   <span class="co"># xは7になる（元の3は失われる）</span></span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<p>似たようなオブジェクト名を使い回していると、本来意図していた値と違うものが入っていることがあります。Environmentタブで確認する習慣をつけましょう。</p>
+</div>
+<hr>
+</section>
+<section id="c-9" class="level3">
+<h3 class="anchored" data-anchor-id="c-9">1-C-9</h3>
+<p>次のうち、オブジェクト名として使えるものはどれですか？</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">2data</option><option value="">TRUE</option><option value="answer">my_data</option><option value="">for</option></select></p>
+<div class="webex-solution">
+<button>
+解説
+</button>
+<p><code>2data</code>は数字で始まるため不可。<code>TRUE</code>と<code>for</code>はRの<strong>予約語</strong>なので使えません。<code>my_data</code>のようにアルファベットやアンダースコアで構成された名前が使えます。</p>
+<p>予約語の例：<code>if</code>, <code>else</code>, <code>for</code>, <code>while</code>, <code>function</code>, <code>TRUE</code>, <code>FALSE</code>, <code>NULL</code>, <code>NA</code>, <code>NaN</code>, <code>Inf</code>, <code>break</code>, <code>next</code>, <code>repeat</code>, <code>return</code></p>
+</div>
+<hr>
+</section>
+<section id="c-10" class="level3">
+<h3 class="anchored" data-anchor-id="c-10">1-C-10</h3>
+<p><code>pacman::p_load(tidyverse)</code>の<code>パッケージ名::関数名</code>という書き方は何を意味していますか？</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">パッケージをインストールする</option><option value="answer">指定したパッケージの関数であることを明示する</option><option value="">パッケージを削除する</option><option value="">パッケージのバージョンを指定する</option></select></p>
+<div class="webex-solution">
+<button>
+解説
+</button>
+<p><code>パッケージ名::関数名</code>は、その関数がどのパッケージに属するかを明示する書き方です。異なるパッケージに同名の関数がある場合（例: <code>dplyr::filter</code>と<code>stats::filter</code>）、どちらを使うか区別するために重要です。</p>
+</div>
+<hr>
+</section>
+<section id="c-11" class="level3">
+<h3 class="anchored" data-anchor-id="c-11">1-C-11</h3>
+<p>Rのコンソールに<code>&gt;</code>ではなく<code>+</code>が表示されている場合、何を意味していますか？</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">計算中である</option><option value="">エラーが発生した</option><option value="answer">前の行の入力が完了していない</option><option value="">新しいパッケージが読み込まれた</option></select></p>
+<div class="webex-solution">
+<button>
+解説
+</button>
+<p><code>+</code>は、前の行の入力がまだ完了していないことを表します。たとえばカッコやクォーテーションが閉じられていない場合に表示されます。この状態を抜けるには、入力を完成させるか、<code>Esc</code>キーを押してキャンセルします。</p>
+</div>
+<hr>
+</section>
+<section id="c-12" class="level3">
+<h3 class="anchored" data-anchor-id="c-12">1-C-12</h3>
+<p>エディタペインに書いたスクリプトを実行するショートカットキーはどれですか？</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">Ctrl+S / Cmd+S</option><option value="">Ctrl+R / Cmd+R</option><option value="answer">Ctrl+Enter / Cmd+Enter</option><option value="">Ctrl+Shift+Enter / Cmd+Shift+Enter</option></select></p>
+<div class="webex-solution">
+<button>
+解説
+</button>
+<p><code>Ctrl+Enter</code>（Mac: <code>Cmd+Enter</code>）で、カーソルのある行（または選択範囲）をコンソールに送って実行します。<code>Ctrl+Shift+Enter</code>はスクリプト全体を実行する<code>Source</code>に対応します。<code>Ctrl+S</code>はファイル保存です。</p>
+</div>
+<hr>
+</section>
+</section>
+<section id="ランクb-実践スキルを磨こう" class="level2">
+<h2 class="anchored" data-anchor-id="ランクb-実践スキルを磨こう">ランクB: 実践スキルを磨こう</h2>
+<section id="b-1" class="level3">
+<h3 class="anchored" data-anchor-id="b-1">1-B-1</h3>
+<p>Rで以下の計算を実行してください。</p>
+<ol type="1">
+<li><span class="math inline">\(\frac{5}{6} + \frac{1}{3}\)</span></li>
+<li><span class="math inline">\((-2)^4\)</span></li>
+<li><span class="math inline">\(2\sqrt{2} \times \sqrt{3}\)</span></li>
+</ol>
+<div class="webex-solution">
+<button>
+ヒント
+</button>
+<p>Rでは<code>/</code>が割り算、<code>^</code>が冪乗、<code>sqrt()</code>が平方根です。</p>
+</div>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 5/6 + 1/3</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span><span class="sc">/</span><span class="dv">6</span> <span class="sc">+</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. (-2)^4</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>(<span class="sc">-</span><span class="dv">2</span>)<span class="sc">^</span><span class="dv">4</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 2*sqrt(2) * sqrt(3)</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="dv">2</span>) <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="dv">3</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>結果：</p>
+<ul>
+<li><code>5/6 + 1/3</code> → <code>1.166667</code></li>
+<li><code>(-2)^4</code> → <code>16</code></li>
+<li><code>2 * sqrt(2) * sqrt(3)</code> → <code>4.898979</code></li>
+</ul>
+</div>
+<hr>
+</section>
+<section id="b-2" class="level3">
+<h3 class="anchored" data-anchor-id="b-2">1-B-2</h3>
+<p>オブジェクト<code>x</code>に<code>10</code>を、<code>y</code>に<code>3</code>を代入してください。その後、<code>x + y</code>、<code>x * y</code>、<code>x %% y</code>（余り）を計算してください。</p>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>x <span class="sc">+</span> y    <span class="co"># 13</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>x <span class="sc">*</span> y    <span class="co"># 30</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>x <span class="sc">%%</span> y   <span class="co"># 1（10を3で割った余り）</span></span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><code>%%</code>は剰余（余り）を求める演算子です。<code>%/%</code>は整数除算（商の整数部分）を返します。</p>
+</div>
+<hr>
+</section>
+<section id="b-3" class="level3">
+<h3 class="anchored" data-anchor-id="b-3">1-B-3</h3>
+<p><code>sqrt</code>関数のヘルプを表示してください。ヘルプの中から以下を確認してください：</p>
+<ul>
+<li>この関数はどのパッケージに含まれているか</li>
+<li>どんな引数を取るか</li>
+</ul>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>?sqrt</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li>パッケージ: <code>base</code>（ヘルプ画面の左上に表示される）</li>
+<li>引数: <code>x</code>（数値ベクトル）</li>
+</ul>
+<p>ヘルプのExamplesセクションにあるコードはそのままコピーして実行でき、関数の動作を確認するのに便利です。</p>
+</div>
+<hr>
+</section>
+<section id="b-4" class="level3">
+<h3 class="anchored" data-anchor-id="b-4">1-B-4</h3>
+<p><code>pacman</code>パッケージを使って<code>tidyverse</code>を読み込んでください。読み込み後に表示されるConflictsメッセージを読み、どの関数が上書きされたか確認してください。</p>
+<div class="webex-solution">
+<button>
+ヒント
+</button>
+<p>Conflictsメッセージには<code>dplyr::filter() masks stats::filter()</code>のような表示が出ます。これは「<code>stats</code>パッケージの<code>filter</code>関数が<code>dplyr</code>パッケージの同名関数で上書きされた」という意味です。</p>
+</div>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>表示されるConflictsから、少なくとも以下の2つが上書きされることがわかります：</p>
+<ul>
+<li><code>dplyr::filter()</code> が <code>stats::filter()</code> を上書き</li>
+<li><code>dplyr::lag()</code> が <code>stats::lag()</code> を上書き</li>
+</ul>
+<p>上書き前の関数を使いたい場合は<code>stats::filter()</code>のように<code>パッケージ名::関数名</code>で指定します。</p>
+</div>
+<hr>
+</section>
+<section id="b-5" class="level3">
+<h3 class="anchored" data-anchor-id="b-5">1-B-5</h3>
+<p>この講義用の新しいプロジェクトを作成してください。作成後、以下を確認してください：</p>
+<ol type="1">
+<li>RStudioのウィンドウ右上にプロジェクト名が表示されていること</li>
+<li>FilesタブでGo To Working Directoryを実行し、プロジェクトフォルダに戻れること</li>
+<li>新しいRスクリプトファイルを作成し、名前をつけて保存できること</li>
+</ol>
+<div class="webex-solution">
+<button>
+ヒント
+</button>
+<p>File &gt; New Project から新しいプロジェクトを作成します。New Directory &gt; New Projectを選び、プロジェクト名とフォルダの場所を指定します。</p>
+</div>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<ol type="1">
+<li>File &gt; New Project &gt; New Directory &gt; New Project</li>
+<li>プロジェクト名（例: <code>zemi2026</code>）を入力し、保存場所を指定</li>
+<li>Create Project をクリック</li>
+</ol>
+<p>確認： - 右上に「zemi2026」と表示される - Filesタブの More &gt; Go To Working Directory でプロジェクトフォルダに移動 - File &gt; New File &gt; R Script で新しいスクリプトを作成 - Ctrl+S（Cmd+S）で名前をつけて保存</p>
+<p>プロジェクトを閉じるには File &gt; Close Project、再び開くには<code>.Rproj</code>ファイルをダブルクリックします。</p>
+</div>
+<hr>
+</section>
+</section>
+<section id="ランクa-ai協働に挑戦しよう" class="level2">
+<h2 class="anchored" data-anchor-id="ランクa-ai協働に挑戦しよう">ランクA: AI協働に挑戦しよう</h2>
+<section id="a-1" class="level3">
+<h3 class="anchored" data-anchor-id="a-1">1-A-1</h3>
+<p><strong>課題</strong>: AIに「Rで使える便利なショートカットキーを10個教えて」と聞いてみてください。</p>
+<p>教えてもらったショートカットを実際にRStudioで試し、以下をまとめてください：</p>
+<ul>
+<li>本当に動作したもの</li>
+<li>自分が今後よく使いそうなもの</li>
+<li>AIの回答が間違っていたもの（あれば）</li>
+</ul>
+<p><strong>提出物</strong>: AIとの対話ログ、試した結果の一覧。</p>
+<hr>
+</section>
+<section id="a-2" class="level3">
+<h3 class="anchored" data-anchor-id="a-2">1-A-2</h3>
+<p><strong>課題</strong>: 「心理統計でよく使うRパッケージ」についてAIに相談してください。</p>
+<p>以下を明らかにしてください：</p>
+<ol type="1">
+<li>自分の研究テーマ（卒論のテーマが決まっていなければ仮で考える）で使いそうなパッケージ</li>
+<li>それぞれのパッケージが何をするものか</li>
+<li>実際にインストールして、ヘルプを見て確認できたか</li>
+</ol>
+<p><strong>提出物</strong>: AIとの対話内容、パッケージリスト、ヘルプで確認した結果。</p>
+<hr>
+</section>
+</section>
+<section id="まとめ" class="level2">
+<h2 class="anchored" data-anchor-id="まとめ">まとめ</h2>
+<p>このユニットでは、R/RStudioの基本的な使い方を学びました：</p>
+<ul>
+<li><strong>RStudioの4ペイン</strong>: エディタ、コンソール、環境、ファイル/プロット/ヘルプ</li>
+<li><strong>プロジェクト</strong>: 作業フォルダの管理とファイルの整理</li>
+<li><strong>パッケージ</strong>: インストール（一度だけ）と読み込み（毎回）の2ステップ。<code>pacman::p_load()</code>で一括化</li>
+<li><strong>ヘルプ</strong>: <code>?関数名</code>で使い方を調べる</li>
+<li><strong>オブジェクトと代入</strong>: <code>&lt;-</code>で値を代入し、計算に使う</li>
+<li><strong>コメント</strong>: <code>#</code>で始まる行はRに無視される</li>
+</ul>
+<p>次のユニット: <strong>U2. データ型とオブジェクト</strong>では、ベクトル、リスト、データフレームなど、Rのデータ構造について詳しく学びます。</p>
+<hr>
+<p>進捗: あなたは今 <strong>1-C-12</strong> まで完了しました！（と仮定）次は <strong>1-B-1</strong> に進みましょう。</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  var t = document.getElementsByClassName("webex-total_correct");
+  for (var i = 0; i < t.length; i++) {
+    p = t[i].parentElement;
+    var correct = p.getElementsByClassName("webex-correct").length;
+    var solvemes = p.getElementsByClassName("webex-solveme").length;
+    var radiogroups = p.getElementsByClassName("webex-radiogroup").length;
+    var selects = p.getElementsByClassName("webex-select").length;
+
+    t[i].innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* check answers */
+check_func = function() {
+  console.log("webex: check answers");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('unchecked')) {
+    cl.remove("unchecked");
+    this.innerHTML = "Hide Answers";
+  } else {
+    cl.add("unchecked");
+    this.innerHTML = "Show Answers";
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+
+  var cl = this.classList
+
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("webex onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  var check_sections = document.getElementsByClassName("webex-check");
+  console.log("check:", check_sections.length);
+  for (var i = 0; i < check_sections.length; i++) {
+    check_sections[i].classList.add("unchecked");
+
+    let btn = document.createElement("button");
+    btn.innerHTML = "Show Answers";
+    btn.classList.add("webex-check-button");
+    btn.onclick = check_func;
+    check_sections[i].appendChild(btn);
+
+    let spn = document.createElement("span");
+    spn.classList.add("webex-total_correct");
+    check_sections[i].appendChild(spn);
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+
+    solveme[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+    selects[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  update_total_correct();
+}
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "コピーしました");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "コピーしました");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

@@ -1,0 +1,1521 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>claude – Kosugi Labo</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-a25750924116104412f7a457768fb952.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "一致なし",
+    "search-matching-documents-text": "一致した文書",
+    "search-copy-link-title": "検索へのリンクをコピー",
+    "search-hide-matches-text": "追加の検索結果を非表示",
+    "search-more-match-text": "追加の検索結果",
+    "search-more-matches-text": "追加の検索結果",
+    "search-clear-button-title": "消去",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "検索",
+    "search-label": "サーチ"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="include/webex.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Kosugi Labo</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="サーチ"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="ナビゲーションを切り替える" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">ホーム</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">ゼミガイド</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-">    
+        <li>
+    <a class="dropdown-item" href="./zemi-policy.html">
+ <span class="dropdown-text">ゼミの運営方針</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./research-guide.html">
+ <span class="dropdown-text">研究の進め方</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./writing-guide.html">
+ <span class="dropdown-text">文章の読み書き</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./anti-harassment.html">
+ <span class="dropdown-text">アンチハラスメントポリシー</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu--1" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">技術ガイド</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu--1">    
+        <li>
+    <a class="dropdown-item" href="./tech-guide/github-setup.html">
+ <span class="dropdown-text">GitHub</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tech-guide/vscode-setup.html">
+ <span class="dropdown-text">VSCode</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tech-guide/latex-setup.html">
+ <span class="dropdown-text">LaTeX</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tech-guide/ssh-remote.html">
+ <span class="dropdown-text">SSH接続</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./tech-guide/tailscale.html">
+ <span class="dropdown-text">Tailscale</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-rチュートリアル" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Rチュートリアル</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-rチュートリアル">    
+        <li>
+    <a class="dropdown-item" href="./r-tutorial/index.html">
+ <span class="dropdown-text">はじめに</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./r-tutorial/r-basics.html">
+ <span class="dropdown-text">Rの基礎</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./r-tutorial/data-handling.html">
+ <span class="dropdown-text">データの読み込み</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./r-tutorial/tidyverse.html">
+ <span class="dropdown-text">tidyverse入門</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./r-tutorial/visualization.html">
+ <span class="dropdown-text">可視化ギャラリー</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="./r-tutorial/U2-data-types.html">
+ <span class="dropdown-text">U2. データ型とオブジェクト</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./r-tutorial/U7-dplyr.html">
+ <span class="dropdown-text">U7. dplyr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./r-tutorial/U8-tidyr.html">
+ <span class="dropdown-text">U8. tidyr</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="./members.html"> 
+<span class="menu-text">メンバー</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./server-status.html"> 
+<span class="menu-text">サーバー状況</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./feedback.html"> 
+<span class="menu-text">フィードバック</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">目次</h2>
+   
+  <ul>
+  <li><a href="#kosugi-labo-プロジェクト" id="toc-kosugi-labo-プロジェクト" class="nav-link active" data-scroll-target="#kosugi-labo-プロジェクト">kosugi-labo プロジェクト</a>
+  <ul class="collapse">
+  <li><a href="#プロジェクト概要" id="toc-プロジェクト概要" class="nav-link" data-scroll-target="#プロジェクト概要">プロジェクト概要</a></li>
+  <li><a href="#サイト構成" id="toc-サイト構成" class="nav-link" data-scroll-target="#サイト構成">サイト構成</a></li>
+  <li><a href="#shinyexametrikaweb分析ツール" id="toc-shinyexametrikaweb分析ツール" class="nav-link" data-scroll-target="#shinyexametrikaweb分析ツール">shinyExametrika（Web分析ツール）</a></li>
+  <li><a href="#rドリル改訂方針" id="toc-rドリル改訂方針" class="nav-link" data-scroll-target="#rドリル改訂方針">Rドリル改訂方針</a>
+  <ul class="collapse">
+  <li><a href="#元資料" id="toc-元資料" class="nav-link" data-scroll-target="#元資料">元資料</a></li>
+  <li><a href="#現行版の問題点前回の反省" id="toc-現行版の問題点前回の反省" class="nav-link" data-scroll-target="#現行版の問題点前回の反省">現行版の問題点（前回の反省）</a></li>
+  <li><a href="#目標スキル" id="toc-目標スキル" class="nav-link" data-scroll-target="#目標スキル">目標スキル</a></li>
+  <li><a href="#新しいアプローチ-ゴールベースビジョン主導型" id="toc-新しいアプローチ-ゴールベースビジョン主導型" class="nav-link" data-scroll-target="#新しいアプローチ-ゴールベースビジョン主導型">新しいアプローチ: ゴールベース・ビジョン主導型</a></li>
+  <li><a href="#重視する新方向-アルゴリズム思考" id="toc-重視する新方向-アルゴリズム思考" class="nav-link" data-scroll-target="#重視する新方向-アルゴリズム思考">重視する新方向: アルゴリズム思考</a></li>
+  <li><a href="#教育デザイン-cba-3フェイズ方式" id="toc-教育デザイン-cba-3フェイズ方式" class="nav-link" data-scroll-target="#教育デザイン-cba-3フェイズ方式">教育デザイン: C/B/A 3フェイズ方式</a></li>
+  <li><a href="#スキルツリー-ユニット一覧と依存関係" id="toc-スキルツリー-ユニット一覧と依存関係" class="nav-link" data-scroll-target="#スキルツリー-ユニット一覧と依存関係">スキルツリー: ユニット一覧と依存関係</a></li>
+  <li><a href="#コンテンツ構成案旧-改訂予定" id="toc-コンテンツ構成案旧-改訂予定" class="nav-link" data-scroll-target="#コンテンツ構成案旧-改訂予定">コンテンツ構成案（旧: 改訂予定）</a></li>
+  <li><a href="#データセット" id="toc-データセット" class="nav-link" data-scroll-target="#データセット">データセット</a></li>
+  <li><a href="#可視化ギャラリーのソース候補" id="toc-可視化ギャラリーのソース候補" class="nav-link" data-scroll-target="#可視化ギャラリーのソース候補">可視化ギャラリーのソース候補</a></li>
+  </ul></li>
+  <li><a href="#進捗管理システム構想2026-02-14" id="toc-進捗管理システム構想2026-02-14" class="nav-link" data-scroll-target="#進捗管理システム構想2026-02-14">進捗管理システム構想（2026-02-14）</a>
+  <ul class="collapse">
+  <li><a href="#基本方針" id="toc-基本方針" class="nav-link" data-scroll-target="#基本方針">基本方針</a></li>
+  <li><a href="#システム構成" id="toc-システム構成" class="nav-link" data-scroll-target="#システム構成">システム構成</a></li>
+  <li><a href="#学生の作業フロー" id="toc-学生の作業フロー" class="nav-link" data-scroll-target="#学生の作業フロー">学生の作業フロー</a></li>
+  <li><a href="#進捗入力フォームinput.html" id="toc-進捗入力フォームinput.html" class="nav-link" data-scroll-target="#進捗入力フォームinput.html">進捗入力フォーム（input.html）</a></li>
+  <li><a href="#ダッシュボードdashboard.qmd" id="toc-ダッシュボードdashboard.qmd" class="nav-link" data-scroll-target="#ダッシュボードdashboard.qmd">ダッシュボード（dashboard.qmd）</a></li>
+  <li><a href="#先生側の管理" id="toc-先生側の管理" class="nav-link" data-scroll-target="#先生側の管理">先生側の管理</a></li>
+  <li><a href="#技術スタック" id="toc-技術スタック" class="nav-link" data-scroll-target="#技術スタック">技術スタック</a></li>
+  <li><a href="#未解決課題" id="toc-未解決課題" class="nav-link" data-scroll-target="#未解決課題">未解決課題</a></li>
+  <li><a href="#将来の拡張案" id="toc-将来の拡張案" class="nav-link" data-scroll-target="#将来の拡張案">将来の拡張案</a></li>
+  </ul></li>
+  <li><a href="#進捗状況2026-02-14時点" id="toc-進捗状況2026-02-14時点" class="nav-link" data-scroll-target="#進捗状況2026-02-14時点">進捗状況（2026-02-14時点）</a>
+  <ul class="collapse">
+  <li><a href="#完了済み2026-02-14" id="toc-完了済み2026-02-14" class="nav-link" data-scroll-target="#完了済み2026-02-14">完了済み（2026-02-14）</a></li>
+  <li><a href="#完了済み以前" id="toc-完了済み以前" class="nav-link" data-scroll-target="#完了済み以前">完了済み（以前）</a></li>
+  <li><a href="#次回のtodoリスト" id="toc-次回のtodoリスト" class="nav-link" data-scroll-target="#次回のtodoリスト">次回のTodoリスト</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+
+
+
+
+<section id="kosugi-labo-プロジェクト" class="level1">
+<h1>kosugi-labo プロジェクト</h1>
+<section id="プロジェクト概要" class="level2">
+<h2 class="anchored" data-anchor-id="プロジェクト概要">プロジェクト概要</h2>
+<ul>
+<li><strong>公開URL</strong>: https://kosugitti.github.io/kosugi-labo/</li>
+<li><strong>ローカル</strong>: <code>~/Dropbox/Git/kosugi-labo/</code></li>
+<li><strong>形式</strong>: Quarto Website (GitHub Pages)</li>
+<li><strong>用途</strong>: 小杉ゼミのWebサイト（ゼミガイド、技術ガイド、Rチュートリアル）</li>
+</ul>
+</section>
+<section id="サイト構成" class="level2">
+<h2 class="anchored" data-anchor-id="サイト構成">サイト構成</h2>
+<pre><code>kosugi-labo/
+├── index.qmd                 # トップページ
+├── members.qmd               # メンバー紹介
+├── zemi-policy.qmd          # ゼミの運営方針・年間スケジュール
+├── research-guide.qmd       # 研究の進め方
+├── writing-guide.qmd        # 文章の読み書き
+├── anti-harassment.qmd      # アンチハラスメントポリシー
+├── server-status.qmd        # サーバー状況
+├── feedback.qmd             # フィードバック
+├── r-tutorial/              # Rチュートリアル（拡充対象）
+│   ├── index.qmd
+│   ├── r-basics.qmd
+│   ├── data-handling.qmd
+│   ├── tidyverse.qmd
+│   └── visualization.qmd
+└── tech-guide/              # 技術ガイド
+    ├── github-setup.qmd
+    ├── vscode-setup.qmd
+    ├── ssh-remote.qmd
+    ├── tailscale.qmd
+    └── latex-setup.qmd</code></pre>
+<hr>
+</section>
+<section id="shinyexametrikaweb分析ツール" class="level2">
+<h2 class="anchored" data-anchor-id="shinyexametrikaweb分析ツール">shinyExametrika（Web分析ツール）</h2>
+<p>exametrika パッケージの Shiny GUI アプリケーション。コードを書かずにテストデータ分析（CTT, IRT, LCA, LRA, Biclustering 等）を実行・可視化できる。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 42%">
+<col style="width: 57%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>接続元</th>
+<th>アクセスURL</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>学内（専修大学ネットワーク）</td>
+<td>http://192.168.30.205/shinyExametrika/</td>
+</tr>
+<tr class="even">
+<td>学外</td>
+<td>https://kosugitti.shinyapps.io/shinyExametrika/</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>学内版は研究室サーバ Taniyama で稼働（Shiny Server + nginx）</li>
+<li>リポジトリ: <code>~/Dropbox/Git/shinyExametrika/</code></li>
+</ul>
+<hr>
+</section>
+<section id="rドリル改訂方針" class="level2">
+<h2 class="anchored" data-anchor-id="rドリル改訂方針">Rドリル改訂方針</h2>
+<section id="元資料" class="level3">
+<h3 class="anchored" data-anchor-id="元資料">元資料</h3>
+<ul>
+<li><code>~/Library/CloudStorage/Dropbox/Labo/Edu：講義資料/専修大学/ゼミオリエンテーション資料/CLAUDE.md</code> に全体設計あり</li>
+<li><code>同フォルダ/Rdollil.tex</code> に現行版（200問、答え付き）あり</li>
+<li><code>同フォルダ/作業ログ.md</code> に作業履歴あり</li>
+</ul>
+</section>
+<section id="現行版の問題点前回の反省" class="level3">
+<h3 class="anchored" data-anchor-id="現行版の問題点前回の反省">現行版の問題点（前回の反省）</h3>
+<ul>
+<li>2024年版: 100問の課題</li>
+<li>2025年版: 生成AIサポートで200問に増加、マイクロステップ化</li>
+<li><strong>指示が具体的すぎて学生が考えなくなる/やる気をなくす</strong>
+<ul>
+<li>悪い例: 「<code>print("Hello, R World!")</code> を実行する」（答えを与えている）</li>
+<li>悪い例: 「椅子から立ち上がり、深呼吸を3回行う」</li>
+</ul></li>
+</ul>
+</section>
+<section id="目標スキル" class="level3">
+<h3 class="anchored" data-anchor-id="目標スキル">目標スキル</h3>
+<ol type="1">
+<li><strong>データ整形技術</strong>: 自分が欲しいデータの形にデータを整えることができる</li>
+<li><strong>tidyverseマスター</strong>: tidyverseを使った効率的なデータハンドリング</li>
+<li><strong>データ可視化技術</strong>: 研究に必要な図表を自在に作成できる</li>
+<li><strong>生成AI活用力</strong>: 俯瞰的ビジョンのもとで生成AIに適切な指示が出せる</li>
+</ol>
+</section>
+<section id="新しいアプローチ-ゴールベースビジョン主導型" class="level3">
+<h3 class="anchored" data-anchor-id="新しいアプローチ-ゴールベースビジョン主導型">新しいアプローチ: ゴールベース・ビジョン主導型</h3>
+<ol type="1">
+<li><strong>可視化ギャラリーの提示</strong>: 様々な図表のサンプルを見せ、目標を示す</li>
+<li><strong>ゴールからの逆算学習</strong>: 図を描きたい → 必要なデータ形式 → 整形方法</li>
+<li><strong>段階的課題設計</strong>:
+<ul>
+<li>Level 1: 基本的なデータ読み込み・確認</li>
+<li>Level 2: 単純な可視化（散布図、ヒストグラム、棒グラフ）</li>
+<li>Level 3: データ変形 → 可視化（集計後の可視化、グループ比較）</li>
+<li>Level 4: 複雑なデータ整形 → 高度な可視化（facet、複数グラフの組み合わせ）</li>
+<li>Level 5: 実践課題（研究論文レベルの図表作成）</li>
+</ul></li>
+<li><strong>課題の提示方法</strong>:
+<ul>
+<li>NG: 「<code>read_csv("data.csv")</code>を実行せよ」（答えを与えている）</li>
+<li>OK: 「このデータファイルを読み込んで、どんな変数があるか確認しよう」</li>
+<li>NG: 「<code>ggplot(data, aes(x=age, y=score)) + geom_point()</code>を実行」</li>
+<li>OK: 「年齢とスコアの関係を散布図で可視化してみよう」</li>
+</ul></li>
+</ol>
+</section>
+<section id="重視する新方向-アルゴリズム思考" class="level3">
+<h3 class="anchored" data-anchor-id="重視する新方向-アルゴリズム思考">重視する新方向: アルゴリズム思考</h3>
+<ul>
+<li>コード自体はAIで書ける時代 → プログラムの書き方だけでなくアルゴリズムを考える力を重視</li>
+<li>「どう実装するか」ではなく「どう問題を分解し、手順を設計するか」</li>
+<li>生成AIに的確な指示を出すためにも、問題の構造を理解する力が必要</li>
+</ul>
+</section>
+<section id="教育デザイン-cba-3フェイズ方式" class="level3">
+<h3 class="anchored" data-anchor-id="教育デザイン-cba-3フェイズ方式">教育デザイン: C/B/A 3フェイズ方式</h3>
+<p>各ユニットに3フェイズの課題を配置。ユニットの性質によってC/B/Aの厚みが変わる。</p>
+<ul>
+<li><strong>Cフェイズ（知識）</strong>: 正誤問題・選択問題。「知っているか」を問う</li>
+<li><strong>Bフェイズ（技能）</strong>: Rのコードを自分で書く。「手でできるか」を問う</li>
+<li><strong>Aフェイズ（応用）</strong>: 生成AIに的確に指示して結果を得る。「問題を構造化し言語化できるか」を問う</li>
+</ul>
+<p>学生の現在地を番号で把握できる自習教材（例: 「今7-B-3？あと少し!」）が目標。</p>
+<section id="ナンバリング規則" class="level4">
+<h4 class="anchored" data-anchor-id="ナンバリング規則">ナンバリング規則</h4>
+<p><code>ユニット番号-フェイズ-連番</code> 形式。例: <code>7-B-3</code> = ユニット7(dplyr)のBフェイズ3問目</p>
+<ul>
+<li>ユニット内では「B-3」と省略可（口頭での声かけ用）</li>
+<li>ユニットごとにC/B/Aの問題数は異なる（知識寄りのユニットはC多め、技能寄りはB多め等）</li>
+<li>例: ユニット2(データ型) → 2-C-1 ~ 2-C-10, 2-B-1 ~ 2-B-3, 2-A-1</li>
+<li>例: ユニット8(tidyr) → 8-C-1 ~ 8-C-3, 8-B-1 ~ 8-B-10, 8-A-1 ~ 8-A-5</li>
+</ul>
+</section>
+<section id="評価との関係" class="level4">
+<h4 class="anchored" data-anchor-id="評価との関係">評価との関係</h4>
+<p><strong>基本方針</strong>: ゼミの成績は基本全員80点。内容の充実度で加点（85, 90等）はあるが減点はしない。Rドリルの進捗は成績の加減点には直接使わない。最終評価は「プレ卒論」（卒論の問題と方法を書く課題）で行う。</p>
+<p><strong>足切りライン（不可判定用）</strong>: 不登校・サボり対策として、時期ごとの最低到達ラインを設ける。未達の場合は面談し、改善が見られなければ不可の候補。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 52%">
+<col style="width: 24%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>時期</th>
+<th>足切りライン</th>
+<th>意味</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>6月末</td>
+<td>U1~U6のCフェイズ完了</td>
+<td>Rの基礎知識がある。データを読んで眺められる</td>
+</tr>
+<tr class="even">
+<td>9月末（夏休み明け）</td>
+<td>U7~U10のCフェイズ完了 + U1~U6のBフェイズ完了</td>
+<td>dplyr/tidyr/ggplotを知っている。基礎操作は手で書ける</td>
+</tr>
+<tr class="odd">
+<td>11月末（プレ卒論前）</td>
+<td>U7~U10のBフェイズ完了</td>
+<td>データ整形と可視化が自分の手でできる。プレ卒論に着手できる状態</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Cフェイズ（正誤問題）は自動採点可能 → 学生が自分でチェックできる</li>
+<li>Bフェイズ（コード）は提出またはゼミ中に確認</li>
+<li>Aフェイズ・枝ユニットは足切りに含めない（加点要素・自主的な伸びしろ）</li>
+</ul>
+</section>
+<section id="実装方式" class="level4">
+<h4 class="anchored" data-anchor-id="実装方式">実装方式</h4>
+<p><strong>webexercises（Rパッケージ）をQuartoサイトに埋め込む方式で開始。</strong></p>
+<ul>
+<li>Cフェイズ: webexercisesで正誤/選択問題を各ページに埋め込み → ブラウザ上で即時フィードバック</li>
+<li>Bフェイズ: Quartoサイトに課題を表示 → ゼミ中に画面を見せてもらう or 提出で確認</li>
+<li>Aフェイズ: 課題をサイトに表示 → AIとの対話ログやスクリーンショットをゼミ中に共有</li>
+<li>進捗把握: ゼミの時間に口頭で「今どこ？」と確認（番号で即答できる設計）</li>
+<li>サーバ不要、GitHub Pagesそのまま、学外からもアクセス可能</li>
+</ul>
+<p><strong>選定理由</strong>: 開発コスト最小。問題コンテンツの充実を優先し、進捗管理システムは後から必要に応じて追加（Google Forms等）。RStudioサーバは学内LAN限定のため、学外アクセスの問題を回避。</p>
+</section>
+<section id="将来ビジョン-ゲーム的ui進捗モニタリング検討中" class="level4">
+<h4 class="anchored" data-anchor-id="将来ビジョン-ゲーム的ui進捗モニタリング検討中">将来ビジョン: ゲーム的UI・進捗モニタリング（検討中）</h4>
+<ul>
+<li><strong>段階的開放</strong>: ゲームのマップのように、次のステージが少しずつ出現する。最初から全体像は見せない</li>
+<li><strong>枝ユニット = サブクエスト</strong>: 幹のメインクエストに対し、枝（LaTeX、Git、Stan等）はサブクエスト的な位置づけ</li>
+<li><strong>全体像のマップ表示</strong>: マインドマップ的にスキルツリーの全体像を描画（進行に応じて開放）</li>
+<li><strong>双六的プログレスモニタ</strong>: 各学生がどこまで進んでいるかを教師側から一覧できる仕組み</li>
+<li><strong>実装の課題</strong>: 巨大なアプリになりうる。既存リソース（計算機サーバ、Google Classroom、GitHub等）の組み合わせで実現可能か要検討</li>
+<li><strong>現段階の方針</strong>: まずwebexercisesでコンテンツを作り込む。UI/進捗管理は後回し</li>
+</ul>
+</section>
+</section>
+<section id="スキルツリー-ユニット一覧と依存関係" class="level3">
+<h3 class="anchored" data-anchor-id="スキルツリー-ユニット一覧と依存関係">スキルツリー: ユニット一覧と依存関係</h3>
+<section id="分類" class="level4">
+<h4 class="anchored" data-anchor-id="分類">分類</h4>
+<ul>
+<li><strong>根</strong>: 前提知識。ゼミ以前に身についているべきだが怪しい学生もいる</li>
+<li><strong>幹</strong>: 全員必須。これなしに卒論は書けない</li>
+<li><strong>枝</strong>: 知っていると強い。研究テーマや手法によっては必須になる</li>
+</ul>
+</section>
+<section id="ユニット一覧" class="level4">
+<h4 class="anchored" data-anchor-id="ユニット一覧">ユニット一覧</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 55%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>ユニット名</th>
+<th>分類</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>コンピュータ基礎（ファイル、パス、文字コード、OS）</td>
+<td>根</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>Rの基礎（RStudio、プロジェクト、パッケージ、ヘルプ）</td>
+<td>幹</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>データ型とオブジェクト（ベクトル、リスト、df、tibble、配列）</td>
+<td>幹</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>数学・行列の基礎（転置、積、相関行列、距離行列、固有値）</td>
+<td>枝</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>基本的なデータ操作（演算子、インデキシング、ソート）</td>
+<td>幹</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>データの読み込みと書き出し（CSV、Excel、RDS）</td>
+<td>幹</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td>データの確認と探索（head、summary、str、table、欠損値）</td>
+<td>幹</td>
+</tr>
+<tr class="even">
+<td>7</td>
+<td>dplyr（filter、select、mutate、summarise、group_by等）</td>
+<td>幹</td>
+</tr>
+<tr class="odd">
+<td>8</td>
+<td>tidyr: ワイド⇔ロング（tidy data、pivot_longer/wider、nest）</td>
+<td>幹</td>
+</tr>
+<tr class="even">
+<td>9</td>
+<td>変数の型の変換と統一（ダミー変数、標準化、ワンホット）</td>
+<td>幹</td>
+</tr>
+<tr class="odd">
+<td>10</td>
+<td>ggplot2（文法、geom、aes、facet、theme、保存）</td>
+<td>幹</td>
+</tr>
+<tr class="even">
+<td>11</td>
+<td>記述統計（代表値、散布度、相関、効果量）</td>
+<td>幹</td>
+</tr>
+<tr class="odd">
+<td>12</td>
+<td>統計的推測の基礎（検定、信頼区間、検出力）</td>
+<td>幹</td>
+</tr>
+<tr class="even">
+<td>13</td>
+<td>回帰モデル（lm、glm、モデル選択）</td>
+<td>幹</td>
+</tr>
+<tr class="odd">
+<td>14</td>
+<td>多変量解析・行方向（因子分析、PCA、SEM）</td>
+<td>枝</td>
+</tr>
+<tr class="even">
+<td>15</td>
+<td>多変量解析・列方向（クラスタリング、MDS、判別分析）</td>
+<td>枝</td>
+</tr>
+<tr class="odd">
+<td>16</td>
+<td>行と列をまたぐ分析（バイプロット、対応分析、バイクラスタリング）</td>
+<td>枝</td>
+</tr>
+<tr class="even">
+<td>17</td>
+<td>ベイズ統計の基礎（事前/事後分布、信用区間）</td>
+<td>枝</td>
+</tr>
+<tr class="odd">
+<td>18</td>
+<td>MCMCの原理と実践（chain、収束診断、Rhat）</td>
+<td>枝</td>
+</tr>
+<tr class="even">
+<td>19</td>
+<td>Stan / cmdstanr（モデル記述、fit、draws、bayesplot）</td>
+<td>枝</td>
+</tr>
+<tr class="odd">
+<td>21</td>
+<td>LaTeX（数式、日本語、参考文献）</td>
+<td>枝</td>
+</tr>
+<tr class="even">
+<td>22</td>
+<td>Git / GitHub（バージョン管理、コミット、GitHub Pages）</td>
+<td>枝</td>
+</tr>
+<tr class="odd">
+<td>23</td>
+<td>プログラミング基礎概念（関数定義、制御構造、apply/map）</td>
+<td>枝</td>
+</tr>
+<tr class="even">
+<td>24</td>
+<td>生成AIとの協働（プロンプト、検証、エラー相談）</td>
+<td>幹（導入+全AフェイズにAI要素を組込）</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="依存関係図mermaid" class="level4">
+<h4 class="anchored" data-anchor-id="依存関係図mermaid">依存関係図（Mermaid）</h4>
+<pre class="mermaid"><code>graph TD
+    classDef root fill:#8B4513,color:#fff,stroke:#5C2D0A,stroke-width:2px
+    classDef trunk fill:#228B22,color:#fff,stroke:#145214,stroke-width:2px
+    classDef branch fill:#4682B4,color:#fff,stroke:#2F5A7E,stroke-width:2px
+    classDef ai fill:#DAA520,color:#fff,stroke:#A07818,stroke-width:2px
+
+    U0["0. コンピュータ基礎"]:::root
+    U1["1. Rの基礎"]:::trunk
+    U2["2. データ型とオブジェクト"]:::trunk
+    U4["4. 基本的なデータ操作"]:::trunk
+    U5["5. データの読み込みと書き出し"]:::trunk
+    U6["6. データの確認と探索"]:::trunk
+    U7["7. dplyr"]:::trunk
+    U8["8. tidyr（ワイド⇔ロング）"]:::trunk
+    U9["9. 変数の型の変換と統一"]:::trunk
+    U10["10. ggplot2"]:::trunk
+    U11["11. 記述統計"]:::trunk
+    U12["12. 統計的推測の基礎"]:::trunk
+    U13["13. 回帰モデル"]:::trunk
+    U3["3. 行列の基礎"]:::branch
+    U14["14. 因子分析等（行方向）"]:::branch
+    U15["15. クラスタリング等（列方向）"]:::branch
+    U16["16. 行と列をまたぐ分析"]:::branch
+    U17["17. ベイズ統計の基礎"]:::branch
+    U18["18. MCMCの原理と実践"]:::branch
+    U19["19. Stan / cmdstanr"]:::branch
+    U21["21. LaTeX"]:::branch
+    U22["22. Git / GitHub"]:::branch
+    U23["23. プログラミング基礎概念"]:::branch
+    U24["24. 生成AIとの協働"]:::ai
+
+    U0 --&gt; U1
+    U1 --&gt; U2
+    U2 --&gt; U4
+    U4 --&gt; U5
+    U5 --&gt; U6
+    U6 --&gt; U7
+    U7 --&gt; U8
+    U8 --&gt; U9
+    U6 --&gt; U10
+    U9 --&gt; U10
+    U10 --&gt; U11
+    U11 --&gt; U12
+    U12 --&gt; U13
+
+    U1 --&gt; U24
+
+    U2 --&gt; U3
+    U3 --&gt; U14
+    U3 --&gt; U15
+    U14 --&gt; U16
+    U15 --&gt; U16
+    U12 --&gt; U17
+    U17 --&gt; U18
+    U18 --&gt; U19
+
+    U1 --&gt; U22
+    U1 --&gt; U23
+    U1 --&gt; U21
+
+    U24 -.-&gt;|"全ユニットのAフェイズ"| U7
+    U24 -.-&gt;|"全ユニットのAフェイズ"| U10
+    U24 -.-&gt;|"全ユニットのAフェイズ"| U13
+    U24 -.-&gt;|"全ユニットのAフェイズ"| U19</code></pre>
+<p>凡例: 茶=根 / 緑=幹 / 青=枝 / 金=AI / 点線=AIが各Aフェイズに浸透</p>
+</section>
+<section id="範囲外別教材で扱い済み" class="level4">
+<h4 class="anchored" data-anchor-id="範囲外別教材で扱い済み">範囲外（別教材で扱い済み）</h4>
+<ul>
+<li>文書作成・再現可能研究 → Quarto/Rmdは別途指導</li>
+<li>研究プロセス全体 → research-guide.qmd で扱い済み</li>
+</ul>
+</section>
+</section>
+<section id="コンテンツ構成案旧-改訂予定" class="level3">
+<h3 class="anchored" data-anchor-id="コンテンツ構成案旧-改訂予定">コンテンツ構成案（旧: 改訂予定）</h3>
+<ul>
+<li>Part 1: 基礎の基礎（Rの基本操作）</li>
+<li>Part 2: データを読み込んで眺める</li>
+<li>Part 3: 可視化ギャラリー巡り</li>
+<li>Part 4: 図を描いてみよう（基礎編）</li>
+<li>Part 5: データを整形する（tidyverse入門）</li>
+<li>Part 6: 整形 → 可視化の連携</li>
+<li>Part 7: 高度な可視化への挑戦</li>
+<li>Part 8: 自由課題</li>
+</ul>
+<p>※ 上記はユニット設計により再構成予定</p>
+</section>
+<section id="データセット" class="level3">
+<h3 class="anchored" data-anchor-id="データセット">データセット</h3>
+<ul>
+<li>BaseballDecade.csv（現行で使用中）</li>
+<li>その他、分析しやすく面白いデータセット（検討中）</li>
+</ul>
+</section>
+<section id="可視化ギャラリーのソース候補" class="level3">
+<h3 class="anchored" data-anchor-id="可視化ギャラリーのソース候補">可視化ギャラリーのソース候補</h3>
+<ul>
+<li>ggplot2公式ギャラリー: https://ggplot2.tidyverse.org/</li>
+<li>R Graph Gallery: https://r-graph-gallery.com/</li>
+<li>過去の優秀な卒論の図表</li>
+</ul>
+<hr>
+<hr>
+</section>
+</section>
+<section id="進捗管理システム構想2026-02-14" class="level2">
+<h2 class="anchored" data-anchor-id="進捗管理システム構想2026-02-14">進捗管理システム構想（2026-02-14）</h2>
+<section id="基本方針" class="level3">
+<h3 class="anchored" data-anchor-id="基本方針">基本方針</h3>
+<p>学生ごとのGitHubリポジトリ（<code>~/Dropbox/Git/Zemi/StudentName/</code>）を活用し、学習進捗を可視化・管理する。</p>
+</section>
+<section id="システム構成" class="level3">
+<h3 class="anchored" data-anchor-id="システム構成">システム構成</h3>
+<pre><code>学生リポジトリ/
+├── progress.yml              # 進捗データ（自動生成）
+├── submissions/              # コード提出フォルダ
+│   ├── U8/
+│   │   ├── 8-B-1.R
+│   │   ├── 8-B-2.R
+│   │   └── ...
+│   ├── U7/
+│   └── ...
+├── dashboard.qmd             # Quartoダッシュボード
+├── .github/workflows/
+│   └── render-dashboard.yml  # 自動レンダリング
+└── docs/
+    ├── index.html            # ダッシュボード（双六風マップ）
+    └── input.html            # 進捗入力フォーム</code></pre>
+</section>
+<section id="学生の作業フロー" class="level3">
+<h3 class="anchored" data-anchor-id="学生の作業フロー">学生の作業フロー</h3>
+<ol type="1">
+<li><strong>課題を解く</strong>: kosugi-laboのRドリルで学習</li>
+<li><strong>コード提出</strong>: ランクBの課題は<code>submissions/U8/8-B-1.R</code>にコードを保存</li>
+<li><strong>進捗入力</strong>: <code>docs/input.html</code>（GitHub Pages）でチェックボックスにチェック</li>
+<li><strong>commit/push</strong>: Gitでリポジトリに反映</li>
+<li><strong>自動更新</strong>: GitHub Actionsがダッシュボードを再レンダリング</li>
+</ol>
+</section>
+<section id="進捗入力フォームinput.html" class="level3">
+<h3 class="anchored" data-anchor-id="進捗入力フォームinput.html">進捗入力フォーム（input.html）</h3>
+<ul>
+<li><strong>ランクC</strong>: チェックボックスのみ（webexercisesで自己採点済み）</li>
+<li><strong>ランクB</strong>: チェックボックス + <strong>コードファイルアップロード必須</strong></li>
+<li><strong>ランクA</strong>: チェックボックス + AIとの対話ログ・スクリーンショット（optional）</li>
+<li>送信ボタン → GitHub API経由で<code>progress.yml</code>更新 + <code>submissions/</code>にファイル保存</li>
+</ul>
+</section>
+<section id="ダッシュボードdashboard.qmd" class="level3">
+<h3 class="anchored" data-anchor-id="ダッシュボードdashboard.qmd">ダッシュボード（dashboard.qmd）</h3>
+<p><strong>可視化要素:</strong> - <strong>双六風スキルツリーマップ</strong>: visNetworkで24ユニットを階層表示 - 完了ユニット: 緑 - 進行中: 黄色 - 未着手: 灰色 - クリックでkosugi-laboの該当ページへリンク - <strong>ランク別進捗率</strong>: C/B/Aの達成度を棒グラフ表示 - <strong>次のマイルストーン</strong>: 現在地と次の目標課題を表示 - <strong>⚠️ 警告表示</strong>: 「完了とマークされているがコードが提出されていない」課題をリストアップ</p>
+<p><strong>信頼性チェック:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># progress.ymlで完了マークがあるが、submissions/にコードがない場合は警告</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>check_code_submission <span class="ot">&lt;-</span> <span class="cf">function</span>(unit, rank, number) {</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  code_file <span class="ot">&lt;-</span> <span class="fu">glue</span>(<span class="st">"submissions/{unit}/{unit}-{rank}-{number}.R"</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">file.exists</span>(code_file)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="先生側の管理" class="level3">
+<h3 class="anchored" data-anchor-id="先生側の管理">先生側の管理</h3>
+<ul>
+<li><p>各学生のリポジトリはprivate → 先生と当該学生のみアクセス可能</p></li>
+<li><p>GitHub Pages URL（<code>https://{student}.github.io/...</code>）でダッシュボード確認</p></li>
+<li><p>ゼミ中に「今どこ？」と聞くとき、学生がダッシュボードを画面共有</p></li>
+<li><p>全学生の進捗を一括確認するスクリプト（optional）:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Zemi/collect_progress.R</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>students <span class="ot">&lt;-</span> <span class="fu">dir</span>(<span class="st">"~/Dropbox/Git/Zemi/"</span>, <span class="at">pattern =</span> <span class="st">"^[A-Z]"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>all_progress <span class="ot">&lt;-</span> <span class="fu">map_dfr</span>(students, <span class="sc">~</span>{</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_yaml</span>(<span class="fu">glue</span>(<span class="st">"~/Dropbox/Git/Zemi/{.x}/progress.yml"</span>))</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div></li>
+</ul>
+</section>
+<section id="技術スタック" class="level3">
+<h3 class="anchored" data-anchor-id="技術スタック">技術スタック</h3>
+<ul>
+<li><strong>GitHub Pages</strong>: ホスティング（サーバ不要）</li>
+<li><strong>Quarto</strong>: ダッシュボード生成</li>
+<li><strong>visNetwork (R)</strong>: スキルツリーの可視化</li>
+<li><strong>GitHub Actions</strong>: 自動レンダリング</li>
+<li><strong>Vanilla JS</strong>: 進捗入力フォームのフロントエンド</li>
+<li><strong>GitHub API</strong>: progress.yml更新、ファイルアップロード</li>
+</ul>
+</section>
+<section id="未解決課題" class="level3">
+<h3 class="anchored" data-anchor-id="未解決課題">未解決課題</h3>
+<ul class="task-list">
+<li><label><input type="checkbox">進捗入力フォームでGitHub APIを叩く認証方法（Personal Access Token? GitHub App?）</label></li>
+<li><label><input type="checkbox">ファイルアップロードのサイズ制限・形式チェック</label></li>
+<li><label><input type="checkbox">ランクAの評価基準（コード提出なし、自己評価のみでOK？）</label></li>
+<li><label><input type="checkbox">スキルツリーの双六風デザイン（vis.jsのレイアウト調整 or 手描きSVG?）</label></li>
+</ul>
+</section>
+<section id="将来の拡張案" class="level3">
+<h3 class="anchored" data-anchor-id="将来の拡張案">将来の拡張案</h3>
+<ul>
+<li>学生間の匿名平均進捗率を表示（モチベーション向上）</li>
+<li>所要時間トラッキング（各課題にどれくらい時間がかかったか）</li>
+<li>バッジ・実績システム（「全Cランククリア」「初のAランク達成」等）</li>
+<li>ゼミ全体のヒートマップ（どのユニットで詰まる学生が多いか）</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="進捗状況2026-02-14時点" class="level2">
+<h2 class="anchored" data-anchor-id="進捗状況2026-02-14時点">進捗状況（2026-02-14時点）</h2>
+<section id="完了済み2026-02-14" class="level3">
+<h3 class="anchored" data-anchor-id="完了済み2026-02-14">完了済み（2026-02-14）</h3>
+<p><strong>パイロットユニット2本完成:</strong></p>
+<ul>
+<li><strong>U8. tidyr（ワイド⇔ロング変換）</strong> – 実践的、C/B/Aバランス型
+<ul>
+<li>ランクC: 8問（整然データ、pivot_longer/wider）</li>
+<li>ランクB: 6問（実践スキル + 模範解答）</li>
+<li>ランクA: 3問（AI協働）</li>
+<li>事前知識セクション拡充: 総務省の機械判読可能データ12項目、整然データの詳細、ロング型の利点</li>
+</ul></li>
+<li><strong>U2. データ型とオブジェクト</strong> – C厚・B薄の典型例
+<ul>
+<li>ランクC: 12問（ベクトル、リスト、データフレーム、Factor型）</li>
+<li>ランクB: 5問（軽めの実践 + 模範解答）</li>
+<li>ランクA: 2問（AI活用）</li>
+<li>事前知識セクション拡充: データとは何か、変数と尺度化、量的/質的変数、計算機におけるデータ型</li>
+</ul></li>
+</ul>
+<p><strong>共通仕様確定:</strong> - 見出し: 「ランクC: 基礎知識」「ランクB: 実践スキル」「ランクA: AI協働」 - ナンバリング: <code>8-B-3</code>形式（口頭での声かけ用） - ランクBの模範解答: <code>hide/unhide</code>で表示切替 - 説明: 既存テキスト（PsyStatsPracticals、psychometrics_syllabus）から引用・編集</p>
+<p><strong>その他:</strong> - BaseballDecade.csvをdata/フォルダに配置 - webexercises設定完了（_quarto.ymlにCSS/JS追加） - 進捗管理システム構想をCLAUDE.mdに記録</p>
+</section>
+<section id="完了済み以前" class="level3">
+<h3 class="anchored" data-anchor-id="完了済み以前">完了済み（以前）</h3>
+<ul>
+<li>Webサイトの基本構成</li>
+<li>research-guide.qmd, writing-guide.qmd, zemi-policy.qmd の完全版</li>
+<li>誤字脱字チェック・修正</li>
+<li>技術ガイド各種</li>
+</ul>
+</section>
+<section id="次回のtodoリスト" class="level3">
+<h3 class="anchored" data-anchor-id="次回のtodoリスト">次回のTodoリスト</h3>
+<p><strong>優先度: 高</strong> 1. <strong>U7. dplyr</strong>を作成 – 学生が最も使う実用的ユニット - 素材: PsyStatsPracticals chapter03.qmd（豊富） - C/B/Aのバランスが良い 2. _quarto.ymlのナビゲーションにU2/U8を追加 3. webexercisesが全ページで正しく動作するか確認</p>
+<p><strong>優先度: 中</strong> 4. <strong>U1. Rの基礎</strong>を作成 – 依存なし、最初のユニット - 素材: PsyStatsPracticals chapter01-02.qmd 5. <strong>U10. ggplot2</strong>を作成 – 可視化の要 - 素材: PsyStatsPracticals + 既存のvisualization.qmd 6. 残りのユニット作成方針を決める（全24ユニット中、完成2本）</p>
+<p><strong>優先度: 低</strong> 7. 可視化ギャラリーの作成 8. 進捗管理システムのプロトタイプ作成（学生リポジトリ1つでテスト） 9. BaseballDecade.csv以外のデータセット検討</p>
+<p><strong>保留中</strong> - syllabus2026.texからSection 2,3,4を削除（Web移行済みのため）</p>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  var t = document.getElementsByClassName("webex-total_correct");
+  for (var i = 0; i < t.length; i++) {
+    p = t[i].parentElement;
+    var correct = p.getElementsByClassName("webex-correct").length;
+    var solvemes = p.getElementsByClassName("webex-solveme").length;
+    var radiogroups = p.getElementsByClassName("webex-radiogroup").length;
+    var selects = p.getElementsByClassName("webex-select").length;
+
+    t[i].innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* check answers */
+check_func = function() {
+  console.log("webex: check answers");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('unchecked')) {
+    cl.remove("unchecked");
+    this.innerHTML = "Hide Answers";
+  } else {
+    cl.add("unchecked");
+    this.innerHTML = "Show Answers";
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+
+  var cl = this.classList
+
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("webex onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  var check_sections = document.getElementsByClassName("webex-check");
+  console.log("check:", check_sections.length);
+  for (var i = 0; i < check_sections.length; i++) {
+    check_sections[i].classList.add("unchecked");
+
+    let btn = document.createElement("button");
+    btn.innerHTML = "Show Answers";
+    btn.classList.add("webex-check-button");
+    btn.onclick = check_func;
+    check_sections[i].appendChild(btn);
+
+    let spn = document.createElement("span");
+    spn.classList.add("webex-total_correct");
+    check_sections[i].appendChild(spn);
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+
+    solveme[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+    selects[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  update_total_correct();
+}
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "コピーしました");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "コピーしました");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

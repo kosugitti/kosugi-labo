@@ -1,0 +1,893 @@
+---
+title: "U21. LaTeX"
+format:
+  html:
+    css: ../include/webex.css
+    include-after-body: ../include/webex.js
+---
+
+```{r setup, include=FALSE}
+pacman::p_load(webexercises)
+```
+
+## ユニット概要
+
+**分類**: 枝（知っていると強い）
+
+**依存関係**: U0 → U1 → **U21**
+
+**学習目標**:
+
+- LaTeX文書の基本構造（プリアンブルと本文）を理解する
+- 数式をインラインモードとディスプレイモードで記述できる
+- 日本語文書をLuaLaTeXで作成するための設定を理解する
+- BibTeX形式で参考文献を管理し、本文中で引用できる
+- 図表の挿入と相互参照の仕組みを理解する
+
+**使用データ**: なし（このユニットはRではなくLaTeXの文法を扱います）
+
+::: {.callout-note}
+## 環境構築について
+LaTeXの実行環境（TeX Liveのインストール、VSCodeの設定など）については [環境構築ガイド](../tech-guide/latex-setup.html) を参照してください。このユニットでは、環境構築が済んでいる前提で、LaTeX文書の**書き方**に焦点を当てます。
+:::
+
+---
+
+## 事前知識: LaTeXの基礎
+
+### LaTeXとは
+
+LaTeX（ラテフまたはレイテック）は、文書を作成するための**組版システム**です。Wordのように画面上で直接レイアウトを編集するのではなく（WYSIWYG方式）、テキストファイルに**マークアップ（命令）**を書いてコンパイルし、PDF文書を生成します。
+
+LaTeXの主な利点は次の通りです。
+
+- **数式の美しい表現**: 複雑な数式を正確かつ美しく組版できる
+- **参考文献の自動管理**: 引用番号や文献リストを自動生成できる
+- **構造化された文書**: 章・節・図表番号などが自動的に管理される
+- **再現性**: テキストファイルなのでバージョン管理と相性がよい
+
+学術論文、学位論文、書籍などの執筆で広く使われており、心理学の研究でもデータ分析（R）と文書作成（LaTeX）を組み合わせることで、再現可能な研究報告が可能になります。
+
+### 文書構造
+
+LaTeX文書は大きく2つの部分から成ります。
+
+1. **プリアンブル**: `\documentclass` から `\begin{document}` までの設定部分
+2. **本文**: `\begin{document}` と `\end{document}` の間
+
+最小限の文書は次のようになります。
+
+```latex
+\documentclass{ltjsarticle}
+\usepackage{luatexja-fontspec}
+
+\title{最初のLaTeX文書}
+\author{名前}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{はじめに}
+ここに本文を書きます。
+
+\section{おわりに}
+以上です。
+
+\end{document}
+```
+
+文書の構造を定義するコマンドには次のようなものがあります。
+
+| コマンド | 意味 | 例 |
+|---------|------|-----|
+| `\section{...}` | 節 | `\section{はじめに}` |
+| `\subsection{...}` | 小節 | `\subsection{参加者}` |
+| `\subsubsection{...}` | 小々節 | `\subsubsection{手続きの詳細}` |
+| `\paragraph{...}` | 段落見出し | `\paragraph{注意事項}` |
+
+`\tableofcontents` を `\maketitle` の後に書くと、自動的に目次が生成されます。
+
+### 数式
+
+LaTeXの最大の強みの一つが数式の表現力です。数式の書き方には2種類あります。
+
+**インラインモード**: 本文中に数式を埋め込む場合は `$...$` で囲みます。
+
+例: `平均は $\bar{x} = \frac{1}{n}\sum_{i=1}^{n} x_i$ で求められる。`
+
+**ディスプレイモード**: 独立した行に数式を表示する場合は `$$...$$` または `\begin{equation}...\end{equation}` を使います。
+
+例:
+
+```latex
+$$
+\bar{x} = \frac{1}{n}\sum_{i=1}^{n} x_i
+$$
+```
+
+よく使う数式コマンドを以下にまとめます。
+
+| 表現 | コマンド | 出力例 |
+|------|---------|--------|
+| 分数 | `\frac{a}{b}` | a/b（分数表記） |
+| 上付き | `x^2` | x の2乗 |
+| 下付き | `x_i` | x の添字 i |
+| 平方根 | `\sqrt{x}` | x の平方根 |
+| 平均記号 | `\bar{x}` | x にバー |
+| 推定記号 | `\hat{\theta}` | theta にハット |
+| 総和 | `\sum_{i=1}^{n}` | シグマ記号 |
+| 積分 | `\int_{a}^{b}` | 積分記号 |
+| ギリシャ文字 | `\alpha, \beta, \gamma, \sigma, \mu` | 各ギリシャ文字 |
+| 不等号 | `\leq, \geq, \neq` | 以下、以上、不等 |
+| 矢印 | `\rightarrow, \Rightarrow` | 右矢印 |
+| 無限大 | `\infty` | 無限大記号 |
+
+**行列**の記述は `amsmath` パッケージの環境を使います。
+
+```latex
+\usepackage{amsmath}  % プリアンブルに追加
+
+% 丸括弧の行列
+\begin{pmatrix}
+  a & b \\
+  c & d
+\end{pmatrix}
+
+% 角括弧の行列
+\begin{bmatrix}
+  1 & 0 \\
+  0 & 1
+\end{bmatrix}
+```
+
+**複数行にわたる数式**には `align` 環境を使います。`&` で揃える位置を指定し、`\\` で改行します。
+
+```latex
+\begin{align}
+  y &= ax + b \\
+  z &= cx^2 + dx + e
+\end{align}
+```
+
+### 日本語文書
+
+日本語を含むLaTeX文書を作成するには、**LuaLaTeX**というエンジンを使います。ドキュメントクラスには `ltjsarticle`（論文用）または `ltjsbook`（書籍用）を指定し、`luatexja-fontspec` パッケージを読み込みます。
+
+```latex
+\documentclass{ltjsarticle}
+\usepackage{luatexja-fontspec}
+```
+
+これだけで日本語の文章を自然に書くことができます。コンパイルには `lualatex` コマンド（または VSCode LaTeX Workshop の lualatex レシピ）を使います。
+
+::: {.callout-warning}
+## pLaTeX / upLaTeX との違い
+古い日本語LaTeX環境では `platex` や `uplatex` というエンジンを使っていました。これらは `jsarticle` というドキュメントクラスを使い、`dvi → pdf` の変換が必要でした。現在は LuaLaTeX を使うのが標準的です。
+:::
+
+### 参考文献
+
+学術論文では参考文献の管理が重要です。LaTeXでは **BibTeX形式**（`.bib`ファイル）で文献情報を管理し、本文中では `\cite{key}` コマンドで引用します。文献リストは自動的に生成されます。
+
+`.bib` ファイルのエントリは次のような形式です。
+
+```bibtex
+% 英語論文
+@article{abelson1954technique,
+    title     = {A technique and a model for multi-dimensional attitude scaling},
+    author    = {Abelson, Robert P},
+    journal   = {Public Opinion Quarterly},
+    volume    = {18},
+    number    = {4},
+    pages     = {405--418},
+    date      = {1954},
+    publisher = {Oxford University Press}
+}
+
+% 日本語論文
+@article{Haebara1987,
+    title    = {相関係数および平均値差の解釈のための確率的な指標},
+    author   = {南風原,朝和 and 芝,祐順},
+    sortname = {Haebara,Tomokazu and Shiba, Sukeyori},
+    journal  = {教育心理学研究},
+    volume   = {35},
+    number   = {3},
+    pages    = {259-265},
+    date     = {1987},
+    language = {japanese}
+}
+
+% 英語の書籍
+@book{Borsboom2005,
+    title     = {Measuring the mind: conceptual issues in contemporary psychometrics},
+    author    = {Borsboom, Denny},
+    publisher = {Cambridge University Press},
+    date      = {2005}
+}
+```
+
+エントリの種類には `@article`（論文）、`@book`（書籍）、`@inbook`（書籍の一章）、`@online`（Webページ）、`@software`（ソフトウェア）などがあります。
+
+本文中での引用は次のように行います。
+
+```latex
+\usepackage[backend=biber,style=jpa]{biblatex}
+\addbibresource{sample.bib}
+
+% 本文中
+Abelson~(\citeyear{abelson1954technique})は...
+\textcite{Borsboom2005}によると...
+
+% 文献リスト
+\printbibliography[title=引用文献]
+```
+
+参考文献を含む文書をコンパイルするには、`lualatex → biber → lualatex → lualatex` の順に実行する必要があります（VSCode LaTeX Workshopの対応レシピを使うと自動化できます）。
+
+### 図表
+
+**図の挿入**は `graphicx` パッケージと `figure` 環境を使います。
+
+```latex
+\usepackage{graphicx}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.8\textwidth]{sample_figure.png}
+  \caption{図のキャプション}
+  \label{fig:sample}
+\end{figure}
+```
+
+`[htbp]` は図の配置オプションで、h（here: ここ）、t（top: ページ上部）、b（bottom: ページ下部）、p（page: 独立ページ）の優先順位を指定します。
+
+**表の作成**は `table` 環境と `tabular` 環境を組み合わせます。
+
+```latex
+\begin{table}[htbp]
+  \centering
+  \caption{記述統計量}
+  \label{tab:descriptive}
+  \begin{tabular}{lrrr}
+    \hline
+    変数 & 平均 & 標準偏差 & $N$ \\
+    \hline
+    年齢 & 20.5 & 1.2 & 100 \\
+    得点 & 75.3 & 12.8 & 100 \\
+    \hline
+  \end{tabular}
+\end{table}
+```
+
+`tabular` の引数 `{lrrr}` は列の揃え方を指定します（l: 左揃え、r: 右揃え、c: 中央揃え）。`&` で列を区切り、`\\` で行を区切り、`\hline` で水平線を引きます。
+
+### 相互参照
+
+図表や数式に `\label{}` でラベルを付け、`\ref{}` や `\eqref{}` で参照できます。
+
+```latex
+% 図に対する参照
+Figure~\ref{fig:sample}に結果を示す。
+
+% 表に対する参照
+Table~\ref{tab:descriptive}は記述統計量を示している。
+
+% 数式に対する参照
+\begin{equation}
+  y = ax + b \label{eq:linear}
+\end{equation}
+
+式~\eqref{eq:linear}は線形モデルを表す。
+```
+
+番号はコンパイル時に自動的に割り振られるため、図表の順序を入れ替えても番号が正しく更新されます。ただし、参照を正しく解決するには通常2回以上コンパイルする必要があります。
+
+### テンプレートと資料
+
+ゼミでは以下のファイルを用意しています（[環境構築ガイド](../tech-guide/latex-setup.html) からダウンロードできます）。
+
+| ファイル | 説明 |
+|---------|------|
+| `templete.tex` | テンプレートファイル（コピーして使用） |
+| `sample.bib` | 参考文献サンプル（様々なエントリ型の例） |
+| `jpa.bbx` / `jpa.cbx` / `jpa.dbx` | 日本心理学会の引用スタイル |
+| `latex_guide.pdf` | 詳細ガイド |
+| `tex_build.sh` | コマンドラインビルドスクリプト |
+
+---
+
+## ランクC: 基礎知識を確認しよう
+
+### 21-C-1
+
+LaTeXはWordと同じWYSIWYG方式のワープロソフトである。
+
+`r torf(FALSE)`
+
+`r hide("解説")`
+LaTeXはWYSIWYG（What You See Is What You Get）方式ではありません。テキストファイルにマークアップ（命令）を記述し、コンパイルしてPDFを生成する方式です。画面上で直接レイアウトを編集するWordとは根本的に異なります。マークアップ方式の利点は、構造と見た目を分離できること、数式の表現力が高いこと、バージョン管理と相性がよいことなどです。
+`r unhide()`
+
+---
+
+### 21-C-2
+
+LaTeX文書で、プリアンブル（設定部分）と本文を区切るコマンドの組み合わせとして正しいものはどれですか？
+
+`r mcq(c("\\begin{article}...\\end{article}", answer = "\\begin{document}...\\end{document}", "\\begin{body}...\\end{body}", "\\start{document}...\\stop{document}"))`
+
+`r hide("解説")`
+LaTeX文書の本文は `\begin{document}` と `\end{document}` の間に記述します。`\documentclass{...}` から `\begin{document}` までの部分をプリアンブルと呼び、使用するパッケージやタイトルなどの設定を書きます。
+`r unhide()`
+
+---
+
+### 21-C-3
+
+LaTeXで節（セクション）の見出しを作るコマンドはどれですか？
+
+`r mcq(c("\\heading{...}", "\\title{...}", answer = "\\section{...}", "\\chapter{...}"))`
+
+`r hide("解説")`
+`\section{...}` が節の見出しを作るコマンドです。`\title{...}` は文書全体のタイトルを設定するコマンドであり、節の見出しには使いません。`\chapter{...}` は `book` や `report` クラスで使う「章」のコマンドで、`article` クラスでは使えません。小節は `\subsection{...}`、小々節は `\subsubsection{...}` です。
+`r unhide()`
+
+---
+
+### 21-C-4
+
+本文中に数式 $x^2 + y^2 = r^2$ を埋め込みたい場合、正しい書き方はどれですか？
+
+`r mcq(c(answer = "$x^2 + y^2 = r^2$", "$$x^2 + y^2 = r^2$$", "\\math{x^2 + y^2 = r^2}", "#{x^2 + y^2 = r^2}"))`
+
+`r hide("解説")`
+本文中に数式を埋め込む（インライン数式）には `$...$` で囲みます。`$$...$$` は独立した行に数式を表示するディスプレイモードです。文脈に応じて使い分けます。例えば「標本平均 $\bar{x}$ は...」のように文中に自然に数式を入れたいときはインラインモード、数式を強調して見せたいときはディスプレイモードを使います。
+`r unhide()`
+
+---
+
+### 21-C-5
+
+LaTeXで分数を表すコマンドはどれですか？
+
+`r mcq(c("\\div{a}{b}", answer = "\\frac{a}{b}", "\\ratio{a}{b}", "a/b"))`
+
+`r hide("解説")`
+`\frac{a}{b}` で分数（a分のb）を表現します。`a/b` と書くとスラッシュによる表記になり、数式の見た目が異なります。インライン数式では `a/b` の方がコンパクトですが、ディスプレイモードでは `\frac{a}{b}` の方が読みやすくなります。
+`r unhide()`
+
+---
+
+### 21-C-6
+
+日本語を含むLaTeX文書を作成するとき、推奨されるドキュメントクラスとエンジンの組み合わせはどれですか？
+
+`r mcq(c("jsarticle + platex", "article + xelatex", answer = "ltjsarticle + lualatex", "jarticle + platex"))`
+
+`r hide("解説")`
+現在の標準的な日本語LaTeX環境は `ltjsarticle` クラス + LuaLaTeX エンジンの組み合わせです。`jsarticle` + `platex` は旧来の方法で、dvi→pdf の変換が必要など手順が煩雑です。LuaLaTeX は直接PDFを生成でき、Unicodeに対応しているため、日本語処理が容易です。
+`r unhide()`
+
+---
+
+### 21-C-7
+
+LaTeXで参考文献を管理するために使われるファイル形式はどれですか？
+
+`r mcq(c(".ref ファイル", ".cite ファイル", answer = ".bib ファイル", ".ref.tex ファイル"))`
+
+`r hide("解説")`
+参考文献は `.bib` ファイル（BibTeX形式）で管理します。各文献にキー（例: `Borsboom2005`）を付け、著者名・タイトル・出版年などの情報を記録します。本文中では `\cite{Borsboom2005}` のようにキーで引用し、文献リストは自動生成されます。
+`r unhide()`
+
+---
+
+### 21-C-8
+
+LaTeXで本文中から参考文献を引用するコマンドはどれですか？
+
+`r mcq(c("\\ref{key}", answer = "\\cite{key}", "\\bib{key}", "\\quote{key}"))`
+
+`r hide("解説")`
+`\cite{key}` で文献を引用します。`\ref{key}` は図表や数式の番号を参照するためのコマンドです。`biblatex` パッケージを使っている場合は `\textcite{key}`（著者名を主語にする引用）や `\parencite{key}`（括弧付き引用）など、より細かい制御も可能です。
+`r unhide()`
+
+---
+
+### 21-C-9
+
+LaTeXで表を作るときに列の区切りに使う文字はどれですか？
+
+`r mcq(c("|（パイプ）", ",（カンマ）", answer = "&（アンパサンド）", "\\t（タブ）"))`
+
+`r hide("解説")`
+`tabular` 環境では `&` で列を区切り、`\\` で行を区切ります。`|` は列間に縦線を引くための書式指定に使いますが、区切り文字ではありません。例えば `\begin{tabular}{l|r|r}` と書くと、列間に縦線が入ります。
+`r unhide()`
+
+---
+
+### 21-C-10
+
+LaTeXで図表に番号を付けて本文から参照するとき、使うコマンドの組み合わせとして正しいものはどれですか？
+
+`r mcq(c("\\name{} と \\call{}", answer = "\\label{} と \\ref{}", "\\id{} と \\get{}", "\\tag{} と \\link{}"))`
+
+`r hide("解説")`
+`\label{fig:sample}` で図にラベルを付け、`\ref{fig:sample}` で本文から参照します。LaTeXはコンパイル時にラベルと番号の対応を記録するため、図表の順番を入れ替えても番号が自動的に更新されます。ただし、この対応を正しく解決するには2回以上コンパイルする必要があります。
+`r unhide()`
+
+---
+
+## ランクB: 実践スキルを磨こう
+
+### 21-B-1
+
+次の要件を満たす最小限のLaTeX文書を書いてください（コンパイルは不要です。ソースコードを書くだけでOK）。
+
+- ドキュメントクラス: `ltjsarticle`
+- タイトル: 「心理学レポート」
+- 著者: あなたの名前
+- 本文に「はじめに」と「方法」の2つのセクションを作る
+- 各セクションに1文以上の本文を書く
+
+`r hide("模範解答")`
+```latex
+\documentclass{ltjsarticle}
+\usepackage{luatexja-fontspec}
+
+\title{心理学レポート}
+\author{専修太郎}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{はじめに}
+本研究では、大学生の学習動機づけについて検討する。
+
+\section{方法}
+大学生100名を対象に質問紙調査を実施した。
+
+\end{document}
+```
+
+ポイント:
+
+- `\documentclass{ltjsarticle}` で日本語用のドキュメントクラスを指定
+- `\usepackage{luatexja-fontspec}` でLuaLaTeXの日本語サポートを有効化
+- `\maketitle` でタイトル・著者・日付を出力
+- `\section{...}` で節の見出しを作成
+`r unhide()`
+
+---
+
+### 21-B-2
+
+以下の5つの数式をLaTeXで書いてください。ディスプレイモード（`$$...$$` または `equation` 環境）で記述すること。
+
+1. 二次方程式の解の公式
+2. 正規分布の確率密度関数
+3. 2x2の行列
+4. 総和（1からnまでのxの合計）
+5. 定積分（aからbまでのf(x)の積分）
+
+`r hide("ヒント")`
+使うコマンド:
+
+- 解の公式: `\frac{}{}`, `\pm`, `\sqrt{}`
+- 正規分布: `\frac{}{}`, `\exp`, `\sigma`, `\mu`, `\pi`, `\sqrt{}`
+- 行列: `\begin{pmatrix}...\end{pmatrix}`, `&`, `\\`
+- 総和: `\sum_{i=1}^{n}`
+- 積分: `\int_{a}^{b}`, `dx`
+`r unhide()`
+
+`r hide("模範解答")`
+```latex
+% 1. 二次方程式の解の公式
+$$
+x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+$$
+
+% 2. 正規分布の確率密度関数
+$$
+f(x) = \frac{1}{\sqrt{2\pi}\sigma}
+  \exp\left(-\frac{(x - \mu)^2}{2\sigma^2}\right)
+$$
+
+% 3. 2x2の行列
+$$
+A = \begin{pmatrix}
+  a & b \\
+  c & d
+\end{pmatrix}
+$$
+
+% 4. 総和
+$$
+S = \sum_{i=1}^{n} x_i
+$$
+
+% 5. 定積分
+$$
+\int_{a}^{b} f(x) \, dx
+$$
+```
+
+ポイント:
+
+- `\pm` で「プラスマイナス」を表現
+- `\left(` と `\right)` で括弧のサイズを内容に合わせて自動調整
+- `\exp` は指数関数の記号（`e^{...}` でもよい）
+- `\,` は数式中の小さなスペース（`dx` の前に入れると読みやすい）
+`r unhide()`
+
+---
+
+### 21-B-3
+
+以下のデータを `tabular` 環境で表にしてください。表全体を `table` 環境で囲み、キャプションとラベルも付けること。
+
+| 群 | 平均 | 標準偏差 | N |
+|----|------|---------|---|
+| 実験群 | 82.3 | 10.5 | 30 |
+| 統制群 | 74.8 | 11.2 | 30 |
+
+`r hide("模範解答")`
+```latex
+\begin{table}[htbp]
+  \centering
+  \caption{群ごとの記述統計量}
+  \label{tab:group_stats}
+  \begin{tabular}{lrrr}
+    \hline
+    群 & 平均 & 標準偏差 & $N$ \\
+    \hline
+    実験群 & 82.3 & 10.5 & 30 \\
+    統制群 & 74.8 & 11.2 & 30 \\
+    \hline
+  \end{tabular}
+\end{table}
+```
+
+ポイント:
+
+- `{lrrr}`: 第1列は左揃え（l）、残りは右揃え（r）。数値は右揃えが基本
+- `$N$`: 統計記号はイタリック体にするため数式モードで書く
+- `\caption{...}`: 表のキャプションは `tabular` の外に書く
+- `\label{tab:...}`: 本文から `Table~\ref{tab:group_stats}` で参照できる
+`r unhide()`
+
+---
+
+### 21-B-4
+
+以下の文献情報をBibTeXエントリとして記述してください。
+
+- 種類: 論文（article）
+- 著者: 山田太郎、鈴木花子
+- タイトル: 大学生の学習動機づけに関する研究
+- 雑誌名: 教育心理学研究
+- 巻: 60
+- 号: 2
+- ページ: 150-162
+- 年: 2022
+- 言語: japanese
+
+`r hide("模範解答")`
+```bibtex
+@article{Yamada2022,
+    title    = {大学生の学習動機づけに関する研究},
+    author   = {山田,太郎 and 鈴木,花子},
+    sortname = {Yamada,Taro and Suzuki,Hanako},
+    journal  = {教育心理学研究},
+    volume   = {60},
+    number   = {2},
+    pages    = {150--162},
+    date     = {2022},
+    language = {japanese}
+}
+```
+
+ポイント:
+
+- `sortname`: 日本語著者の場合、ソート用にローマ字表記を記載する
+- `language = {japanese}`: 日本語文献であることを示す（引用スタイルによる表示切替に使われる）
+- `pages = {150--162}`: ページ範囲はハイフン2つ（`--`）で記述する（LaTeXでenダッシュに変換される）
+- 著者名のカンマは姓と名の区切り、`and` は著者間の区切り
+`r unhide()`
+
+---
+
+### 21-B-5
+
+以下の構造を持つ文書のセクション部分を書いてください（プリアンブルは不要です。`\section` 以下の本文部分のみ）。
+
+- 1. はじめに
+  - 1.1 背景
+  - 1.2 目的
+- 2. 方法
+  - 2.1 参加者
+  - 2.2 材料
+  - 2.3 手続き
+- 3. 結果
+- 4. 考察
+- 5. 結論
+
+各セクション・サブセクションには1文以上の本文を入れること。
+
+`r hide("模範解答")`
+```latex
+\section{はじめに}
+
+\subsection{背景}
+近年、大学生の学習動機づけが低下していることが指摘されている。
+
+\subsection{目的}
+本研究は、動機づけ介入プログラムの効果を検証することを目的とする。
+
+\section{方法}
+
+\subsection{参加者}
+A大学の学部生60名（男性28名、女性32名、平均年齢20.3歳）を対象とした。
+
+\subsection{材料}
+学習動機づけ尺度（15項目、5件法）を使用した。
+
+\subsection{手続き}
+参加者を実験群と統制群に無作為に割り付けた。
+
+\section{結果}
+$t$検定の結果、実験群の動機づけ得点は統制群よりも有意に高かった（$t(58) = 2.45, p < .05$）。
+
+\section{考察}
+動機づけ介入プログラムは学習動機づけの向上に効果があることが示唆された。
+
+\section{結論}
+今後は長期的な効果の検証が求められる。
+```
+
+ポイント:
+
+- `\section` と `\subsection` の階層構造が自動的に番号付けされる
+- 心理学論文の構成（序論・方法・結果・考察）に沿った構造
+- 統計記号（$t$, $p$）はイタリック体にするため数式モードで書く
+`r unhide()`
+
+---
+
+### 21-B-6
+
+次の文書に `\label` と `\ref` を使って相互参照を追加してください。
+
+要件:
+
+- 数式にラベルを付けて、本文から「式(1)」の形式で参照する
+- 表にラベルを付けて、本文から「Table 1」の形式で参照する
+
+`r hide("模範解答")`
+```latex
+線形モデルは式~\eqref{eq:linear}で表される。
+
+\begin{equation}
+  y_i = \beta_0 + \beta_1 x_i + \varepsilon_i
+  \label{eq:linear}
+\end{equation}
+
+ここで、$\beta_0$は切片、$\beta_1$は傾きを表す。
+推定結果をTable~\ref{tab:regression}に示す。
+
+\begin{table}[htbp]
+  \centering
+  \caption{回帰分析の結果}
+  \label{tab:regression}
+  \begin{tabular}{lrr}
+    \hline
+    パラメータ & 推定値 & 標準誤差 \\
+    \hline
+    切片 $\beta_0$ & 50.2 & 3.1 \\
+    傾き $\beta_1$ & 0.85 & 0.12 \\
+    \hline
+  \end{tabular}
+\end{table}
+```
+
+ポイント:
+
+- `\eqref{eq:linear}` は数式番号を括弧付きで参照する（`\ref` だと括弧なし）
+- `\label{}` はキャプションの後（または `equation` 環境の中）に書く
+- ラベル名にプレフィックス（`eq:`, `tab:`, `fig:`）を付けるのが慣例
+- 「式~\eqref{...}」のチルダ（`~`）は改行禁止スペース。「式」と番号が離れないようにする
+`r unhide()`
+
+---
+
+### 21-B-7
+
+以下の要素を全て含む、完全なミニ論文のLaTeXソースを書いてください。
+
+- プリアンブル（ltjsarticle、必要なパッケージ）
+- タイトル、著者、日付
+- 目次
+- 本文（はじめに、方法、結果、考察、結論の各セクション）
+- 1つの数式（equation環境、ラベル付き）
+- 1つの表（table環境、ラベル付き）
+- 本文中での相互参照（式と表それぞれ）
+- 参考文献の引用（`\cite` を1箇所以上）
+- 文献リスト（`\printbibliography`）
+
+`r hide("模範解答")`
+```latex
+\documentclass{ltjsarticle}
+\usepackage{luatexja-fontspec}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[backend=biber,style=jpa]{biblatex}
+\addbibresource{sample.bib}
+
+\title{学習動機づけ介入の効果検証}
+\author{専修太郎}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{はじめに}
+学習動機づけは学業成績に大きな影響を与える。
+\textcite{Borsboom2005}は心理測定の概念的問題を
+論じているが、動機づけの測定にも同様の課題が存在する。
+
+\section{方法}
+大学生60名を対象とし、実験群と統制群に無作為に割り付けた。
+動機づけ得点の群間差を式~\eqref{eq:ttest}の$t$検定で検討した。
+
+\begin{equation}
+  t = \frac{\bar{x}_1 - \bar{x}_2}
+    {\sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}}
+  \label{eq:ttest}
+\end{equation}
+
+\section{結果}
+結果をTable~\ref{tab:result}に示す。
+実験群の平均得点は統制群より有意に高かった
+（$t(58) = 2.45, p < .05, d = 0.63$）。
+
+\begin{table}[htbp]
+  \centering
+  \caption{群ごとの記述統計量}
+  \label{tab:result}
+  \begin{tabular}{lrrr}
+    \hline
+    群 & 平均 & $SD$ & $N$ \\
+    \hline
+    実験群 & 82.3 & 10.5 & 30 \\
+    統制群 & 74.8 & 11.2 & 30 \\
+    \hline
+  \end{tabular}
+\end{table}
+
+\section{考察}
+介入プログラムは動機づけの向上に効果的であった。
+
+\section{結論}
+今後は長期的な効果の検証が求められる。
+
+\printbibliography[title=引用文献]
+
+\end{document}
+```
+
+ポイント:
+
+- 必要なパッケージ（amsmath, graphicx, biblatex）をプリアンブルで読み込む
+- `\textcite{}` で著者名を主語にした引用を行う
+- 数式・表にラベルを付け、本文から参照する
+- 実際にコンパイルするには `sample.bib` と `jpa.bbx/cbx/dbx` が同じフォルダに必要
+`r unhide()`
+
+---
+
+### 21-B-8
+
+以下のR出力（回帰分析の結果）を、LaTeXの `tabular` 環境で整形してください。
+
+```
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)
+(Intercept)  50.234     3.121   16.10   < 2e-16 ***
+age           0.852     0.124    6.87   2.3e-10 ***
+gender       -3.145     1.876   -1.68    0.097  .
+score         0.421     0.053    7.94   1.1e-12 ***
+```
+
+要件:
+
+- 変数名は左揃え、数値は右揃え
+- 有意水準の星印も含める
+- 表全体を `table` 環境で囲み、キャプションを付ける
+
+`r hide("模範解答")`
+```latex
+\begin{table}[htbp]
+  \centering
+  \caption{重回帰分析の結果}
+  \label{tab:regression_result}
+  \begin{tabular}{lrrrrl}
+    \hline
+    変数 & $B$ & $SE$ & $t$ & $p$ & \\
+    \hline
+    切片         & 50.234 & 3.121 & 16.10 & $< .001$ & *** \\
+    年齢         &  0.852 & 0.124 &  6.87 & $< .001$ & *** \\
+    性別         & $-3.145$ & 1.876 & $-1.68$ & .097 & \\
+    得点         &  0.421 & 0.053 &  7.94 & $< .001$ & *** \\
+    \hline
+  \end{tabular}
+\end{table}
+```
+
+ポイント:
+
+- Rの出力そのままではなく、APA形式に合わせて整形する
+- p値は有効数字を考慮し、非常に小さい値は `$< .001$` と表記する
+- 統計記号（$B$, $SE$, $t$, $p$）はイタリック体（数式モード）で書く
+- 負の値（$-3.145$）は数式モードで書くとマイナス記号が正しく表示される
+- 変数名は日本語に置き換える（英語のままでもよいが、日本語論文では通常翻訳する）
+`r unhide()`
+
+---
+
+## ランクA: AI協働に挑戦しよう
+
+### 21-A-1
+
+**課題**: あなたが書きたいレポートや論文の一部を、AIの助けを借りてLaTeXで作成してください。
+
+手順:
+
+1. 書きたい内容を決める（例: 授業のレポート、卒論の一節、架空の研究報告）
+2. AIに「この内容をLaTeXで書きたい」と相談し、テンプレートを作ってもらう
+3. AIが生成したコードを理解し、必要に応じて修正する
+4. 実際にコンパイルしてPDFを確認する
+
+**ポイント**: AIは便利ですが、生成されたLaTeXコードが正しくコンパイルできるとは限りません。エラーが出た場合は、エラーメッセージをAIに見せて修正を依頼する、という対話的なプロセスを経験してください。
+
+**提出物**: AIとの対話ログ、最終的なLaTeXソース、生成されたPDF。
+
+---
+
+### 21-A-2
+
+**課題**: ゼミのテンプレート（`templete.tex`）をベースに、自分の研究テーマに合わせたカスタマイズを行ってください。AIに相談しながら進めてかまいません。
+
+カスタマイズの例:
+
+- ヘッダー・フッターの追加（`fancyhdr` パッケージ）
+- 行番号の追加（`lineno` パッケージ、査読用）
+- コードの掲載（`listings` パッケージ）
+- 新しい引用スタイルの適用
+- 独自のコマンド定義（`\newcommand`）
+
+**提出物**: カスタマイズしたテンプレート、どのようなカスタマイズを行ったかの説明、AIとの対話ログ。
+
+---
+
+## まとめ
+
+このユニットでは、LaTeXの基本的な書き方を学びました。
+
+- **文書構造**: `\documentclass`, `\begin{document}`, `\section` による構造化
+- **数式**: `$...$` と `$$...$$` によるインライン・ディスプレイモードの使い分け
+- **日本語**: `ltjsarticle` + LuaLaTeX による日本語文書の作成
+- **参考文献**: `.bib` ファイルと `\cite{}` による文献管理
+- **図表**: `figure`, `table`, `tabular` 環境による図表の挿入
+- **相互参照**: `\label{}` と `\ref{}` による番号の自動管理
+
+LaTeXは最初は取っつきにくく感じるかもしれませんが、一度覚えると数式を多用する論文の執筆が格段に楽になります。卒業論文ではWordでもかまいませんが、大学院以降の研究活動ではLaTeXの知識が大いに役立ちます。
+
+環境構築がまだの人は [環境構築ガイド](../tech-guide/latex-setup.html) を参照してください。また、より詳しい解説は `latex_guide.pdf` に記載されています。
+
+---
+
+進捗: C10 / B8 / A2

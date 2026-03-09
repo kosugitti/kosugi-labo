@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.26">
+<meta name="generator" content="quarto-1.8.27">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Rチュートリアル – Kosugi Labo</title>
+<title>Rドリル – Kosugi Labo</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -72,7 +72,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-a25750924116104412f7a457768fb952.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -103,9 +103,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "サーチ"
   }
 }</script>
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
 
 <link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../include/webex.css">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -180,29 +184,116 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-rチュートリアル" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Rチュートリアル</span>
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-rドリル" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Rドリル</span>
     </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-rチュートリアル">    
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-rドリル">    
         <li>
     <a class="dropdown-item" href="../r-tutorial/index.html">
- <span class="dropdown-text">はじめに</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../r-tutorial/r-basics.html">
- <span class="dropdown-text">Rの基礎</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../r-tutorial/data-handling.html">
- <span class="dropdown-text">データの読み込み</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../r-tutorial/tidyverse.html">
- <span class="dropdown-text">tidyverse入門</span></a>
+ <span class="dropdown-text">Rドリルについて</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../r-tutorial/visualization.html">
  <span class="dropdown-text">可視化ギャラリー</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U0-computer-basics.html">
+ <span class="dropdown-text">U0. コンピュータ基礎</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U1-r-basics.html">
+ <span class="dropdown-text">U1. Rの基礎</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U2-data-types.html">
+ <span class="dropdown-text">U2. データ型とオブジェクト</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U3-matrix-basics.html">
+ <span class="dropdown-text">U3. 数学・行列の基礎</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U4-basic-operations.html">
+ <span class="dropdown-text">U4. 基本的なデータ操作</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U5-data-io.html">
+ <span class="dropdown-text">U5. データの読み書き</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U6-data-explore.html">
+ <span class="dropdown-text">U6. データの確認と探索</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U7-dplyr.html">
+ <span class="dropdown-text">U7. dplyr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U8-tidyr.html">
+ <span class="dropdown-text">U8. tidyr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U9-type-conversion.html">
+ <span class="dropdown-text">U9. 変数の型の変換と統一</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U10-ggplot2.html">
+ <span class="dropdown-text">U10. ggplot2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U11-descriptive-stats.html">
+ <span class="dropdown-text">U11. 記述統計</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U12-statistical-inference.html">
+ <span class="dropdown-text">U12. 統計的推測の基礎</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U13-regression.html">
+ <span class="dropdown-text">U13. 回帰モデル</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U14-multivariate-row.html">
+ <span class="dropdown-text">U14. 多変量解析・行方向</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U15-multivariate-col.html">
+ <span class="dropdown-text">U15. 多変量解析・列方向</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U16-multivariate-both.html">
+ <span class="dropdown-text">U16. 行と列をまたぐ分析</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U17-bayesian-basics.html">
+ <span class="dropdown-text">U17. ベイズ統計の基礎</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U18-mcmc.html">
+ <span class="dropdown-text">U18. MCMCの原理と実践</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U19-stan.html">
+ <span class="dropdown-text">U19. Stan / cmdstanr</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U21-latex.html">
+ <span class="dropdown-text">U21. LaTeX</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U22-git.html">
+ <span class="dropdown-text">U22. Git / GitHub</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U23-programming.html">
+ <span class="dropdown-text">U23. プログラミング基礎概念</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U24-ai-collaboration.html">
+ <span class="dropdown-text">U24. 生成AIとの協働</span></a>
   </li>  
     </ul>
   </li>
@@ -235,14 +326,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#この教材について" id="toc-この教材について" class="nav-link active" data-scroll-target="#この教材について">この教材について</a></li>
-  <li><a href="#目標スキル" id="toc-目標スキル" class="nav-link" data-scroll-target="#目標スキル">目標スキル</a></li>
-  <li><a href="#学習の進め方" id="toc-学習の進め方" class="nav-link" data-scroll-target="#学習の進め方">学習の進め方</a>
+  <li><a href="#フェイズ方式" id="toc-フェイズ方式" class="nav-link" data-scroll-target="#フェイズ方式">3フェイズ方式</a></li>
+  <li><a href="#ユニット一覧" id="toc-ユニット一覧" class="nav-link" data-scroll-target="#ユニット一覧">ユニット一覧</a>
   <ul class="collapse">
-  <li><a href="#ゴールベースビジョン主導型" id="toc-ゴールベースビジョン主導型" class="nav-link" data-scroll-target="#ゴールベースビジョン主導型">ゴールベース・ビジョン主導型</a></li>
-  <li><a href="#生成aiとの協働" id="toc-生成aiとの協働" class="nav-link" data-scroll-target="#生成aiとの協働">生成AIとの協働</a></li>
+  <li><a href="#根幹ユニット必修" id="toc-根幹ユニット必修" class="nav-link" data-scroll-target="#根幹ユニット必修">根・幹ユニット（必修）</a></li>
+  <li><a href="#枝ユニット選択" id="toc-枝ユニット選択" class="nav-link" data-scroll-target="#枝ユニット選択">枝ユニット（選択）</a></li>
+  <li><a href="#リファレンス" id="toc-リファレンス" class="nav-link" data-scroll-target="#リファレンス">リファレンス</a></li>
   </ul></li>
-  <li><a href="#教材の構成" id="toc-教材の構成" class="nav-link" data-scroll-target="#教材の構成">教材の構成</a></li>
-  <li><a href="#必要な環境" id="toc-必要な環境" class="nav-link" data-scroll-target="#必要な環境">必要な環境</a></li>
+  <li><a href="#スキルツリー依存関係" id="toc-スキルツリー依存関係" class="nav-link" data-scroll-target="#スキルツリー依存関係">スキルツリー（依存関係）</a></li>
+  <li><a href="#足切りライン目安" id="toc-足切りライン目安" class="nav-link" data-scroll-target="#足切りライン目安">足切りライン（目安）</a></li>
+  <li><a href="#環境構築" id="toc-環境構築" class="nav-link" data-scroll-target="#環境構築">環境構築</a></li>
   </ul>
 </nav>
     </div>
@@ -251,7 +344,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Rチュートリアル</h1>
+<h1 class="title">Rドリル</h1>
 </div>
 
 
@@ -270,89 +363,561 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="この教材について" class="level2">
 <h2 class="anchored" data-anchor-id="この教材について">この教材について</h2>
-<p>この教材は、Rを使ったデータ分析・可視化の基礎を学ぶためのものです。</p>
+<p>この教材は、Rを使ったデータ分析・可視化・統計モデリングの力を段階的に身につけるための自習教材です。全24ユニットで構成され、各ユニットにC/B/Aの3フェイズの課題が用意されています。</p>
 </section>
-<section id="目標スキル" class="level2">
-<h2 class="anchored" data-anchor-id="目標スキル">目標スキル</h2>
-<p>この教材を終えると、以下のことができるようになります：</p>
-<ol type="1">
-<li><strong>データ整形技術</strong>：自分が欲しい形にデータを整えることができる</li>
-<li><strong>tidyverseマスター</strong>：tidyverseを使った効率的なデータハンドリング</li>
-<li><strong>データ可視化技術</strong>：研究に必要な図表を自在に作成できる</li>
-<li><strong>生成AI活用力</strong>：俯瞰的ビジョンのもとで生成AIに適切な指示が出せる</li>
-</ol>
+<section id="フェイズ方式" class="level2">
+<h2 class="anchored" data-anchor-id="フェイズ方式">3フェイズ方式</h2>
+<p>各ユニットには、以下の3段階の課題があります。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 22%">
+<col style="width: 22%">
+<col style="width: 22%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>フェイズ</th>
+<th>名称</th>
+<th>内容</th>
+<th>形式</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>C</strong></td>
+<td>基礎知識</td>
+<td>「知っているか」を問う</td>
+<td>正誤問題・選択問題（ブラウザ上で即時フィードバック）</td>
+</tr>
+<tr class="even">
+<td><strong>B</strong></td>
+<td>実践スキル</td>
+<td>「手でできるか」を問う</td>
+<td>Rコードを自分で書く（模範解答あり）</td>
+</tr>
+<tr class="odd">
+<td><strong>A</strong></td>
+<td>AI協働</td>
+<td>「問題を構造化し言語化できるか」を問う</td>
+<td>生成AIに的確に指示して結果を得る</td>
+</tr>
+</tbody>
+</table>
+<p>課題には <code>ユニット番号-フェイズ-連番</code> の番号が付いています（例: <code>7-B-3</code> = U7のBフェイズ3問目）。ゼミで「今どこ？」と聞かれたら、この番号で答えてください。</p>
 </section>
-<section id="学習の進め方" class="level2">
-<h2 class="anchored" data-anchor-id="学習の進め方">学習の進め方</h2>
-<section id="ゴールベースビジョン主導型" class="level3">
-<h3 class="anchored" data-anchor-id="ゴールベースビジョン主導型">ゴールベース・ビジョン主導型</h3>
-<p>この教材では、「こういう図を描きたい」「こういうデータにしたい」というゴールから逆算して学んでいきます。</p>
-<ol type="1">
-<li><strong>可視化ギャラリーを見る</strong> → 「こんな図が描けるんだ」という目標を知る</li>
-<li><strong>必要なデータ形式を理解する</strong> → その図を描くにはどんなデータが必要か</li>
-<li><strong>データを整形する</strong> → 手元のデータを必要な形に変える</li>
-<li><strong>実際に描いてみる</strong> → 試行錯誤しながら完成させる</li>
-</ol>
-</section>
-<section id="生成aiとの協働" class="level3">
-<h3 class="anchored" data-anchor-id="生成aiとの協働">生成AIとの協働</h3>
-<p>わからないことは積極的に生成AI（ChatGPT、Claude等）に相談してください。</p>
-<p><strong>良い質問の例：</strong></p>
-<ul>
-<li>「年齢別の平均スコアを棒グラフで描きたいのですが、どうすればいいですか？」</li>
-<li>「このエラーメッセージの意味を教えてください：〇〇」</li>
-<li>「group_by() と summarize() の違いを教えてください」</li>
-</ul>
-<p><strong>避けたほうがよい質問：</strong></p>
-<ul>
-<li>「Rがわかりません」（具体性がない）</li>
-<li>「全部やってください」（学習にならない）</li>
-</ul>
-</section>
-</section>
-<section id="教材の構成" class="level2">
-<h2 class="anchored" data-anchor-id="教材の構成">教材の構成</h2>
+<section id="ユニット一覧" class="level2">
+<h2 class="anchored" data-anchor-id="ユニット一覧">ユニット一覧</h2>
+<section id="根幹ユニット必修" class="level3">
+<h3 class="anchored" data-anchor-id="根幹ユニット必修">根・幹ユニット（必修）</h3>
 <table class="caption-top table">
 <thead>
 <tr class="header">
-<th>ページ</th>
+<th>#</th>
+<th>ユニット名</th>
+<th>分類</th>
 <th>内容</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="../r-tutorial/r-basics.html">Rの基礎</a></td>
-<td>計算、オブジェクト、関数の基本</td>
+<td>0</td>
+<td><a href="../r-tutorial/U0-computer-basics.html">コンピュータ基礎</a></td>
+<td>根</td>
+<td>ファイル、パス、文字コード、コマンドライン</td>
 </tr>
 <tr class="even">
-<td><a href="../r-tutorial/data-handling.html">データの読み込み</a></td>
-<td>CSVファイルを読み込んで中身を確認</td>
+<td>1</td>
+<td><a href="../r-tutorial/U1-r-basics.html">Rの基礎</a></td>
+<td>幹</td>
+<td>RStudio、プロジェクト、パッケージ、ヘルプ</td>
 </tr>
 <tr class="odd">
-<td><a href="../r-tutorial/tidyverse.html">tidyverse入門</a></td>
-<td>dplyr, tidyrを使ったデータ整形</td>
+<td>2</td>
+<td><a href="../r-tutorial/U2-data-types.html">データ型とオブジェクト</a></td>
+<td>幹</td>
+<td>ベクトル、リスト、データフレーム、tibble</td>
 </tr>
 <tr class="even">
-<td><a href="../r-tutorial/visualization.html">可視化ギャラリー</a></td>
-<td>ggplot2で描ける様々な図の例</td>
+<td>4</td>
+<td><a href="../r-tutorial/U4-basic-operations.html">基本的なデータ操作</a></td>
+<td>幹</td>
+<td>演算子、インデキシング、ソート</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td><a href="../r-tutorial/U5-data-io.html">データの読み書き</a></td>
+<td>幹</td>
+<td>CSV、Excel、RDS</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td><a href="../r-tutorial/U6-data-explore.html">データの確認と探索</a></td>
+<td>幹</td>
+<td>head、summary、str、table、欠損値</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td><a href="../r-tutorial/U7-dplyr.html">dplyr</a></td>
+<td>幹</td>
+<td>filter、select、mutate、summarise、group_by</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td><a href="../r-tutorial/U8-tidyr.html">tidyr</a></td>
+<td>幹</td>
+<td>tidy data、pivot_longer/wider</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td><a href="../r-tutorial/U9-type-conversion.html">変数の型の変換と統一</a></td>
+<td>幹</td>
+<td>ダミー変数、標準化、ワンホット</td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td><a href="../r-tutorial/U10-ggplot2.html">ggplot2</a></td>
+<td>幹</td>
+<td>文法、geom、aes、facet、theme</td>
+</tr>
+<tr class="odd">
+<td>11</td>
+<td><a href="../r-tutorial/U11-descriptive-stats.html">記述統計</a></td>
+<td>幹</td>
+<td>代表値、散布度、相関、効果量</td>
+</tr>
+<tr class="even">
+<td>12</td>
+<td><a href="../r-tutorial/U12-statistical-inference.html">統計的推測の基礎</a></td>
+<td>幹</td>
+<td>検定、信頼区間、検出力</td>
+</tr>
+<tr class="odd">
+<td>13</td>
+<td><a href="../r-tutorial/U13-regression.html">回帰モデル</a></td>
+<td>幹</td>
+<td>lm、glm、モデル選択</td>
+</tr>
+<tr class="even">
+<td>24</td>
+<td><a href="../r-tutorial/U24-ai-collaboration.html">生成AIとの協働</a></td>
+<td>幹</td>
+<td>プロンプト設計、検証、倫理</td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="必要な環境" class="level2">
-<h2 class="anchored" data-anchor-id="必要な環境">必要な環境</h2>
+<section id="枝ユニット選択" class="level3">
+<h3 class="anchored" data-anchor-id="枝ユニット選択">枝ユニット（選択）</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>ユニット名</th>
+<th>分類</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>3</td>
+<td><a href="../r-tutorial/U3-matrix-basics.html">数学・行列の基礎</a></td>
+<td>枝</td>
+<td>転置、積、相関行列、固有値</td>
+</tr>
+<tr class="even">
+<td>14</td>
+<td><a href="../r-tutorial/U14-multivariate-row.html">多変量解析・行方向</a></td>
+<td>枝</td>
+<td>因子分析、PCA、SEM</td>
+</tr>
+<tr class="odd">
+<td>15</td>
+<td><a href="../r-tutorial/U15-multivariate-col.html">多変量解析・列方向</a></td>
+<td>枝</td>
+<td>クラスタリング、MDS</td>
+</tr>
+<tr class="even">
+<td>16</td>
+<td><a href="../r-tutorial/U16-multivariate-both.html">行と列をまたぐ分析</a></td>
+<td>枝</td>
+<td>バイプロット、対応分析、バイクラスタリング</td>
+</tr>
+<tr class="odd">
+<td>17</td>
+<td><a href="../r-tutorial/U17-bayesian-basics.html">ベイズ統計の基礎</a></td>
+<td>枝</td>
+<td>事前/事後分布、信用区間</td>
+</tr>
+<tr class="even">
+<td>18</td>
+<td><a href="../r-tutorial/U18-mcmc.html">MCMCの原理と実践</a></td>
+<td>枝</td>
+<td>chain、収束診断、Rhat</td>
+</tr>
+<tr class="odd">
+<td>19</td>
+<td><a href="../r-tutorial/U19-stan.html">Stan / cmdstanr</a></td>
+<td>枝</td>
+<td>モデル記述、fit、draws</td>
+</tr>
+<tr class="even">
+<td>21</td>
+<td><a href="../r-tutorial/U21-latex.html">LaTeX</a></td>
+<td>枝</td>
+<td>数式、日本語、参考文献</td>
+</tr>
+<tr class="odd">
+<td>22</td>
+<td><a href="../r-tutorial/U22-git.html">Git / GitHub</a></td>
+<td>枝</td>
+<td>バージョン管理、コミット</td>
+</tr>
+<tr class="even">
+<td>23</td>
+<td><a href="../r-tutorial/U23-programming.html">プログラミング基礎概念</a></td>
+<td>枝</td>
+<td>関数定義、制御構造、apply/map</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="リファレンス" class="level3">
+<h3 class="anchored" data-anchor-id="リファレンス">リファレンス</h3>
 <ul>
-<li>R（最新版推奨）</li>
-<li>RStudio または RStudio Server</li>
+<li><a href="../r-tutorial/visualization.html">可視化ギャラリー</a> – ggplot2で描ける図のサンプル集</li>
+</ul>
+</section>
+</section>
+<section id="スキルツリー依存関係" class="level2">
+<h2 class="anchored" data-anchor-id="スキルツリー依存関係">スキルツリー（依存関係）</h2>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph TD
+    classDef root fill:#8B4513,color:#fff,stroke:#5C2D0A,stroke-width:2px
+    classDef trunk fill:#228B22,color:#fff,stroke:#145214,stroke-width:2px
+    classDef branch fill:#4682B4,color:#fff,stroke:#2F5A7E,stroke-width:2px
+    classDef ai fill:#DAA520,color:#fff,stroke:#A07818,stroke-width:2px
+
+    U0["0. コンピュータ基礎"]:::root
+    U1["1. Rの基礎"]:::trunk
+    U2["2. データ型"]:::trunk
+    U4["4. データ操作"]:::trunk
+    U5["5. データの読み書き"]:::trunk
+    U6["6. データの確認"]:::trunk
+    U7["7. dplyr"]:::trunk
+    U8["8. tidyr"]:::trunk
+    U9["9. 型の変換"]:::trunk
+    U10["10. ggplot2"]:::trunk
+    U11["11. 記述統計"]:::trunk
+    U12["12. 統計的推測"]:::trunk
+    U13["13. 回帰モデル"]:::trunk
+    U3["3. 行列の基礎"]:::branch
+    U14["14. 因子分析等"]:::branch
+    U15["15. クラスタリング等"]:::branch
+    U16["16. 行×列の分析"]:::branch
+    U17["17. ベイズ基礎"]:::branch
+    U18["18. MCMC"]:::branch
+    U19["19. Stan"]:::branch
+    U21["21. LaTeX"]:::branch
+    U22["22. Git"]:::branch
+    U23["23. プログラミング"]:::branch
+    U24["24. 生成AI"]:::ai
+
+    U0 --&gt; U1
+    U1 --&gt; U2
+    U2 --&gt; U4
+    U4 --&gt; U5
+    U5 --&gt; U6
+    U6 --&gt; U7
+    U7 --&gt; U8
+    U8 --&gt; U9
+    U6 --&gt; U10
+    U9 --&gt; U10
+    U10 --&gt; U11
+    U11 --&gt; U12
+    U12 --&gt; U13
+
+    U1 --&gt; U24
+
+    U2 --&gt; U3
+    U3 --&gt; U14
+    U3 --&gt; U15
+    U14 --&gt; U16
+    U15 --&gt; U16
+    U12 --&gt; U17
+    U17 --&gt; U18
+    U18 --&gt; U19
+
+    U1 --&gt; U22
+    U1 --&gt; U23
+    U1 --&gt; U21
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>凡例: 茶=根 / 緑=幹 / 青=枝 / 金=AI</p>
+</section>
+<section id="足切りライン目安" class="level2">
+<h2 class="anchored" data-anchor-id="足切りライン目安">足切りライン（目安）</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 23%">
+<col style="width: 53%">
+<col style="width: 23%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>時期</th>
+<th>最低到達ライン</th>
+<th>意味</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>6月末</td>
+<td>U1〜U6のCフェイズ完了</td>
+<td>Rの基礎知識がある。データを読んで眺められる</td>
+</tr>
+<tr class="even">
+<td>9月末</td>
+<td>U7〜U10のCフェイズ + U1〜U6のBフェイズ完了</td>
+<td>tidyverse/ggplotを知っている。基礎操作ができる</td>
+</tr>
+<tr class="odd">
+<td>11月末</td>
+<td>U7〜U10のBフェイズ完了</td>
+<td>データ整形と可視化が自分でできる</td>
+</tr>
+</tbody>
+</table>
+<p>枝ユニットとAフェイズは足切りに含みません（加点要素・自主的な伸びしろ）。</p>
+</section>
+<section id="環境構築" class="level2">
+<h2 class="anchored" data-anchor-id="環境構築">環境構築</h2>
+<ul>
+<li>R（最新版推奨）、RStudio または RStudio Server</li>
 <li>tidyverse パッケージ</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># tidyverseのインストール（初回のみ）</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 必要なパッケージのインストール（初回のみ）</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<p>各種セットアップは<a href="../tech-guide/github-setup.html">技術ガイド</a>を参照してください。</p>
 
 
 </section>
 
 </main> <!-- /main -->
+<script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  var t = document.getElementsByClassName("webex-total_correct");
+  for (var i = 0; i < t.length; i++) {
+    p = t[i].parentElement;
+    var correct = p.getElementsByClassName("webex-correct").length;
+    var solvemes = p.getElementsByClassName("webex-solveme").length;
+    var radiogroups = p.getElementsByClassName("webex-radiogroup").length;
+    var selects = p.getElementsByClassName("webex-select").length;
+
+    t[i].innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* check answers */
+check_func = function() {
+  console.log("webex: check answers");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('unchecked')) {
+    cl.remove("unchecked");
+    this.innerHTML = "Hide Answers";
+  } else {
+    cl.add("unchecked");
+    this.innerHTML = "Show Answers";
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+
+  var cl = this.classList
+
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("webex onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  var check_sections = document.getElementsByClassName("webex-check");
+  console.log("check:", check_sections.length);
+  for (var i = 0; i < check_sections.length; i++) {
+    check_sections[i].classList.add("unchecked");
+
+    let btn = document.createElement("button");
+    btn.innerHTML = "Show Answers";
+    btn.classList.add("webex-check-button");
+    btn.onclick = check_func;
+    check_sections[i].appendChild(btn);
+
+    let spn = document.createElement("span");
+    spn.classList.add("webex-total_correct");
+    check_sections[i].appendChild(spn);
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+
+    solveme[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+    selects[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  update_total_correct();
+}
+
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";

@@ -1,0 +1,1654 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>U22. Git / GitHub – Kosugi Labo</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-a25750924116104412f7a457768fb952.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "一致なし",
+    "search-matching-documents-text": "一致した文書",
+    "search-copy-link-title": "検索へのリンクをコピー",
+    "search-hide-matches-text": "追加の検索結果を非表示",
+    "search-more-match-text": "追加の検索結果",
+    "search-more-matches-text": "追加の検索結果",
+    "search-clear-button-title": "消去",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "検索",
+    "search-label": "サーチ"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../include/webex.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Kosugi Labo</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="サーチ"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="ナビゲーションを切り替える" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">ホーム</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">ゼミガイド</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-">    
+        <li>
+    <a class="dropdown-item" href="../zemi-policy.html">
+ <span class="dropdown-text">ゼミの運営方針</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../research-guide.html">
+ <span class="dropdown-text">研究の進め方</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../writing-guide.html">
+ <span class="dropdown-text">文章の読み書き</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../anti-harassment.html">
+ <span class="dropdown-text">アンチハラスメントポリシー</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu--1" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">技術ガイド</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu--1">    
+        <li>
+    <a class="dropdown-item" href="../tech-guide/github-setup.html">
+ <span class="dropdown-text">GitHub</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tech-guide/vscode-setup.html">
+ <span class="dropdown-text">VSCode</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tech-guide/latex-setup.html">
+ <span class="dropdown-text">LaTeX</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tech-guide/ssh-remote.html">
+ <span class="dropdown-text">SSH接続</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tech-guide/tailscale.html">
+ <span class="dropdown-text">Tailscale</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-rチュートリアル" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Rチュートリアル</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-rチュートリアル">    
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/index.html">
+ <span class="dropdown-text">はじめに</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/r-basics.html">
+ <span class="dropdown-text">Rの基礎</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/data-handling.html">
+ <span class="dropdown-text">データの読み込み</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/tidyverse.html">
+ <span class="dropdown-text">tidyverse入門</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/visualization.html">
+ <span class="dropdown-text">可視化ギャラリー</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U0-computer-basics.html">
+ <span class="dropdown-text">U0. コンピュータ基礎</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U1-r-basics.html">
+ <span class="dropdown-text">U1. Rの基礎</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U2-data-types.html">
+ <span class="dropdown-text">U2. データ型とオブジェクト</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U3-matrix-basics.html">
+ <span class="dropdown-text">U3. 数学・行列の基礎</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U4-basic-operations.html">
+ <span class="dropdown-text">U4. 基本的なデータ操作</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U5-data-io.html">
+ <span class="dropdown-text">U5. データの読み書き</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U6-data-explore.html">
+ <span class="dropdown-text">U6. データの確認と探索</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U7-dplyr.html">
+ <span class="dropdown-text">U7. dplyr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U8-tidyr.html">
+ <span class="dropdown-text">U8. tidyr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U9-type-conversion.html">
+ <span class="dropdown-text">U9. 変数の型の変換と統一</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U10-ggplot2.html">
+ <span class="dropdown-text">U10. ggplot2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U11-descriptive-stats.html">
+ <span class="dropdown-text">U11. 記述統計</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U12-statistical-inference.html">
+ <span class="dropdown-text">U12. 統計的推測の基礎</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U13-regression.html">
+ <span class="dropdown-text">U13. 回帰モデル</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U14-multivariate-row.html">
+ <span class="dropdown-text">U14. 多変量解析・行方向</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U15-multivariate-col.html">
+ <span class="dropdown-text">U15. 多変量解析・列方向</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U16-multivariate-both.html">
+ <span class="dropdown-text">U16. 行と列をまたぐ分析</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U17-bayesian-basics.html">
+ <span class="dropdown-text">U17. ベイズ統計の基礎</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U18-mcmc.html">
+ <span class="dropdown-text">U18. MCMCの原理と実践</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U19-stan.html">
+ <span class="dropdown-text">U19. Stan / cmdstanr</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U21-latex.html">
+ <span class="dropdown-text">U21. LaTeX</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U22-git.html">
+ <span class="dropdown-text">U22. Git / GitHub</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U23-programming.html">
+ <span class="dropdown-text">U23. プログラミング基礎概念</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../r-tutorial/U24-ai-collaboration.html">
+ <span class="dropdown-text">U24. 生成AIとの協働</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../members.html"> 
+<span class="menu-text">メンバー</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../server-status.html"> 
+<span class="menu-text">サーバー状況</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../feedback.html"> 
+<span class="menu-text">フィードバック</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">目次</h2>
+   
+  <ul>
+  <li><a href="#ユニット概要" id="toc-ユニット概要" class="nav-link active" data-scroll-target="#ユニット概要">ユニット概要</a></li>
+  <li><a href="#事前知識-バージョン管理と-git" id="toc-事前知識-バージョン管理と-git" class="nav-link" data-scroll-target="#事前知識-バージョン管理と-git">事前知識: バージョン管理と Git</a>
+  <ul class="collapse">
+  <li><a href="#なぜバージョン管理が必要なのか" id="toc-なぜバージョン管理が必要なのか" class="nav-link" data-scroll-target="#なぜバージョン管理が必要なのか">なぜバージョン管理が必要なのか</a></li>
+  <li><a href="#git-の基本概念" id="toc-git-の基本概念" class="nav-link" data-scroll-target="#git-の基本概念">Git の基本概念</a></li>
+  <li><a href="#gitignore" id="toc-gitignore" class="nav-link" data-scroll-target="#gitignore">.gitignore</a></li>
+  <li><a href="#基本ワークフロー" id="toc-基本ワークフロー" class="nav-link" data-scroll-target="#基本ワークフロー">基本ワークフロー</a></li>
+  <li><a href="#rstudio-の-git-タブ" id="toc-rstudio-の-git-タブ" class="nav-link" data-scroll-target="#rstudio-の-git-タブ">RStudio の Git タブ</a></li>
+  <li><a href="#github-pages" id="toc-github-pages" class="nav-link" data-scroll-target="#github-pages">GitHub Pages</a></li>
+  </ul></li>
+  <li><a href="#ランクc-基礎知識を確認しよう" id="toc-ランクc-基礎知識を確認しよう" class="nav-link" data-scroll-target="#ランクc-基礎知識を確認しよう">ランクC: 基礎知識を確認しよう</a>
+  <ul class="collapse">
+  <li><a href="#c-1" id="toc-c-1" class="nav-link" data-scroll-target="#c-1">22-C-1</a></li>
+  <li><a href="#c-2" id="toc-c-2" class="nav-link" data-scroll-target="#c-2">22-C-2</a></li>
+  <li><a href="#c-3" id="toc-c-3" class="nav-link" data-scroll-target="#c-3">22-C-3</a></li>
+  <li><a href="#c-4" id="toc-c-4" class="nav-link" data-scroll-target="#c-4">22-C-4</a></li>
+  <li><a href="#c-5" id="toc-c-5" class="nav-link" data-scroll-target="#c-5">22-C-5</a></li>
+  <li><a href="#c-6" id="toc-c-6" class="nav-link" data-scroll-target="#c-6">22-C-6</a></li>
+  <li><a href="#c-7" id="toc-c-7" class="nav-link" data-scroll-target="#c-7">22-C-7</a></li>
+  <li><a href="#c-8" id="toc-c-8" class="nav-link" data-scroll-target="#c-8">22-C-8</a></li>
+  </ul></li>
+  <li><a href="#ランクb-実践スキルを磨こう" id="toc-ランクb-実践スキルを磨こう" class="nav-link" data-scroll-target="#ランクb-実践スキルを磨こう">ランクB: 実践スキルを磨こう</a>
+  <ul class="collapse">
+  <li><a href="#b-1" id="toc-b-1" class="nav-link" data-scroll-target="#b-1">22-B-1</a></li>
+  <li><a href="#b-2" id="toc-b-2" class="nav-link" data-scroll-target="#b-2">22-B-2</a></li>
+  <li><a href="#b-3" id="toc-b-3" class="nav-link" data-scroll-target="#b-3">22-B-3</a></li>
+  <li><a href="#b-4" id="toc-b-4" class="nav-link" data-scroll-target="#b-4">22-B-4</a></li>
+  <li><a href="#b-5" id="toc-b-5" class="nav-link" data-scroll-target="#b-5">22-B-5</a></li>
+  <li><a href="#b-6" id="toc-b-6" class="nav-link" data-scroll-target="#b-6">22-B-6</a></li>
+  <li><a href="#b-7" id="toc-b-7" class="nav-link" data-scroll-target="#b-7">22-B-7</a></li>
+  <li><a href="#b-8" id="toc-b-8" class="nav-link" data-scroll-target="#b-8">22-B-8</a></li>
+  </ul></li>
+  <li><a href="#ランクa-ai協働に挑戦しよう" id="toc-ランクa-ai協働に挑戦しよう" class="nav-link" data-scroll-target="#ランクa-ai協働に挑戦しよう">ランクA: AI協働に挑戦しよう</a>
+  <ul class="collapse">
+  <li><a href="#a-1" id="toc-a-1" class="nav-link" data-scroll-target="#a-1">22-A-1</a></li>
+  <li><a href="#a-2" id="toc-a-2" class="nav-link" data-scroll-target="#a-2">22-A-2</a></li>
+  </ul></li>
+  <li><a href="#まとめ" id="toc-まとめ" class="nav-link" data-scroll-target="#まとめ">まとめ</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">U22. Git / GitHub</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="ユニット概要" class="level2">
+<h2 class="anchored" data-anchor-id="ユニット概要">ユニット概要</h2>
+<p><strong>分類</strong>: 枝（選択）</p>
+<p><strong>依存関係</strong>: U1（Rの基礎） → <strong>U22</strong></p>
+<p><strong>使用データ</strong>: なし</p>
+<p><strong>学習目標</strong>:</p>
+<ul>
+<li>バージョン管理の必要性と Git の基本概念を理解する</li>
+<li>リポジトリ、コミット、ブランチ、マージの意味を説明できる</li>
+<li>Git の基本的なワークフロー（Pull → Edit → Stage → Commit → Push）を実践できる</li>
+<li><code>.gitignore</code> を適切に設定できる</li>
+<li>GitHub Pages を使って静的サイトを公開する手順を理解する</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">ノート</span>セットアップについて
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Git / GitHub の初期設定（アカウント作成、SSH鍵の設定、RStudio連携など）は <a href="../tech-guide/github-setup.html">セットアップガイド</a> を参照してください。このユニットでは、セットアップが完了していることを前提に、Git の<strong>概念</strong>と<strong>ワークフロー</strong>に焦点を当てます。</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="事前知識-バージョン管理と-git" class="level2">
+<h2 class="anchored" data-anchor-id="事前知識-バージョン管理と-git">事前知識: バージョン管理と Git</h2>
+<section id="なぜバージョン管理が必要なのか" class="level3">
+<h3 class="anchored" data-anchor-id="なぜバージョン管理が必要なのか">なぜバージョン管理が必要なのか</h3>
+<p>研究やレポートを書いていると、ファイル名がこうなったことはないでしょうか：</p>
+<pre><code>report.docx
+report_v2.docx
+report_v2_修正.docx
+report_v2_修正_最終.docx
+report_v2_修正_最終_本当に最終.docx
+report_v2_修正_最終_本当に最終_提出用.docx</code></pre>
+<p>このやり方には重大な問題があります：</p>
+<ul>
+<li><strong>どれが本当の最新版かわからなくなる</strong></li>
+<li><strong>いつ、何を、なぜ変更したかの記録が残らない</strong></li>
+<li><strong>「3日前の状態に戻したい」ができない</strong></li>
+<li><strong>複数人で同じファイルを編集すると破綻する</strong></li>
+</ul>
+<p><strong>バージョン管理システム</strong>（Version Control System, VCS）は、ファイルの変更履歴を自動的に記録し、いつでも過去の状態に戻せるようにする仕組みです。<strong>Git</strong> は現在最も広く使われているバージョン管理システムで、プログラミングだけでなく論文執筆やデータ分析にも活用されています。</p>
+</section>
+<section id="git-の基本概念" class="level3">
+<h3 class="anchored" data-anchor-id="git-の基本概念">Git の基本概念</h3>
+<section id="リポジトリrepository" class="level4">
+<h4 class="anchored" data-anchor-id="リポジトリrepository">リポジトリ（Repository）</h4>
+<p><strong>リポジトリ</strong>とは、Git がファイルの変更履歴を管理する場所のことです。プロジェクトのフォルダ全体が1つのリポジトリになります。リポジトリの中には <code>.git</code> という隠しフォルダがあり、すべての履歴情報が格納されています。</p>
+<p>リポジトリには2種類あります：</p>
+<ul>
+<li><strong>ローカルリポジトリ</strong>: 自分のPCにあるリポジトリ</li>
+<li><strong>リモートリポジトリ</strong>: GitHub などのサーバー上にあるリポジトリ</li>
+</ul>
+</section>
+<section id="コミットcommit" class="level4">
+<h4 class="anchored" data-anchor-id="コミットcommit">コミット（Commit）</h4>
+<p><strong>コミット</strong>とは、ある時点のファイルの状態を記録する操作です。ゲームでいう「セーブポイント」に相当します。</p>
+<p>コミットの重要な特徴は、ファイルの全体を毎回コピーするのではなく、<strong>前回のコミットからの差分（diff）だけを記録する</strong>ということです。これにより、リポジトリのサイズが無駄に大きくならず、変更点だけを効率よく確認できます。</p>
+<p>各コミットには以下の情報が含まれます：</p>
+<ul>
+<li><strong>変更内容</strong>: どのファイルのどの部分が変わったか（差分）</li>
+<li><strong>コミットメッセージ</strong>: なぜその変更をしたかの説明</li>
+<li><strong>作成者</strong>: 誰がコミットしたか</li>
+<li><strong>タイムスタンプ</strong>: いつコミットしたか</li>
+<li><strong>ハッシュ値</strong>: そのコミットを一意に識別するID（例: <code>a1b2c3d</code>）</li>
+</ul>
+</section>
+<section id="ステージングエリアstaging-area" class="level4">
+<h4 class="anchored" data-anchor-id="ステージングエリアstaging-area">ステージングエリア（Staging Area）</h4>
+<p>Git では、ファイルを変更してもすぐにコミットされるわけではありません。<strong>ステージングエリア</strong>（インデックスとも呼ばれる）という中間領域に「次のコミットに含めるファイル」を明示的に登録する必要があります。</p>
+<pre><code>作業ディレクトリ → [git add] → ステージングエリア → [git commit] → リポジトリ</code></pre>
+<p>この仕組みがあることで、「10個のファイルを変更したが、そのうち3個だけをコミットしたい」という柔軟な操作が可能になります。</p>
+</section>
+<section id="ブランチbranch" class="level4">
+<h4 class="anchored" data-anchor-id="ブランチbranch">ブランチ（Branch）</h4>
+<p><strong>ブランチ</strong>とは、コミット履歴の分岐です。メインの開発ライン（<code>main</code> ブランチ）から枝分かれして、独立した作業を進めることができます。</p>
+<pre><code>main:    A --- B --- C --- F --- G
+                      \       /
+feature:               D --- E</code></pre>
+<p>この図では、コミットCの時点で <code>feature</code> ブランチを作成し、DとEの作業を行っています。その間、<code>main</code> ブランチではFの作業が進んでいます。<code>feature</code> の作業が完了したら、Gの時点で <code>main</code> に<strong>マージ</strong>（統合）します。</p>
+<p>ブランチの利点：</p>
+<ul>
+<li><strong>実験的な変更を安全に試せる</strong>: 失敗してもメインラインに影響しない</li>
+<li><strong>複数の機能を並行して開発できる</strong>: 各機能を別ブランチで作業</li>
+<li><strong>コードレビューの仕組みと組み合わせやすい</strong>: Pull Request</li>
+</ul>
+</section>
+<section id="マージmerge" class="level4">
+<h4 class="anchored" data-anchor-id="マージmerge">マージ（Merge）</h4>
+<p><strong>マージ</strong>とは、あるブランチの変更を別のブランチに取り込む操作です。通常は機能ブランチの作業が完了したときに <code>main</code> ブランチにマージします。</p>
+<p>同じファイルの同じ箇所を2つのブランチで別々に変更していた場合、<strong>マージコンフリクト</strong>（衝突）が発生します。この場合は手動でどちらの変更を採用するか判断する必要があります。</p>
+</section>
+<section id="リモートリポジトリと同期" class="level4">
+<h4 class="anchored" data-anchor-id="リモートリポジトリと同期">リモートリポジトリと同期</h4>
+<p><strong>GitHub</strong> はリモートリポジトリのホスティングサービスです。ローカルリポジトリとリモートリポジトリを同期するには、以下の操作を使います：</p>
+<ul>
+<li><strong>push</strong>: ローカルの変更をリモートに送信する</li>
+<li><strong>pull</strong>: リモートの変更をローカルに取り込む</li>
+<li><strong>clone</strong>: リモートリポジトリをローカルにコピーする</li>
+</ul>
+</section>
+</section>
+<section id="gitignore" class="level3">
+<h3 class="anchored" data-anchor-id="gitignore">.gitignore</h3>
+<p><strong><code>.gitignore</code></strong> は、Git の管理対象から除外するファイルやフォルダを指定するファイルです。以下のようなファイルは通常 Git で管理しません：</p>
+<ul>
+<li><strong>自動生成されるファイル</strong>: <code>.Rhistory</code>, <code>.RData</code>, <code>*.html</code>（Quarto出力）</li>
+<li><strong>OS固有のファイル</strong>: <code>.DS_Store</code>（Mac）, <code>Thumbs.db</code>（Windows）</li>
+<li><strong>大きなデータファイル</strong>: CSV, Excel など（別の方法で共有する）</li>
+<li><strong>機密情報</strong>: パスワード、APIキーなどを含むファイル</li>
+</ul>
+<p>R プロジェクトの典型的な <code>.gitignore</code> の例：</p>
+<pre><code># R関連
+.Rhistory
+.RData
+.Rproj.user/
+
+# OS関連
+.DS_Store
+Thumbs.db
+
+# 出力ファイル
+*.html
+*_files/
+
+# データファイル（大きい場合）
+data/*.csv
+data/*.xlsx</code></pre>
+</section>
+<section id="基本ワークフロー" class="level3">
+<h3 class="anchored" data-anchor-id="基本ワークフロー">基本ワークフロー</h3>
+<p>Git を使った日常の作業は、次のサイクルを繰り返します：</p>
+<pre><code>1. Pull    （リモートの最新状態を取得）
+     ↓
+2. Edit    （ファイルを編集・作成）
+     ↓
+3. Stage   （変更をステージングエリアに追加: git add）
+     ↓
+4. Commit  （変更を記録: git commit）
+     ↓
+5. Push    （リモートに送信: git push）</code></pre>
+<p><strong>必ず作業の最初に Pull する</strong>ことが重要です。他の人（または別のPCの自分）がリモートに変更を push している可能性があるためです。Pull せずに作業を始めると、後で push するときにコンフリクトが発生する原因になります。</p>
+</section>
+<section id="rstudio-の-git-タブ" class="level3">
+<h3 class="anchored" data-anchor-id="rstudio-の-git-タブ">RStudio の Git タブ</h3>
+<p>RStudio には Git 操作のための GUI が統合されています。プロジェクトが Git リポジトリになっていれば、右上のペインに <strong>Git タブ</strong> が表示されます。</p>
+<ul>
+<li><strong>Diff</strong>: 変更内容を確認する（追加された行は緑、削除された行は赤）</li>
+<li><strong>Commit</strong>: ステージングとコミットを行うウィンドウを開く</li>
+<li><strong>Pull</strong>: リモートから最新の変更を取得（青い下矢印）</li>
+<li><strong>Push</strong>: ローカルの変更をリモートに送信（緑の上矢印）</li>
+</ul>
+<p>コマンドラインに慣れるまでは、RStudio の Git タブを使うと視覚的に操作できて便利です。</p>
+</section>
+<section id="github-pages" class="level3">
+<h3 class="anchored" data-anchor-id="github-pages">GitHub Pages</h3>
+<p><strong>GitHub Pages</strong> は、GitHub リポジトリから直接 Web サイトを公開できるサービスです。Quarto で作成したサイトや分析レポートを、追加のサーバーなしで公開できます。</p>
+<p>設定手順の概要：</p>
+<ol type="1">
+<li>リポジトリの Settings を開く</li>
+<li>Pages セクションで Source を選択（<code>main</code> ブランチの <code>docs/</code> フォルダなど）</li>
+<li>保存すると <code>https://&lt;ユーザ名&gt;.github.io/&lt;リポジトリ名&gt;/</code> で公開される</li>
+</ol>
+<p>このサイト自体も GitHub Pages で公開されています。</p>
+<hr>
+</section>
+</section>
+<section id="ランクc-基礎知識を確認しよう" class="level2">
+<h2 class="anchored" data-anchor-id="ランクc-基礎知識を確認しよう">ランクC: 基礎知識を確認しよう</h2>
+<section id="c-1" class="level3">
+<h3 class="anchored" data-anchor-id="c-1">22-C-1</h3>
+<p>Git における「コミット」とは何ですか？</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">ファイルを削除する操作</option><option value="answer">ある時点のファイルの状態を記録する操作</option><option value="">ファイルをインターネットに公開する操作</option><option value="">ファイルの名前を変更する操作</option></select></p>
+<div class="webex-solution">
+<button>
+解説
+</button>
+<p>コミットは「セーブポイント」のようなものです。その時点のファイルの状態をスナップショットとして記録します。正確には、前回のコミットからの差分（diff）を記録しており、いつでもその時点の状態に戻ることができます。</p>
+</div>
+<hr>
+</section>
+<section id="c-2" class="level3">
+<h3 class="anchored" data-anchor-id="c-2">22-C-2</h3>
+<p>Git でブランチを使う主な目的は何ですか？</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">ファイルを暗号化するため</option><option value="">ファイルサイズを小さくするため</option><option value="answer">メインラインに影響を与えずに並行して作業するため</option><option value="">ファイルを自動バックアップするため</option></select></p>
+<div class="webex-solution">
+<button>
+解説
+</button>
+<p>ブランチを使うと、<code>main</code> ブランチ（本線）に影響を与えずに新機能の開発や実験的な変更を行えます。作業が完了したらマージして本線に統合します。失敗した場合はブランチを削除するだけで済みます。</p>
+</div>
+<hr>
+</section>
+<section id="c-3" class="level3">
+<h3 class="anchored" data-anchor-id="c-3">22-C-3</h3>
+<p><code>git push</code> と <code>git pull</code> の違いについて、正しい説明はどれですか？</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">push はファイルを削除し、pull はファイルを作成する</option><option value="">push はブランチを作り、pull はブランチを削除する</option><option value="answer">push はローカルの変更をリモートに送信し、pull はリモートの変更をローカルに取り込む</option><option value="">push と pull は同じ操作の別名である</option></select></p>
+<div class="webex-solution">
+<button>
+解説
+</button>
+<p><code>push</code> は自分のPCのコミット履歴を GitHub（リモート）にアップロードする操作、<code>pull</code> は GitHub 上の最新の変更を自分のPCにダウンロードする操作です。共同作業では、作業開始時に必ず <code>pull</code> して最新状態にしてから編集を始めることが重要です。</p>
+</div>
+<hr>
+</section>
+<section id="c-4" class="level3">
+<h3 class="anchored" data-anchor-id="c-4">22-C-4</h3>
+<p><code>.gitignore</code> ファイルの役割は何ですか？</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">Git のインストール設定を記述する</option><option value="answer">Git の管理対象から除外するファイルを指定する</option><option value="">Git のコミットメッセージを自動生成する</option><option value="">Git のブランチ名を定義する</option></select></p>
+<div class="webex-solution">
+<button>
+解説
+</button>
+<p><code>.gitignore</code> に記載されたファイルやフォルダは、Git の追跡対象から除外されます。<code>.Rhistory</code>、<code>.DS_Store</code>、大きなデータファイル、機密情報を含むファイルなどを指定するのが一般的です。リポジトリのルートに置きます。</p>
+</div>
+<hr>
+</section>
+<section id="c-5" class="level3">
+<h3 class="anchored" data-anchor-id="c-5">22-C-5</h3>
+<p>2つのブランチで同じファイルの同じ箇所を異なる内容に変更した場合、マージ時に何が起きますか？</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">Git が自動的に両方の変更を統合する</option><option value="">後からコミットした方が優先される</option><option value="answer">マージコンフリクト（衝突）が発生し、手動で解決する必要がある</option><option value="">両方の変更が失われる</option></select></p>
+<div class="webex-solution">
+<button>
+解説
+</button>
+<p>同じファイルの同じ箇所に異なる変更がある場合、Git はどちらを採用すべきか判断できないため、マージコンフリクトが発生します。ファイル内にコンフリクト箇所が次のようにマークされるので、手動でどちらの変更を残すか（または両方を統合するか）を決めます：</p>
+<pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+自分の変更
+=======
+相手の変更
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature-branch</code></pre>
+</div>
+<hr>
+</section>
+<section id="c-6" class="level3">
+<h3 class="anchored" data-anchor-id="c-6">22-C-6</h3>
+<p>ステージングエリア（Staging Area）の役割は何ですか？</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">コミット済みのファイルを保管する場所</option><option value="answer">次のコミットに含めるファイルを選別する中間領域</option><option value="">リモートリポジトリとの通信を仲介する場所</option><option value="">削除したファイルを一時保管する場所</option></select></p>
+<div class="webex-solution">
+<button>
+解説
+</button>
+<p>ステージングエリアは、作業ディレクトリとリポジトリの間にある中間領域です。<code>git add</code> でファイルをステージングエリアに追加し、<code>git commit</code> でステージングエリアの内容をリポジトリに記録します。この仕組みにより、変更したファイルのうち一部だけをコミットに含めることができます。</p>
+</div>
+<hr>
+</section>
+<section id="c-7" class="level3">
+<h3 class="anchored" data-anchor-id="c-7">22-C-7</h3>
+<p>リモートリポジトリについて正しい説明はどれですか？</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">自分のPCにだけ存在するリポジトリ</option><option value="answer">GitHub などのサーバー上にあるリポジトリで、共有やバックアップに使う</option><option value="">Git をインストールするためのリポジトリ</option><option value="">削除したファイルの保管場所</option></select></p>
+<div class="webex-solution">
+<button>
+解説
+</button>
+<p>リモートリポジトリは、GitHub や GitLab などのサーバー上に置かれたリポジトリです。ローカルリポジトリ（自分のPC）と <code>push</code> / <code>pull</code> で同期することで、バックアップ、共同作業、コードの公開が可能になります。<code>clone</code> でリモートリポジトリのコピーをローカルに作成できます。</p>
+</div>
+<hr>
+</section>
+<section id="c-8" class="level3">
+<h3 class="anchored" data-anchor-id="c-8">22-C-8</h3>
+<p>GitHub Pages について正しい説明はどれですか？</p>
+<p><select class="webex-select"><option value="blank"></option><option value="">GitHub にコードを保存する機能</option><option value="">GitHub でプルリクエストを管理する機能</option><option value="answer">GitHub リポジトリから静的 Web サイトを公開できるサービス</option><option value="">GitHub でチーム管理を行う機能</option></select></p>
+<div class="webex-solution">
+<button>
+解説
+</button>
+<p>GitHub Pages は、リポジトリ内の HTML ファイルなどを静的 Web サイトとして公開できるサービスです。Quarto で生成した HTML を GitHub Pages で公開すれば、分析レポートやドキュメントを URL 1つで共有できます。無料で利用でき、追加のサーバーは不要です。</p>
+</div>
+<hr>
+</section>
+</section>
+<section id="ランクb-実践スキルを磨こう" class="level2">
+<h2 class="anchored" data-anchor-id="ランクb-実践スキルを磨こう">ランクB: 実践スキルを磨こう</h2>
+<p>以下の課題では Git コマンドを使います。RStudio の Terminal タブ、または Mac のターミナルで実行してください。RStudio の Git タブの GUI で同等の操作ができるものもあります。</p>
+<section id="b-1" class="level3">
+<h3 class="anchored" data-anchor-id="b-1">22-B-1</h3>
+<p>適当なフォルダに新しい Git リポジトリを初期化してください。初期化後に <code>.git</code> フォルダが作成されていることを確認してください。</p>
+<div class="webex-solution">
+<button>
+ヒント
+</button>
+<p><code>git init</code> コマンドでカレントディレクトリを Git リポジトリとして初期化できます。RStudio では File &gt; New Project から Git リポジトリ付きのプロジェクトを作成することもできます。</p>
+</div>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 練習用フォルダを作成して移動</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> git-practice</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> git-practice</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Git リポジトリを初期化</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> init</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co"># .git フォルダが作成されていることを確認</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-la</span></span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<p>RStudio を使う場合は、File &gt; New Project &gt; New Directory &gt; New Project で「Create a git repository」にチェックを入れると、プロジェクト作成と同時にリポジトリが初期化されます。</p>
+</div>
+<hr>
+</section>
+<section id="b-2" class="level3">
+<h3 class="anchored" data-anchor-id="b-2">22-B-2</h3>
+<p>新しいファイルを作成し、最初のコミットを行ってください。コミットメッセージには変更内容がわかる説明を書いてください。</p>
+<div class="webex-solution">
+<button>
+ヒント
+</button>
+<p>手順は3ステップです：</p>
+<ol type="1">
+<li>ファイルを作成する</li>
+<li><code>git add</code> でステージングエリアに追加する</li>
+<li><code>git commit -m "メッセージ"</code> でコミットする</li>
+</ol>
+</div>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ファイルを作成</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"# Git 練習用リポジトリ"</span> <span class="op">&gt;</span> README.md</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ステージングエリアに追加</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add README.md</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># コミット</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"README.md を作成"</span></span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>git status</code> を各ステップの間に実行すると、ファイルの状態が変化していく様子が確認できます：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ファイル作成後</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> status</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># → Untracked files: README.md</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># git add 後</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> status</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># → Changes to be committed: new file: README.md</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co"># git commit 後</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> status</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co"># → nothing to commit, working tree clean</span></span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<hr>
+</section>
+<section id="b-3" class="level3">
+<h3 class="anchored" data-anchor-id="b-3">22-B-3</h3>
+<p>コミット履歴を確認してください。各コミットのハッシュ値、作成者、日時、メッセージが表示されることを確認してください。</p>
+<div class="webex-solution">
+<button>
+ヒント
+</button>
+<p><code>git log</code> コマンドでコミット履歴を表示できます。オプションを付けると表示形式を変更できます。</p>
+</div>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 詳細なログ表示</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> log</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 1行ずつ簡潔に表示</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> log <span class="at">--oneline</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 直近3件のみ表示</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> log <span class="at">-3</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 変更されたファイル名も表示</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> log <span class="at">--stat</span></span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>git log --oneline</code> は、各コミットを「短縮ハッシュ + メッセージ」の1行で表示するため、履歴の全体像をつかむのに便利です。</p>
+</div>
+<hr>
+</section>
+<section id="b-4" class="level3">
+<h3 class="anchored" data-anchor-id="b-4">22-B-4</h3>
+<p>新しいブランチを作成し、そのブランチに切り替えてください。ブランチ上でファイルを編集してコミットした後、<code>main</code> ブランチに戻ってください。</p>
+<div class="webex-solution">
+<button>
+ヒント
+</button>
+<p><code>git branch ブランチ名</code> でブランチを作成し、<code>git checkout ブランチ名</code> で切り替えます。<code>git checkout -b ブランチ名</code> で作成と切り替えを同時に行えます。</p>
+</div>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ブランチの一覧を確認</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> branch</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 新しいブランチを作成して切り替え</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout <span class="at">-b</span> feature/add-description</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 現在のブランチを確認</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> branch</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co"># → * feature/add-description</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co">#     main</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="co"># ファイルを編集</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"このリポジトリは Git の練習用です。"</span> <span class="op">&gt;&gt;</span> README.md</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 変更をコミット</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add README.md</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"README.md に説明を追加"</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="co"># main ブランチに戻る</span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout main</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a><span class="co"># README.md を確認（feature ブランチの変更は反映されていない）</span></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> README.md</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>main</code> ブランチに戻ると、<code>feature/add-description</code> ブランチでの変更は見えなくなります。各ブランチは独立した作業空間を持っています。</p>
+</div>
+<hr>
+</section>
+<section id="b-5" class="level3">
+<h3 class="anchored" data-anchor-id="b-5">22-B-5</h3>
+<p>ローカルリポジトリを GitHub のリモートリポジトリに紐づけて、push してください。</p>
+<div class="webex-solution">
+<button>
+ヒント
+</button>
+<p>事前に GitHub 上で空のリポジトリを作成しておく必要があります。<code>git remote add</code> でリモートを登録し、<code>git push</code> で送信します。</p>
+</div>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<p>まず GitHub で新しいリポジトリを作成します（README の初期化はしないでください）。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># リモートリポジトリを登録</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> remote add origin git@github.com:ユーザ名/リポジトリ名.git</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 登録されたリモートを確認</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> remote <span class="at">-v</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co"># main ブランチを push（-u は上流ブランチの設定）</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push <span class="at">-u</span> origin main</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>-u</code>（<code>--set-upstream</code>）オプションは、ローカルの <code>main</code> ブランチとリモートの <code>main</code> ブランチを紐づけます。一度設定すれば、以降は <code>git push</code> だけで push できます。</p>
+<p>RStudio では、Git タブの緑の上矢印ボタンで push できます。</p>
+</div>
+<hr>
+</section>
+<section id="b-6" class="level3">
+<h3 class="anchored" data-anchor-id="b-6">22-B-6</h3>
+<p>R プロジェクト用の <code>.gitignore</code> ファイルを作成してください。R 関連の一時ファイル、OS固有のファイル、データファイルを適切に除外する内容にしてください。</p>
+<div class="webex-solution">
+<button>
+ヒント
+</button>
+<p><code>.gitignore</code> はリポジトリのルートに配置するテキストファイルです。各行にパターンを1つずつ書きます。<code>#</code> でコメント、<code>*</code> でワイルドカード、<code>/</code> でディレクトリを指定できます。</p>
+</div>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<p>以下の内容で <code>.gitignore</code> ファイルを作成します：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&lt;&lt; 'EOF'</span> <span class="op">&gt;</span> .gitignore</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="st"># === R 関連 ===</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="st">.Rhistory</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="st">.RData</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="st">.Rproj.user/</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="st">*.Rproj</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="st"># === Quarto / R Markdown 出力 ===</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="st">*_files/</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="st">*_cache/</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="st">*.html</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="st"># === OS 関連 ===</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="st">.DS_Store</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="st">Thumbs.db</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="st"># === データファイル（大きい場合）===</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="st">data/*.csv</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a><span class="st">data/*.xlsx</span></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a><span class="st">data/*.rds</span></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a><span class="st"># === その他 ===</span></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a><span class="st">*.log</span></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a><span class="op">EOF</span></span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<p>作成した <code>.gitignore</code> もコミットしましょう：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add .gitignore</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">".gitignore を追加（R プロジェクト用）"</span></span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>.gitignore</code> に記載されたファイルは <code>git status</code> にも表示されなくなります。既に追跡中のファイルを後から除外したい場合は <code>git rm --cached ファイル名</code> で追跡を解除する必要があります。</p>
+</div>
+<hr>
+</section>
+<section id="b-7" class="level3">
+<h3 class="anchored" data-anchor-id="b-7">22-B-7</h3>
+<p>マージコンフリクトを意図的に発生させ、手動で解決してください。</p>
+<div class="webex-solution">
+<button>
+ヒント
+</button>
+<p>2つのブランチで同じファイルの同じ行を異なる内容に変更すると、マージ時にコンフリクトが発生します。</p>
+</div>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># main ブランチで README.md の2行目を編集</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"main ブランチで追記した内容"</span> <span class="op">&gt;&gt;</span> README.md</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add README.md</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"main: README に追記"</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 別ブランチを作成して同じ箇所を異なる内容に変更</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout <span class="at">-b</span> conflict-demo</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 直前のコミットを取り消して別の内容にする</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> reset HEAD~1</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"conflict-demo ブランチで追記した内容"</span> <span class="op">&gt;&gt;</span> README.md</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add README.md</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"conflict-demo: README に追記"</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="co"># main に戻ってマージを試みる</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout main</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> merge conflict-demo</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<p>コンフリクトが発生すると、ファイル内に以下のようなマークが挿入されます：</p>
+<pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+main ブランチで追記した内容
+=======
+conflict-demo ブランチで追記した内容
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; conflict-demo</code></pre>
+<p>解決手順：</p>
+<ol type="1">
+<li>ファイルをテキストエディタで開く</li>
+<li><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>、<code>=======</code>、<code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> のマークを削除する</li>
+<li>残したい内容だけにする（両方残す、片方だけ残す、新たに書き直すなど）</li>
+<li>ファイルを保存する</li>
+<li>コミットする</li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># コンフリクトを解決した後</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add README.md</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"マージコンフリクトを解決"</span></span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<hr>
+</section>
+<section id="b-8" class="level3">
+<h3 class="anchored" data-anchor-id="b-8">22-B-8</h3>
+<p>GitHub Pages を使って、リポジトリの内容を Web サイトとして公開してください。簡単な <code>index.html</code> を作成し、ブラウザからアクセスできることを確認してください。</p>
+<div class="webex-solution">
+<button>
+ヒント
+</button>
+<p>GitHub Pages は、リポジトリの特定のブランチ・フォルダから HTML ファイルを配信します。最も簡単な方法は、<code>main</code> ブランチのルートに <code>index.html</code> を置くことです。</p>
+</div>
+<div class="webex-solution">
+<button>
+模範解答
+</button>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 簡単な HTML ファイルを作成</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&lt;&lt; 'EOF'</span> <span class="op">&gt;</span> index.html</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="st">&lt;!DOCTYPE html&gt;</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="st">&lt;html lang="ja"&gt;</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="st">&lt;head&gt;</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="st">  &lt;meta charset="UTF-8"&gt;</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="st">  &lt;title&gt;Git 練習サイト&lt;/title&gt;</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="st">&lt;/head&gt;</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="st">&lt;body&gt;</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="st">  &lt;h1&gt;GitHub Pages テスト&lt;/h1&gt;</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="st">  &lt;p&gt;このページは GitHub Pages で公開されています。&lt;/p&gt;</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="st">&lt;/body&gt;</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="st">&lt;/html&gt;</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="op">EOF</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="co"># コミットして push</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add index.html</span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"GitHub Pages 用の index.html を追加"</span></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<p>GitHub での設定：</p>
+<ol type="1">
+<li>リポジトリのページで <strong>Settings</strong> タブを開く</li>
+<li>左メニューから <strong>Pages</strong> を選択</li>
+<li>Source で <strong>Deploy from a branch</strong> を選択</li>
+<li>Branch で <strong>main</strong> を選び、フォルダは <strong>/ (root)</strong> のまま <strong>Save</strong></li>
+<li>数分待つと <code>https://&lt;ユーザ名&gt;.github.io/&lt;リポジトリ名&gt;/</code> でアクセスできるようになる</li>
+</ol>
+<p>Quarto で作成したサイトを公開する場合は、出力先を <code>docs/</code> フォルダに設定し、GitHub Pages の Source も <code>docs/</code> に変更します。<code>_quarto.yml</code> に <code>output-dir: docs</code> を指定してください。</p>
+</div>
+<hr>
+</section>
+</section>
+<section id="ランクa-ai協働に挑戦しよう" class="level2">
+<h2 class="anchored" data-anchor-id="ランクa-ai協働に挑戦しよう">ランクA: AI協働に挑戦しよう</h2>
+<section id="a-1" class="level3">
+<h3 class="anchored" data-anchor-id="a-1">22-A-1</h3>
+<p><strong>課題</strong>: あなたの卒業研究（またはゼミの課題プロジェクト）を Git で管理する計画を立ててください。</p>
+<p>AI（ChatGPT、Claude など）に相談しながら、以下を具体的に設計してください：</p>
+<ol type="1">
+<li><strong>リポジトリ構成</strong>: どのようなフォルダ構造にするか（データ、スクリプト、原稿、図表など）</li>
+<li><strong><code>.gitignore</code> の内容</strong>: 何を管理対象外にするか</li>
+<li><strong>ブランチ戦略</strong>: どのようなブランチを作るか（例: 分析ブランチ、執筆ブランチ）</li>
+<li><strong>コミットメッセージの規約</strong>: どのようなメッセージの書き方をするか</li>
+<li><strong>バックアップと共有</strong>: 指導教員とどのように共有するか</li>
+</ol>
+<p><strong>提出物</strong>:</p>
+<ul>
+<li>AIとの対話ログ</li>
+<li>設計したリポジトリ構成図</li>
+<li><code>.gitignore</code> の内容</li>
+<li>ブランチ戦略の説明</li>
+</ul>
+<hr>
+</section>
+<section id="a-2" class="level3">
+<h3 class="anchored" data-anchor-id="a-2">22-A-2</h3>
+<p><strong>課題</strong>: 共同研究プロジェクトのための GitHub リポジトリを設計してください。</p>
+<p>AI に相談しながら、以下の要件を満たすリポジトリのセットアップ手順を作成してください：</p>
+<ul>
+<li>共同研究者（2〜3人）がそれぞれ別の分析を担当する</li>
+<li>データは共有するが、大きすぎて Git で管理できない</li>
+<li>分析結果のレポートを GitHub Pages で公開したい</li>
+<li>誰がいつ何を変更したかを追跡したい</li>
+</ul>
+<p><strong>提出物</strong>:</p>
+<ul>
+<li>AIとの対話の記録</li>
+<li>リポジトリのセットアップ手順書</li>
+<li>共同研究者向けの Git 操作ガイド（Pull → Edit → Commit → Push の手順）</li>
+<li>大容量データの共有方法の検討結果</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="まとめ" class="level2">
+<h2 class="anchored" data-anchor-id="まとめ">まとめ</h2>
+<p>このユニットでは、Git / GitHub の基本概念とワークフローを学びました：</p>
+<ul>
+<li><strong>バージョン管理</strong>: ファイルの変更履歴を記録し、いつでも過去の状態に戻せる</li>
+<li><strong>リポジトリ</strong>: Git が管理するプロジェクトの単位</li>
+<li><strong>コミット</strong>: 変更の差分を記録するスナップショット</li>
+<li><strong>ステージング</strong>: 次のコミットに含めるファイルを選別する仕組み</li>
+<li><strong>ブランチ</strong>: メインラインから分岐して並行作業し、完了後にマージ</li>
+<li><strong>push / pull</strong>: ローカルとリモート（GitHub）の同期</li>
+<li><strong><code>.gitignore</code></strong>: 管理対象外のファイルを指定</li>
+<li><strong>GitHub Pages</strong>: リポジトリから静的 Web サイトを公開</li>
+</ul>
+<p>Git は最初は難しく感じるかもしれませんが、研究データやコードの管理に慣れると手放せなくなります。まずは個人プロジェクトで Pull → Edit → Commit → Push のサイクルを繰り返し、体で覚えてください。</p>
+<hr>
+<p>進捗: あなたは今 <strong>22-C-8</strong> まで完了しました！（と仮定）次は <strong>22-B-1</strong> に進みましょう。</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  var t = document.getElementsByClassName("webex-total_correct");
+  for (var i = 0; i < t.length; i++) {
+    p = t[i].parentElement;
+    var correct = p.getElementsByClassName("webex-correct").length;
+    var solvemes = p.getElementsByClassName("webex-solveme").length;
+    var radiogroups = p.getElementsByClassName("webex-radiogroup").length;
+    var selects = p.getElementsByClassName("webex-select").length;
+
+    t[i].innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* check answers */
+check_func = function() {
+  console.log("webex: check answers");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('unchecked')) {
+    cl.remove("unchecked");
+    this.innerHTML = "Hide Answers";
+  } else {
+    cl.add("unchecked");
+    this.innerHTML = "Show Answers";
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+
+  var cl = this.classList
+
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("webex onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  var check_sections = document.getElementsByClassName("webex-check");
+  console.log("check:", check_sections.length);
+  for (var i = 0; i < check_sections.length; i++) {
+    check_sections[i].classList.add("unchecked");
+
+    let btn = document.createElement("button");
+    btn.innerHTML = "Show Answers";
+    btn.classList.add("webex-check-button");
+    btn.onclick = check_func;
+    check_sections[i].appendChild(btn);
+
+    let spn = document.createElement("span");
+    spn.classList.add("webex-total_correct");
+    check_sections[i].appendChild(spn);
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+
+    solveme[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+    selects[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  update_total_correct();
+}
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "コピーしました");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "コピーしました");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

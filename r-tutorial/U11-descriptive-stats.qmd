@@ -1,0 +1,475 @@
+---
+title: "U11. 記述統計"
+format:
+  html:
+    css: ../include/webex.css
+    include-after-body: ../include/webex.js
+---
+
+```{r setup, include=FALSE}
+pacman::p_load(webexercises, tidyverse)
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+## ユニット概要
+
+**分類**: 幹（全員必須）
+
+**依存関係**: U0 → ... → U10 → **U11** → U12（統計的推測の基礎）
+
+**学習目標**:
+
+- 代表値（平均、中央値、最頻値）を計算し、使い分けられる
+- 散布度（分散、標準偏差、範囲、四分位範囲）を計算し、解釈できる
+- 相関係数を計算し、散布図と合わせて解釈できる
+- 効果量（Cohenのd、相関係数r）の意味と計算方法を理解できる
+- `dplyr::group_by()` + `summarise()` でグループ別の記述統計量を算出できる
+
+---
+
+## 事前知識: 記述統計とは
+
+### なぜ記述統計が必要か
+
+データを手に入れたら、いきなり統計的検定に入るのではなく、まずデータの特徴を**数値で要約**します。これが記述統計（descriptive statistics）です。
+
+記述統計の目的は：
+
+- データの全体像を把握する（どのくらいの値が多いか、ばらつきはどの程度か）
+- 外れ値や異常値の存在を発見する
+- 変数間の関係を概観する
+- 結果を他者に伝えるための基礎情報を整える
+
+### 代表値（中心の指標）
+
+データの「真ん中」を表す指標です。
+
+| 指標 | 意味 | Rの関数 | 特徴 |
+|------|------|---------|------|
+| 平均値（mean） | すべての値の合計 ÷ 個数 | `mean()` | 外れ値の影響を受けやすい |
+| 中央値（median） | 値を並べたときの真ん中 | `median()` | 外れ値に頑健 |
+| 最頻値（mode） | 最も頻度が高い値 | 専用関数なし | カテゴリ変数にも使える |
+
+$$\bar{x} = \frac{1}{n}\sum_{i=1}^{n} x_i$$
+
+```{r}
+x <- c(2, 3, 4, 5, 100)  # 100は外れ値
+mean(x)     # 外れ値に引っ張られる
+median(x)   # 外れ値の影響が小さい
+```
+
+年収のように分布が偏っているデータでは中央値の方が「代表的な値」を表すことがあります。
+
+### 散布度（ばらつきの指標）
+
+データがどの程度散らばっているかを表す指標です。
+
+| 指標 | 意味 | Rの関数 |
+|------|------|---------|
+| 分散（variance） | 偏差の二乗の平均 | `var()`（不偏分散） |
+| 標準偏差（SD） | 分散の正の平方根 | `sd()`（不偏SD） |
+| 範囲（range） | 最大値 − 最小値 | `range()`, `diff(range())` |
+| 四分位範囲（IQR） | 第3四分位 − 第1四分位 | `IQR()` |
+
+$$s^2 = \frac{1}{n-1}\sum_{i=1}^{n}(x_i - \bar{x})^2, \quad s = \sqrt{s^2}$$
+
+Rの `var()` と `sd()` は $n-1$ で割る**不偏推定量**を返します。
+
+```{r}
+x <- c(60, 70, 80, 90, 100)
+var(x)    # 不偏分散
+sd(x)     # 不偏標準偏差
+IQR(x)    # 四分位範囲
+```
+
+### 相関係数
+
+2変数の直線的な関係の強さを表す指標で、$-1$ から $1$ の値をとります。
+
+$$r_{xy} = \frac{\sum(x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum(x_i - \bar{x})^2 \cdot \sum(y_i - \bar{y})^2}}$$
+
+| $|r|$ の目安 | 解釈 |
+|-------------|------|
+| 0.00 〜 0.20 | ほぼ無相関 |
+| 0.20 〜 0.40 | 弱い相関 |
+| 0.40 〜 0.70 | 中程度の相関 |
+| 0.70 〜 1.00 | 強い相関 |
+
+```{r}
+cor(iris$Sepal.Length, iris$Petal.Length)
+```
+
+**注意**: 相関係数は**直線的な**関係の強さを測るものです。曲線的な関係がある場合、相関係数が低くても強い関係がある可能性があります。必ず散布図と合わせて確認してください。
+
+### 効果量
+
+**効果量**（effect size）は、統計的有意性とは別に、**効果の大きさ**を定量化する指標です。
+
+- **Cohenの$d$**: 2群の平均値差を標準偏差で割ったもの。$d = \frac{\bar{x}_1 - \bar{x}_2}{s_p}$
+- **相関係数$r$**: そのまま効果量としても使える
+
+| 効果量 | 小 | 中 | 大 |
+|--------|-----|-----|-----|
+| Cohenの$d$ | 0.2 | 0.5 | 0.8 |
+| 相関係数$r$ | 0.1 | 0.3 | 0.5 |
+
+p値が小さくてもサンプルサイズが大きいだけで実質的な差が小さい場合があります。効果量を報告することで、結果の実質的な意味を評価できます。
+
+---
+
+## ランクC: 基礎知識を確認しよう
+
+### 11-C-1
+
+平均値と中央値の使い分けについて、正しいのはどれですか？
+
+`r mcq(c("常に平均値を使うべき", answer = "外れ値がある場合は中央値の方が代表的", "中央値は順序尺度にしか使えない", "平均値と中央値は常に一致する"))`
+
+`r hide("解説")`
+平均値は外れ値の影響を受けやすく、分布が偏っているとデータの「典型的な値」からずれてしまいます。中央値は値の大小順で真ん中にある値なので、外れ値の影響をほとんど受けません。
+
+年収データのように右に裾が長い分布では、平均値 > 中央値になることが多く、中央値の方が実態に近い代表値になります。
+`r unhide()`
+
+---
+
+### 11-C-2
+
+Rの `var()` 関数が返す値は何ですか？
+
+`r mcq(c("標本分散（nで割る）", answer = "不偏分散（n−1で割る）", "標準偏差", "分散の平方根"))`
+
+`r hide("解説")`
+Rの `var()` は $n-1$ で割る不偏分散を返します。母分散の推定量として $n$ ではなく $n-1$ で割ることで、推定のバイアスを補正しています。
+
+$n$ で割る標本分散が欲しい場合は `var(x) * (n-1) / n` とするか、`sum((x - mean(x))^2) / length(x)` と手計算します。
+`r unhide()`
+
+---
+
+### 11-C-3
+
+`summary()` 関数で数値変数に対して表示される情報に含まれ**ない**ものはどれですか？
+
+`r mcq(c("最小値と最大値", "中央値", answer = "標準偏差", "第1四分位数と第3四分位数"))`
+
+`r hide("解説")`
+`summary()` は Min, 1st Qu., Median, Mean, 3rd Qu., Max の6つの値を表示します。標準偏差は含まれないので、`sd()` で別途計算する必要があります。
+`r unhide()`
+
+---
+
+### 11-C-4
+
+相関係数が $r = -0.85$ のとき、2変数の関係はどのようなものですか？
+
+`r mcq(c("ほぼ無相関", "弱い正の相関", answer = "強い負の相関", "完全な正の相関"))`
+
+`r hide("解説")`
+$|r| = 0.85$ は強い相関です。符号がマイナスなので、一方が増えると他方が減る**負の相関**です。相関の強さは絶対値で判断し、方向は符号で判断します。
+`r unhide()`
+
+---
+
+### 11-C-5
+
+`cor()` 関数にデータフレームの数値列を渡すと何が返されますか？
+
+`r mcq(c("1つの相関係数", answer = "全変数ペアの相関行列", "p値つきの検定結果", "散布図"))`
+
+`r hide("解説")`
+`cor(df)` は全変数ペアのピアソン相関係数を要素とする相関行列を返します。2変数だけの相関係数が欲しい場合は `cor(x, y)` とします。
+
+検定結果（p値）も欲しい場合は `cor.test(x, y)` を使います。
+`r unhide()`
+
+---
+
+### 11-C-6
+
+Cohenの$d = 0.5$ はどのような効果量と見なされますか？
+
+`r mcq(c("小さい効果", answer = "中程度の効果", "大きい効果", "非常に大きい効果"))`
+
+`r hide("解説")`
+Cohenの基準では、$d = 0.2$ が小、$d = 0.5$ が中、$d = 0.8$ が大とされています。$d = 0.5$ は2群の平均値差が標準偏差の半分であることを意味します。
+
+ただしこれはあくまで目安であり、研究分野や文脈によって「意味のある大きさ」は異なります。
+`r unhide()`
+
+---
+
+### 11-C-7
+
+`IQR()` は何を計算しますか？
+
+`r mcq(c("平均値と中央値の差", "最大値と最小値の差", answer = "第3四分位数と第1四分位数の差", "標準偏差の2倍"))`
+
+`r hide("解説")`
+IQR（四分位範囲, Interquartile Range）は第3四分位数（75パーセンタイル）と第1四分位数（25パーセンタイル）の差です。データの中央50%が収まる範囲を表し、外れ値の影響を受けにくい散布度の指標です。
+
+箱ひげ図（box plot）のひげの長さの基準としても使われます。
+`r unhide()`
+
+---
+
+### 11-C-8
+
+「統計的に有意だが効果量が小さい」結果が生じる典型的な原因は？
+
+`r mcq(c("分析手法の間違い", answer = "サンプルサイズが非常に大きい", "外れ値の存在", "正規分布に従っていない"))`
+
+`r hide("解説")`
+サンプルサイズが大きくなると、ごくわずかな差でもp値が小さくなり「統計的に有意」と判定されます。しかし実質的な差が小さければ、その結果に実用上の意味はほとんどありません。
+
+だからこそ、p値だけでなく効果量を報告し、結果の実質的な意味を評価することが推奨されています。
+`r unhide()`
+
+---
+
+## ランクB: 実践スキルを磨こう
+
+### 11-B-1
+
+`iris` の数値変数（1〜4列目）について、平均、中央値、標準偏差、最小値、最大値を一覧する表を `dplyr::summarise()` で作成してください。
+
+`r hide("模範解答")`
+```{r, eval=FALSE}
+pacman::p_load(tidyverse)
+
+iris %>%
+  dplyr::summarise(dplyr::across(1:4, list(
+    mean = ~ mean(.x),
+    median = ~ median(.x),
+    sd = ~ sd(.x),
+    min = ~ min(.x),
+    max = ~ max(.x)
+  ))) %>%
+  tidyr::pivot_longer(everything(),
+    names_to = c("variable", "stat"),
+    names_sep = "_(?=[^_]+$)") %>%
+  tidyr::pivot_wider(names_from = stat, values_from = value)
+```
+
+`pivot_longer` → `pivot_wider` で見やすい表に整形しています。
+`r unhide()`
+
+---
+
+### 11-B-2
+
+`BaseballDecade.csv` の `salary`（年俸）について、平均値と中央値を比較してください。どちらが大きいですか？なぜそうなるか考察してください。
+
+`r hide("模範解答")`
+```{r, eval=FALSE}
+pacman::p_load(tidyverse)
+df <- readr::read_csv("../data/BaseballDecade.csv")
+
+mean(df$salary, na.rm = TRUE)
+median(df$salary, na.rm = TRUE)
+```
+
+平均値の方が大きくなるはずです。年俸は右に裾の長い分布（少数の高額選手が平均を引き上げる）になるため、平均値 > 中央値 になります。このような場合、「代表的な年俸」を表すには中央値の方が適切です。
+`r unhide()`
+
+---
+
+### 11-B-3
+
+`iris` の `Sepal.Length` と `Petal.Length` の相関係数を計算し、散布図も描いてください。相関係数と散布図の関係を確認してください。
+
+`r hide("模範解答")`
+```{r, eval=FALSE}
+pacman::p_load(tidyverse)
+
+# 相関係数
+cor(iris$Sepal.Length, iris$Petal.Length)
+
+# 散布図
+ggplot2::ggplot(iris, ggplot2::aes(x = Sepal.Length, y = Petal.Length)) +
+  ggplot2::geom_point() +
+  ggplot2::labs(title = paste("r =", round(cor(iris$Sepal.Length, iris$Petal.Length), 3)))
+```
+
+$r \approx 0.87$ で強い正の相関があり、散布図でも右上がりの直線的なパターンが見えます。ただし、Speciesごとに色分けすると、種ごとにクラスタが分かれていることもわかります。
+`r unhide()`
+
+---
+
+### 11-B-4
+
+`BaseballDecade.csv` を球団（`team`）ごとにグループ化し、`salary` の平均、中央値、標準偏差を計算してください。
+
+`r hide("模範解答")`
+```{r, eval=FALSE}
+pacman::p_load(tidyverse)
+df <- readr::read_csv("../data/BaseballDecade.csv")
+
+df %>%
+  dplyr::group_by(team) %>%
+  dplyr::summarise(
+    n = dplyr::n(),
+    mean_salary = mean(salary, na.rm = TRUE),
+    median_salary = median(salary, na.rm = TRUE),
+    sd_salary = sd(salary, na.rm = TRUE)
+  ) %>%
+  dplyr::arrange(dplyr::desc(mean_salary))
+```
+
+球団間で平均年俸に差があることがわかります。また、平均と中央値の乖離が大きい球団は、一部の高額選手が平均を引き上げていることを示唆しています。
+`r unhide()`
+
+---
+
+### 11-B-5
+
+`iris` の数値変数の相関行列を計算し、`round()` で小数点以下2桁に丸めてください。最も相関が高い変数ペアと最も低い変数ペアを特定してください。
+
+`r hide("模範解答")`
+```{r, eval=FALSE}
+R <- cor(iris[, 1:4])
+round(R, 2)
+```
+
+最も相関が高いのは `Petal.Length` と `Petal.Width`（$r \approx 0.96$）、最も相関が低いのは `Sepal.Width` と他の変数（特に `Petal.Length` との $r \approx -0.43$）です。
+
+`Sepal.Width` だけが他の変数と負の相関を示すのは、Speciesの影響（シンプソンのパラドックス）が関係しています。
+`r unhide()`
+
+---
+
+### 11-B-6
+
+`BaseballDecade.csv` の投手と野手で `salary` の平均を比較し、Cohenの$d$を手計算してください。
+
+`r hide("ヒント")`
+$d = \frac{\bar{x}_1 - \bar{x}_2}{s_p}$、ここで $s_p = \sqrt{\frac{(n_1-1)s_1^2 + (n_2-1)s_2^2}{n_1+n_2-2}}$
+`r unhide()`
+
+`r hide("模範解答")`
+```{r, eval=FALSE}
+pacman::p_load(tidyverse)
+df <- readr::read_csv("../data/BaseballDecade.csv")
+
+df2 <- df %>%
+  dplyr::mutate(pos2 = dplyr::if_else(position == "投手", "投手", "野手"))
+
+# グループ別統計量
+stats <- df2 %>%
+  dplyr::group_by(pos2) %>%
+  dplyr::summarise(
+    n = dplyr::n(),
+    m = mean(salary, na.rm = TRUE),
+    s = sd(salary, na.rm = TRUE)
+  )
+stats
+
+# Cohenのd（プールされたSD）
+n1 <- stats$n[1]; n2 <- stats$n[2]
+m1 <- stats$m[1]; m2 <- stats$m[2]
+s1 <- stats$s[1]; s2 <- stats$s[2]
+
+sp <- sqrt(((n1 - 1) * s1^2 + (n2 - 1) * s2^2) / (n1 + n2 - 2))
+d <- (m1 - m2) / sp
+d
+```
+
+Cohenの$d$の絶対値が0.2未満なら小さい差、0.5程度なら中程度、0.8以上なら大きい差と解釈します。
+`r unhide()`
+
+---
+
+### 11-B-7
+
+`iris` の `Sepal.Length` について、Species別にヒストグラムを描き、各群の平均と標準偏差を重ねて表示してください。
+
+`r hide("模範解答")`
+```{r, eval=FALSE}
+pacman::p_load(tidyverse)
+
+# 群別の統計量
+stats <- iris %>%
+  dplyr::group_by(Species) %>%
+  dplyr::summarise(m = mean(Sepal.Length), s = sd(Sepal.Length))
+
+ggplot2::ggplot(iris, ggplot2::aes(x = Sepal.Length, fill = Species)) +
+  ggplot2::geom_histogram(bins = 15, alpha = 0.5, position = "identity") +
+  ggplot2::geom_vline(data = stats, ggplot2::aes(xintercept = m, color = Species),
+    linewidth = 1, linetype = "dashed") +
+  ggplot2::labs(title = "Species別 Sepal.Length の分布")
+```
+
+破線が各群の平均値です。3群の分布がどの程度重なっているかは、効果量（群間差÷SD）と対応しています。
+`r unhide()`
+
+---
+
+### 11-B-8
+
+`cor.test()` を使って、`iris` の `Sepal.Length` と `Petal.Length` の相関係数の検定を行ってください。結果からp値と95%信頼区間を読み取ってください。
+
+`r hide("模範解答")`
+```{r, eval=FALSE}
+result <- cor.test(iris$Sepal.Length, iris$Petal.Length)
+result
+
+# 個別に取り出す
+result$estimate     # 相関係数
+result$p.value      # p値
+result$conf.int     # 95%信頼区間
+```
+
+`cor()` は相関係数だけを返しますが、`cor.test()` は検定統計量（t値）、p値、信頼区間も返します。相関係数が統計的に有意かどうかは、帰無仮説 $\rho = 0$（母相関がゼロ）を検定しています。
+`r unhide()`
+
+---
+
+## ランクA: AI協働に挑戦しよう
+
+### 11-A-1
+
+**課題**: `BaseballDecade.csv` を読み込み、以下の記述統計レポートをAIと協力して作成してください。
+
+1. 全体および年度別の `salary` の要約統計量（平均、中央値、SD、IQR）
+2. 年俸の分布の可視化（ヒストグラム + 密度曲線）
+3. 身長・体重・年俸の相関行列と散布図行列
+4. 投手 vs 野手の年俸比較（記述統計量 + 効果量）
+5. 結果の所見（1〜2段落）
+
+**提出物**: AIとの対話ログ、コード、レポート。
+
+---
+
+### 11-A-2
+
+**課題**: 「相関と因果」の違いについてAIに質問しながら整理してください。
+
+以下の点を含めてください：
+
+- 相関関係が因果関係を意味しない例（疑似相関）
+- 交絡変数の役割
+- シンプソンのパラドックスの具体例（`iris` データセットの `Sepal.Width` を題材に）
+
+**提出物**: AIとの対話ログ、考察。
+
+---
+
+## まとめ
+
+このユニットでは、データの特徴を数値で要約する記述統計を学びました：
+
+- **代表値**: `mean()`, `median()`（分布の偏りに応じて使い分け）
+- **散布度**: `var()`, `sd()`, `IQR()`, `range()`（Rは不偏推定量を返す）
+- **相関係数**: `cor()`（相関行列）、`cor.test()`（検定付き）
+- **効果量**: Cohenの$d$（2群の平均差 ÷ プールされたSD）、相関係数$r$
+- **グループ別集計**: `group_by() + summarise()` で群別の記述統計量
+- **注意点**:
+  - 相関は因果を意味しない
+  - p値だけでなく効果量も報告する
+  - 散布図やヒストグラムで分布を目視確認する
+
+次のユニット: **U12. 統計的推測の基礎**では、標本から母集団を推測する枠組み（検定、信頼区間、検出力）を学びます。
+
+---
+
+進捗: あなたは今 **11-C-8** まで完了しました！（と仮定）次は **11-B-1** に進みましょう。

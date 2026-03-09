@@ -1,0 +1,643 @@
+---
+title: "U15. 多変量解析・列方向"
+format:
+  html:
+    css:
+      - ../include/webex.css
+    include-after-body: ../include/webex.js
+---
+
+```{r setup, include=FALSE}
+pacman::p_load(webexercises, tidyverse, ragg)
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE,
+                      dev = "ragg_png")
+```
+
+## ユニット概要
+
+| 項目 | 内容 |
+|------|------|
+| 分類 | 枝（選択） |
+| 前提 | U3（数学・行列の基礎） |
+| 次のユニット | U16（行と列をまたぐ分析） |
+| 使用データ | iris, eurodist |
+| 学習目標 | 距離の概念を理解する / クラスタリングの各手法を実行し結果を解釈できる / MDSの基本を理解し低次元可視化ができる |
+
+---
+
+## 事前知識
+
+### 距離の概念
+
+U14では分散共分散行列（相関行列）を出発点とする分析を扱いました。このユニットでは**距離行列**を出発点とする分析を取り上げます。
+
+**距離（distance）** とは、次の4つの公理を満たす数値のことです。
+
+1. **非負性**: $d(x,y) \geq 0$（距離は0以上）
+2. **同一性**: $d(x,y) = 0 \Leftrightarrow x = y$（距離が0なのは同じ点の場合のみ）
+3. **対称性**: $d(x,y) = d(y,x)$（距離は方向に依存しない）
+4. **三角不等式**: $d(x,z) \leq d(x,y) + d(y,z)$（遠回りは最短距離以上）
+
+距離行列は要素が距離を表す正方・対称行列です。相関行列や分散共分散行列と同じ構造を持ちますが、その要素は「似ていないほど大きい」という非類似性を表す数値です。
+
+### 距離の種類
+
+Rでは `dist()` 関数で距離行列を計算します。主な距離の種類は次の通りです。
+
+- **ユークリッド距離**（`"euclidean"`）: $d(x,y) = \sqrt{\sum_{i=1}^N (x_i-y_i)^2}$。最も一般的な距離
+- **マンハッタン距離**（`"manhattan"`）: $d(x,y) = \sum |x_i - y_i|$。格子状の道のりに相当
+- **ミンコフスキー距離**（`"minkowski"`）: $d(x,y) = \left(\sum |x_i-y_i|^p\right)^{1/p}$。$p=1$ でマンハッタン、$p=2$ でユークリッド
+
+### クラスター分析
+
+クラスター分析は、類似したものをまとめてクラスター（塊）を形成する分析方法です。大きく分けて、階層的手法と非階層的手法があります。
+
+#### 階層的クラスター分析
+
+距離の短いものから順にまとめていき、デンドログラム（樹形図）として結果を表示します。`hclust()` 関数で実行し、クラスター間をまとめる方法（リンケージ）を `method` 引数で指定します。
+
+主なリンケージ法:
+
+| 方法 | method引数 | 特徴 |
+|------|-----------|------|
+| ウォード法 | `"ward.D2"` | クラスター内分散を最小化。最も広く使われる |
+| 最短距離法 | `"single"` | クラスター間の最近接点で連結。鎖状になりやすい |
+| 最長距離法 | `"complete"` | クラスター間の最遠点で連結 |
+| 群平均法 | `"average"` | クラスター間の平均距離で連結 |
+
+`cutree()` 関数でデンドログラムを任意のクラスター数に分割します。
+
+```{r}
+#| echo: true
+#| eval: true
+
+# irisデータからユークリッド距離行列を計算
+d_matrix <- dist(iris[, -5], method = "euclidean")
+
+# ウォード法による階層的クラスター分析
+result.h <- hclust(d_matrix, method = "ward.D2")
+plot(result.h, main = "Hierarchical Clustering Dendrogram")
+```
+
+```{r}
+#| echo: true
+#| eval: true
+
+# 3クラスターに分割し、実際の種と比較
+clusters <- cutree(result.h, k = 3)
+table(clusters, iris$Species)
+```
+
+setosa は完全に分離され、versicolor と virginica の一部が混ざっていることがわかります。
+
+#### k-means法
+
+非階層的クラスター分析の代表的な手法です。あらかじめクラスター数を指定し、各データ点を最も近い重心のクラスターに割り当てる操作を繰り返します。
+
+アルゴリズム:
+
+1. 指定されたクラスター数の重心をランダムに生成する
+2. 各データ点を最も近い重心のクラスターに所属させる
+3. クラスターごとに重心を再計算する
+4. 2-3を繰り返し、変動がなくなったら終了
+
+```{r}
+#| echo: true
+#| eval: true
+
+# k-means法（生データ行列を渡す）
+set.seed(123)
+result.k <- kmeans(iris[, 1:4], centers = 3)
+table(result.k$cluster, iris$Species)
+```
+
+k-means法は初期値に依存するため、`set.seed()` で乱数シードを固定するか、`nstart` 引数で複数の初期値を試すことが推奨されます。
+
+#### ファジィc-means法
+
+通常のクラスター分析（ハードクラスタリング）では各データ点は1つのクラスターにのみ所属しますが、ファジィc-means法（ソフトクラスタリング）では、各データ点が複数のクラスターに確率的に所属します。
+
+```{r}
+#| echo: true
+#| eval: true
+
+pacman::p_load(e1071)
+result.c <- e1071::cmeans(d_matrix, centers = 3, m = 2)
+head(result.c$membership)
+```
+
+`membership` は各データ点の各クラスターへの所属度を表します。値が均等に近いデータ点は、クラスター境界付近にあることを示しています。
+
+#### モデルベースクラスタリング（Mclust）
+
+階層的クラスター分析やk-meansではクラスター数の決定に客観的な基準がありません。モデルベースクラスタリングでは、データが複数の正規分布の混合（混合正規分布モデル, GMM）から生成されたと仮定し、BIC（ベイズ情報量基準）を用いてクラスター数と共分散構造を同時に選択します。
+
+```{r}
+#| echo: true
+#| eval: true
+
+pacman::p_load(mclust)
+gmm_result <- mclust::Mclust(iris[, 1:4])
+summary(gmm_result, parameters = TRUE)
+```
+
+```{r}
+#| echo: true
+#| eval: true
+
+# 分類結果の可視化
+plot(gmm_result, what = "classification")
+```
+
+```{r}
+#| echo: true
+#| eval: true
+
+# BICによるモデル選択結果
+plot(gmm_result, what = "BIC")
+```
+
+BICプロットでは、横軸がクラスター数、縦軸がBIC値を示します。BICが最大となるモデルが最適として選択されます。モデル名の3文字コード（例: VEV）は、クラスターの体積（Volume）、形状（Shape）、向き（Orientation）がそれぞれ等しい（E）か異なる（V）かを示しています。
+
+### 多次元尺度構成法（MDS）
+
+多次元尺度構成法（Multidimensional Scaling, MDS）は、距離行列から低次元の座標を復元する手法です。「距離行列から地図を作る」と考えるとわかりやすいでしょう。
+
+#### 計量MDS（古典的MDS）
+
+データが比率尺度水準で誤差のない距離である場合、`cmdscale()` 関数で計量MDSを実行します。
+
+```{r}
+#| echo: true
+#| eval: true
+
+# ヨーロッパ都市間の距離データでMDS
+result <- cmdscale(eurodist, k = 2)
+plot(result[, 1], result[, 2], type = "n",
+     xlab = "次元1", ylab = "次元2",
+     main = "ヨーロッパ都市間のMDS")
+text(result[, 1], result[, 2], labels = rownames(result), cex = 0.8)
+```
+
+地図のように各都市が配置されていることが確認できます。南北が反転しているように見えるかもしれませんが、MDSの解は回転や鏡映に対して不定であるため、相対的な位置関係が正しく復元されていれば問題ありません。
+
+#### 非計量MDS
+
+心理学では比率尺度水準のデータは少なく、順序尺度水準のデータ（「AよりBの方が似ている」という大小関係）を扱うことが一般的です。非計量MDSはデータの大小関係（順序）を保持する座標を求めます。
+
+適合度は**ストレス値（stress）** で評価します。
+
+| ストレス値 | 評価 |
+|-----------|------|
+| 0.05以下 | 優秀 |
+| 0.10以下 | 良好 |
+| 0.20以下 | 普通 |
+| 0.20超 | 不良 |
+
+`smacof` パッケージの `mds()` 関数で非計量MDSを実行できます。次元数を変えながらストレス値をプロットし、適切な次元数を決定します。スクリープロットと同様に、ストレス値が急減する「肘」を目安にします。
+
+```{r}
+#| echo: true
+#| eval: true
+
+pacman::p_load(smacof)
+
+# 顔表情の類似度データで次元数とストレス値の関係を確認
+dimensions <- 2:6
+stress_values <- numeric(length(dimensions))
+for (i in seq_along(dimensions)) {
+  result_temp <- smacof::mds(FaceExp, ndim = dimensions[i], type = "ordinal")
+  stress_values[i] <- result_temp$stress
+}
+
+plot(dimensions, stress_values, type = "b", pch = 16,
+     xlab = "次元数", ylab = "ストレス値",
+     main = "次元数とストレス値の関係", col = "blue", lwd = 2)
+grid(lty = 2, col = "lightgray")
+```
+
+---
+
+## ランクC: 基礎知識
+
+### 15-C-1
+
+距離の公理において、$d(x,y) = d(y,x)$ はどの性質を表しているか。
+
+`r mcq(c("非負性", "同一性", answer = "対称性", "三角不等式"))`
+
+### 15-C-2
+
+三角不等式 $d(x,z) \leq d(x,y) + d(y,z)$ は、直感的にどういう意味か。
+
+`r mcq(c("距離は常に正である", "同じ点の距離はゼロである", answer = "遠回りは最短距離以上である", "距離は方向に依存しない"))`
+
+### 15-C-3
+
+階層的クラスター分析において最も広く使われ、クラスター内分散を最小化するリンケージ法はどれか。
+
+`r mcq(c("最短距離法（single）", "最長距離法（complete）", "群平均法（average）", answer = "ウォード法（ward.D2）"))`
+
+### 15-C-4
+
+最短距離法（single linkage）は、クラスターが鎖状に連なりやすいという欠点がある。
+
+`r torf(TRUE)`
+
+### 15-C-5
+
+k-means法の欠点として正しいものはどれか。
+
+`r mcq(c("大規模データに適用できない", answer = "初期値に依存し、結果が変わることがある", "クラスター数を自動で決定してくれない点は欠点ではない", "計算に時間がかかりすぎる"))`
+
+### 15-C-6
+
+Mclustにおいて、最適なクラスター数とモデルを選択するために使われる基準はどれか。
+
+`r mcq(c("AIC", answer = "BIC", "ストレス値", "シルエット係数"))`
+
+### 15-C-7
+
+MDSのストレス値が0.10以下であれば、一般にどのように評価されるか。
+
+`r mcq(c("優秀", answer = "良好", "普通", "不良"))`
+
+### 15-C-8
+
+デンドログラム（樹形図）は、どのクラスター分析の結果を表示するために使われるか。
+
+`r mcq(c("k-means法", "ファジィc-means法", answer = "階層的クラスター分析", "モデルベースクラスタリング"))`
+
+---
+
+## ランクB: 実践スキル
+
+### 15-B-1
+
+`iris` データの数値4変数に対して、ユークリッド距離行列を計算し、`as.matrix()` で行列に変換して最初の5行5列を表示しなさい。
+
+`r hide("模範解答")`
+
+```{r}
+#| eval: true
+
+# irisの数値変数からユークリッド距離行列を計算
+d_matrix <- dist(iris[, -5], method = "euclidean")
+
+# 行列に変換して最初の5行5列を表示
+as.matrix(d_matrix)[1:5, 1:5]
+```
+
+距離行列は対称行列であり、対角要素は0です（同じ個体間の距離はゼロ）。これは距離の公理の「同一性」と「対称性」を反映しています。
+
+`r unhide()`
+
+### 15-B-2
+
+`iris` データに対してウォード法で階層的クラスター分析を行い、デンドログラムを描画しなさい。さらに `cutree()` で3クラスターに分割し、実際の `Species` との分類精度をクロス表で確認しなさい。
+
+`r hide("模範解答")`
+
+```{r}
+#| eval: true
+
+# ユークリッド距離行列
+d_matrix <- dist(iris[, -5], method = "euclidean")
+
+# ウォード法で階層的クラスター分析
+result.h <- hclust(d_matrix, method = "ward.D2")
+plot(result.h, main = "Hierarchical Clustering Dendrogram",
+     cex = 0.6, hang = -1)
+
+# 3クラスターに分割
+clusters <- cutree(result.h, k = 3)
+
+# 実際の種との比較
+table(clusters, iris$Species)
+```
+
+setosa は完全に1つのクラスターにまとまっています。versicolor と virginica の境界付近にある個体がいくつか誤分類されていますが、全体として良好な分類結果です。
+
+`r unhide()`
+
+### 15-B-3
+
+`iris` データに対して `kmeans()` を用いて3クラスターに分類しなさい。`nstart = 25` を指定し、初期値依存性を軽減すること。結果を `Species` と比較しなさい。
+
+`r hide("模範解答")`
+
+```{r}
+#| eval: true
+
+# k-means法（生データ行列を渡す、nstart=25で安定化）
+set.seed(123)
+result.k <- kmeans(iris[, 1:4], centers = 3, nstart = 25)
+
+# 実際の種との比較
+table(result.k$cluster, iris$Species)
+```
+
+k-means法のクラスター番号はランダムに割り振られるため、クラスター番号と Species の対応は実行ごとに変わる可能性があります。`nstart = 25` によって25回の初期値で試行し、最良の結果が採用されます。
+
+`r unhide()`
+
+### 15-B-4
+
+`mclust::Mclust()` を用いて `iris` の数値4変数に対してモデルベースクラスタリングを行い、最適なクラスター数と選択されたモデルを確認しなさい。
+
+`r hide("模範解答")`
+
+```{r}
+#| eval: true
+
+pacman::p_load(mclust)
+
+# モデルベースクラスタリング
+gmm_result <- mclust::Mclust(iris[, 1:4])
+
+# 結果の確認
+summary(gmm_result)
+```
+
+```{r}
+#| eval: true
+
+# BICプロット
+plot(gmm_result, what = "BIC")
+```
+
+BICが最大となるモデルが自動的に選択されます。irisデータでは2クラスターが選択されることが多いですが、これは versicolor と virginica が非常に近い分布を持つためです。
+
+`r unhide()`
+
+### 15-B-5
+
+`eurodist`（ヨーロッパ都市間距離）に対して `cmdscale()` で2次元の古典的MDSを実行し、都市名をラベルとしてプロットしなさい。
+
+`r hide("模範解答")`
+
+```{r}
+#| eval: true
+
+# 古典的MDSの実行
+result <- cmdscale(eurodist, k = 2)
+
+# プロット
+plot(result[, 1], result[, 2], type = "n",
+     xlab = "次元1", ylab = "次元2",
+     main = "ヨーロッパ都市間の多次元尺度構成法")
+text(result[, 1], result[, 2],
+     labels = rownames(result), cex = 0.8,
+     col = "darkblue", font = 2)
+grid(lty = 2, col = "lightgray")
+```
+
+ヨーロッパの地図に近い配置が得られます。MDSの解は回転・鏡映に対して不定なので、南北や東西が反転していても問題ありません。重要なのは都市間の相対的な位置関係が保持されていることです。
+
+`r unhide()`
+
+### 15-B-6
+
+3つのクラスタリング手法（階層的、k-means、Mclust）の分類結果をそれぞれ `iris$Species` と比較し、`table()` で表示しなさい。どの手法が最もよい分類を与えるか考察すること。
+
+`r hide("模範解答")`
+
+```{r}
+#| eval: true
+
+# 階層的クラスター分析
+d_matrix <- dist(iris[, -5], method = "euclidean")
+result.h <- hclust(d_matrix, method = "ward.D2")
+cl_hclust <- cutree(result.h, k = 3)
+
+# k-means法
+set.seed(123)
+result.k <- kmeans(iris[, 1:4], centers = 3, nstart = 25)
+cl_kmeans <- result.k$cluster
+
+# Mclust（3クラスターを指定）
+gmm_result3 <- mclust::Mclust(iris[, 1:4], G = 3)
+cl_mclust <- gmm_result3$classification
+```
+
+```{r}
+#| eval: true
+
+# 階層的クラスター分析 vs Species
+table(階層的 = cl_hclust, Species = iris$Species)
+```
+
+```{r}
+#| eval: true
+
+# k-means vs Species
+table(kmeans = cl_kmeans, Species = iris$Species)
+```
+
+```{r}
+#| eval: true
+
+# Mclust vs Species
+table(Mclust = cl_mclust, Species = iris$Species)
+```
+
+クラスター番号と Species の対応は手法によって異なりますが、各クラスターが主にどの種に対応するかを読み取って比較します。setosa はどの手法でも完全に分離されます。versicolor と virginica の分類精度に差が出ることが多いです。
+
+`r unhide()`
+
+### 15-B-7
+
+`smacof` パッケージの `FaceExp` データに対して、次元数を2から6まで変えて非計量MDS（`type = "ordinal"`）を実行し、ストレス値をプロットしなさい。適切な次元数を考察すること。
+
+`r hide("模範解答")`
+
+```{r}
+#| eval: true
+
+pacman::p_load(smacof)
+
+# 次元数ごとのストレス値を計算
+dimensions <- 2:6
+stress_values <- numeric(length(dimensions))
+
+for (i in seq_along(dimensions)) {
+  result_temp <- smacof::mds(FaceExp, ndim = dimensions[i], type = "ordinal")
+  stress_values[i] <- result_temp$stress
+}
+
+# ストレス値のプロット
+tibble(
+  次元数 = dimensions,
+  ストレス値 = stress_values
+) %>%
+  ggplot(aes(x = 次元数, y = ストレス値)) +
+  geom_line(linewidth = 1, color = "blue") +
+  geom_point(size = 3, color = "blue") +
+  geom_hline(yintercept = 0.1, linetype = "dashed", color = "red") +
+  labs(title = "次元数とストレス値の関係（顔表情データ）",
+       x = "次元数", y = "ストレス値") +
+  theme_minimal()
+```
+
+赤い破線はストレス値 = 0.1（良好の基準）です。ストレス値が急激に減少する「肘」の位置や、ストレス値が0.1を下回る次元数を目安に、適切な次元数を判断します。
+
+`r unhide()`
+
+### 15-B-8
+
+`eurodist` の古典的MDS結果を `ggplot2` で可視化しなさい。`ggrepel::geom_text_repel()` を使ってラベルの重なりを回避すること。
+
+`r hide("模範解答")`
+
+```{r}
+#| eval: true
+
+pacman::p_load(ggrepel)
+
+# MDSの実行
+result <- cmdscale(eurodist, k = 2)
+
+# データフレームに変換
+mds_df <- tibble(
+  dim1 = result[, 1],
+  dim2 = result[, 2],
+  city = rownames(result)
+)
+
+# ggplot2で可視化
+ggplot(mds_df, aes(x = dim1, y = dim2)) +
+  geom_point(color = "darkblue", size = 2) +
+  ggrepel::geom_text_repel(
+    aes(label = city),
+    size = 3.5, color = "darkblue", fontface = "bold",
+    box.padding = 0.3, point.padding = 0.3
+  ) +
+  labs(title = "ヨーロッパ都市間の多次元尺度構成法",
+       x = "次元1", y = "次元2") +
+  theme_minimal() +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+`ggrepel::geom_text_repel()` はラベル同士が重ならないように自動的に位置を調整してくれます。
+
+`r unhide()`
+
+### 15-B-9
+
+`iris` データの数値4変数に対してk-means法を実行し、クラスタリング結果を主成分分析（`prcomp()`）の第1・第2主成分上にプロットして可視化しなさい。色でクラスター所属を示すこと。
+
+`r hide("模範解答")`
+
+```{r}
+#| eval: true
+
+# k-means法
+set.seed(123)
+km_result <- kmeans(iris[, 1:4], centers = 3, nstart = 25)
+
+# 主成分分析で2次元に射影
+pca_result <- prcomp(iris[, 1:4], scale. = TRUE)
+
+# データフレームに変換
+plot_df <- tibble(
+  PC1 = pca_result$x[, 1],
+  PC2 = pca_result$x[, 2],
+  cluster = factor(km_result$cluster),
+  species = iris$Species
+)
+
+# ggplot2で可視化
+ggplot(plot_df, aes(x = PC1, y = PC2, color = cluster, shape = species)) +
+  geom_point(size = 2, alpha = 0.7) +
+  labs(title = "k-means結果のPCA上での可視化",
+       x = "第1主成分", y = "第2主成分",
+       color = "クラスター", shape = "実際の種") +
+  theme_minimal()
+```
+
+クラスター所属を色で、実際の種を形で示しています。色と形がおおむね一致していれば、クラスタリングが良好に種を分離できていることを意味します。
+
+`r unhide()`
+
+### 15-B-10
+
+`e1071::cmeans()` でファジィc-means法を実行し、所属度（`membership`）の分布を確認しなさい。最も所属が曖昧な個体（各クラスターへの所属度が均等に近い個体）を特定すること。
+
+`r hide("模範解答")`
+
+```{r}
+#| eval: true
+
+pacman::p_load(e1071)
+
+# ファジィc-means法
+d_matrix <- dist(iris[, -5], method = "euclidean")
+result.c <- e1071::cmeans(d_matrix, centers = 3, m = 2)
+
+# 所属度の最大値が最も低い個体（=最も曖昧な個体）を特定
+max_membership <- apply(result.c$membership, 1, max)
+ambiguous_idx <- order(max_membership)[1:5]
+
+# 上位5個体の所属度を表示
+result.c$membership[ambiguous_idx, ]
+```
+
+```{r}
+#| eval: true
+
+# 最も曖昧な個体と実際の種を対応させる
+tibble(
+  個体番号 = ambiguous_idx,
+  Species = iris$Species[ambiguous_idx],
+  最大所属度 = max_membership[ambiguous_idx]
+)
+```
+
+所属度の最大値が低い個体ほど、クラスター境界付近に位置しており、分類が曖昧です。versicolor と virginica の境界付近の個体が多く含まれるはずです。
+
+`r unhide()`
+
+---
+
+## ランクA: AI協働
+
+### 15-A-1
+
+`iris` データ（または自分の興味のあるデータ）を使い、生成AIと協力して以下のクラスタリング評価の全工程を設計・実行してください。
+
+1. 階層的クラスター分析、k-means法、Mclustの3手法を適用する
+2. それぞれの結果を比較し、AIに「どの手法の結果が最も妥当か」を相談する
+3. AIに結果の解釈を手伝ってもらう（各クラスターの特徴は何か、命名できるか）
+4. 最適なクラスター数の根拠をAIと議論する（デンドログラムの肘、BIC、シルエット係数など）
+5. AIの提案に対して、自分の知識と照らし合わせて批判的に検討する
+
+AIの解釈を鵜呑みにせず、実際にデータを確認して妥当性を判断してください。
+
+### 15-A-2
+
+`eurodist` データ（またはその他の距離データ）に対して古典的MDSを実行し、生成AIと協力して以下の解釈作業を行ってください。
+
+1. 2次元MDSの結果を可視化する
+2. AIに「各次元が何を表しているか」を相談する（例: 次元1は東西、次元2は南北、など）
+3. 既知の地理情報と比較し、MDSの復元精度を評価する
+4. 3次元解も試し、2次元解と比較する
+5. 復元がうまくいかない部分があれば、その理由をAIと議論する
+
+MDSの解は回転や鏡映に対して不定であることを踏まえ、相対的な位置関係に注目して解釈してください。
+
+---
+
+## まとめ
+
+このユニットで学んだこと:
+
+- **距離の概念**: 距離は4つの公理（非負性、同一性、対称性、三角不等式）を満たす数値。`dist()` で距離行列を計算する
+- **階層的クラスター分析**: `hclust()` + `cutree()` で実行。デンドログラムで結果を可視化。ウォード法が最も一般的
+- **k-means法**: `kmeans()` で非階層的クラスタリング。初期値に依存するため `nstart` で安定化する。生データ行列を渡す
+- **モデルベースクラスタリング**: `mclust::Mclust()` でBICに基づく客観的なクラスター数選択が可能
+- **古典的MDS**: `cmdscale()` で距離行列から低次元座標を復元する。回転・鏡映に対して不定
+- **非計量MDS**: `smacof::mds()` で順序尺度データに対応。ストレス値で適合度を評価する
+
+次のステップとして、U16（行と列をまたぐ分析: バイプロット、対応分析、バイクラスタリング等）に進んでみましょう。
+
+<!-- 進捗: C8/B10/A2 -->
