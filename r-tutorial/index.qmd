@@ -61,6 +61,7 @@ title: "Rドリル"
 ## スキルツリー（依存関係）
 
 <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+<script src="student_progress.js"></script>
 
 <div id="skilltree" style="width: 100%; height: 780px; border: 1px solid #ccc; border-radius: 8px;"></div>
 <p style="text-align: center; margin-top: 4px; font-size: 0.9em; color: #666;">
@@ -170,6 +171,36 @@ document.addEventListener("DOMContentLoaded", function() {
       navigationButtons: true
     }
   };
+  // 学生位置バッジを追加（student_progress.js から読み込み）
+  if (typeof studentPositions !== "undefined") {
+    // ノード座標マップ
+    var nodeCoords = {};
+    nodes.forEach(function(n) { nodeCoords[n.id] = {x: n.x, y: n.y}; });
+
+    var badgeId = 1000;
+    Object.keys(studentPositions).forEach(function(unitId) {
+      var names = studentPositions[unitId];
+      if (names.length === 0) return;
+      var coord = nodeCoords[parseInt(unitId)];
+      if (!coord) return;
+
+      var label = names.join(", ");
+      nodes.add({
+        id: badgeId++,
+        label: label,
+        x: coord.x,
+        y: coord.y + 40,
+        shape: "box",
+        color: {background: "#FFF8E1", border: "#E0A800"},
+        font: {size: 11, color: "#333"},
+        margin: {top: 3, bottom: 3, left: 6, right: 6},
+        shadow: false,
+        fixed: true,
+        physics: false
+      });
+    });
+  }
+
   var network = new vis.Network(container, {nodes: nodes, edges: edges}, options);
   // ホバーでつながるノード・エッジをハイライト
   network.on("hoverNode", function(params) {
