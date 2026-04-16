@@ -55,6 +55,43 @@ title: "サーバー稼働状況"
   color: #721c24;
 }
 
+.backup-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+}
+
+.backup-success {
+  background: #d1ecf1;
+  color: #0c5460;
+}
+
+.backup-running {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.backup-failed {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.backup-unknown {
+  background: #e2e3e5;
+  color: #383d41;
+}
+
+.backup-time {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--bs-secondary-color);
+  margin-top: 0.25rem;
+}
+
 .status-dot {
   width: 8px;
   height: 8px;
@@ -79,6 +116,10 @@ title: "サーバー稼働状況"
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 0.75rem;
+}
+
+.metrics.metrics-2col {
+  grid-template-columns: repeat(2, 1fr);
 }
 
 .metric {
@@ -139,6 +180,29 @@ function renderDashboard(data) {
     const isOnline = server.status === 'online';
     const statusClass = isOnline ? 'online' : 'offline';
     const statusText = isOnline ? '稼働中' : '停止中';
+    const hasBackup = server.backup_status !== undefined;
+
+    let backupBadge = '';
+    if (hasBackup) {
+      const bmap = {
+        'success': {cls: 'backup-success', text: 'バックアップ OK'},
+        'running': {cls: 'backup-running', text: 'バックアップ実行中'},
+        'failed':  {cls: 'backup-failed',  text: 'バックアップ失敗'},
+        'unknown': {cls: 'backup-unknown', text: 'バックアップ状態不明'}
+      };
+      const b = bmap[server.backup_status] || bmap['unknown'];
+      const t = server.backup_last_run && server.backup_last_run !== '-'
+        ? `<span class="backup-time">最終: ${server.backup_last_run}</span>` : '';
+      backupBadge = `<div class="backup-badge ${b.cls}">${b.text}</div>${t}`;
+    }
+
+    const thirdMetric = hasBackup
+      ? ''
+      : `<div class="metric">
+            <div class="metric-value">${server.gpu_temp === '-' ? '-' : server.gpu_temp + '°'}</div>
+            <div class="metric-label">${server.name === 'Raspberry Pi' ? 'CPU温度' : 'GPU温度'}</div>
+          </div>`;
+    const metricsClass = hasBackup ? 'metrics metrics-2col' : 'metrics';
 
     html += `
       <div class="server-card ${isOnline ? '' : 'offline'}">
@@ -149,7 +213,7 @@ function renderDashboard(data) {
         </div>
         <div class="server-specs">${server.specs || ''}</div>
         ${isOnline ? `
-        <div class="metrics">
+        <div class="${metricsClass}">
           <div class="metric">
             <div class="metric-value">${server.cpu}%</div>
             <div class="metric-label">CPU</div>
@@ -158,11 +222,9 @@ function renderDashboard(data) {
             <div class="metric-value">${server.memory}%</div>
             <div class="metric-label">メモリ</div>
           </div>
-          <div class="metric">
-            <div class="metric-value">${server.gpu_temp === '-' ? '-' : server.gpu_temp + '°'}</div>
-            <div class="metric-label">${server.name === 'Raspberry Pi' ? 'CPU温度' : 'GPU温度'}</div>
-          </div>
+          ${thirdMetric}
         </div>
+        ${backupBadge}
         ` : '<div class="metrics"><div class="metric"><div class="metric-value">-</div></div></div>'}
       </div>
     `;
@@ -203,6 +265,7 @@ setInterval(loadServerStatus, 5 * 60 * 1000);
 | Shimura | 計算用 | GTX 1660 SUPER 6GB |
 | Taniyama | 計算用 | GTX 1660 SUPER 6GB |
 | Seki | 計算用 | GTX 1660 SUPER 6GB |
+| Gauss | Dropboxバックアップ専用（毎日3:00、rclone sync） | - |
 | Raspberry Pi | 監視用 | - |
 
 ## 使い方

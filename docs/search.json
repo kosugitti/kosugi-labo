@@ -2020,7 +2020,7 @@
     "href": "server-status.html#サーバー情報",
     "title": "サーバー稼働状況",
     "section": "サーバー情報",
-    "text": "サーバー情報\n\n\n\nマシン名\n用途\nGPU\n\n\n\n\nAl-Khwarizumi\nメインサーバー（LLM環境等）\nRTX 5070 Ti 16GB\n\n\nShimura\n計算用\nGTX 1660 SUPER 6GB\n\n\nTaniyama\n計算用\nGTX 1660 SUPER 6GB\n\n\nSeki\n計算用\nGTX 1660 SUPER 6GB\n\n\nRaspberry Pi\n監視用\n-"
+    "text": "サーバー情報\n\n\n\nマシン名\n用途\nGPU\n\n\n\n\nAl-Khwarizumi\nメインサーバー（LLM環境等）\nRTX 5070 Ti 16GB\n\n\nShimura\n計算用\nGTX 1660 SUPER 6GB\n\n\nTaniyama\n計算用\nGTX 1660 SUPER 6GB\n\n\nSeki\n計算用\nGTX 1660 SUPER 6GB\n\n\nGauss\nDropboxバックアップ専用（毎日3:00、rclone sync）\n-\n\n\nRaspberry Pi\n監視用\n-"
   },
   {
     "objectID": "server-status.html#使い方",
