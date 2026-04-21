@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-04-21T15:30:07+09:00",
+  "updated_at": "2026-04-21T15:40:37+09:00",
   "servers": [
-    {"name":"Al-Khwarizumi","status":"online","specs":"Xeon 80コア / 188GB RAM / RTX 5070 Ti","cpu":87,"memory":12,"gpu_temp":37},
-    {"name":"Shimura","status":"online","specs":"Core i5-11400 / 125GB RAM / GTX 1660 SUPER","cpu":0,"memory":3,"gpu_temp":42},
-    {"name":"Taniyama","status":"online","specs":"Ryzen 7 5700G / 121GB RAM / GTX 1660 SUPER","cpu":81,"memory":4,"gpu_temp":36},
+    {"name":"Al-Khwarizumi","status":"online","specs":"Xeon 80コア / 188GB RAM / RTX 5070 Ti","cpu":88,"memory":12,"gpu_temp":37},
+    {"name":"Shimura","status":"online","specs":"Core i5-11400 / 125GB RAM / GTX 1660 SUPER","cpu":100,"memory":3,"gpu_temp":42},
+    {"name":"Taniyama","status":"online","specs":"Ryzen 7 5700G / 121GB RAM / GTX 1660 SUPER","cpu":82,"memory":4,"gpu_temp":35},
     {"name":"Seki","status":"online","specs":"Core i5-9400F / 48GB RAM / GTX 1660 SUPER","cpu":67,"memory":5,"gpu_temp":50},
-    {"name":"Gauss","status":"online","specs":"MacBook 2017 / Dropboxバックアップ専用","cpu":32,"memory":16,"gpu_temp":"-","backup_status":"running","backup_last_run":"Tue Apr 21 14:11:35 JST 2026"},
-    {"name":"Raspberry Pi","status":"online","specs":"Cortex-A72 4コア / 8GB RAM / 監視専用","cpu":1,"memory":4,"gpu_temp":"57"}
+    {"name":"Gauss","status":"online","specs":"MacBook 2017 / Dropboxバックアップ専用","cpu":48,"memory":16,"gpu_temp":"-","backup_status":"running","backup_last_run":"Tue Apr 21 14:11:35 JST 2026"},
+    {"name":"Raspberry Pi","status":"online","specs":"Cortex-A72 4コア / 8GB RAM / 監視専用","cpu":3,"memory":4,"gpu_temp":"58"}
   ]
 }
