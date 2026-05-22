@@ -63,6 +63,34 @@ usethis::use_git_config(
 )
 ```
 
+### 5. Pull の挙動を設定（これを忘れると最初の Pull で止まります）
+
+RStudio のコンソールで以下を一度だけ実行します。
+
+```r
+system("git config --global pull.rebase false")
+```
+
+この一行を忘れると，最初の Pull を押した時に下のような赤字ダイアログが出て止まります。
+
+```
+hint: You have divergent branches and need to specify how to reconcile them.
+hint:   git config pull.rebase false   # merge
+hint:   git config pull.rebase true    # rebase
+hint:   git config pull.ff only        # fast-forward only
+...
+fatal: Need to specify how to reconcile divergent branches.
+```
+
+::: {.callout-note}
+## このダイアログが出たら「設定がまだ終わってないサイン」です
+
+このエラーは「リポジトリが壊れた」のではなく，**最初の `git config` を打ち忘れただけ**です。
+上の `system("git config --global pull.rebase false")` を一度実行して，もう一度 Pull を押せば動きます。
+
+意味: 「リモート側にコミットがあって自分のローカルにもコミットがあるとき，どう合体させるか」を Git に教える設定です。`pull.rebase false` を指定すると merge (=2つのコミットを並べて新しい合流コミットを作る) で取り込みます。ゼミでは merge 派で統一しています。
+:::
+
 ## リポジトリのクローン
 
 ### RStudio から
