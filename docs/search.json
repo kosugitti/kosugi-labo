@@ -2042,5 +2042,47 @@
     "title": "研究フィードバック",
     "section": "",
     "text": "小杉研究室が行った研究に関するフィードバックを行うページです。\n\n\n\n\n島田邦海マインドワンダリングが自己効力感に与える影響"
+  },
+  {
+    "objectID": "tech-guide/git-trouble.html",
+    "href": "tech-guide/git-trouble.html",
+    "title": "Git で困った時の対処 (RStudio版)",
+    "section": "",
+    "text": "ゼミ活動では，毎週 RStudio から Pull → 編集 → Commit → Push を繰り返してもらっています。 ふだんは何事もなく流れる作業ですが，たまにエラーダイアログが赤字で出てきて固まってしまうことがあります。 このページは，そんなときに 何をすればいいか / 何を絶対しないか をまとめたものです。"
+  },
+  {
+    "objectID": "tech-guide/git-trouble.html#通常のワークフロー-おさらい",
+    "href": "tech-guide/git-trouble.html#通常のワークフロー-おさらい",
+    "title": "Git で困った時の対処 (RStudio版)",
+    "section": "通常のワークフロー (おさらい)",
+    "text": "通常のワークフロー (おさらい)\nRStudio の右上 Git タブから:\n\nPull (下向き矢印アイコン)\nファイルを編集して保存\nGit タブで変更ファイルにチェックを入れる (Stage)\nCommit ボタン → メッセージを書いて Commit\nPush (上向き矢印アイコン)\n\n毎回 Pull で始めて Push で終える のが大原則です。 Pull を忘れて編集に入ると，後で説明する「Push が拒否される」エラーに高確率でぶつかります。"
+  },
+  {
+    "objectID": "tech-guide/git-trouble.html#よくあるエラー3パターン",
+    "href": "tech-guide/git-trouble.html#よくあるエラー3パターン",
+    "title": "Git で困った時の対処 (RStudio版)",
+    "section": "よくあるエラー3パターン",
+    "text": "よくあるエラー3パターン\n\nパターン1: Pull したらコンフリクトと言われた\n\nこんな画面\nPull を押した後のダイアログに，赤字で次のような文字が含まれている:\nCONFLICT (content): Merge conflict in path/to/file\nAutomatic merge failed; fix conflicts and then commit the result.\n\n\n\n何が起きているか\n同じファイルの 同じ行 を，あなたと他の誰か (先生 / 別のマシンの自分) が別々に編集して，Git がどちらを残すべきか判断できない状態です。\n\n\nあなたがやること\n\n何もしない。\nスクショを撮って Discord か MeetingMemo に貼ってヘルプを呼んでください。\n編集途中のファイルがあれば，そのまま閉じずに待ってください (上書き保存 / Commit / Push は絶対にしない)。\n\n\n\nあなたが絶対やってはいけないこと\n\nファイルに入っている &lt;&lt;&lt;&lt;&lt;&lt;&lt; ======= &gt;&gt;&gt;&gt;&gt;&gt;&gt; を自分で消す\nDiscard ボタンで変更を捨てる\nReset で巻き戻す\n\nこれをやってしまうと，あなたか相手かどちらかの作業が完全に消えます。\n\n\n\n\nパターン2: Push したら拒否された\n\nこんな画面\nPush を押した後のダイアログに，次のような文字が含まれている:\n! [rejected]        main -&gt; main (fetch first)\nerror: failed to push some refs to '...'\nhint: Updates were rejected because the remote contains work that you\nhint: do not have locally.\n\n\n\n何が起きているか\nGitHub 側 (リモート) に，あなたのローカルにはまだないコミットが存在しています。 たいていは:\n\n別のマシン (家のPC / 大学のPC) で先にコミット & プッシュしていた\n先生がコメントを書いてプッシュしていた\n\nのどちらかです。\n\n\nあなたがやること\n\nまず Pull を押す (下向き矢印)。 リモートの新しい内容を取り込みます。\nPull が成功して Already up to date. か Fast-forward のメッセージが出たら，もう一度 Push を押す。 これで通ります。\nもし Pull の途中でパターン1のコンフリクト画面に切り替わった場合は，パターン1の対応に従ってください。\n\n\n\nあなたが絶対やってはいけないこと\n\n「Force push」「強制プッシュ」のオプションを使わない。 これはリモートにある相手のコミットを上書きで消す操作で，先生のコメントが消えたりします。\n\n\n\n\n\nパターン3: Pull しようとしたら「ローカルの変更が上書きされる」と言われた\n\nこんな画面\nPull を押した後のダイアログに，次のような文字が含まれている:\nerror: Your local changes to the following files would be overwritten by merge:\n        path/to/file\nPlease commit your changes or stash them before you merge.\n\n\n\n何が起きているか\nあなたが編集して 保存はしたけれど，まだ Commit していない変更 がローカルに残っている状態で，Pull しようとしました。 リモートにも同じファイルの変更があって，「いま Pull するとあなたの未コミット変更が消えるよ」と Git が止めてくれています。\n\n\nあなたがやること\nこの3つの中で 唯一，学生が自力で解決できる パターンです。\n\nRStudio の Git タブで変更されているファイル (M マークが付いている) にチェックを入れる\nCommit ボタンを押してメッセージを書いて Commit\nもう一度 Pull を押す\n(パターン1のコンフリクトに切り替わったら，そこから先は SOS)\n\nつまり 先に Commit してから Pull する。 これだけで通ります。\n\n\nあなたが絶対やってはいけないこと\n\nDiscard で変更を捨てる (あなたの編集が消えます)"
+  },
+  {
+    "objectID": "tech-guide/git-trouble.html#絶対に押してはいけないボタン一覧",
+    "href": "tech-guide/git-trouble.html#絶対に押してはいけないボタン一覧",
+    "title": "Git で困った時の対処 (RStudio版)",
+    "section": "絶対に押してはいけないボタン一覧",
+    "text": "絶対に押してはいけないボタン一覧\nRStudio の Git タブと右クリックメニューに出てくるボタンのうち，次のものは 困った時に押すと状況が悪化 します:\n\n\n\n\n\n\n\nボタン / 操作\n何が起きるか\n\n\n\n\nDiscard (チェックボックスの右クリック)\n未コミットの編集が消える\n\n\nRevert\nコミット済みの変更が打ち消される\n\n\nReset (特に --hard)\n履歴ごと巻き戻る。 作業が消える\n\n\nForce push / --force\nリモートの他人のコミットを消す\n\n\nPull / Push ダイアログの「閉じる前にもう一度試す」連打\n同じエラーが何度も出るだけ。 待たずに SOS\n\n\n\n困った時の正解は 何も押さずに助けを呼ぶ です。"
+  },
+  {
+    "objectID": "tech-guide/git-trouble.html#sos-の出し方",
+    "href": "tech-guide/git-trouble.html#sos-の出し方",
+    "title": "Git で困った時の対処 (RStudio版)",
+    "section": "SOS の出し方",
+    "text": "SOS の出し方\nエラーが出たら，次の3点を一緒に伝えてください:\n\nどのボタンを押したか: 「Pull を押したら」「Push を押したら」のどちらか\nエラーダイアログのスクリーンショット: RStudio の Git タブとダイアログが両方写っているとベスト\n直前にやっていた作業: 「家でも編集してた」「U03B.R を保存しただけ」など，思い当たることを一行\n\n宛先は Discord の #質問 か Thesis/MeetingMemo.md の「相談」 どちらでも構いません。 夜中でも構わないので，自分で何とかしようとせずに送ってください。"
+  },
+  {
+    "objectID": "tech-guide/git-trouble.html#関連ページ",
+    "href": "tech-guide/git-trouble.html#関連ページ",
+    "title": "Git で困った時の対処 (RStudio版)",
+    "section": "関連ページ",
+    "text": "関連ページ\n\nGitHub セットアップ — 初期設定はこちら\nU22. Git / GitHub — Git の概念と基本ワークフロー"
   }
 ]

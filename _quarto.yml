@@ -25,6 +25,8 @@ website:
         text: R / RStudio
       - href: tech-guide/github-setup.qmd
         text: GitHub
+      - href: tech-guide/git-trouble.qmd
+        text: Git で困った時の対処
       - href: tech-guide/vscode-setup.qmd
         text: VSCode
       - href: tech-guide/latex-setup.qmd
