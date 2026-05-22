@@ -63,38 +63,6 @@ usethis::use_git_config(
 )
 ```
 
-### 5. Pull の挙動を設定（これを忘れると最初の Pull で止まります）
-
-RStudio のコンソールで以下を一度だけ実行します。
-
-```r
-system("git config --global pull.rebase false")
-```
-
-この一行を忘れると，最初の Pull を押した時に下のような赤字ダイアログが出て止まります。
-
-![Pull で `fatal: Need to specify how to reconcile divergent branches` が出た RStudio の画面](img/git-setup-divergent.png)
-
-メッセージ本文 (上のスクショの抜粋):
-
-```
-hint: You have divergent branches and need to specify how to reconcile them.
-hint:   git config pull.rebase false   # merge
-hint:   git config pull.rebase true    # rebase
-hint:   git config pull.ff only        # fast-forward only
-...
-fatal: Need to specify how to reconcile divergent branches.
-```
-
-::: {.callout-note}
-## このダイアログが出たら「設定がまだ終わってないサイン」です
-
-このエラーは「リポジトリが壊れた」のではなく，**最初の `git config` を打ち忘れただけ**です。
-上の `system("git config --global pull.rebase false")` を一度実行して，もう一度 Pull を押せば動きます。
-
-意味: 「リモート側にコミットがあって自分のローカルにもコミットがあるとき，どう合体させるか」を Git に教える設定です。`pull.rebase false` を指定すると merge (=2つのコミットを並べて新しい合流コミットを作る) で取り込みます。ゼミでは merge 派で統一しています。
-:::
-
 ## リポジトリのクローン
 
 ### RStudio から
@@ -119,3 +87,39 @@ fatal: Need to specify how to reconcile divergent branches.
 4. **Push**：変更を GitHub に送信
 
 この順序を守ることで、チームでの共同作業もスムーズに行えます。
+
+## よくあるエラーとその対策
+
+### Pull を押したら "fatal: Need to specify how to reconcile divergent branches"
+
+セットアップした直後に最初の Pull を押すと，下のような赤字ダイアログが出て止まることがあります。
+
+![Pull で `fatal: Need to specify how to reconcile divergent branches` が出た RStudio の画面](img/git-setup-divergent.png)
+
+メッセージ本文 (上のスクショの抜粋):
+
+```
+hint: You have divergent branches and need to specify how to reconcile them.
+hint:   git config pull.rebase false   # merge
+hint:   git config pull.rebase true    # rebase
+hint:   git config pull.ff only        # fast-forward only
+...
+fatal: Need to specify how to reconcile divergent branches.
+```
+
+::: {.callout-note}
+## このダイアログが出たら「設定がまだ終わってないサイン」です
+
+このエラーは「リポジトリが壊れた」のではなく，**最初の `git config` を打ち忘れただけ**です。
+RStudio のコンソールで以下を一度だけ実行して，もう一度 Pull を押せば動きます。
+
+```r
+system("git config --global pull.rebase false")
+```
+
+意味: 「リモート側にコミットがあって自分のローカルにもコミットがあるとき，どう合体させるか」を Git に教える設定です。`pull.rebase false` を指定すると merge (=2つのコミットを並べて新しい合流コミットを作る) で取り込みます。ゼミでは merge 派で統一しています。
+:::
+
+### その他のエラー (CONFLICT, rejected, would be overwritten など)
+
+実際の作業でぶつかる他のエラーは [Git で困った時の対処](git-trouble.html) にまとめてあります。エラーダイアログを閉じる前にそちらを確認してください。

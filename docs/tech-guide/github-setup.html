@@ -345,7 +345,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#公開鍵のコピー" id="toc-公開鍵のコピー" class="nav-link" data-scroll-target="#公開鍵のコピー">2. 公開鍵のコピー</a></li>
   <li><a href="#github-に登録" id="toc-github-に登録" class="nav-link" data-scroll-target="#github-に登録">3. GitHub に登録</a></li>
   <li><a href="#git-の初期設定" id="toc-git-の初期設定" class="nav-link" data-scroll-target="#git-の初期設定">4. Git の初期設定</a></li>
-  <li><a href="#pull-の挙動を設定これを忘れると最初の-pull-で止まります" id="toc-pull-の挙動を設定これを忘れると最初の-pull-で止まります" class="nav-link" data-scroll-target="#pull-の挙動を設定これを忘れると最初の-pull-で止まります">5. Pull の挙動を設定（これを忘れると最初の Pull で止まります）</a></li>
   </ul></li>
   <li><a href="#リポジトリのクローン" id="toc-リポジトリのクローン" class="nav-link" data-scroll-target="#リポジトリのクローン">リポジトリのクローン</a>
   <ul class="collapse">
@@ -353,6 +352,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#github-desktop-から" id="toc-github-desktop-から" class="nav-link" data-scroll-target="#github-desktop-から">GitHub Desktop から</a></li>
   </ul></li>
   <li><a href="#基本的なワークフロー" id="toc-基本的なワークフロー" class="nav-link" data-scroll-target="#基本的なワークフロー">基本的なワークフロー</a></li>
+  <li><a href="#よくあるエラーとその対策" id="toc-よくあるエラーとその対策" class="nav-link" data-scroll-target="#よくあるエラーとその対策">よくあるエラーとその対策</a>
+  <ul class="collapse">
+  <li><a href="#pull-を押したら-fatal-need-to-specify-how-to-reconcile-divergent-branches" id="toc-pull-を押したら-fatal-need-to-specify-how-to-reconcile-divergent-branches" class="nav-link" data-scroll-target="#pull-を押したら-fatal-need-to-specify-how-to-reconcile-divergent-branches">Pull を押したら “fatal: Need to specify how to reconcile divergent branches”</a></li>
+  <li><a href="#その他のエラー-conflict-rejected-would-be-overwritten-など" id="toc-その他のエラー-conflict-rejected-would-be-overwritten-など" class="nav-link" data-scroll-target="#その他のエラー-conflict-rejected-would-be-overwritten-など">その他のエラー (CONFLICT, rejected, would be overwritten など)</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -442,39 +446,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">user.email =</span> <span class="st">"あなたのメールアドレス"</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="pull-の挙動を設定これを忘れると最初の-pull-で止まります" class="level3">
-<h3 class="anchored" data-anchor-id="pull-の挙動を設定これを忘れると最初の-pull-で止まります">5. Pull の挙動を設定（これを忘れると最初の Pull で止まります）</h3>
-<p>RStudio のコンソールで以下を一度だけ実行します。</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system</span>(<span class="st">"git config --global pull.rebase false"</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
-<p>この一行を忘れると，最初の Pull を押した時に下のような赤字ダイアログが出て止まります。</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="img/git-setup-divergent.png" class="img-fluid figure-img"></p>
-<figcaption>Pull で <code>fatal: Need to specify how to reconcile divergent branches</code> が出た RStudio の画面</figcaption>
-</figure>
-</div>
-<p>メッセージ本文 (上のスクショの抜粋):</p>
-<pre><code>hint: You have divergent branches and need to specify how to reconcile them.
-hint:   git config pull.rebase false   # merge
-hint:   git config pull.rebase true    # rebase
-hint:   git config pull.ff only        # fast-forward only
-...
-fatal: Need to specify how to reconcile divergent branches.</code></pre>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">ノート</span>このダイアログが出たら「設定がまだ終わってないサイン」です
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>このエラーは「リポジトリが壊れた」のではなく，<strong>最初の <code>git config</code> を打ち忘れただけ</strong>です。 上の <code>system("git config --global pull.rebase false")</code> を一度実行して，もう一度 Pull を押せば動きます。</p>
-<p>意味: 「リモート側にコミットがあって自分のローカルにもコミットがあるとき，どう合体させるか」を Git に教える設定です。<code>pull.rebase false</code> を指定すると merge (=2つのコミットを並べて新しい合流コミットを作る) で取り込みます。ゼミでは merge 派で統一しています。</p>
-</div>
-</div>
-</section>
 </section>
 <section id="リポジトリのクローン" class="level2">
 <h2 class="anchored" data-anchor-id="リポジトリのクローン">リポジトリのクローン</h2>
@@ -506,8 +477,47 @@ fatal: Need to specify how to reconcile divergent branches.</code></pre>
 <li><strong>Push</strong>：変更を GitHub に送信</li>
 </ol>
 <p>この順序を守ることで、チームでの共同作業もスムーズに行えます。</p>
+</section>
+<section id="よくあるエラーとその対策" class="level2">
+<h2 class="anchored" data-anchor-id="よくあるエラーとその対策">よくあるエラーとその対策</h2>
+<section id="pull-を押したら-fatal-need-to-specify-how-to-reconcile-divergent-branches" class="level3">
+<h3 class="anchored" data-anchor-id="pull-を押したら-fatal-need-to-specify-how-to-reconcile-divergent-branches">Pull を押したら “fatal: Need to specify how to reconcile divergent branches”</h3>
+<p>セットアップした直後に最初の Pull を押すと，下のような赤字ダイアログが出て止まることがあります。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/git-setup-divergent.png" class="img-fluid figure-img"></p>
+<figcaption>Pull で <code>fatal: Need to specify how to reconcile divergent branches</code> が出た RStudio の画面</figcaption>
+</figure>
+</div>
+<p>メッセージ本文 (上のスクショの抜粋):</p>
+<pre><code>hint: You have divergent branches and need to specify how to reconcile them.
+hint:   git config pull.rebase false   # merge
+hint:   git config pull.rebase true    # rebase
+hint:   git config pull.ff only        # fast-forward only
+...
+fatal: Need to specify how to reconcile divergent branches.</code></pre>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">ノート</span>このダイアログが出たら「設定がまだ終わってないサイン」です
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>このエラーは「リポジトリが壊れた」のではなく，<strong>最初の <code>git config</code> を打ち忘れただけ</strong>です。 RStudio のコンソールで以下を一度だけ実行して，もう一度 Pull を押せば動きます。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system</span>(<span class="st">"git config --global pull.rebase false"</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<p>意味: 「リモート側にコミットがあって自分のローカルにもコミットがあるとき，どう合体させるか」を Git に教える設定です。<code>pull.rebase false</code> を指定すると merge (=2つのコミットを並べて新しい合流コミットを作る) で取り込みます。ゼミでは merge 派で統一しています。</p>
+</div>
+</div>
+</section>
+<section id="その他のエラー-conflict-rejected-would-be-overwritten-など" class="level3">
+<h3 class="anchored" data-anchor-id="その他のエラー-conflict-rejected-would-be-overwritten-など">その他のエラー (CONFLICT, rejected, would be overwritten など)</h3>
+<p>実際の作業でぶつかる他のエラーは <a href="git-trouble.html">Git で困った時の対処</a> にまとめてあります。エラーダイアログを閉じる前にそちらを確認してください。</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
