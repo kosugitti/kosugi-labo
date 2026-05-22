@@ -302,6 +302,12 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#通常のワークフロー-おさらい" id="toc-通常のワークフロー-おさらい" class="nav-link active" data-scroll-target="#通常のワークフロー-おさらい">通常のワークフロー (おさらい)</a></li>
+  <li><a href="#成功時のダイアログ例" id="toc-成功時のダイアログ例" class="nav-link" data-scroll-target="#成功時のダイアログ例">成功時のダイアログ例</a>
+  <ul class="collapse">
+  <li><a href="#pull-成功-リモートに更新があった場合" id="toc-pull-成功-リモートに更新があった場合" class="nav-link" data-scroll-target="#pull-成功-リモートに更新があった場合">Pull 成功 (リモートに更新があった場合)</a></li>
+  <li><a href="#pull-成功-リモートに何もなかった場合" id="toc-pull-成功-リモートに何もなかった場合" class="nav-link" data-scroll-target="#pull-成功-リモートに何もなかった場合">Pull 成功 (リモートに何もなかった場合)</a></li>
+  <li><a href="#push-成功" id="toc-push-成功" class="nav-link" data-scroll-target="#push-成功">Push 成功</a></li>
+  </ul></li>
   <li><a href="#よくあるエラー3パターン" id="toc-よくあるエラー3パターン" class="nav-link" data-scroll-target="#よくあるエラー3パターン">よくあるエラー3パターン</a>
   <ul class="collapse">
   <li><a href="#パターン1-pull-したらコンフリクトと言われた" id="toc-パターン1-pull-したらコンフリクトと言われた" class="nav-link" data-scroll-target="#パターン1-pull-したらコンフリクトと言われた">パターン1: Pull したらコンフリクトと言われた</a></li>
@@ -367,6 +373,40 @@ ul.task-list li input[type="checkbox"] {
 </ol>
 <p>毎回 <strong>Pull で始めて Push で終える</strong> のが大原則です。 Pull を忘れて編集に入ると，後で説明する「Push が拒否される」エラーに高確率でぶつかります。</p>
 </section>
+<section id="成功時のダイアログ例" class="level2">
+<h2 class="anchored" data-anchor-id="成功時のダイアログ例">成功時のダイアログ例</h2>
+<p>エラーが出ていない時は，下のようなダイアログが一瞬出てすぐ消えます。 赤字や <code>error:</code> <code>CONFLICT</code> <code>[rejected]</code> が含まれていなければ成功です。 特に Pull で <code>Already up to date.</code> だけが出ると「これってエラー?」と 不安になりがちですが，「リモートに新しいものが何もなかった」という意味の正常表示です。</p>
+<section id="pull-成功-リモートに更新があった場合" class="level3">
+<h3 class="anchored" data-anchor-id="pull-成功-リモートに更新があった場合">Pull 成功 (リモートに更新があった場合)</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/git-success-pull.png" class="img-fluid figure-img"></p>
+<figcaption>Pull 成功 (Fast-forward) ダイアログ</figcaption>
+</figure>
+</div>
+<p><code>Fast-forward</code> + <code>Updating &lt;sha&gt;..&lt;sha&gt;</code> と表示されれば，リモートの変更がきれいに取り込まれています。</p>
+</section>
+<section id="pull-成功-リモートに何もなかった場合" class="level3">
+<h3 class="anchored" data-anchor-id="pull-成功-リモートに何もなかった場合">Pull 成功 (リモートに何もなかった場合)</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/git-success-uptodate.png" class="img-fluid figure-img"></p>
+<figcaption>Pull 成功 (Already up to date) ダイアログ</figcaption>
+</figure>
+</div>
+<p><code>Already up to date.</code> はエラーではなく，「すでに最新です」という意味の正常表示です。</p>
+</section>
+<section id="push-成功" class="level3">
+<h3 class="anchored" data-anchor-id="push-成功">Push 成功</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/git-success-push.png" class="img-fluid figure-img"></p>
+<figcaption>Push 成功ダイアログ</figcaption>
+</figure>
+</div>
+<p><code>&lt;sha&gt;..&lt;sha&gt;  HEAD -&gt; main</code> (または <code>main -&gt; main</code>) と表示されれば送信完了です。</p>
+</section>
+</section>
 <section id="よくあるエラー3パターン" class="level2">
 <h2 class="anchored" data-anchor-id="よくあるエラー3パターン">よくあるエラー3パターン</h2>
 <section id="パターン1-pull-したらコンフリクトと言われた" class="level3">
@@ -376,7 +416,12 @@ ul.task-list li input[type="checkbox"] {
 <p>Pull を押した後のダイアログに，赤字で次のような文字が含まれている:</p>
 <pre><code>CONFLICT (content): Merge conflict in path/to/file
 Automatic merge failed; fix conflicts and then commit the result.</code></pre>
-<!-- ![Pull 時のコンフリクト画面](img/git-trouble-conflict.png) -->
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/git-trouble-conflict.png" class="img-fluid figure-img"></p>
+<figcaption>Pull 時のコンフリクト画面 (RStudio)</figcaption>
+</figure>
+</div>
 </section>
 <section id="何が起きているか" class="level4">
 <h4 class="anchored" data-anchor-id="何が起きているか">何が起きているか</h4>
@@ -410,7 +455,12 @@ Automatic merge failed; fix conflicts and then commit the result.</code></pre>
 error: failed to push some refs to '...'
 hint: Updates were rejected because the remote contains work that you
 hint: do not have locally.</code></pre>
-<!-- ![Push 拒否ダイアログ](img/git-trouble-rejected.png) -->
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/git-trouble-rejected.png" class="img-fluid figure-img"></p>
+<figcaption>Push 拒否ダイアログ (RStudio)</figcaption>
+</figure>
+</div>
 </section>
 <section id="何が起きているか-1" class="level4">
 <h4 class="anchored" data-anchor-id="何が起きているか-1">何が起きているか</h4>
@@ -445,7 +495,12 @@ hint: do not have locally.</code></pre>
 <pre><code>error: Your local changes to the following files would be overwritten by merge:
         path/to/file
 Please commit your changes or stash them before you merge.</code></pre>
-<!-- ![Pull 拒否 (local changes)](img/git-trouble-overwrite.png) -->
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/git-trouble-overwrite.png" class="img-fluid figure-img"></p>
+<figcaption>Pull 拒否 (local changes overwrite) ダイアログ (RStudio)</figcaption>
+</figure>
+</div>
 </section>
 <section id="何が起きているか-2" class="level4">
 <h4 class="anchored" data-anchor-id="何が起きているか-2">何が起きているか</h4>

@@ -30,6 +30,31 @@ RStudio の右上 `Git` タブから:
 毎回 **Pull で始めて Push で終える** のが大原則です。
 Pull を忘れて編集に入ると，後で説明する「Push が拒否される」エラーに高確率でぶつかります。
 
+## 成功時のダイアログ例
+
+エラーが出ていない時は，下のようなダイアログが一瞬出てすぐ消えます。
+赤字や `error:` `CONFLICT` `[rejected]` が含まれていなければ成功です。
+特に Pull で `Already up to date.` だけが出ると「これってエラー?」と
+不安になりがちですが，「リモートに新しいものが何もなかった」という意味の正常表示です。
+
+### Pull 成功 (リモートに更新があった場合)
+
+![Pull 成功 (Fast-forward) ダイアログ](img/git-success-pull.png)
+
+`Fast-forward` + `Updating <sha>..<sha>` と表示されれば，リモートの変更がきれいに取り込まれています。
+
+### Pull 成功 (リモートに何もなかった場合)
+
+![Pull 成功 (Already up to date) ダイアログ](img/git-success-uptodate.png)
+
+`Already up to date.` はエラーではなく，「すでに最新です」という意味の正常表示です。
+
+### Push 成功
+
+![Push 成功ダイアログ](img/git-success-push.png)
+
+`<sha>..<sha>  HEAD -> main` (または `main -> main`) と表示されれば送信完了です。
+
 ## よくあるエラー3パターン
 
 ### パターン1: Pull したらコンフリクトと言われた
@@ -43,7 +68,7 @@ CONFLICT (content): Merge conflict in path/to/file
 Automatic merge failed; fix conflicts and then commit the result.
 ```
 
-<!-- ![Pull 時のコンフリクト画面](img/git-trouble-conflict.png) -->
+![Pull 時のコンフリクト画面 (RStudio)](img/git-trouble-conflict.png)
 
 #### 何が起きているか
 
@@ -78,7 +103,7 @@ hint: Updates were rejected because the remote contains work that you
 hint: do not have locally.
 ```
 
-<!-- ![Push 拒否ダイアログ](img/git-trouble-rejected.png) -->
+![Push 拒否ダイアログ (RStudio)](img/git-trouble-rejected.png)
 
 #### 何が起きているか
 
@@ -114,7 +139,7 @@ error: Your local changes to the following files would be overwritten by merge:
 Please commit your changes or stash them before you merge.
 ```
 
-<!-- ![Pull 拒否 (local changes)](img/git-trouble-overwrite.png) -->
+![Pull 拒否 (local changes overwrite) ダイアログ (RStudio)](img/git-trouble-overwrite.png)
 
 #### 何が起きているか
 
