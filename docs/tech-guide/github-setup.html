@@ -447,6 +447,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>RStudio のコンソールで以下を一度だけ実行します。</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system</span>(<span class="st">"git config --global pull.rebase false"</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 <p>この一行を忘れると，最初の Pull を押した時に下のような赤字ダイアログが出て止まります。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/git-setup-divergent.png" class="img-fluid figure-img"></p>
+<figcaption>Pull で <code>fatal: Need to specify how to reconcile divergent branches</code> が出た RStudio の画面</figcaption>
+</figure>
+</div>
+<p>メッセージ本文 (上のスクショの抜粋):</p>
 <pre><code>hint: You have divergent branches and need to specify how to reconcile them.
 hint:   git config pull.rebase false   # merge
 hint:   git config pull.rebase true    # rebase

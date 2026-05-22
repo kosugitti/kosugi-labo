@@ -73,6 +73,10 @@ system("git config --global pull.rebase false")
 
 この一行を忘れると，最初の Pull を押した時に下のような赤字ダイアログが出て止まります。
 
+![Pull で `fatal: Need to specify how to reconcile divergent branches` が出た RStudio の画面](img/git-setup-divergent.png)
+
+メッセージ本文 (上のスクショの抜粋):
+
 ```
 hint: You have divergent branches and need to specify how to reconcile them.
 hint:   git config pull.rebase false   # merge
