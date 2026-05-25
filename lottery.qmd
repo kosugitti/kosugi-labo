@@ -1,0 +1,275 @@
+---
+title: "ランダム抽選器"
+format:
+  html:
+    toc: false
+    page-layout: full
+---
+
+読書会など，参加者の中から一人をランダムに選ぶための簡易ツールです。
+すべてブラウザ内で動作し，名前データはどこにも送信されません。
+
+```{=html}
+<style>
+  .lottery-wrap {
+    max-width: 720px;
+    margin: 1em auto;
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+  }
+  .lottery-wrap textarea {
+    width: 100%;
+    min-height: 180px;
+    font-size: 1.1em;
+    padding: 0.6em;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }
+  .lottery-btns {
+    margin: 0.8em 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5em;
+  }
+  .lottery-btns button {
+    font-size: 1em;
+    padding: 0.6em 1.2em;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    background: #4a6fa5;
+    color: #fff;
+  }
+  .lottery-btns button.secondary {
+    background: #888;
+  }
+  .lottery-btns button.danger {
+    background: #b94a48;
+  }
+  .lottery-btns button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
+  .lottery-roster {
+    margin: 1em 0;
+    padding: 0.8em;
+    background: #f6f6f6;
+    border-radius: 6px;
+    min-height: 2.4em;
+  }
+  .lottery-roster .chip {
+    display: inline-block;
+    margin: 0.2em 0.3em;
+    padding: 0.25em 0.7em;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 999px;
+    font-size: 0.95em;
+  }
+  .lottery-roster .chip.used {
+    opacity: 0.35;
+    text-decoration: line-through;
+  }
+  .lottery-result {
+    margin: 1.2em 0;
+    padding: 1.2em;
+    text-align: center;
+    background: #fffbe6;
+    border: 2px solid #f0c850;
+    border-radius: 10px;
+    font-size: 3em;
+    font-weight: bold;
+    min-height: 1.6em;
+    transition: transform 0.15s;
+  }
+  .lottery-result.spinning {
+    transform: scale(1.03);
+    color: #888;
+  }
+  .lottery-options {
+    margin: 0.6em 0;
+    font-size: 0.95em;
+    color: #555;
+  }
+  .lottery-status {
+    font-size: 0.9em;
+    color: #777;
+    margin-top: 0.4em;
+  }
+</style>
+
+<div class="lottery-wrap">
+  <h3>1. 参加者の名前を入力</h3>
+  <p>1行に1人ずつ。コピペ可。空行や前後の空白は無視されます。</p>
+  <textarea id="lot-input" placeholder="山田 太郎&#10;鈴木 花子&#10;田中 次郎"></textarea>
+
+  <div class="lottery-btns">
+    <button id="lot-confirm">この名簿で確定</button>
+    <button id="lot-edit" class="secondary" disabled>編集に戻る</button>
+    <button id="lot-reset-all" class="danger">全リセット</button>
+  </div>
+
+  <h3>2. 名簿</h3>
+  <div id="lot-roster" class="lottery-roster">（未確定）</div>
+
+  <div class="lottery-options">
+    <label>
+      <input type="checkbox" id="lot-exclude-used" checked>
+      一度当たった人は次回から除外する
+    </label>
+  </div>
+
+  <h3>3. 抽選</h3>
+  <div id="lot-result" class="lottery-result">―</div>
+
+  <div class="lottery-btns">
+    <button id="lot-draw" disabled>抽選！</button>
+    <button id="lot-reset-history" class="secondary" disabled>当選履歴だけリセット</button>
+  </div>
+
+  <div id="lot-status" class="lottery-status"></div>
+</div>
+
+<script>
+(function () {
+  const $input = document.getElementById("lot-input");
+  const $confirm = document.getElementById("lot-confirm");
+  const $edit = document.getElementById("lot-edit");
+  const $resetAll = document.getElementById("lot-reset-all");
+  const $roster = document.getElementById("lot-roster");
+  const $exclude = document.getElementById("lot-exclude-used");
+  const $result = document.getElementById("lot-result");
+  const $draw = document.getElementById("lot-draw");
+  const $resetHist = document.getElementById("lot-reset-history");
+  const $status = document.getElementById("lot-status");
+
+  let roster = [];
+  let used = new Set();
+  let confirmed = false;
+  let spinning = false;
+
+  function renderRoster() {
+    if (roster.length === 0) {
+      $roster.textContent = "（未確定）";
+      return;
+    }
+    $roster.innerHTML = "";
+    roster.forEach((name) => {
+      const span = document.createElement("span");
+      span.className = "chip" + (used.has(name) ? " used" : "");
+      span.textContent = name;
+      $roster.appendChild(span);
+    });
+  }
+
+  function updateStatus() {
+    if (!confirmed) {
+      $status.textContent = "";
+      return;
+    }
+    const remaining = roster.filter((n) => !used.has(n)).length;
+    $status.textContent = `登録 ${roster.length} 名 / 未当選 ${remaining} 名 / 当選済 ${used.size} 名`;
+  }
+
+  function pool() {
+    return $exclude.checked
+      ? roster.filter((n) => !used.has(n))
+      : roster.slice();
+  }
+
+  $confirm.addEventListener("click", () => {
+    const lines = $input.value
+      .split(/\r?\n/)
+      .map((s) => s.trim())
+      .filter((s) => s.length > 0);
+    const unique = Array.from(new Set(lines));
+    if (unique.length === 0) {
+      alert("名前が入力されていません。");
+      return;
+    }
+    roster = unique;
+    used = new Set();
+    confirmed = true;
+    $input.disabled = true;
+    $confirm.disabled = true;
+    $edit.disabled = false;
+    $draw.disabled = false;
+    $resetHist.disabled = false;
+    $result.textContent = "―";
+    renderRoster();
+    updateStatus();
+  });
+
+  $edit.addEventListener("click", () => {
+    $input.disabled = false;
+    $confirm.disabled = false;
+    $edit.disabled = true;
+    $draw.disabled = true;
+    $resetHist.disabled = true;
+    confirmed = false;
+    $status.textContent = "編集モードです。確定し直してください。";
+  });
+
+  $resetAll.addEventListener("click", () => {
+    if (!confirm("名簿も当選履歴もすべて消します。よろしいですか？")) return;
+    $input.value = "";
+    $input.disabled = false;
+    roster = [];
+    used = new Set();
+    confirmed = false;
+    $confirm.disabled = false;
+    $edit.disabled = true;
+    $draw.disabled = true;
+    $resetHist.disabled = true;
+    $result.textContent = "―";
+    renderRoster();
+    updateStatus();
+  });
+
+  $resetHist.addEventListener("click", () => {
+    used = new Set();
+    $result.textContent = "―";
+    renderRoster();
+    updateStatus();
+  });
+
+  $draw.addEventListener("click", () => {
+    if (spinning) return;
+    const candidates = pool();
+    if (candidates.length === 0) {
+      alert("候補がいません。「当選履歴だけリセット」を押すか，除外チェックを外してください。");
+      return;
+    }
+
+    spinning = true;
+    $draw.disabled = true;
+    $result.classList.add("spinning");
+
+    const spinDuration = 1200;
+    const tickInterval = 70;
+    const startedAt = Date.now();
+
+    const ticker = setInterval(() => {
+      const pick = candidates[Math.floor(Math.random() * candidates.length)];
+      $result.textContent = pick;
+      if (Date.now() - startedAt >= spinDuration) {
+        clearInterval(ticker);
+        const buf = new Uint32Array(1);
+        crypto.getRandomValues(buf);
+        const idx = buf[0] % candidates.length;
+        const finalPick = candidates[idx];
+        $result.textContent = finalPick;
+        $result.classList.remove("spinning");
+        used.add(finalPick);
+        renderRoster();
+        updateStatus();
+        spinning = false;
+        $draw.disabled = false;
+      }
+    }, tickInterval);
+  });
+
+  renderRoster();
+})();
+</script>
+```

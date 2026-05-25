@@ -2098,5 +2098,12 @@
     "title": "GitHub のセットアップ",
     "section": "よくあるエラーとその対策",
     "text": "よくあるエラーとその対策\n\nPull を押したら “fatal: Need to specify how to reconcile divergent branches”\nセットアップした直後に最初の Pull を押すと，下のような赤字ダイアログが出て止まることがあります。\n\n\n\nPull で fatal: Need to specify how to reconcile divergent branches が出た RStudio の画面\n\n\nメッセージ本文 (上のスクショの抜粋):\nhint: You have divergent branches and need to specify how to reconcile them.\nhint:   git config pull.rebase false   # merge\nhint:   git config pull.rebase true    # rebase\nhint:   git config pull.ff only        # fast-forward only\n...\nfatal: Need to specify how to reconcile divergent branches.\n\n\n\n\n\n\nノートこのダイアログが出たら「設定がまだ終わってないサイン」です\n\n\n\nこのエラーは「リポジトリが壊れた」のではなく，最初の git config を打ち忘れただけです。 RStudio のコンソールで以下を一度だけ実行して，もう一度 Pull を押せば動きます。\nsystem(\"git config --global pull.rebase false\")\n意味: 「リモート側にコミットがあって自分のローカルにもコミットがあるとき，どう合体させるか」を Git に教える設定です。pull.rebase false を指定すると merge (=2つのコミットを並べて新しい合流コミットを作る) で取り込みます。ゼミでは merge 派で統一しています。\n\n\n\n\nその他のエラー (CONFLICT, rejected, would be overwritten など)\n実際の作業でぶつかる他のエラーは Git で困った時の対処 にまとめてあります。エラーダイアログを閉じる前にそちらを確認してください。"
+  },
+  {
+    "objectID": "lottery.html",
+    "href": "lottery.html",
+    "title": "ランダム抽選器",
+    "section": "",
+    "text": "読書会など，参加者の中から一人をランダムに選ぶための簡易ツールです。 すべてブラウザ内で動作し，名前データはどこにも送信されません。\n\n\n\n  1. 参加者の名前を入力\n  1行に1人ずつ。コピペ可。空行や前後の空白は無視されます。\n  \n\n  \n    この名簿で確定\n    編集に戻る\n    全リセット\n  \n\n  2. 名簿\n  （未確定）\n\n  \n    \n      \n      一度当たった人は次回から除外する\n    \n  \n\n  3. 抽選\n  ―\n\n  \n    抽選！\n    当選履歴だけリセット"
   }
 ]
