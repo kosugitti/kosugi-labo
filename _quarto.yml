@@ -5,6 +5,8 @@ website:
   title: Kosugi Labo
   navbar:
     left:
+    - text: 小杉ポータル
+      href: https://kosugitti.github.io/
     - href: index.qmd
       text: ホーム
     - text: ゼミガイド
