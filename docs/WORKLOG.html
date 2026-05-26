@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>メンバー紹介 – Kosugi Labo</title>
+<title>worklog – Kosugi Labo</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -278,7 +278,7 @@ ul.task-list li input[type="checkbox"] {
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link active" href="./members.html" aria-current="page"> 
+    <a class="nav-link" href="./members.html"> 
 <span class="menu-text">メンバー</span></a>
   </li>  
   <li class="nav-item">
@@ -305,104 +305,62 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">目次</h2>
    
   <ul>
-  <li><a href="#研究室メンバー" id="toc-研究室メンバー" class="nav-link active" data-scroll-target="#研究室メンバー">研究室メンバー</a>
+  <li><a href="#kosugi-labo-worklog" id="toc-kosugi-labo-worklog" class="nav-link active" data-scroll-target="#kosugi-labo-worklog">kosugi-labo WORKLOG</a>
   <ul class="collapse">
-  <li><a href="#卒業生" id="toc-卒業生" class="nav-link" data-scroll-target="#卒業生">卒業生</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section">2026-05-22</a>
+  <ul class="collapse">
+  <li><a href="#tech-guide-にgit-で困った時の対処を新設" id="toc-tech-guide-にgit-で困った時の対処を新設" class="nav-link" data-scroll-target="#tech-guide-にgit-で困った時の対処を新設">tech-guide に「Git で困った時の対処」を新設</a></li>
+  <li><a href="#tech-guidegithub-setup.qmd-の再構成" id="toc-tech-guidegithub-setup.qmd-の再構成" class="nav-link" data-scroll-target="#tech-guidegithub-setup.qmd-の再構成">tech-guide/github-setup.qmd の再構成</a></li>
+  <li><a href="#sos-の宛先変更-git-trouble.qmd" id="toc-sos-の宛先変更-git-trouble.qmd" class="nav-link" data-scroll-target="#sos-の宛先変更-git-trouble.qmd">SOS の宛先変更 (git-trouble.qmd)</a></li>
+  <li><a href="#commit-chain" id="toc-commit-chain" class="nav-link" data-scroll-target="#commit-chain">commit chain</a></li>
+  </ul></li>
   </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">メンバー紹介</h1>
-</div>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
 
 
-<div class="quarto-title-meta">
 
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
-<section id="研究室メンバー" class="level2">
-<h2 class="anchored" data-anchor-id="研究室メンバー">研究室メンバー</h2>
-<!---
-### 博士後期課程
-
-### 博士前期課程
-
---->
-<section id="卒業生" class="level3">
-<h3 class="anchored" data-anchor-id="卒業生">卒業生</h3>
-<section id="h19年2007年4月1日-山口大学教育学部-着任小杉ゼミ開設" class="level4">
-<h4 class="anchored" data-anchor-id="h19年2007年4月1日-山口大学教育学部-着任小杉ゼミ開設">(H19年)2007年4月1日　山口大学教育学部　着任，小杉ゼミ開設</h4>
-<section id="学部" class="level5">
-<h5 class="anchored" data-anchor-id="学部">学部</h5>
+<section id="kosugi-labo-worklog" class="level1">
+<h1>kosugi-labo WORKLOG</h1>
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section">2026-05-22</h2>
+<section id="tech-guide-にgit-で困った時の対処を新設" class="level3">
+<h3 class="anchored" data-anchor-id="tech-guide-にgit-で困った時の対処を新設">tech-guide に「Git で困った時の対処」を新設</h3>
 <ul>
-<li>2008/H20年卒　秋好さつき(1)・山本三紀子(2)</li>
-<li>2009/H21年卒　小川菜々(3)・高本佳枝(4)・谷昭子(5)</li>
-<li>2010/H22年卒</li>
-<li>2011/H23年卒　栗原慧(6)</li>
-<li>2012/H24年卒　川谷義隆(7)・日高美咲(8)</li>
-<li>2013/H25年卒　林由紀(9)・前表理美(10)</li>
-<li>2014/H26年卒　上田晋平(11)・坪井雄馬(12)</li>
-<li>2015/H27年卒　中田達也(13)</li>
-<li>2016/H28年卒　石丸さやか(14)</li>
-<li>2017/H29年卒　小田美優(15)・本田志保(16)</li>
-<li>2018/H30年卒　小林仁美(17)</li>
-<li>補欠　大江慶寛(18)</li>
+<li><code>tech-guide/git-trouble.qmd</code> 新規。エラー3パターン (CONFLICT / rejected / would be overwritten) と成功3パターン (Fast-forward / Already up to date / Push) を RStudio 実画面スクショで解説。</li>
+<li><code>tech-guide/img/</code> に7枚配置: <code>git-trouble-conflict.png</code>, <code>git-trouble-rejected.png</code>, <code>git-trouble-overwrite.png</code>, <code>git-success-pull.png</code>, <code>git-success-uptodate.png</code>, <code>git-success-push.png</code>, <code>git-setup-divergent.png</code>。</li>
+<li>スクショ撮影用デモは kosugi-labo 外 (<code>~/Dropbox/Git/Zemi/git-trouble-demo/</code>) に置いた。kosugi-labo 側にはスクショ成果物 (PNG) のみ。</li>
 </ul>
 </section>
-<section id="大学院" class="level5">
-<h5 class="anchored" data-anchor-id="大学院">大学院</h5>
+<section id="tech-guidegithub-setup.qmd-の再構成" class="level3">
+<h3 class="anchored" data-anchor-id="tech-guidegithub-setup.qmd-の再構成">tech-guide/github-setup.qmd の再構成</h3>
 <ul>
-<li>2010/H22年修了　若藤夏子(-1)</li>
-<li>2011/H23年修了　川本静香(-2)</li>
-<li>2012/H24年修了</li>
-<li>2013/H25年修了　池田正博(-3)・松沼風子(-4)</li>
-<li>2014/H26年修了　日高美咲(-5)・井土優(-6)</li>
-<li>2015/H27年修了</li>
-<li>2016/H28年修了</li>
-<li>2017/H29年修了　片桐咲恵(-7)</li>
+<li>「基本的なワークフロー」の直後に「よくあるエラーとその対策」セクションを新設。</li>
+<li>divergent branches fatal (<code>fatal: Need to specify how to reconcile divergent branches.</code>) を「設定がまだ終わってないサイン」として実画面スクショ + テキスト引用 + <code>system("git config --global pull.rebase false")</code> の対策を明記。</li>
+<li>他のエラー (CONFLICT, rejected, would be overwritten) は <code>git-trouble.html</code> へのリンクで誘導。</li>
 </ul>
 </section>
-</section>
-<section id="h302018年4月1日-専修大学人間科学部-着任小杉ゼミ移設" class="level4">
-<h4 class="anchored" data-anchor-id="h302018年4月1日-専修大学人間科学部-着任小杉ゼミ移設">(H30)2018年4月1日　専修大学人間科学部　着任,小杉ゼミ移設</h4>
-<section id="学部-1" class="level5">
-<h5 class="anchored" data-anchor-id="学部-1">学部</h5>
+<section id="sos-の宛先変更-git-trouble.qmd" class="level3">
+<h3 class="anchored" data-anchor-id="sos-の宛先変更-git-trouble.qmd">SOS の宛先変更 (git-trouble.qmd)</h3>
 <ul>
-<li>2019/H31年卒　市原拓海(19)</li>
-<li>2020/R2年卒　安藤正和(20)・川村莉奈(21)</li>
-<li>2021/R3年卒　梶原睦美(22)・真島宏明(23)・寺田慎之介(24)</li>
-<li>2022/R4年卒　山崎明輝(25)・粕谷麻子(26)</li>
-<li>2023/R5年卒　今井怜(27)・竹本周平(29)・芦口竜斗(30)・寺内悠祐(31)</li>
-<li>2024/R6年卒　小林美月(32)・谷口龍治郎(33)・上村大地(35)・寒河江皓(36)・清水龍人(37)</li>
-<li>2025/R7年卒　細谷柊真(37)</li>
-<li>2026/R8年卒　篠原　嘉天(38)・鴨志田　丈治(39)・山本　龍(40)</li>
+<li>旧: 「Discord の <code>#質問</code> か <code>Thesis/MeetingMemo.md</code> の『相談』」</li>
+<li>新: 3つの選択肢を併記
+<ul>
+<li>ゼミの Discord チャンネル</li>
+<li>ゼミの AI BOT「ラマヌジャン」 (24時間反応)</li>
+<li>リポジトリ直下の <code>Labo-note.Rmd</code> (<strong>4年生も卒論メモではなく <code>Labo-note.Rmd</code> に書く</strong>)</li>
+</ul></li>
 </ul>
 </section>
-<section id="大学院-1" class="level5">
-<h5 class="anchored" data-anchor-id="大学院-1">大学院</h5>
-<ul>
-<li>2020/R02年修了　池田孝恒(-8)</li>
-<li>2022/R04年修了　<a href="https://masakazoo.github.io/andoRoid/">安藤正和(-9)</a></li>
-<li>2022/R04年単位取得退学　越智宏明(-10)</li>
-<li>2026/R8年修了 小林美月(-11)・上村大地(-12)</li>
-</ul>
+<section id="commit-chain" class="level3">
+<h3 class="anchored" data-anchor-id="commit-chain">commit chain</h3>
+<p><code>2314812e</code> (qmd 初版) → <code>93d7a60b</code> (画像+成功例) → <code>75739238</code> (divergent スクショ追加) → <code>516e0ebd</code> (github-setup 再構成) → <code>9c0d2ea9</code> (SOS 宛先変更)。GitHub Pages 反映済み。</p>
 
 
-</section>
 </section>
 </section>
 </section>
