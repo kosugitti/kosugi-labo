@@ -161,7 +161,10 @@ title: "サーバー稼働状況"
 <script>
 async function loadServerStatus() {
   try {
-    const response = await fetch('server_status.json?' + Date.now());
+    // データは data/server_status.json（Quarto の render 対象外）に置き、
+    // raw.githubusercontent から直接取得する。これで docs/ の再ビルドと完全に独立し、
+    // サイト再 render で JSON が消える問題が起きない。
+    const response = await fetch('https://raw.githubusercontent.com/kosugitti/kosugi-labo/main/data/server_status.json?' + Date.now());
     const data = await response.json();
     renderDashboard(data);
   } catch (error) {

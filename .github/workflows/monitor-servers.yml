@@ -17,7 +17,7 @@ jobs:
         id: check
         run: |
           # JSONファイルから更新時刻を取得
-          UPDATED_AT=$(cat docs/server_status.json | jq -r '.updated_at')
+          UPDATED_AT=$(cat data/server_status.json | jq -r '.updated_at')
           echo "Last update: $UPDATED_AT"
 
           # 更新時刻をUnix timestampに変換
