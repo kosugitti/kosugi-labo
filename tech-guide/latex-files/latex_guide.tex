@@ -20,7 +20,7 @@ setpagesize=false,
 }
 
 
-\usepackage[backend=biber,style=jpa]{biblatex}
+\usepackage[backend=biber,style=jpa2]{biblatex}
 
 \addbibresource{sample.bib}
 
@@ -325,11 +325,11 @@ E=mc^2
 \end{enumerate}
 
 \subsection{JPAスタイルの導入}
-JPAに沿った引用文献スタイルは\url{https://github.com/sbtseiji/biblatex-jpa}から入手する。
-展開して得られる\texttt{jpa.bbx}，\texttt{jpa.cbx}，\texttt{jpa.dbx}を同じディレクトリに置く。
+JPAに沿った引用文献スタイルは\url{https://github.com/kosugitti/biblatex-jpa2}から入手する。
+リポジトリの\texttt{biblatex/}内にある\texttt{jpa2.bbx}，\texttt{jpa2.cbx}，\texttt{jpa2.dbx}，\texttt{english-jpa2.lbx}，\texttt{japanese-jpa2.lbx}の5ファイルを同じディレクトリに置く。
 プリアンブルで以下のように指定：
 \begin{verbatim}
-\usepackage[backend=biber,style=jpa]{biblatex}
+\usepackage[backend=biber,style=jpa2]{biblatex}
 \addbibresource{ファイル名.bib}
 \end{verbatim}
 
