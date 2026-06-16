@@ -1,5 +1,5 @@
 // student_progress.js — update_skilltree.R で自動生成
-// 更新日時: 2026-06-12 10:11
+// 更新日時: 2026-06-17 08:11
 var studentPositions = {
   0: ["甲", "戊", "辛"],
   1: ["丙"],
