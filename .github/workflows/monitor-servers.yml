@@ -75,3 +75,35 @@ jobs:
                 labels: ['server-alert']
               });
             }
+
+      - name: Close alert issues if recovered
+        if: steps.check.outputs.stale == 'false'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            // 更新が正常（stale=false）に戻ったので、開いている server-alert Issue を自動クローズ
+            const issues = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: 'server-alert'
+            });
+
+            const alertIssues = issues.data.filter(i =>
+              i.title.includes('サーバーステータス更新停止')
+            );
+
+            for (const issue of alertIssues) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                body: `サーバーステータスの更新が正常に再開したため、自動クローズします。\n\n確認時刻: ${new Date().toISOString()}`
+              });
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                state: 'closed'
+              });
+            }
