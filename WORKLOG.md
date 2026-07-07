@@ -44,3 +44,119 @@
 ### 監視の自動クローズ追加（monitor-servers.yml）
 - 5/26〜6/5 の更新停止インシデントのアラート issue #3 が復旧後も 1 か月開きっぱなし（自動クローズ機能なし）→ 手動クローズ。
 - `monitor-servers.yml` に「Close alert issues if recovered」ステップを追加（stale=false の回に開いている server-alert issue へ復旧コメント + close）。手動起動で success 確認。commit 1ad944ed4。
+
+## CLAUDE.mdからの退避 (2026-07-07)
+
+CLAUDE.mdのダイエットに伴い、過去の経緯・旧構想を一字一句そのまま以下に退避。
+
+### コンテンツ構成案（旧: 改訂予定）
+
+- Part 1: 基礎の基礎（Rの基本操作）
+- Part 2: データを読み込んで眺める
+- Part 3: 可視化ギャラリー巡り
+- Part 4: 図を描いてみよう（基礎編）
+- Part 5: データを整形する（tidyverse入門）
+- Part 6: 整形 → 可視化の連携
+- Part 7: 高度な可視化への挑戦
+- Part 8: 自由課題
+
+※ 上記はユニット設計により再構成予定
+
+## 進捗管理システム構想（2026-02-14）
+
+### 基本方針
+
+学生ごとのGitHubリポジトリ（`~/Dropbox/Git/Zemi/StudentName/`）を活用し、学習進捗を可視化・管理する。
+
+### システム構成
+
+```
+学生リポジトリ/
+├── progress.yml              # 進捗データ（自動生成）
+├── submissions/              # コード提出フォルダ
+│   ├── U8/
+│   │   ├── 8-B-1.R
+│   │   ├── 8-B-2.R
+│   │   └── ...
+│   ├── U7/
+│   └── ...
+├── dashboard.qmd             # Quartoダッシュボード
+├── .github/workflows/
+│   └── render-dashboard.yml  # 自動レンダリング
+└── docs/
+    ├── index.html            # ダッシュボード（双六風マップ）
+    └── input.html            # 進捗入力フォーム
+```
+
+### 学生の作業フロー
+
+1. **課題を解く**: kosugi-laboのRドリルで学習
+2. **コード提出**: ランクBの課題は`submissions/U8/8-B-1.R`にコードを保存
+3. **進捗入力**: `docs/input.html`（GitHub Pages）でチェックボックスにチェック
+4. **commit/push**: Gitでリポジトリに反映
+5. **自動更新**: GitHub Actionsがダッシュボードを再レンダリング
+
+### 進捗入力フォーム（input.html）
+
+- **ランクC**: チェックボックスのみ（webexercisesで自己採点済み）
+- **ランクB**: チェックボックス + **コードファイルアップロード必須**
+- **ランクA**: チェックボックス + AIとの対話ログ・スクリーンショット（optional）
+- 送信ボタン → GitHub API経由で`progress.yml`更新 + `submissions/`にファイル保存
+
+### ダッシュボード（dashboard.qmd）
+
+**可視化要素:**
+- **双六風スキルツリーマップ**: visNetworkで24ユニットを階層表示
+  - 完了ユニット: 緑
+  - 進行中: 黄色
+  - 未着手: 灰色
+  - クリックでkosugi-laboの該当ページへリンク
+- **ランク別進捗率**: C/B/Aの達成度を棒グラフ表示
+- **次のマイルストーン**: 現在地と次の目標課題を表示
+- **⚠️ 警告表示**: 「完了とマークされているがコードが提出されていない」課題をリストアップ
+
+**信頼性チェック:**
+```r
+# progress.ymlで完了マークがあるが、submissions/にコードがない場合は警告
+check_code_submission <- function(unit, rank, number) {
+  code_file <- glue("submissions/{unit}/{unit}-{rank}-{number}.R")
+  file.exists(code_file)
+}
+```
+
+### 先生側の管理
+
+- 各学生のリポジトリはprivate → 先生と当該学生のみアクセス可能
+- GitHub Pages URL（`https://{student}.github.io/...`）でダッシュボード確認
+- ゼミ中に「今どこ？」と聞くとき、学生がダッシュボードを画面共有
+- 全学生の進捗を一括確認するスクリプト（optional）:
+  ```r
+  # Zemi/collect_progress.R
+  students <- dir("~/Dropbox/Git/Zemi/", pattern = "^[A-Z]")
+  all_progress <- map_dfr(students, ~{
+    read_yaml(glue("~/Dropbox/Git/Zemi/{.x}/progress.yml"))
+  })
+  ```
+
+### 技術スタック
+
+- **GitHub Pages**: ホスティング（サーバ不要）
+- **Quarto**: ダッシュボード生成
+- **visNetwork (R)**: スキルツリーの可視化
+- **GitHub Actions**: 自動レンダリング
+- **Vanilla JS**: 進捗入力フォームのフロントエンド
+- **GitHub API**: progress.yml更新、ファイルアップロード
+
+### 未解決課題
+
+- [ ] 進捗入力フォームでGitHub APIを叩く認証方法（Personal Access Token? GitHub App?）
+- [ ] ファイルアップロードのサイズ制限・形式チェック
+- [ ] ランクAの評価基準（コード提出なし、自己評価のみでOK？）
+- [ ] スキルツリーの双六風デザイン（vis.jsのレイアウト調整 or 手描きSVG?）
+
+### 将来の拡張案
+
+- 学生間の匿名平均進捗率を表示（モチベーション向上）
+- 所要時間トラッキング（各課題にどれくらい時間がかかったか）
+- バッジ・実績システム（「全Cランククリア」「初のAランク達成」等）
+- ゼミ全体のヒートマップ（どのユニットで詰まる学生が多いか）
