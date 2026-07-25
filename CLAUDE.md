@@ -55,7 +55,7 @@ exametrika パッケージの Shiny GUI アプリケーション。コードを�
 
 - `~/Library/CloudStorage/Dropbox/Labo/Edu：講義資料/専修大学/ゼミオリエンテーション資料/CLAUDE.md` に全体設計あり
 - `同フォルダ/Rdollil.tex` に現行版（200問、答え付き）あり
-- `同フォルダ/作業ログ.md` に作業履歴あり
+- `同フォルダ/WORKLOG.md` に作業履歴あり
 
 ### 現行版の問題点（前回の反省）
 
