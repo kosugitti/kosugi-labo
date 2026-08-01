@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.38">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -12,10 +12,13 @@
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
 */
-code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -39,10 +42,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-1c2b39b91d62c1bd2d977d21438fc985.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-5674ed9fb5a1f2721f2ebee718e97534.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -465,6 +468,13 @@ ul.task-list li input[type="checkbox"] {
   text-transform: uppercase;
 }
 
+.alive-note {
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--bs-secondary-color);
+  padding: 0.5rem 0;
+}
+
 .update-time {
   text-align: center;
   color: var(--bs-secondary-color);
@@ -511,6 +521,8 @@ function renderDashboard(data) {
     const statusClass = isOnline ? 'online' : 'offline';
     const statusText = isOnline ? '稼働中' : '停止中';
     const hasBackup = server.backup_status !== undefined;
+    // 死活だけ見ているマシン（ping応答のみ・CPU等は取らない）
+    const aliveOnly = server.alive_only === true;
 
     let backupBadge = '';
     if (hasBackup) {
@@ -542,7 +554,7 @@ function renderDashboard(data) {
           ${statusText}
         </div>
         <div class="server-specs">${server.specs || ''}</div>
-        ${isOnline ? `
+        ${aliveOnly ? '<div class="alive-note">死活監視のみ</div>' : isOnline ? `
         <div class="${metricsClass}">
           <div class="metric">
             <div class="metric-value">${server.cpu}%</div>
@@ -617,11 +629,16 @@ setInterval(loadServerStatus, 5 * 60 * 1000);
 <td>GTX 1660 SUPER 6GB</td>
 </tr>
 <tr class="odd">
+<td>Yamabe</td>
+<td>M室のWoL見張り役（死活監視のみ・計算には使わない）</td>
+<td>-</td>
+</tr>
+<tr class="even">
 <td>Gauss</td>
 <td>Dropboxバックアップ専用（毎日3:00、rclone sync）</td>
 <td>-</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Raspberry Pi</td>
 <td>監視用</td>
 <td>-</td>
