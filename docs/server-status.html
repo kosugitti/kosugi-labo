@@ -542,7 +542,7 @@ function renderDashboard(data) {
       ? ''
       : `<div class="metric">
             <div class="metric-value">${server.gpu_temp === '-' ? '-' : server.gpu_temp + '°'}</div>
-            <div class="metric-label">${server.name === 'Raspberry Pi' ? 'CPU温度' : 'GPU温度'}</div>
+            <div class="metric-label">${(server.temp_kind === 'cpu' || server.name === 'Raspberry Pi') ? 'CPU温度' : 'GPU温度'}</div>
           </div>`;
     const metricsClass = hasBackup ? 'metrics metrics-2col' : 'metrics';
 
@@ -630,7 +630,7 @@ setInterval(loadServerStatus, 5 * 60 * 1000);
 </tr>
 <tr class="odd">
 <td>Yamabe</td>
-<td>M室のWoL見張り役（死活監視のみ・計算には使わない）</td>
+<td>M室の見張り役（計算には使わない）</td>
 <td>-</td>
 </tr>
 <tr class="even">
