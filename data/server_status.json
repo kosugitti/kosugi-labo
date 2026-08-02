@@ -1,12 +1,12 @@
 {
-  "updated_at": "2026-08-03T06:45:12+09:00",
+  "updated_at": "2026-08-03T07:00:12+09:00",
   "servers": [
-    {"name":"Al-Khwarizumi","status":"online","specs":"Xeon 80コア / 188GB RAM / RTX 5070 Ti","cpu":2,"memory":6,"gpu_temp":38,"temp_kind":"gpu"},
-    {"name":"Shimura","status":"online","specs":"Core i5-11400 / 125GB RAM / GTX 1660 SUPER","cpu":8,"memory":3,"gpu_temp":41,"temp_kind":"gpu"},
-    {"name":"Taniyama","status":"online","specs":"Ryzen 7 5700G / 121GB RAM / GTX 1660 SUPER","cpu":88,"memory":4,"gpu_temp":35,"temp_kind":"gpu"},
-    {"name":"Seki","status":"online","specs":"Core i5-9400F / 48GB RAM / GTX 1660 SUPER","cpu":20,"memory":6,"gpu_temp":55,"temp_kind":"gpu"},
-    {"name":"Yamabe","status":"online","specs":"ThinkPad E135 / AMD E2-1800 2コア / 8GB RAM","cpu":5,"memory":15,"gpu_temp":61,"temp_kind":"cpu"},
-    {"name":"Gauss","status":"online","specs":"MacBook 2017 / Dropboxバックアップ専用","cpu":32,"memory":19,"gpu_temp":"-","backup_status":"success","backup_last_run":"Sun Aug  2 06:58:52 JST 2026"},
-    {"name":"Raspberry Pi","status":"online","specs":"Cortex-A72 4コア / 8GB RAM / 監視専用","cpu":1,"memory":13,"gpu_temp":"61","temp_kind":"cpu"}
+    {"name":"Al-Khwarizumi","status":"online","specs":"Xeon 80コア / 188GB RAM / RTX 5070 Ti","cpu":17,"memory":7,"gpu_temp":38,"temp_kind":"gpu"},
+    {"name":"Shimura","status":"online","specs":"Core i5-11400 / 125GB RAM / GTX 1660 SUPER","cpu":83,"memory":3,"gpu_temp":41,"temp_kind":"gpu"},
+    {"name":"Taniyama","status":"online","specs":"Ryzen 7 5700G / 121GB RAM / GTX 1660 SUPER","cpu":6,"memory":3,"gpu_temp":35,"temp_kind":"gpu"},
+    {"name":"Seki","status":"online","specs":"Core i5-9400F / 48GB RAM / GTX 1660 SUPER","cpu":18,"memory":5,"gpu_temp":55,"temp_kind":"gpu"},
+    {"name":"Yamabe","status":"online","specs":"ThinkPad E135 / AMD E2-1800 2コア / 8GB RAM","cpu":5,"memory":15,"gpu_temp":63,"temp_kind":"cpu"},
+    {"name":"Gauss","status":"online","specs":"MacBook 2017 / Dropboxバックアップ専用","cpu":33,"memory":19,"gpu_temp":"-","backup_status":"success","backup_last_run":"Sun Aug  2 06:58:52 JST 2026"},
+    {"name":"Raspberry Pi","status":"online","specs":"Cortex-A72 4コア / 8GB RAM / 監視専用","cpu":3,"memory":13,"gpu_temp":"63","temp_kind":"cpu"}
   ]
 }
