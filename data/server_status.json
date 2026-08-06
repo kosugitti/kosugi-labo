@@ -1,12 +1,12 @@
 {
-  "updated_at": "2026-08-06T17:15:13+09:00",
+  "updated_at": "2026-08-06T17:30:13+09:00",
   "servers": [
-    {"name":"Al-Khwarizumi","status":"online","specs":"Xeon 80コア / 188GB RAM / RTX 5070 Ti","cpu":99,"memory":11,"gpu_temp":41,"temp_kind":"gpu"},
-    {"name":"Shimura","status":"online","specs":"Core i5-11400 / 125GB RAM / GTX 1660 SUPER","cpu":83,"memory":4,"gpu_temp":39,"temp_kind":"gpu"},
+    {"name":"Al-Khwarizumi","status":"online","specs":"Xeon 80コア / 188GB RAM / RTX 5070 Ti","cpu":98,"memory":11,"gpu_temp":41,"temp_kind":"gpu"},
+    {"name":"Shimura","status":"online","specs":"Core i5-11400 / 125GB RAM / GTX 1660 SUPER","cpu":84,"memory":4,"gpu_temp":41,"temp_kind":"gpu"},
     {"name":"Taniyama","status":"online","specs":"Ryzen 7 5700G / 121GB RAM / GTX 1660 SUPER","cpu":88,"memory":4,"gpu_temp":36,"temp_kind":"gpu"},
-    {"name":"Seki","status":"online","specs":"Core i5-9400F / 48GB RAM / GTX 1660 SUPER","cpu":83,"memory":7,"gpu_temp":55,"temp_kind":"gpu"},
-    {"name":"Yamabe","status":"online","specs":"ThinkPad E135 / AMD E2-1800 2コア / 8GB RAM","cpu":4,"memory":30,"gpu_temp":59,"temp_kind":"cpu"},
-    {"name":"Gauss","status":"online","specs":"MacBook 2017 / Dropboxバックアップ専用","cpu":41,"memory":21,"gpu_temp":"-","backup_status":"success","backup_last_run":"Wed Aug  5 08:31:23 JST 2026"},
-    {"name":"Raspberry Pi","status":"online","specs":"Cortex-A72 4コア / 8GB RAM / 監視専用","cpu":17,"memory":13,"gpu_temp":"65","temp_kind":"cpu"}
+    {"name":"Seki","status":"online","specs":"Core i5-9400F / 48GB RAM / GTX 1660 SUPER","cpu":84,"memory":7,"gpu_temp":55,"temp_kind":"gpu"},
+    {"name":"Yamabe","status":"online","specs":"ThinkPad E135 / AMD E2-1800 2コア / 8GB RAM","cpu":4,"memory":30,"gpu_temp":58,"temp_kind":"cpu"},
+    {"name":"Gauss","status":"online","specs":"MacBook 2017 / Dropboxバックアップ専用","cpu":38,"memory":21,"gpu_temp":"-","backup_status":"success","backup_last_run":"Wed Aug  5 08:31:23 JST 2026"},
+    {"name":"Raspberry Pi","status":"online","specs":"Cortex-A72 4コア / 8GB RAM / 監視専用","cpu":2,"memory":13,"gpu_temp":"64","temp_kind":"cpu"}
   ]
 }
