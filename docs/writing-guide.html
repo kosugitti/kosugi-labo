@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.37">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -12,10 +12,13 @@
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
 */
-code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -39,10 +42,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-1c2b39b91d62c1bd2d977d21438fc985.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-5674ed9fb5a1f2721f2ebee718e97534.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -321,6 +324,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#構造化された文書を書く書式とツール" id="toc-構造化された文書を書く書式とツール" class="nav-link" data-scroll-target="#構造化された文書を書く書式とツール">構造化された文書を書く書式とツール</a>
   <ul class="collapse">
   <li><a href="#なぜwordを使わないのか" id="toc-なぜwordを使わないのか" class="nav-link" data-scroll-target="#なぜwordを使わないのか">なぜWordを使わないのか</a></li>
+  <li><a href="#それでもwordで書く場合アウトライン機能を使う" id="toc-それでもwordで書く場合アウトライン機能を使う" class="nav-link" data-scroll-target="#それでもwordで書く場合アウトライン機能を使う">それでもWordで書く場合：アウトライン機能を使う</a></li>
   <li><a href="#コンテンツとデザインの分離" id="toc-コンテンツとデザインの分離" class="nav-link" data-scroll-target="#コンテンツとデザインの分離">コンテンツとデザインの分離</a></li>
   <li><a href="#推奨ツールrmarkdown-quarto" id="toc-推奨ツールrmarkdown-quarto" class="nav-link" data-scroll-target="#推奨ツールrmarkdown-quarto">推奨ツール：Rmarkdown / Quarto</a></li>
   <li><a href="#推奨ツールlatex" id="toc-推奨ツールlatex" class="nav-link" data-scroll-target="#推奨ツールlatex">推奨ツール：LaTeX</a></li>
@@ -596,6 +600,24 @@ ul.task-list li input[type="checkbox"] {
 <p>みなさんはレポートを書くときにMicrosoft社のWordを使うことが多いと思います。もちろんAppleのPagesを使ったり、Justsystemの一太郎を使って書く、という人もいるかもしれませんが、ともかく商用ソフトウェアを使うことは、科学論文を書くときにお勧めできません。想像しにくいですが、Microsoft社やApple社が倒産して、アプリケーションの開発が止まり、論文が読めなくなったら困るからです。</p>
 <p>また、文書作成ソフトとしてはWordユーザが広くいますから、これを使って書くということを止めはしませんが、Wordの機能を十分使いこなせていますでしょうか。Wordにはアウトライン表示という機能があり、これで文書の構造的レベルを設定することができます。Wordを使って構造化された文章を書くためには、アウトライン機能の活用法に十分習熟している必要があります。</p>
 <p>以上の理由から、商用ソフトウェアで論文を書くのはお勧めしません。</p>
+</section>
+<section id="それでもwordで書く場合アウトライン機能を使う" class="level3">
+<h3 class="anchored" data-anchor-id="それでもwordで書く場合アウトライン機能を使う">それでもWordで書く場合：アウトライン機能を使う</h3>
+<p>とはいえ、すでにWordで書き始めている人もいるでしょう。使うこと自体を禁じはしません。しかしその場合、<strong>アウトライン機能を必ず使ってください</strong>。これは「使えたら便利」という程度の話ではなく、構造化された文章を書くための最低条件です。</p>
+<p>やってはいけないのは、<strong>文字を大きくしたり太字にしたりして、見出しに「見せかける」</strong>ことです。見た目は見出しでも、Wordにとってはただの本文なので、文書に構造があることになりません。そうではなく、見出しにしたい行を選んで、ホームタブのスタイル一覧から「見出し1」「見出し2」「見出し3」を当ててください。前節で述べたマークダウンの<code>#</code>、<code>##</code>、<code>###</code>と、そのまま対応します。</p>
+<ul>
+<li>「見出し1」＝ セクション（問題・方法・結果・考察）</li>
+<li>「見出し2」＝ サブセクション</li>
+<li>「見出し3」＝ サブサブセクション</li>
+</ul>
+<p>スタイルを当てると、次のことができるようになります。</p>
+<ol type="1">
+<li><strong>ナビゲーションウィンドウ</strong>（表示タブ →「ナビゲーションウィンドウ」にチェック）に、文書の骨組みが目次の形で出ます。自分の論文の構造を、いつでも一覧で確認できます</li>
+<li><strong>アウトライン表示</strong>（表示タブ →「アウトライン」）に切り替えると、レベルを折りたたんで見出しだけを表示できます。この状態で見出しをつかんで動かすと、<strong>その下にある本文ごとまとめて移動</strong>します。論文は書きながら順番を入れ替えるものですから、この機能があるかないかで作業量がまったく違います</li>
+<li><strong>目次が自動生成できます</strong>（参考資料タブ →「目次」）。手で打つ必要はありませんし、後から節を足しても更新するだけで済みます</li>
+</ol>
+<p>前節で述べたとおり、文章は<strong>先に目次から書く</strong>のが原則です。Wordであれば、まずアウトライン表示にして見出しだけを並べ、構造ができてから本文を埋めていくとよいでしょう。白紙から書き出すよりも、はるかに速く進みます。</p>
+<p>なお、段落の区切りは<strong>改行や空行ではなく、段落そのもの</strong>で作ってください。見た目を整えるために空行を入れると、あとで体裁を直すときに苦労します。</p>
 </section>
 <section id="コンテンツとデザインの分離" class="level3">
 <h3 class="anchored" data-anchor-id="コンテンツとデザインの分離">コンテンツとデザインの分離</h3>
