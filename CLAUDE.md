@@ -7,6 +7,10 @@
 - **形式**: Quarto Website (GitHub Pages)
 - **用途**: 小杉ゼミのWebサイト（ゼミガイド、技術ガイド、Rチュートリアル）
 
+**push前に必ず `git pull --rebase` する**。`data/server_status.json` を15分おきに更新する
+botコミットがリモートに溜まるため，手元のコミットは高確率でrejectされる。
+更新対象がこのファイルだけなので競合はまず起きない。
+
 ## サイト構成
 
 ```
