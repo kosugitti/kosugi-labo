@@ -1,12 +1,12 @@
 {
-  "updated_at": "2026-08-21T17:15:21+09:00",
+  "updated_at": "2026-08-21T17:30:20+09:00",
   "servers": [
     {"name":"Al-Khwarizumi","status":"online","specs":"Xeon 80コア / 188GB RAM / RTX 5070 Ti","cpu":0,"memory":5,"gpu_temp":39,"temp_kind":"gpu"},
-    {"name":"Shimura","status":"online","specs":"Core i5-11400 / 125GB RAM / GTX 1660 SUPER","cpu":1,"memory":2,"gpu_temp":33,"temp_kind":"gpu"},
-    {"name":"Taniyama","status":"online","specs":"Ryzen 7 5700G / 121GB RAM / GTX 1660 SUPER","cpu":1,"memory":3,"gpu_temp":32,"temp_kind":"gpu"},
-    {"name":"Seki","status":"online","specs":"Core i5-9400F / 48GB RAM / GTX 1660 SUPER","cpu":1,"memory":4,"gpu_temp":52,"temp_kind":"gpu"},
-    {"name":"Yamabe","status":"online","specs":"ThinkPad E135 / AMD E2-1800 2コア / 8GB RAM","cpu":82,"memory":11,"gpu_temp":91,"temp_kind":"cpu"},
+    {"name":"Shimura","status":"online","specs":"Core i5-11400 / 125GB RAM / GTX 1660 SUPER","cpu":0,"memory":2,"gpu_temp":33,"temp_kind":"gpu"},
+    {"name":"Taniyama","status":"online","specs":"Ryzen 7 5700G / 121GB RAM / GTX 1660 SUPER","cpu":0,"memory":3,"gpu_temp":32,"temp_kind":"gpu"},
+    {"name":"Seki","status":"online","specs":"Core i5-9400F / 48GB RAM / GTX 1660 SUPER","cpu":2,"memory":4,"gpu_temp":55,"temp_kind":"gpu"},
+    {"name":"Yamabe","status":"online","specs":"ThinkPad E135 / AMD E2-1800 2コア / 8GB RAM","cpu":100,"memory":10,"gpu_temp":92,"temp_kind":"cpu"},
     {"name":"Gauss","status":"offline","specs":"MacBook 2017 / Dropboxバックアップ専用","backup_status":"unknown","backup_last_run":"-"},
-    {"name":"Raspberry Pi","status":"online","specs":"Cortex-A72 4コア / 8GB RAM / 監視専用","cpu":1,"memory":5,"gpu_temp":"65","temp_kind":"cpu"}
+    {"name":"Raspberry Pi","status":"online","specs":"Cortex-A72 4コア / 8GB RAM / 監視専用","cpu":0,"memory":5,"gpu_temp":"64","temp_kind":"cpu"}
   ]
 }
