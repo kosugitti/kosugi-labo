@@ -160,3 +160,26 @@ check_code_submission <- function(unit, rank, number) {
 - 所要時間トラッキング（各課題にどれくらい時間がかかったか）
 - バッジ・実績システム（「全Cランククリア」「初のAランク達成」等）
 - ゼミ全体のヒートマップ（どのユニットで詰まる学生が多いか）
+
+## 2026-08-23 rebase 残骸の除去と古い stash の整理
+
+- 8/19 の未 push コミット（CLAUDE.md への追記）を押そうとして `pull --rebase` が
+  `already a rebase-merge directory` で停止。**8/22 16:09 の rebase が `--continue` されないまま
+  残っていた**（「Successfully rebased」と表示されたのに残骸が残る）
+- 中身は「1コマンド完了・残りなし」で作業ツリーはクリーン，ref も rebase 後の `9280e4b` に更新済み
+  ＝**実体は完了**していた。`--continue` は ref の期待値が食い違って失敗するので，
+  残骸を外して `git symbolic-ref HEAD refs/heads/main` で復帰させた
+- その間に bot コミットが **73件**たまっていたので `pull --rebase` で追いつき push（`..47b7a81db`）
+- **push 直後に空の `.git/rebase-merge` がまた出現**。既知の症状（中身が空でも存在だけで
+  「rebasing」と判定される）。state ファイル0件を確認して `rmdir`，20秒後に復活しないことも確認
+- `server_status.json` を15分おきに更新する bot が同居している以上この残骸は今後も出る。
+  `git status` が唐突に「You are currently rebasing」と言い出したら
+  まず `ls -a .git | grep rebase` を見る
+- **2026-03-09 の stash を削除**（`680f55aa`）。中身は R チュートリアルを
+  ページ制→ユニット制の双六へ作り替える途中経過（26ファイル・+6,463/-1,473）だったが，
+  現行は U0〜U24 の24本が揃って**すでに通り越している**ため復元価値なし。
+  stash 側 index.qmd 147行に対し現行 244行で，冒頭の文面は一致
+- Rドリル教材を点検し**構造上の問題なし**を確認 = qmd 24本・テンプレ B/A 24組・
+  スキルツリー24ノード・ナビ24件・公開 html 24本がすべて一致。html は qmd より新しく再 render 不要。
+  **U20 は4か所すべてで一貫して欠番＝意図的**。`visualization.qmd` は旧構成の残骸ではなく
+  現役の「可視化ギャラリー」（ナビ・トップ・r-tutorial index の3か所からリンク）
