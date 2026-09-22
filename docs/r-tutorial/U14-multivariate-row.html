@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.37">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -12,10 +12,13 @@
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
 */
-code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -74,10 +77,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-1c2b39b91d62c1bd2d977d21438fc985.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-5674ed9fb5a1f2721f2ebee718e97534.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -107,7 +110,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -633,7 +636,7 @@ Standardized loadings (pattern matrix) based upon correlation matrix
      ML2   ML1   ML3   ML5   ML4   h2   u2 com
 A1  0.14  0.11  0.05 -0.41 -0.05 0.16 0.84 1.5
 A2  0.05  0.12  0.08  0.56 -0.02 0.40 0.60 1.2
-A3  0.04  0.21  0.03  0.62 -0.01 0.52 0.48 1.3
+A3  0.04  0.21  0.03  0.61 -0.01 0.52 0.48 1.3
 A4 -0.02  0.09  0.19  0.43 -0.19 0.31 0.69 1.9
 A5 -0.10  0.28 -0.03  0.54  0.01 0.48 0.52 1.6
 C1  0.07 -0.05  0.55  0.00  0.17 0.33 0.67 1.2
@@ -645,7 +648,7 @@ E1 -0.06 -0.64  0.16 -0.03 -0.04 0.36 0.64 1.2
 E2  0.11 -0.71  0.05 -0.02 -0.02 0.55 0.45 1.1
 E3  0.08  0.51 -0.06  0.22  0.26 0.46 0.54 2.0
 E4 -0.03  0.61 -0.05  0.29 -0.10 0.54 0.46 1.5
-E5  0.16  0.50  0.23  0.00  0.17 0.42 0.58 1.9
+E5  0.16  0.50  0.23 -0.01  0.17 0.42 0.58 1.9
 N1  0.88  0.23  0.03 -0.26 -0.10 0.72 0.28 1.4
 N2  0.84  0.17  0.05 -0.25 -0.03 0.66 0.34 1.3
 N3  0.72 -0.01  0.00 -0.01 -0.01 0.53 0.47 1.0
@@ -658,9 +661,9 @@ O4  0.15 -0.25 -0.03  0.16  0.37 0.24 0.76 2.6
 O5  0.09  0.02 -0.03  0.04 -0.53 0.29 0.71 1.1
 
                        ML2  ML1  ML3  ML5  ML4
-SS loadings           2.67 2.47 1.99 1.86 1.55
+SS loadings           2.67 2.47 1.99 1.85 1.55
 Proportion Var        0.11 0.10 0.08 0.07 0.06
-Cumulative Var        0.11 0.21 0.28 0.36 0.42
+Cumulative Var        0.11 0.21 0.29 0.36 0.42
 Proportion Explained  0.25 0.23 0.19 0.18 0.15
 Cumulative Proportion 0.25 0.49 0.68 0.85 1.00
 
@@ -733,11 +736,11 @@ Minimum correlation of possible factor scores     0.81 0.39 0.39 0.32 0.34</code
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>fa_result<span class="sc">$</span>Phi</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            ML2        ML1        ML3        ML5        ML4
-ML2  1.00000000 -0.2810985 -0.2310369 0.02968499 0.04022075
-ML1 -0.28109853  1.0000000  0.4016202 0.32843121 0.12463988
-ML3 -0.23103688  0.4016202  1.0000000 0.21305038 0.17836221
-ML5  0.02968499  0.3284312  0.2130504 1.00000000 0.15452583
-ML4  0.04022075  0.1246399  0.1783622 0.15452583 1.00000000</code></pre>
+ML2  1.00000000 -0.2810398 -0.2310556 0.02999777 0.04033441
+ML1 -0.28103983  1.0000000  0.4018501 0.32854004 0.12439728
+ML3 -0.23105562  0.4018501  1.0000000 0.21298592 0.17813987
+ML5  0.02999777  0.3285400  0.2129859 1.00000000 0.15390876
+ML4  0.04033441  0.1243973  0.1781399 0.15390876 1.00000000</code></pre>
 </div>
 </div>
 <p>promax回転では因子間相関行列 <code>$Phi</code> が得られます。varimax回転では因子間相関はゼロ（単位行列）です。</p>
@@ -880,12 +883,12 @@ Variances:
 <section id="c-1" class="level3">
 <h3 class="anchored" data-anchor-id="c-1">14-C-1</h3>
 <p>主成分分析（PCA）は、観測変数の背後に潜在因子を仮定するモデルである。</p>
-<p><select class="webex-select"><option value="blank"></option><option value="">TRUE</option><option value="answer">FALSE</option></select></p>
+<p><select class="webex-select"><option value="blank"></option><option value="NA">TRUE</option><option value="answer">FALSE</option></select></p>
 </section>
 <section id="c-2" class="level3">
 <h3 class="anchored" data-anchor-id="c-2">14-C-2</h3>
 <p>主成分分析で固有値が大きい主成分ほど、データの分散を多く説明している。</p>
-<p><select class="webex-select"><option value="blank"></option><option value="answer">TRUE</option><option value="">FALSE</option></select></p>
+<p><select class="webex-select"><option value="blank"></option><option value="answer">TRUE</option><option value="NA">FALSE</option></select></p>
 </section>
 <section id="c-3" class="level3">
 <h3 class="anchored" data-anchor-id="c-3">14-C-3</h3>
@@ -915,7 +918,7 @@ Variances:
 <section id="c-8" class="level3">
 <h3 class="anchored" data-anchor-id="c-8">14-C-8</h3>
 <p>RMSEAが低い値であるほど、モデルの適合が良いことを示す。</p>
-<p><select class="webex-select"><option value="blank"></option><option value="answer">TRUE</option><option value="">FALSE</option></select></p>
+<p><select class="webex-select"><option value="blank"></option><option value="answer">TRUE</option><option value="NA">FALSE</option></select></p>
 <hr>
 </section>
 </section>
@@ -1118,7 +1121,7 @@ C2    7              0.66             0.42 0.58 1.2
 C3    8              0.59             0.33 0.67 1.1
 C5   10             -0.57             0.44 0.56 1.3
 C1    6              0.55             0.33 0.67 1.2
-A3    3                    0.62       0.52 0.48 1.3
+A3    3                    0.61       0.52 0.48 1.3
 A2    2                    0.56       0.40 0.60 1.2
 A5    5                    0.54       0.48 0.52 1.6
 A4    4                    0.43       0.31 0.69 1.9
@@ -1130,9 +1133,9 @@ O2   22                         -0.48 0.28 0.72 1.6
 O4   24                          0.37 0.24 0.76 2.6
 
                        ML2  ML1  ML3  ML5  ML4
-SS loadings           2.67 2.47 1.99 1.86 1.55
+SS loadings           2.67 2.47 1.99 1.85 1.55
 Proportion Var        0.11 0.10 0.08 0.07 0.06
-Cumulative Var        0.11 0.21 0.28 0.36 0.42
+Cumulative Var        0.11 0.21 0.29 0.36 0.42
 Proportion Explained  0.25 0.23 0.19 0.18 0.15
 Cumulative Proportion 0.25 0.49 0.68 0.85 1.00
 
@@ -1172,11 +1175,11 @@ Minimum correlation of possible factor scores     0.81 0.39 0.39 0.32 0.34</code
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>fa_promax<span class="sc">$</span>Phi</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            ML2        ML1        ML3        ML5        ML4
-ML2  1.00000000 -0.2810985 -0.2310369 0.02968499 0.04022075
-ML1 -0.28109853  1.0000000  0.4016202 0.32843121 0.12463988
-ML3 -0.23103688  0.4016202  1.0000000 0.21305038 0.17836221
-ML5  0.02968499  0.3284312  0.2130504 1.00000000 0.15452583
-ML4  0.04022075  0.1246399  0.1783622 0.15452583 1.00000000</code></pre>
+ML2  1.00000000 -0.2810398 -0.2310556 0.02999777 0.04033441
+ML1 -0.28103983  1.0000000  0.4018501 0.32854004 0.12439728
+ML3 -0.23105562  0.4018501  1.0000000 0.21298592 0.17813987
+ML5  0.02999777  0.3285400  0.2129859 1.00000000 0.15390876
+ML4  0.04033441  0.1243973  0.1781399 0.15390876 1.00000000</code></pre>
 </div>
 </div>
 <p>promax回転では因子間に相関が認められます。varimax回転は因子間の独立性を仮定するため、心理学データでは非現実的な場合があります。</p>
@@ -1200,12 +1203,12 @@ ML4  0.04022075  0.1246399  0.1783622 0.15452583 1.00000000</code></pre>
 <span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(factor_scores)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>              ML2         ML1        ML3         ML5        ML4
-61623  0.08862003  1.21884758  1.4035023  0.23747261  0.4542889
-61629  0.56229860 -1.68813980 -1.2059063 -2.24941004 -0.6991252
-61634 -0.15784382  0.25785108 -0.1693194 -0.08601393 -0.3591560
-61640 -0.56483391 -0.01613539  0.5229984 -1.66407270 -0.2351623
-61661 -0.83221381  0.22651913 -1.3085976  0.53781613  0.2517961
-61664  1.11474343  0.22973095 -0.2390623  1.05440620  0.8927368</code></pre>
+61623  0.08799643  1.21885840  1.4035761  0.23594356  0.4535007
+61629  0.56227708 -1.69038647 -1.2065995 -2.24833407 -0.6974720
+61634 -0.15800562  0.25749670 -0.1693309 -0.08633917 -0.3593238
+61640 -0.56539138 -0.01845811  0.5223837 -1.66464077 -0.2345985
+61661 -0.83194647  0.22693777 -1.3083851  0.53801723  0.2515791
+61664  1.11486725  0.23156360 -0.2385838  1.05427989  0.8922812</code></pre>
 </div>
 </div>
 <p>因子得点は各個体の各因子上での位置を表します。これを後続の分析（クラスタ分析、回帰分析の説明変数など）に利用できます。</p>
