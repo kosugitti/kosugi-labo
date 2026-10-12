@@ -278,7 +278,6 @@ setInterval(loadServerStatus, 5 * 60 * 1000);
 | Taniyama | 計算用 | GTX 1660 SUPER 6GB |
 | Seki | 計算用 | GTX 1660 SUPER 6GB |
 | Yamabe | M室の見張り役（計算には使わない） | - |
-| Gauss | Dropboxバックアップ専用（毎日3:00、rclone sync） | - |
 | Raspberry Pi | 監視用 | - |
 
 ## 使い方
